@@ -1,0 +1,200 @@
+export const spellcastingRules = {
+  preparationByClass: {
+    bard: {
+      changeWhen: "gain-level",
+      changeLabel: "Al subir de nivel",
+      countLabel: "1 conjuro",
+      selectionLabel: "Conjuros preparados",
+      sheetLabel: "Preparados",
+      sourceLabel: "Lista de Bardo",
+      helper: "El Bardo cambia conjuros principalmente al subir de nivel.",
+    },
+    cleric: {
+      changeWhen: "long-rest",
+      changeLabel: "Al terminar descanso largo",
+      countLabel: "Cualquier cantidad",
+      selectionLabel: "Preparados hoy",
+      sheetLabel: "Preparados diarios",
+      sourceLabel: "Lista completa de Clerigo",
+      helper: "El Clerigo tiene acceso a toda su lista disponible y elige estos conjuros al terminar cada descanso largo.",
+    },
+    druid: {
+      changeWhen: "long-rest",
+      changeLabel: "Al terminar descanso largo",
+      countLabel: "Cualquier cantidad",
+      selectionLabel: "Preparados hoy",
+      sheetLabel: "Preparados diarios",
+      sourceLabel: "Lista completa de Druida",
+      helper: "El Druida tiene acceso a toda su lista disponible y elige estos conjuros al terminar cada descanso largo.",
+    },
+    paladin: {
+      changeWhen: "long-rest",
+      changeLabel: "Al terminar descanso largo",
+      countLabel: "1 conjuro",
+      selectionLabel: "Preparados de Paladin",
+      sheetLabel: "Preparados de Paladin",
+      sourceLabel: "Lista de Paladin",
+      helper: "El Paladin prepara una lista fija, pero al terminar un descanso largo puede reemplazar 1 conjuro preparado por otro de la lista de Paladin para el que tenga espacios.",
+    },
+    ranger: {
+      changeWhen: "long-rest",
+      changeLabel: "Al terminar descanso largo",
+      countLabel: "1 conjuro",
+      selectionLabel: "Preparados de Ranger",
+      sheetLabel: "Preparados de Ranger",
+      sourceLabel: "Lista de Ranger",
+      helper: "El Ranger prepara una lista fija, pero al terminar un descanso largo puede reemplazar 1 conjuro preparado por otro de la lista de Ranger para el que tenga espacios.",
+    },
+    "arcane-trickster": {
+      changeWhen: "gain-level",
+      changeLabel: "Al subir de nivel",
+      countLabel: "1 conjuro",
+      selectionLabel: "Preparados de Tramposo arcano",
+      sheetLabel: "Preparados de Tramposo arcano",
+      sourceLabel: "Lista de Mago",
+      helper: "El Tramposo arcano prepara conjuros de Mago de nivel 1 a nivel 5. Puede reemplazar 1 conjuro preparado al subir de nivel de Picaro.",
+    },
+    sorcerer: {
+      changeWhen: "gain-level",
+      changeLabel: "Al subir de nivel",
+      countLabel: "1 conjuro",
+      selectionLabel: "Conjuros preparados",
+      sheetLabel: "Preparados de Hechicero",
+      sourceLabel: "Lista de Hechicero",
+      helper: "El Hechicero prepara una lista fija de conjuros. Puede reemplazar 1 conjuro preparado cuando sube de nivel de Hechicero.",
+    },
+    warlock: {
+      changeWhen: "gain-level",
+      changeLabel: "Al subir de nivel",
+      countLabel: "1 conjuro",
+      selectionLabel: "Conjuros preparados",
+      sheetLabel: "Preparados de Brujo",
+      sourceLabel: "Lista de Brujo",
+      helper: "El Brujo prepara una lista fija de conjuros. Puede reemplazar 1 conjuro preparado cuando sube de nivel de Brujo. Sus espacios de Magia de pacto son todos del mismo nivel y se recuperan en descanso corto o largo.",
+    },
+    artificer: {
+      changeWhen: "long-rest",
+      changeLabel: "Al terminar descanso largo",
+      countLabel: "Cualquier cantidad",
+      selectionLabel: "Preparados hoy",
+      sheetLabel: "Preparados de Artifice",
+      sourceLabel: "Lista completa de Artifice",
+      helper: "El Artifice tiene acceso a su lista de Artifice disponible y elige estos conjuros al terminar cada descanso largo. Sus conjuros usan herramientas competentes como foco.",
+    },
+    wizard: {
+      changeWhen: "long-rest",
+      changeLabel: "Al terminar descanso largo",
+      countLabel: "Cualquier cantidad",
+      selectionLabel: "Preparados desde grimorio",
+      sheetLabel: "Preparados desde grimorio",
+      sourceLabel: "Grimorio",
+      helper: "El Mago prepara desde los conjuros escritos en su grimorio.",
+    },
+  },
+  slotProgression: {
+    wizard: {
+      5: { 1: 4, 2: 3, 3: 2 },
+    },
+    cleric: {
+      5: { 1: 4, 2: 3, 3: 2 },
+    },
+    bard: {
+      5: { 1: 4, 2: 3, 3: 2 },
+    },
+    druid: {
+      5: { 1: 4, 2: 3, 3: 2 },
+    },
+    paladin: {
+      5: { 1: 4, 2: 2 },
+    },
+    ranger: {
+      5: { 1: 4, 2: 2 },
+    },
+    sorcerer: {
+      5: { 1: 4, 2: 3, 3: 2 },
+    },
+    warlock: {
+      5: { 3: 2 },
+    },
+    artificer: {
+      5: { 1: 4, 2: 2 },
+    },
+    "eldritch-knight": {
+      5: { 1: 3 },
+    },
+    "arcane-trickster": {
+      5: { 1: 3 },
+    },
+  },
+  universalRules: [
+    {
+      id: "prepared-access",
+      label: "Conjuros preparados",
+      sheetText: "Solo puedes lanzar conjuros que tengas preparados hoy, en el grimorio si aplica, o que otra regla te otorgue.",
+    },
+    {
+      id: "always-prepared",
+      label: "Siempre preparados",
+      sheetText: "Los conjuros siempre preparados no cuentan contra tu limite de conjuros preparados.",
+    },
+    {
+      id: "armor-casting",
+      label: "Lanzar con armadura",
+      sheetText: "Para lanzar conjuros con armadura, debes tener entrenamiento con esa armadura.",
+    },
+    {
+      id: "one-slot-per-turn",
+      label: "Un slot por turno",
+      sheetText: "En tu turno solo puedes gastar un espacio de conjuro para lanzar un conjuro.",
+    },
+    {
+      id: "cantrips",
+      label: "Trucos",
+      sheetText: "Los trucos son conjuros de nivel 0 y no gastan espacios.",
+    },
+    {
+      id: "rituals",
+      label: "Rituales",
+      sheetText: "Un ritual tarda 10 minutos mas y no gasta espacio; para Mago basta que este en el grimorio gracias a Adepto ritual.",
+    },
+    {
+      id: "higher-slot",
+      label: "Espacio superior",
+      sheetText: "Puedes lanzar un conjuro con un espacio superior si el conjuro lo permite.",
+    },
+    {
+      id: "components",
+      label: "Componentes",
+      sheetText: "V requiere voz, S requiere una mano libre, M requiere material, bolsa de componentes o foco valido.",
+    },
+    {
+      id: "concentration",
+      label: "Concentracion",
+      sheetText: "Si un conjuro requiere concentracion y la pierdes, el conjuro termina o falla si aun lo estabas lanzando.",
+    },
+    {
+      id: "clear-path",
+      label: "Camino claro",
+      sheetText: "Para elegir objetivo necesitas camino claro; cobertura total impide apuntar.",
+    },
+    {
+      id: "same-spell-overlap",
+      label: "Efectos repetidos",
+      sheetText: "Efectos de conjuros distintos se combinan; el mismo conjuro no se acumula, aplica el mas potente o reciente.",
+    },
+  ],
+  formulas: {
+    saveDc: "8 + modificador de aptitud magica + bonificador por competencia",
+    attackBonus: "modificador de aptitud magica + bonificador por competencia",
+  },
+  schools: [
+    { id: "Abjuration", label: "Abjuracion", summary: "Previene o revierte efectos daninos." },
+    { id: "Conjuration", label: "Conjuracion", summary: "Transporta criaturas u objetos." },
+    { id: "Divination", label: "Adivinacion", summary: "Revela informacion." },
+    { id: "Enchantment", label: "Encantamiento", summary: "Influye en mentes." },
+    { id: "Evocation", label: "Evocacion", summary: "Canaliza energia, a menudo destructiva." },
+    { id: "Illusion", label: "Ilusion", summary: "Engana sentidos o mente." },
+    { id: "Necromancy", label: "Nigromancia", summary: "Manipula vida y muerte." },
+    { id: "Transmutation", label: "Transmutacion", summary: "Transforma criaturas u objetos." },
+  ],
+};

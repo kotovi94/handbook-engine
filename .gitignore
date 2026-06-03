@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Local logs/state
+*.log
+
+# Rendered/debug artifacts
+player-sheet-*.png
+pdf-page-*.png
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/

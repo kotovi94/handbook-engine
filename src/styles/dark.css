@@ -1,0 +1,93 @@
+.mode-dark {
+  --color-bg: #171614;
+  --color-surface: #24211d;
+  --color-surface-raised: #2b2722;
+  --color-surface-muted: #332e28;
+  --color-border: #443c34;
+  --color-text: #f5efe7;
+  --color-text-muted: #beb2a4;
+  --color-accent: #e07a6e;
+  --color-accent-strong: #ffd9d4;
+  --color-accent-soft: #4a2a25;
+  --color-focus: #73b7ad;
+  --shadow-panel: 0 18px 45px rgb(0 0 0 / 34%);
+  --shadow-card: 0 10px 24px rgb(0 0 0 / 22%);
+}
+
+.mode-dark.theme-wizard {
+  --color-accent: #7eb6dc;
+  --color-accent-strong: #d9efff;
+  --color-accent-soft: #1e3445;
+}
+
+.mode-dark.theme-fighter {
+  --color-accent: #df7569;
+  --color-accent-strong: #ffd7d2;
+  --color-accent-soft: #482720;
+}
+
+.mode-dark.theme-cleric {
+  --color-accent: #e2b96c;
+  --color-accent-strong: #fff0c8;
+  --color-accent-soft: #44331a;
+}
+
+.mode-dark.theme-barbarian {
+  --color-accent: #e28a64;
+  --color-accent-strong: #ffd9c7;
+  --color-accent-soft: #4b281b;
+}
+
+.mode-dark.theme-bard {
+  --color-accent: #d99bd8;
+  --color-accent-strong: #ffe1ff;
+  --color-accent-soft: #432744;
+}
+
+.mode-dark.theme-druid {
+  --color-accent: #9cc982;
+  --color-accent-strong: #e8ffd9;
+  --color-accent-soft: #2d3d25;
+}
+
+.mode-dark.theme-monk {
+  --color-accent: #d1ac79;
+  --color-accent-strong: #ffebcf;
+  --color-accent-soft: #42311f;
+}
+
+.mode-dark.theme-paladin {
+  --color-accent: #e5c36d;
+  --color-accent-strong: #fff2c4;
+  --color-accent-soft: #443719;
+}
+
+.mode-dark.theme-ranger {
+  --color-accent: #abc87b;
+  --color-accent-strong: #efffd5;
+  --color-accent-soft: #303d24;
+}
+
+.mode-dark.theme-rogue {
+  --color-accent: #c7a48c;
+  --color-accent-strong: #ffe5d4;
+  --color-accent-soft: #3e3028;
+}
+
+.mode-dark.theme-sorcerer {
+  --color-accent: #e792b5;
+  --color-accent-strong: #ffd8e8;
+  --color-accent-soft: #452938;
+}
+
+.mode-dark.theme-warlock {
+  --color-accent: #b99ad9;
+  --color-accent-strong: #ead8ff;
+  --color-accent-soft: #342741;
+}
+
+.mode-dark.theme-artificer {
+  --color-accent: #8fc3ad;
+  --color-accent-strong: #dcfff0;
+  --color-accent-soft: #243c34;
+}

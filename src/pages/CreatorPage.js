@@ -1,0 +1,1006 @@
+import { CalculationGrid } from "../components/CalculationBox.js";
+import { ChoiceGrid } from "../components/ChoiceCard.js";
+import { ProgressionList } from "../components/ProgressionList.js";
+import { SheetSectionList } from "../components/SheetField.js";
+import { Stepper } from "../components/Stepper.js";
+import { SummaryPanel } from "../components/SummaryPanel.js";
+import { getChoiceStatus } from "../scripts/choiceEngine.js";
+import { creationEngine } from "../scripts/creationEngine.js";
+import { getCharacter, resetCharacter, updateCharacter } from "../scripts/characterState.js";
+import { displayChoiceOption, displayName, displayValue } from "../scripts/displayLabels.js";
+import { rulesEngine } from "../scripts/rulesEngine.js";
+import { mapCharacterToSheetSections } from "../scripts/sheetMapper.js";
+
+export function CreatorPage({ stepId = "class" } = {}) {
+  const page = document.createElement("section");
+  page.className = "creator-layout";
+  let character = getCharacter();
+  let activeStepId = creationEngine.getStep(stepId).id;
+
+  render();
+
+  function render() {
+    character = getCharacter();
+    const step = creationEngine.getStep(activeStepId);
+    page.replaceChildren();
+
+    const main = document.createElement("div");
+    main.className = "section-stack";
+    main.innerHTML = `
+      <div>
+        <p class="page-kicker">Asistente de personaje</p>
+        <h2 class="page-title">${step.title}</h2>
+      </div>
+      <div class="panel"><p>${step.helper}</p></div>
+    `;
+
+    main.append(Stepper({
+      steps: creationEngine.getSteps(),
+      activeStepId,
+      onStepSelect(nextStepId) {
+        activeStepId = nextStepId;
+        render();
+      },
+    }));
+
+    main.append(renderStepContent(step.id));
+    main.append(renderStepActions(step.id));
+
+    page.append(main, SummaryPanel({ character }));
+  }
+
+  function renderStepContent(currentStepId) {
+    if (currentStepId === "class") {
+      return renderSingleChoice(currentStepId);
+    }
+
+    if (currentStepId === "origin") {
+      return renderOrigin();
+    }
+
+    if (currentStepId === "progression") {
+      return renderProgression();
+    }
+
+    if (currentStepId === "equipment") {
+      return renderEquipmentChoice();
+    }
+
+    if (currentStepId === "abilities") {
+      return renderAbilities();
+    }
+
+    if (currentStepId === "choices") {
+      return renderRuleChoices();
+    }
+
+    if (currentStepId === "sheet") {
+      return renderSheetAdjustments();
+    }
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "section-stack";
+    const derived = rulesEngine.deriveCharacter(character);
+    wrapper.append(
+      ProgressionList({ title: "Rasgos de clase hasta nivel 5", entries: derived.classFeaturesByLevel }),
+      ProgressionList({ title: "Rasgos de subclase hasta nivel 5", entries: derived.subclassFeaturesByLevel }),
+      SheetSectionList(mapCharacterToSheetSections(character)),
+    );
+    return wrapper;
+  }
+
+  function renderSingleChoice(currentStepId) {
+    const selectionKey = creationEngine.getSelectionKey(currentStepId);
+    const selectedId = character[selectionKey];
+
+    return ChoiceGrid({
+      items: creationEngine.getChoices(currentStepId),
+      selectedIds: selectedId ? [selectedId] : [],
+      onSelect(id) {
+        updateCharacter(currentStepId === "class"
+          ? { [selectionKey]: id, subclassId: "", classEquipmentOptionId: "" }
+          : { [selectionKey]: id });
+        render();
+      },
+    });
+  }
+
+  function renderOrigin() {
+    const wrapper = document.createElement("div");
+    wrapper.className = "section-stack";
+
+    wrapper.append(
+      choiceSection({
+        title: "Trasfondo",
+        helper: "Aporta aumentos de caracteristica, habilidades, dote inicial, equipo y monedas.",
+        content: ChoiceGrid({
+          items: creationEngine.getChoices("background"),
+          selectedIds: character.backgroundId ? [character.backgroundId] : [],
+          onSelect(id) {
+            updateCharacter({ backgroundId: id, backgroundEquipmentOptionId: "", backgroundAbilityIncreases: resetAbilityIncreases() });
+            render();
+          },
+        }),
+      }),
+      choiceSection({
+        title: "Especie",
+        helper: "Aporta tamano, velocidad, idiomas y rasgos que se copian a la hoja.",
+        content: ChoiceGrid({
+          items: creationEngine.getChoices("species"),
+          selectedIds: character.speciesId ? [character.speciesId] : [],
+          onSelect(id) {
+            updateCharacter({ speciesId: id });
+            render();
+          },
+        }),
+      }),
+    );
+
+    return wrapper;
+  }
+
+  function renderSubclassChoice() {
+    const choices = creationEngine.getSubclassChoices(character.classId);
+
+    if (!choices.length) {
+      const panel = document.createElement("div");
+      panel.className = "panel";
+      panel.innerHTML = "<p>Elige una clase primero para ver sus subclases disponibles.</p>";
+      return panel;
+    }
+
+    return ChoiceGrid({
+      items: choices,
+      selectedIds: character.subclassId ? [character.subclassId] : [],
+      onSelect(id) {
+        updateCharacter({ subclassId: id });
+        render();
+      },
+    });
+  }
+
+  function renderProgression() {
+    const wrapper = document.createElement("div");
+    wrapper.className = "section-stack";
+    const derived = rulesEngine.deriveCharacter(character);
+
+    wrapper.append(
+      choiceSection({
+        title: "Subclase",
+        helper: "A nivel 5 la subclase ya esta activa. Elige una para sumar sus rasgos.",
+        content: renderSubclassChoice(),
+      }),
+      choiceSection({
+        title: "Mejora de nivel 4",
+        helper: "Elige si el nivel 4 sube caracteristicas o agrega una dote. Esto se refleja en la hoja y en pendientes.",
+        content: renderLevel4Improvement(),
+      }),
+      ProgressionList({ title: "Rasgos de clase hasta nivel 5", entries: derived.classFeaturesByLevel }),
+      ProgressionList({ title: "Rasgos de subclase hasta nivel 5", entries: derived.subclassFeaturesByLevel }),
+      CalculationGrid([
+        {
+          title: "Nivel",
+          value: derived.level,
+          formula: "La mesa presencial esta fijada en nivel 5.",
+        },
+        {
+          title: "Proficiency Bonus",
+          value: `+${derived.proficiencyBonus}`,
+          formula: "Nivel 5 usa +3.",
+        },
+        {
+          title: "Hit Point Maximum",
+          value: derived.hitPointMaximum,
+          formula: derived.hitPointFormula,
+        },
+        ...(derived.spellcasting.canCast ? [{
+          title: "Espacios de conjuro",
+          value: Array.isArray(derived.spellcasting.slotText) ? derived.spellcasting.slotText.join(" / ") : derived.spellcasting.slotText,
+          formula: "Se calculan desde la tabla de lanzamiento de conjuros, no como rasgos de clase.",
+        }] : []),
+        {
+          title: "Nivel 4",
+          value: level4Summary(character),
+          formula: "Mejora de caracteristica: aumento de atributos o una dote elegida.",
+        },
+      ]),
+    );
+
+    return wrapper;
+  }
+
+  function renderLevel4Improvement() {
+    const wrapper = document.createElement("div");
+    wrapper.className = "section-stack";
+    const modeGrid = document.createElement("div");
+    modeGrid.className = "ability-methods";
+
+    [
+      {
+        id: "abilities",
+        label: "Subir caracteristicas",
+        value: "+2",
+        summary: "Suma +2 a un atributo o +1 a dos atributos, hasta maximo 20.",
+      },
+      {
+        id: "feat",
+        label: "Elegir dote",
+        value: "Dote",
+        summary: "Elige una dote disponible; si tiene elecciones, apareceran en Pendientes.",
+      },
+    ].forEach((mode) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = character.level4Mode === mode.id ? "method-card is-selected" : "method-card";
+      button.innerHTML = `
+        <span>${mode.label}</span>
+        <strong>${mode.value}</strong>
+        <small>${mode.summary}</small>
+      `;
+      button.addEventListener("click", () => {
+        updateCharacter({
+          level4Mode: mode.id,
+          ...(mode.id === "abilities" ? { level4FeatId: "" } : { level4AbilityIncreases: resetAbilityIncreases() }),
+        });
+        render();
+      });
+      modeGrid.append(button);
+    });
+
+    wrapper.append(modeGrid);
+
+    if (character.level4Mode === "abilities") {
+      wrapper.append(renderLevel4AbilityBuilder());
+    }
+
+    if (character.level4Mode === "feat") {
+      wrapper.append(renderLevel4FeatChoice());
+    }
+
+    return wrapper;
+  }
+
+  function renderLevel4AbilityBuilder() {
+    const status = creationEngine.getLevel4AbilityIncreaseStatus(character);
+    const panel = document.createElement("div");
+    panel.className = "section-stack";
+    const statusPanel = document.createElement("div");
+    statusPanel.className = status.complete ? "panel ability-status is-complete" : "panel ability-status";
+    statusPanel.innerHTML = `<p>Aumentos de nivel 4: ${status.total}/2. Usa +2 en un atributo o +1/+1 en dos atributos.</p>`;
+    const grid = document.createElement("div");
+    grid.className = "ability-builder";
+
+    creationEngine.getAbilityEntries(character).forEach((ability) => {
+      const beforeLevel4 = Number(ability.baseScore) + Number(ability.increase || 0);
+      const card = document.createElement("article");
+      card.className = "ability-card is-allowed";
+      card.innerHTML = `
+        <div class="ability-card-header">
+          <span>${displayValue(ability.label)}</span>
+          <strong>${ability.finalScore}</strong>
+        </div>
+        <div class="ability-control-row">
+          <span>Nivel 4</span>
+          <button type="button" class="step-button" data-action="level4-down" aria-label="Bajar aumento nivel 4 de ${displayValue(ability.label)}">-</button>
+          <b>+${ability.level4Increase}</b>
+          <button type="button" class="step-button" data-action="level4-up" aria-label="Subir aumento nivel 4 de ${displayValue(ability.label)}">+</button>
+        </div>
+        <small>Antes de nivel 4: ${beforeLevel4}. Maximo final 20.</small>
+      `;
+      card.querySelector('[data-action="level4-down"]').addEventListener("click", () => {
+        updateLevel4Increase(ability.id, -1);
+      });
+      card.querySelector('[data-action="level4-up"]').addEventListener("click", () => {
+        updateLevel4Increase(ability.id, 1);
+      });
+      grid.append(card);
+    });
+
+    panel.append(statusPanel, grid);
+    return panel;
+  }
+
+  function renderLevel4FeatChoice() {
+    const selected = character.level4FeatId ? [character.level4FeatId] : [];
+    return ChoiceGrid({
+      items: creationEngine.getLevel4FeatChoices(character),
+      selectedIds: selected,
+      onSelect(id) {
+        updateCharacter({ level4FeatId: id });
+        render();
+      },
+    });
+  }
+
+  function renderEquipmentChoice() {
+    const wrapper = document.createElement("div");
+    wrapper.className = "section-stack";
+    const classOptions = creationEngine.getClassEquipmentOptions(character.classId);
+    const backgroundOptions = creationEngine.getBackgroundEquipmentOptions(character.backgroundId);
+
+    wrapper.append(
+      choiceSection({
+        title: "Equipo avanzado nivel 5",
+        helper: "PHB 2024 recomienda sumar dinero y posibles objetos magicos al equipo inicial normal cuando la mesa empieza en nivel 5.",
+        content: renderHigherLevelEquipment(),
+      }),
+      choiceSection({
+        title: "Objetos magicos de nivel 5",
+        helper: "Elige 1 comun y 1 poco comun si el DM usa la sugerencia de equipo avanzado.",
+        content: renderMagicItemChoices(),
+      }),
+      choiceSection({
+        title: "Equipo de clase",
+        helper: "Elige el paquete inicial indicado por la clase. Puede ser A, B o una opcion de monedas.",
+        content: classOptions.length
+          ? equipmentOptionGrid({
+              options: classOptions,
+              selectedId: character.classEquipmentOptionId,
+              onSelect(id) {
+                updateCharacter({ classEquipmentOptionId: id });
+                render();
+              },
+            })
+          : emptyPanel("Elige una clase primero para ver sus paquetes de equipo."),
+      }),
+      choiceSection({
+        title: "Equipo de trasfondo",
+        helper: "Elige el paquete del trasfondo o la alternativa de monedas.",
+        content: backgroundOptions.length
+          ? equipmentOptionGrid({
+              options: backgroundOptions,
+              selectedId: character.backgroundEquipmentOptionId,
+              onSelect(id) {
+                updateCharacter({ backgroundEquipmentOptionId: id });
+                render();
+              },
+            })
+          : emptyPanel("Elige un trasfondo primero para ver su equipo."),
+      }),
+      choiceSection({
+        title: "Equipo adicional",
+        helper: "Agrega objetos manuales si la mesa entrega compras, recompensas o ajustes.",
+        content: ChoiceGrid({
+          items: creationEngine.getChoices("equipment"),
+          selectedIds: character.equipmentIds,
+          multiple: true,
+          onSelect(id) {
+            const hasItem = character.equipmentIds.includes(id);
+            const nextEquipmentIds = hasItem
+              ? character.equipmentIds.filter((equipmentId) => equipmentId !== id)
+              : [...character.equipmentIds, id];
+            updateCharacter({
+              equipmentIds: nextEquipmentIds,
+              equippedArmorId: hasItem && character.equippedArmorId === id ? "" : character.equippedArmorId,
+              equippedShieldId: hasItem && character.equippedShieldId === id ? "" : character.equippedShieldId,
+              equippedWeaponId: hasItem && character.equippedWeaponId === id ? "" : character.equippedWeaponId,
+            });
+            render();
+          },
+        }),
+      }),
+    );
+
+    return wrapper;
+  }
+
+  function renderHigherLevelEquipment() {
+    const status = creationEngine.getHigherLevelGold(character);
+    const panel = document.createElement("div");
+    panel.className = "panel section-stack";
+    const rollOptions = Array.from({ length: status.rule?.roll?.die || 0 }, (_, index) => index + 1);
+
+    panel.innerHTML = `
+      <div>
+        <p><strong>${status.rule?.equipmentText || "No aplica"}</strong></p>
+        <p>Objetos magicos sugeridos: ${status.rule?.magicItems?.join(", ") || "ninguno"}. Confirma disponibilidad con el DM.</p>
+      </div>
+      <label class="field">
+        <span>Resultado de 1d10 para oro avanzado</span>
+        <select>
+          <option value="">Pendiente</option>
+          ${rollOptions.map((value) => `<option value="${value}">${value}</option>`).join("")}
+        </select>
+      </label>
+      <p>${status.complete ? `Oro avanzado: ${status.formula} = ${status.totalGp} PO.` : `Oro avanzado pendiente: ${status.formula}.`}</p>
+    `;
+
+    const select = panel.querySelector("select");
+    select.value = character.higherLevelGoldRoll;
+    select.addEventListener("change", () => {
+      updateCharacter({ higherLevelGoldRoll: select.value });
+      render();
+    });
+
+    return panel;
+  }
+
+  function renderMagicItemChoices() {
+    const panel = document.createElement("div");
+    panel.className = "sheet-adjustments";
+    panel.append(
+      magicItemSelect({
+        label: "Objeto comun",
+        value: character.commonMagicItemId,
+        rarity: "Common",
+        onChange(value) {
+          updateCharacter({ commonMagicItemId: value });
+          render();
+        },
+      }),
+      magicItemSelect({
+        label: "Objeto poco comun",
+        value: character.uncommonMagicItemId,
+        rarity: "Uncommon",
+        onChange(value) {
+          updateCharacter({ uncommonMagicItemId: value });
+          render();
+        },
+      }),
+    );
+    return panel;
+  }
+
+  function renderSheetAdjustments() {
+    const derived = rulesEngine.deriveCharacter(character);
+    const wrapper = document.createElement("div");
+    wrapper.className = "section-stack";
+    const controls = document.createElement("div");
+    controls.className = "sheet-adjustments";
+
+    const armorOptions = derived.equipmentItems.filter((item) => item.category === "armor");
+    const shieldOptions = derived.equipmentItems.filter((item) => item.category === "shield");
+    const weaponOptions = derived.equipmentItems.filter((item) => item.category === "weapon");
+
+    controls.append(
+      selectField({
+        label: "Arma equipada",
+        value: character.equippedWeaponId,
+        placeholder: "Elige arma",
+        items: weaponOptions,
+        onChange(value) {
+          updateCharacter({ equippedWeaponId: value });
+          render();
+        },
+      }),
+      selectField({
+        label: "Armadura equipada",
+        value: character.equippedArmorId,
+        placeholder: "Sin armadura",
+        items: armorOptions,
+        onChange(value) {
+          updateCharacter({ equippedArmorId: value });
+          render();
+        },
+      }),
+      selectField({
+        label: "Escudo equipado",
+        value: character.equippedShieldId,
+        placeholder: "Sin escudo",
+        items: shieldOptions,
+        onChange(value) {
+          updateCharacter({ equippedShieldId: value });
+          render();
+        },
+      }),
+    );
+
+    wrapper.append(
+      controls,
+      CalculationGrid([
+        {
+          title: "Clase de Armadura",
+          value: derived.armorClass,
+          formula: derived.armorClassFormula,
+        },
+        {
+          title: "Monedas",
+          value: derived.higherLevelGold.complete ? derived.coinText : "Pendiente",
+          formula: coinCalculationText(derived),
+        },
+        {
+          title: "Objetos magicos",
+          value: derived.magicItems.length ? derived.magicItems.map(displayName).join(" / ") : "Pendiente",
+          formula: "Nivel 5 sugiere 1 comun y 1 poco comun; el DM decide cuales estan disponibles.",
+        },
+        {
+          title: "Percepcion pasiva",
+          value: derived.passivePerception,
+          formula: "10 + modificador de Sabiduria, antes de otros bonos.",
+        },
+      ]),
+    );
+
+    return wrapper;
+  }
+
+  function renderAbilities() {
+    const wrapper = document.createElement("div");
+    wrapper.className = "section-stack";
+
+    const status = creationEngine.getAbilityIncreaseStatus(character);
+    const pointBuyStatus = creationEngine.getPointBuyStatus(character);
+    const abilityBuilder = renderAbilityBuilder({ status, pointBuyStatus });
+
+    const derived = rulesEngine.deriveCharacter(character);
+    wrapper.append(
+      renderAbilityMethodCards(),
+      renderAbilityStatus({ status, pointBuyStatus }),
+      abilityBuilder,
+      CalculationGrid([
+        {
+          title: "Proficiency Bonus",
+          value: `+${derived.proficiencyBonus}`,
+          formula: "Nivel 5 usa +3.",
+        },
+        {
+          title: "Hit Point Maximum",
+          value: derived.hitPointMaximum,
+          formula: derived.hitPointFormula,
+        },
+        {
+          title: "Armor Class",
+          value: derived.armorClass,
+          formula: derived.armorClassFormula,
+        },
+      ]),
+    );
+
+    return wrapper;
+  }
+
+  function renderAbilityMethodCards() {
+    const panel = document.createElement("section");
+    panel.className = "ability-methods";
+
+    creationEngine.getAbilityMethodOptions().forEach((method) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = character.abilityMethod === method.id ? "method-card is-selected" : "method-card";
+      button.innerHTML = `
+        <span>${method.label}</span>
+        <strong>${method.id === "point-buy" ? "27 pts" : method.id === "manual" ? "Libre" : "15 14 13"}</strong>
+        <small>${method.summary}</small>
+      `;
+      button.addEventListener("click", () => {
+        updateCharacter({
+          abilityMethod: method.id,
+          ...(method.id === "point-buy" || method.id === "standard-array"
+            ? { baseAbilities: clampPointBuyAbilities(character.baseAbilities) }
+            : {}),
+        });
+        render();
+      });
+      panel.append(button);
+    });
+
+    return panel;
+  }
+
+  function renderAbilityStatus({ status, pointBuyStatus }) {
+    const statusPanel = document.createElement("div");
+    const pointBuyOk = character.abilityMethod !== "point-buy" || pointBuyStatus.complete;
+    statusPanel.className = status.complete && pointBuyOk ? "panel ability-status is-complete" : "panel ability-status";
+    const methodLine = character.abilityMethod === "point-buy"
+      ? `Compra por puntos: ${pointBuyStatus.spent}/27 usados, ${Math.max(0, pointBuyStatus.remaining)} restantes.`
+      : character.abilityMethod === "manual"
+        ? "Manual: ajusta con - y + segun lo que permita la mesa."
+        : "Standard array: parte de 15, 14, 13, 12, 10 y 8; ajusta si quieres reasignar.";
+    const backgroundLine = character.backgroundId
+      ? `Aumentos de trasfondo: ${status.total}/3. Usa +2/+1 o +1/+1/+1.`
+      : "Elige un trasfondo en Origen para habilitar aumentos.";
+    statusPanel.innerHTML = `<p>${methodLine} ${backgroundLine}</p>`;
+    return statusPanel;
+  }
+
+  function renderAbilityBuilder({ status, pointBuyStatus }) {
+    const grid = document.createElement("div");
+    grid.className = "ability-builder";
+    const allowedIncreases = new Set(status.allowed);
+
+    creationEngine.getAbilityEntries(character).forEach((ability) => {
+      const canIncrease = allowedIncreases.has(ability.id);
+      const card = document.createElement("article");
+      card.className = canIncrease ? "ability-card is-allowed" : "ability-card";
+      card.innerHTML = `
+        <div class="ability-card-header">
+          <span>${displayValue(ability.label)}</span>
+          <strong>${ability.finalScore}</strong>
+        </div>
+        <div class="ability-control-row">
+          <span>Base</span>
+          <button type="button" class="step-button" data-action="base-down" aria-label="Bajar ${displayValue(ability.label)}">-</button>
+          <b>${ability.baseScore}</b>
+          <button type="button" class="step-button" data-action="base-up" aria-label="Subir ${displayValue(ability.label)}">+</button>
+        </div>
+        <div class="ability-control-row">
+          <span>Trasfondo</span>
+          <button type="button" class="step-button" data-action="increase-down" ${canIncrease ? "" : "disabled"} aria-label="Bajar aumento de ${displayValue(ability.label)}">-</button>
+          <b>+${ability.increase}</b>
+          <button type="button" class="step-button" data-action="increase-up" ${canIncrease ? "" : "disabled"} aria-label="Subir aumento de ${displayValue(ability.label)}">+</button>
+        </div>
+        <small>Nivel 4: +${ability.level4Increase}</small>
+        ${character.abilityMethod === "point-buy" ? `<small>Costo base ${pointBuyStatus.costs[Number(ability.baseScore)] ?? "invalido"}</small>` : ""}
+      `;
+
+      card.querySelector('[data-action="base-down"]').addEventListener("click", () => {
+        updateBaseAbility(ability.id, -1);
+      });
+      card.querySelector('[data-action="base-up"]').addEventListener("click", () => {
+        updateBaseAbility(ability.id, 1);
+      });
+      card.querySelector('[data-action="increase-down"]').addEventListener("click", () => {
+        updateBackgroundIncrease(ability.id, -1);
+      });
+      card.querySelector('[data-action="increase-up"]').addEventListener("click", () => {
+        updateBackgroundIncrease(ability.id, 1);
+      });
+
+      grid.append(card);
+    });
+
+    return grid;
+  }
+
+  function updateBaseAbility(abilityId, delta) {
+    const current = Number(character.baseAbilities[abilityId] || 0);
+    const min = character.abilityMethod === "manual" ? 1 : 8;
+    const max = character.abilityMethod === "manual" ? 30 : 15;
+    const next = clamp(current + delta, min, max);
+
+    if (next === current) {
+      return;
+    }
+
+    if (character.abilityMethod === "point-buy" && delta > 0 && wouldExceedPointBuy(abilityId, next)) {
+      return;
+    }
+
+    updateCharacter({ baseAbilities: { [abilityId]: next } });
+    render();
+  }
+
+  function updateBackgroundIncrease(abilityId, delta) {
+    const current = Number(character.backgroundAbilityIncreases?.[abilityId] || 0);
+    const total = Object.values(character.backgroundAbilityIncreases || {}).reduce((sum, value) => sum + Number(value || 0), 0);
+    const next = clamp(current + delta, 0, 2);
+
+    if (next === current) {
+      return;
+    }
+
+    if (delta > 0 && total >= 3) {
+      return;
+    }
+
+    updateCharacter({ backgroundAbilityIncreases: { [abilityId]: next } });
+    render();
+  }
+
+  function updateLevel4Increase(abilityId, delta) {
+    const current = Number(character.level4AbilityIncreases?.[abilityId] || 0);
+    const total = Object.values(character.level4AbilityIncreases || {}).reduce((sum, value) => sum + Number(value || 0), 0);
+    const beforeLevel4 = Number(character.baseAbilities?.[abilityId] || 0) + Number(character.backgroundAbilityIncreases?.[abilityId] || 0);
+    const next = clamp(current + delta, 0, 2);
+
+    if (next === current) {
+      return;
+    }
+
+    if (delta > 0 && total >= 2) {
+      return;
+    }
+
+    if (beforeLevel4 + next > 20) {
+      return;
+    }
+
+    updateCharacter({ level4AbilityIncreases: { [abilityId]: next } });
+    render();
+  }
+
+  function wouldExceedPointBuy(abilityId, nextScore) {
+    const nextAbilities = {
+      ...character.baseAbilities,
+      [abilityId]: nextScore,
+    };
+    return creationEngine.getPointBuyStatus({ ...character, baseAbilities: nextAbilities }).spent > 27;
+  }
+
+  function renderRuleChoices() {
+    const wrapper = document.createElement("div");
+    wrapper.className = "section-stack";
+    const choices = getChoiceStatus(character);
+
+    if (!choices.length) {
+      const panel = document.createElement("div");
+      panel.className = "panel";
+      panel.innerHTML = "<p>No hay elecciones pendientes para las opciones actuales.</p>";
+      return panel;
+    }
+
+    choices.forEach((choice) => {
+      const section = document.createElement("section");
+      section.className = "choice-section";
+      section.innerHTML = `
+        <div>
+          <h3>${choice.label || choice.id}</h3>
+          <p>${choiceInstruction(choice, character)}</p>
+        </div>
+      `;
+
+      const grid = document.createElement("div");
+      grid.className = "choice-grid";
+
+      const options = choice.from || [];
+
+      if (!options.length) {
+        section.append(emptyPanel(`Completa primero: ${choice.requiresChoiceLabel || "la eleccion anterior"}.`));
+        wrapper.append(section);
+        return;
+      }
+
+      options.forEach((option) => {
+        const button = document.createElement("button");
+        const selected = choice.selected.includes(option);
+        button.type = "button";
+        button.className = selected ? "choice-card is-selected" : "choice-card";
+        button.setAttribute("aria-pressed", selected ? "true" : "false");
+        button.innerHTML = `
+          <span class="choice-card-mode">${displayValue(choice.type)}</span>
+          <strong>${displayChoiceOption(choice, option)}</strong>
+          <span>${selected ? selectedChoiceLabel(choice, character) : availableChoiceLabel(choice, character)}</span>
+        `;
+        button.addEventListener("click", () => toggleRuleChoice(choice, option));
+        grid.append(button);
+      });
+
+      section.append(grid);
+      wrapper.append(section);
+    });
+
+    return wrapper;
+  }
+
+  function toggleRuleChoice(choice, option) {
+    const selections = character.choiceSelections || {};
+    const current = selections[choice.id] || [];
+    const selected = current.includes(option);
+    const next = selected
+      ? current.filter((item) => item !== option)
+      : current.length < choice.count
+        ? [...current, option]
+        : [...current.slice(1), option];
+
+    updateCharacter({
+      choiceSelections: {
+        [choice.id]: next,
+      },
+    });
+    render();
+  }
+
+  function renderStepActions(currentStepId) {
+    const actions = document.createElement("div");
+    actions.className = "creator-actions";
+    const previousStep = creationEngine.getPreviousStep(currentStepId);
+    const nextStep = creationEngine.getNextStep(currentStepId);
+
+    const resetButton = document.createElement("button");
+    resetButton.type = "button";
+    resetButton.className = "button secondary-button";
+    resetButton.textContent = "Reiniciar";
+    resetButton.addEventListener("click", () => {
+      resetCharacter();
+      activeStepId = "class";
+      render();
+    });
+
+    actions.append(resetButton);
+
+    if (previousStep) {
+      actions.append(actionButton("Anterior", () => {
+        activeStepId = previousStep.id;
+        render();
+      }));
+    }
+
+    if (nextStep) {
+      actions.append(actionButton("Siguiente", () => {
+        activeStepId = nextStep.id;
+        render();
+      }));
+    }
+
+    return actions;
+  }
+
+  return page;
+}
+
+function choiceSection({ title, helper, content }) {
+  const section = document.createElement("section");
+  section.className = "choice-section";
+  section.innerHTML = `
+    <div>
+      <h3>${title}</h3>
+      <p>${helper}</p>
+    </div>
+  `;
+  section.append(content);
+  return section;
+}
+
+function equipmentOptionGrid({ options, selectedId, onSelect }) {
+  const grid = document.createElement("div");
+  grid.className = "choice-grid";
+
+  options.forEach((option) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = selectedId === option.id ? "choice-card is-selected" : "choice-card";
+    button.setAttribute("aria-pressed", selectedId === option.id ? "true" : "false");
+    button.innerHTML = `
+      <span class="choice-card-mode">Paquete</span>
+      <strong>${option.label || option.name}</strong>
+      <span>${option.summary || "Elige este paquete inicial."}</span>
+    `;
+    button.addEventListener("click", () => onSelect(option.id));
+    grid.append(button);
+  });
+
+  return grid;
+}
+
+function emptyPanel(text) {
+  const panel = document.createElement("div");
+  panel.className = "panel";
+  panel.innerHTML = `<p>${text}</p>`;
+  return panel;
+}
+
+function resetAbilityIncreases() {
+  return {
+    strength: 0,
+    dexterity: 0,
+    constitution: 0,
+    intelligence: 0,
+    wisdom: 0,
+    charisma: 0,
+  };
+}
+
+function level4Summary(character) {
+  if (character.level4Mode === "abilities") {
+    const entries = Object.entries(character.level4AbilityIncreases || {})
+      .filter(([, value]) => Number(value) > 0)
+      .map(([ability, value]) => `${displayValue(ability)} +${value}`);
+    return entries.length ? entries.join(", ") : "Pendiente";
+  }
+
+  if (character.level4Mode === "feat") {
+    return character.level4FeatId ? displayValue(character.level4FeatId) : "Pendiente";
+  }
+
+  return "Pendiente";
+}
+
+function choiceInstruction(choice, character) {
+  const base = `Elige ${choice.count}. Faltan ${choice.remaining}.`;
+
+  if (choice.type !== "spell") {
+    return base;
+  }
+
+  if (["cleric", "druid"].includes(character.classId)) {
+    return `${base} Estos son los conjuros preparados para hoy; puedes cambiarlos al terminar un descanso largo. Los siempre preparados no cuentan contra este limite.`;
+  }
+
+  if (character.classId === "wizard") {
+    return `${base} El Mago prepara desde su grimorio; al cambiar el grimorio cambia esta lista.`;
+  }
+
+  return base;
+}
+
+function selectedChoiceLabel(choice, character) {
+  if (choice.type === "spell" && ["cleric", "druid"].includes(character.classId)) {
+    return "Preparado hoy";
+  }
+
+  if (choice.type === "spell" && character.classId === "wizard") {
+    return "Preparado desde grimorio";
+  }
+
+  return "Seleccionado";
+}
+
+function availableChoiceLabel(choice, character) {
+  if (choice.type === "spell" && ["cleric", "druid"].includes(character.classId)) {
+    return "Disponible para preparar";
+  }
+
+  if (choice.type === "spell" && character.classId === "wizard") {
+    return "En fuente permitida";
+  }
+
+  return "Disponible";
+}
+
+function clampPointBuyAbilities(abilities) {
+  return Object.fromEntries(Object.entries(abilities).map(([ability, score]) => [
+    ability,
+    clamp(Number(score), 8, 15),
+  ]));
+}
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function actionButton(label, onClick) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "button";
+  button.textContent = label;
+  button.addEventListener("click", onClick);
+  return button;
+}
+
+function selectField({ label, value, placeholder, items, onChange }) {
+  const field = document.createElement("label");
+  field.className = "field";
+  field.innerHTML = `
+    <span>${label}</span>
+    <select>
+      <option value="">${placeholder}</option>
+    </select>
+  `;
+
+  const select = field.querySelector("select");
+  items.forEach((item) => {
+    const option = document.createElement("option");
+    option.value = item.id;
+    option.textContent = displayName(item);
+    select.append(option);
+  });
+  select.value = value;
+  select.addEventListener("change", () => onChange(select.value));
+
+  return field;
+}
+
+function magicItemSelect({ label, value, rarity, onChange }) {
+  const field = document.createElement("label");
+  field.className = "field";
+  field.innerHTML = `
+    <span>${label}</span>
+    <select>
+      <option value="">Confirmar con DM</option>
+    </select>
+    <small>Rareza: ${rarity === "Common" ? "comun" : "poco comun"}.</small>
+  `;
+
+  const select = field.querySelector("select");
+  creationEngine.getMagicItemsByRarity(rarity).forEach((item) => {
+    const option = document.createElement("option");
+    option.value = item.id;
+    option.textContent = `${displayName(item)}${item.requiresAttunement ? " (sintonia)" : ""}`;
+    select.append(option);
+  });
+  select.value = value;
+  select.addEventListener("change", () => onChange(select.value));
+
+  return field;
+}
+
+function coinCalculationText(derived) {
+  if (!derived.higherLevelGold.complete) {
+    return `Suma paquetes iniciales y equipo avanzado: ${derived.higherLevelGold.formula}.`;
+  }
+
+  const purchase = derived.equipmentPurchase;
+  const spent = purchase?.spentCopper ? purchase.costText : "0 PO";
+  const overspent = purchase?.hasOverspent ? ` Gasto excedido por ${purchase.overspentText}.` : "";
+  return `Oro inicial ${derived.startingCoinText}; equipo adicional -${spent}.${overspent}`;
+}

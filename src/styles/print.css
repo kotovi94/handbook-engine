@@ -1,0 +1,150 @@
+@media print {
+  :root,
+  .mode-dark {
+    --color-bg: #ffffff;
+    --color-surface: #ffffff;
+    --color-surface-muted: #f2f2f2;
+    --color-border: #cfcfcf;
+    --color-text: #111111;
+    --color-text-muted: #444444;
+    --color-accent: #111111;
+    --color-accent-strong: #111111;
+    --color-accent-soft: #eeeeee;
+    --shadow-card: none;
+    --shadow-panel: none;
+  }
+
+  @page {
+    margin: 12mm;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  .sidebar,
+  .sidebar-overlay,
+  .main-header,
+  .filter-bar,
+  .sheet-adjustments,
+  .pending-panel,
+  .stepper,
+  .creator-actions,
+  .summary-panel {
+    display: none;
+  }
+
+  .print-help-panel {
+    display: none;
+  }
+
+  .main-layout {
+    padding-left: 0;
+  }
+
+  .main-content {
+    width: 100%;
+    padding: 0;
+  }
+
+  .sheet-field-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3.5mm;
+  }
+
+  .sheet-section-list {
+    gap: 6mm;
+  }
+
+  .sheet-section {
+    break-inside: auto;
+    page-break-inside: auto;
+    gap: 3mm;
+    border: 0;
+    border-radius: 0;
+    background: #ffffff;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .sheet-section > h3 {
+    break-after: avoid;
+    border-bottom: 1px solid #222222;
+    font-size: 11pt;
+    padding-bottom: 1.5mm;
+  }
+
+  .sheet-field.is-long:not(.is-full) {
+    grid-column: span 2;
+  }
+
+  .sheet-field.is-full {
+    grid-column: 1 / -1;
+  }
+
+  .sheet-field > strong {
+    font-size: 11.5pt;
+  }
+
+  .sheet-value-list {
+    display: block;
+    columns: 1;
+    column-gap: 8mm;
+    font-size: 9.2pt;
+    line-height: 1.24;
+  }
+
+  .sheet-field.is-full .sheet-value-list {
+    columns: 2;
+  }
+
+  .sheet-value-list li {
+    break-inside: avoid;
+    margin-bottom: 1.4mm;
+  }
+
+  .panel,
+  .content-card,
+  .calculation-box,
+  .progression-list {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+
+  .sheet-field {
+    break-inside: auto;
+    gap: 2mm;
+    padding: 3mm;
+    box-shadow: none;
+  }
+
+  .sheet-field.is-compact,
+  .sheet-field.is-long:not(.is-full) {
+    break-inside: avoid;
+  }
+
+  .sheet-field,
+  .calculation-box,
+  .progression-list {
+    border-radius: 3mm;
+    background: #ffffff;
+  }
+
+  .sheet-field span {
+    font-size: 6.8pt;
+  }
+
+  .sheet-field h3 {
+    font-size: 9.5pt;
+    margin-top: 0.6mm;
+  }
+
+  .sheet-field p {
+    font-size: 8pt;
+    line-height: 1.25;
+  }
+
+  .content-card-link {
+    color: #111111;
+  }
+}
