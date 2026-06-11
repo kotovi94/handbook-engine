@@ -65,11 +65,14 @@ const sizeChoice = (id) => ({
   },
 });
 
-const speciesBase = ({ id, name, label, summary, size, speed, choices = [], effects = [], traits }) => ({
+const speciesBase = ({ id, name, label, summary, size, speed, choices = [], effects = [], traits, advice }) => ({
   id,
   name,
   label,
   summary,
+  guide: {
+    advice,
+  },
   creatureType: "Humanoid",
   size,
   speed,
@@ -93,6 +96,7 @@ export const species = [
     name: "Aasimar",
     label: "Aasimar",
     summary: "Mortal con chispa celestial, vision en la oscuridad, curacion y revelacion celestial.",
+    advice: "paladines, clerigos, bardos o personajes con tema celestial y apoyo.",
     size: "Small or Medium",
     speed: 30,
     choices: [sizeChoice("aasimar")],
@@ -113,6 +117,7 @@ export const species = [
     name: "Dragonborn",
     label: "Draconido",
     summary: "Humanoide draconico con aliento, resistencia, vision en la oscuridad y vuelo temporal a nivel 5.",
+    advice: "guerreros, paladines, barbaros o personajes con presencia elemental.",
     size: "Medium",
     speed: 30,
     choices: [
@@ -150,6 +155,7 @@ export const species = [
     name: "Dwarf",
     label: "Enano",
     summary: "Resistente, duro y afinado con la piedra.",
+    advice: "guerreros, clerigos, barbaros o personajes que quieren aguantar mas.",
     size: "Medium",
     speed: 30,
     effects: [
@@ -170,6 +176,7 @@ export const species = [
     name: "Elf",
     label: "Elfo",
     summary: "Linaje feerico con trance, sentidos agudos y magia de linaje.",
+    advice: "magos, rangers, picaros, bardos o personajes perceptivos y magicos.",
     size: "Medium",
     speed: 30,
     choices: [
@@ -214,6 +221,7 @@ export const species = [
     name: "Gnome",
     label: "Gnomo",
     summary: "Pequeno, astuto y vinculado a magia de bosque o roca.",
+    advice: "magos, artifices, picaros o personajes astutos y resistentes a magia.",
     size: "Small",
     speed: 30,
     choices: [
@@ -248,6 +256,7 @@ export const species = [
     name: "Goliath",
     label: "Goliat",
     summary: "Descendiente de gigantes con velocidad superior, forma grande y fuerza notable.",
+    advice: "barbaros, guerreros, monjes o personajes fisicos de primera linea.",
     size: "Medium",
     speed: 35,
     choices: [
@@ -279,6 +288,7 @@ export const species = [
     name: "Halfling",
     label: "Mediano",
     summary: "Pequeno, valiente, agil entre criaturas grandes y afortunado.",
+    advice: "picaros, bardos, rangers o personajes moviles y afortunados.",
     size: "Small",
     speed: 30,
     traits: [
@@ -293,6 +303,7 @@ export const species = [
     name: "Human",
     label: "Humano",
     summary: "Flexible, ingenioso y con dote de origen adicional.",
+    advice: "cualquier clase; es la opcion mas flexible para ajustar concepto y mecanica.",
     size: "Small or Medium",
     speed: 30,
     choices: [
@@ -323,6 +334,7 @@ export const species = [
     name: "Orc",
     label: "Orco",
     summary: "Resistente, veloz en combate y con vision en la oscuridad superior.",
+    advice: "barbaros, guerreros, monjes o personajes agresivos y dificiles de tumbar.",
     size: "Medium",
     speed: 30,
     effects: [
@@ -340,6 +352,7 @@ export const species = [
     name: "Tiefling",
     label: "Tiefling",
     summary: "Descendencia de los Planos Inferiores con legado sobrenatural.",
+    advice: "brujos, hechiceros, bardos o personajes con magia innata y resistencia.",
     size: "Small or Medium",
     speed: 30,
     choices: [

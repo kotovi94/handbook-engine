@@ -2,6 +2,7 @@ import { equipment, spells } from "../data/rules/index.js";
 import { contentEngine } from "../scripts/contentEngine.js";
 import { displayName, displayValue } from "../scripts/displayLabels.js";
 import { getSpellSheetDetail } from "../scripts/spellSheetDetails.js";
+import { compareDisplayValue, compareSpellLevelThenName, compareVisibleName } from "../scripts/sortUtils.js";
 
 const tabs = [
   { id: "all", label: "Todo" },
@@ -92,7 +93,12 @@ function renderSearchControls(filters, onChange) {
         <option value="1">Nivel 1</option>
         <option value="2">Nivel 2</option>
         <option value="3">Nivel 3</option>
-        <option value="4">Nivel 4+</option>
+        <option value="4">Nivel 4</option>
+        <option value="5">Nivel 5</option>
+        <option value="6">Nivel 6</option>
+        <option value="7">Nivel 7</option>
+        <option value="8">Nivel 8</option>
+        <option value="9">Nivel 9</option>
       </select>
     </label>
     <label class="field">
@@ -253,14 +259,16 @@ function renderReferenceCard(result) {
 
 function renderSpellCard(spell) {
   const detail = getSpellSheetDetail(spell.id);
+  const higherLevel = detail?.higherLevel || spell.higherLevel || "";
   const card = document.createElement("article");
   card.className = "reference-card";
   card.innerHTML = `
     <div class="reference-card-header">
-      <span>${spell.level === 0 ? "Truco" : `Nivel ${spell.level}`}</span>
+      <span>${spellReferenceLine(spell)}</span>
       <strong>${detail?.label || displayName(spell)}</strong>
     </div>
     <p>${detail?.detail || spell.sheetText || spell.summary}</p>
+    ${higherLevel ? `<p><strong>A mayor nivel:</strong> ${cleanText(higherLevel)}</p>` : ""}
     <dl class="meta-list">
       <div><dt>Escuela</dt><dd>${displayValue(spell.school)}</dd></div>
       <div><dt>Lanzamiento</dt><dd>${cleanText(spell.castingTime)}</dd></div>
@@ -278,6 +286,30 @@ function renderSpellCard(spell) {
     </div>
   `;
   return card;
+}
+
+function spellReferenceLine(spell) {
+  return [
+    spell.level === 0 ? "Truco" : `Nivel ${spell.level}`,
+    spellSchoolLabel(spell.school),
+    cleanText(spell.castingTime).toLowerCase(),
+    cleanText(spell.range).toLowerCase(),
+  ].filter(Boolean).join(" | ");
+}
+
+function spellSchoolLabel(school) {
+  const labels = {
+    Abjuration: "Abjuracion",
+    Conjuration: "Conjuracion",
+    Divination: "Adivinacion",
+    Enchantment: "Encantamiento",
+    Evocation: "Evocacion",
+    Illusion: "Ilusion",
+    Necromancy: "Nigromancia",
+    Transmutation: "Transmutacion",
+  };
+
+  return labels[school] || displayValue(school);
 }
 
 function renderEquipmentCard(item) {
@@ -320,7 +352,6 @@ function readReferenceFilters(form) {
 
 function matchesSpellLevel(spell, filter) {
   if (filter === "all") return true;
-  if (filter === "4") return Number(spell.level) >= 4;
   return Number(spell.level) === Number(filter);
 }
 
@@ -335,13 +366,19 @@ function matchesSpellTag(spell, tag) {
 }
 
 function getSpellSchools() {
-  return [...new Set(spells.map((spell) => spell.school).filter(Boolean))].sort();
+  return [...new Set(spells.map((spell) => spell.school).filter(Boolean))].sort(compareDisplayValue);
 }
 
 function sortReference(a, b) {
-  if (a.type !== b.type) return a.type === "spell" ? 1 : -1;
-  if (a.type === "spell" && a.item.level !== b.item.level) return Number(a.item.level) - Number(b.item.level);
-  return displayName(a.item).localeCompare(displayName(b.item), "es");
+  if (a.type === "spell" && b.type === "spell" && a.item.level !== b.item.level) {
+    return compareSpellLevelThenName(a.item, b.item);
+  }
+
+  if (a.type === "spell" && b.type === "spell") {
+    return compareSpellLevelThenName(a.item, b.item);
+  }
+
+  return compareVisibleName(a.item, b.item);
 }
 
 function equipmentTypeLabel(item) {
@@ -373,12 +410,13 @@ function formatCoins(coins = {}) {
 
 function cleanText(value) {
   return String(value || "")
-    .replace("feet", "ft")
-    .replace("foot", "ft")
-    .replace("Self", "Personal")
-    .replace("1 action", "1 accion")
-    .replace("1 bonus action", "1 accion adicional")
-    .replace("1 reaction", "1 reaccion");
+    .replace(/1 bonus action|bonus action/gi, "accion adicional")
+    .replace(/1 reaction|reaction/gi, "reaccion")
+    .replace(/1 action|action/gi, "accion")
+    .replace(/self/gi, "personal")
+    .replace(/touch/gi, "toque")
+    .replace(/feet/gi, "pies")
+    .replace(/foot/gi, "pie");
 }
 
 function normalize(value) {

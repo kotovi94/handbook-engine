@@ -4,6 +4,7 @@ import { creationEngine } from "./creationEngine.js";
 import { contentEngine } from "./contentEngine.js";
 import { displayName } from "./displayLabels.js";
 import { collectEffects, resolveEffects } from "./effectEngine.js";
+import { compareSpellLevelThenName, compareVisibleName } from "./sortUtils.js";
 
 export const rulesEngine = {
   getAbilityModifier(score) {
@@ -58,10 +59,12 @@ export const rulesEngine = {
     ];
     const equipmentItems = [...new Set(equipmentIds)]
       .map((equipmentId) => creationEngine.getEquipment(equipmentId))
-      .filter(Boolean);
+      .filter(Boolean)
+      .sort(compareVisibleName);
     const purchasedEquipmentItems = [...new Set(character.equipmentIds || [])]
       .map((equipmentId) => creationEngine.getEquipment(equipmentId))
-      .filter(Boolean);
+      .filter(Boolean)
+      .sort(compareVisibleName);
     const magicItems = creationEngine.getSelectedMagicItems(character);
     const grantedFeatIds = [
       ...baseEffectState.feats,
@@ -71,7 +74,8 @@ export const rulesEngine = {
     ].filter(Boolean);
     const grantedFeats = [...new Set(grantedFeatIds)]
       .map((featId) => creationEngine.getFeat(featId))
-      .filter(Boolean);
+      .filter(Boolean)
+      .sort(compareVisibleName);
     const featureEffects = resolveEffects([
       ...baseEffects,
       ...choiceEffects,
@@ -224,10 +228,10 @@ function deriveSpellcasting({ character, classData, subclassData, featureEffects
   ]
     .flatMap((choice) => (choice.spells || []).map((spellId) => ({ id: spellId, kind: choice.kind, source: "Rasgo" })));
   const selected = dedupeSpellSelections([...selectedFromChoices, ...selectedFromEffects]);
-  const cantrips = selected.filter((spell) => spell.kind === "cantrip");
-  const preparedSpells = selected.filter((spell) => spell.kind === "spell");
-  const alwaysPreparedSpells = selected.filter((spell) => spell.kind === "alwaysPrepared");
-  const spellbook = selected.filter((spell) => spell.kind === "spellbook");
+  const cantrips = selected.filter((spell) => spell.kind === "cantrip").sort(compareSpellLevelThenName);
+  const preparedSpells = selected.filter((spell) => spell.kind === "spell").sort(compareSpellLevelThenName);
+  const alwaysPreparedSpells = selected.filter((spell) => spell.kind === "alwaysPrepared").sort(compareSpellLevelThenName);
+  const spellbook = selected.filter((spell) => spell.kind === "spellbook").sort(compareSpellLevelThenName);
   const modifier = ability ? abilityModifiers[ability] : null;
 
   return {
@@ -238,6 +242,7 @@ function deriveSpellcasting({ character, classData, subclassData, featureEffects
     saveDc: modifier === null ? null : 8 + proficiencyBonus + modifier,
     attackBonus: modifier === null ? null : proficiencyBonus + modifier,
     slots,
+    slotEntries: getSpellSlotEntries(slots),
     slotText: formatSpellSlots(slots),
     cantrips,
     preparedSpells,
@@ -276,8 +281,17 @@ function getSpellSlots(classId, subclassId, level) {
 }
 
 function formatSpellSlots(slots) {
-  const entries = Object.entries(slots);
-  return entries.length ? entries.map(([spellLevel, count]) => `Nivel ${spellLevel}: ${count}`) : "No aplica";
+  const entries = getSpellSlotEntries(slots);
+  return entries.length ? entries.map((entry) => `Nivel ${entry.level}: ${entry.count}`) : "No aplica";
+}
+
+function getSpellSlotEntries(slots) {
+  return Object.entries(slots)
+    .map(([spellLevel, count]) => ({
+      level: Number(spellLevel),
+      count: Number(count),
+    }))
+    .sort((a, b) => a.level - b.level);
 }
 
 function displaySpellAbility(ability) {

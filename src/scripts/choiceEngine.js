@@ -9,6 +9,9 @@ import { warlockPatronCantripsLevel5, warlockPatronSpellsLevel5 } from "../data/
 import { artificerSubclassSpellsLevel5 } from "../data/rules/spellcasting/artificerLists.js";
 import { creationEngine } from "./creationEngine.js";
 import { contentEngine } from "./contentEngine.js";
+import { resolveSpell } from "./sortUtils.js";
+
+const spellChoiceTypes = new Set(["cantrip", "spell", "spellbook"]);
 
 export function getActiveChoices(character) {
   const level = 5;
@@ -42,6 +45,7 @@ export function getChoiceStatus(character) {
     const hasSourceList = Array.isArray(resolvedChoice.from);
     const available = new Set(resolvedChoice.from || []);
     const selected = (selections[resolvedChoice.id] || [])
+      .map((option) => normalizeChoiceSelection(option, resolvedChoice))
       .filter((option) => !hasSourceList || available.has(option));
 
     return {
@@ -51,6 +55,14 @@ export function getChoiceStatus(character) {
       complete: selected.length === resolvedChoice.count,
     };
   });
+}
+
+function normalizeChoiceSelection(option, choice) {
+  if (!spellChoiceTypes.has(choice.type)) {
+    return option;
+  }
+
+  return resolveSpell(option)?.id || option;
 }
 
 export function getPendingChoices(character) {

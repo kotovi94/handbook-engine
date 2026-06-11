@@ -11,12 +11,7 @@ export function SummaryPanel({ character }) {
   const coinNote = derived.higherLevelGold.complete && derived.equipmentPurchase?.spentCopper
     ? `${coins} tras compras`
     : coins;
-  const slotText = derived.spellcasting?.slotText;
-  const spellSlots = Array.isArray(slotText)
-    ? slotText.join(" / ")
-    : slotText
-      ? String(slotText)
-    : "Sin espacios";
+  const spellSlots = formatSpellSlotSummary(derived.spellcasting);
   const spellSummary = derived.spellcasting?.canCast
     ? `${spellSlots}; ${derived.spellcasting.preparation?.selectionLabel || "Preparados"}: ${derived.spellcasting.preparedSpells.length}`
     : spellSlots;
@@ -50,4 +45,14 @@ export function SummaryPanel({ character }) {
   panel.append(PendingPanel({ character, compact: true }));
 
   return panel;
+}
+
+function formatSpellSlotSummary(spellcasting) {
+  const entries = spellcasting?.slotEntries || [];
+
+  if (!entries.length) {
+    return "Sin espacios";
+  }
+
+  return entries.map((entry) => `N${entry.level}: ${entry.count}`).join(" / ");
 }

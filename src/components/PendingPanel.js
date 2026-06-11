@@ -1,6 +1,7 @@
 import { rulesEngine } from "../scripts/rulesEngine.js";
 import { creationEngine } from "../scripts/creationEngine.js";
 import { getMissingCharacterSteps } from "../scripts/validationEngine.js";
+import { compareVisibleName } from "../scripts/sortUtils.js";
 
 const choiceLabels = {
   skill: ["habilidad", "habilidades"],
@@ -76,7 +77,7 @@ export function PendingPanel({ character, compact = false } = {}) {
 export function getPendingItems(character, derived = rulesEngine.deriveCharacter(character)) {
   return [
     ...getMissingCharacterSteps(character).map((step) => `Falta elegir ${step.toLowerCase()}.`),
-    ...derived.pendingChoices.map(formatPendingChoice),
+    ...[...derived.pendingChoices].sort(compareVisibleName).map(formatPendingChoice),
     ...getSheetPendingItems(character, derived),
   ];
 }

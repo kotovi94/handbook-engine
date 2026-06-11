@@ -3,6 +3,7 @@ import { spells } from "../data/rules/index.js";
 import { displayList, displayName, displayValue } from "./displayLabels.js";
 import { rulesEngine } from "./rulesEngine.js";
 import { getSpellSheetDetail } from "./spellSheetDetails.js";
+import { compareSpellLevelThenName, resolveSpell } from "./sortUtils.js";
 
 const spellIndex = Object.fromEntries(spells.map((spell) => [spell.id, spell]));
 
@@ -73,7 +74,7 @@ export function mapCharacterToSheetSections(character) {
       sheetField("BONIFICADOR DE ATAQUE DE CONJUROS", spellAttackBonus(derived), "Competencia + modificador por aptitud magica."),
       sheetField("TRUCOS Y CONJUROS PREPARADOS", spellSelectionText(derived), spellSelectionExplanation(derived)),
       sheetField("GRIMORIO", spellbookText(derived), "Anota los conjuros que existen en el grimorio; solo los preparados se lanzan normalmente."),
-      sheetField("ESPACIOS DE CONJURO", spellSlots(derived), "Copia los espacios disponibles por nivel de conjuro."),
+      sheetField("ESPACIOS DE CONJURO", spellSlots(derived), "Marca un espacio del mismo nivel o superior al lanzar un conjuro de nivel 1 o superior. Los trucos no consumen espacios."),
       sheetField("REGLAS DE LANZAMIENTO", spellRuleText(derived), "Notas rapidas para lanzar conjuros en mesa."),
     ]),
     sheetSection("Pagina 2 - Equipo, monedas e idiomas", [
@@ -235,15 +236,19 @@ function spellAttackBonus(derived) {
 }
 
 function spellSlots(derived) {
-  return derived.spellcasting.slotText;
+  const entries = derived.spellcasting.slotEntries || [];
+  return entries.length
+    ? entries.map((entry) => `Nivel ${entry.level}: ${entry.count} espacio${entry.count === 1 ? "" : "s"}`)
+    : "No aplica";
 }
 
 function spellSelectionText(derived) {
-  const cantrips = derived.spellcasting.cantrips.map((spell) => spellSheetLine(spell, derived));
-  const spells = derived.spellcasting.preparedSpells.map((spell) => spellSheetLine(spell, derived));
-  const alwaysPrepared = (derived.spellcasting.alwaysPreparedSpells || [])
-    .map((spell) => spellSheetLine(spell, derived, "siempre preparado"));
-  const lines = [...cantrips, ...spells, ...alwaysPrepared];
+  const selections = [
+    ...derived.spellcasting.cantrips.map((spell) => ({ ...spell, tag: "" })),
+    ...derived.spellcasting.preparedSpells.map((spell) => ({ ...spell, tag: "" })),
+    ...(derived.spellcasting.alwaysPreparedSpells || []).map((spell) => ({ ...spell, tag: "siempre preparado" })),
+  ].sort(compareSpellLevelThenName);
+  const lines = selections.map((spell) => spellSheetLine(spell, derived, spell.tag));
 
   return lines.length ? lines : (derived.spellcasting.canCast ? "Pendiente" : "No aplica");
 }
@@ -304,16 +309,19 @@ function spellRuleText(derived) {
 }
 
 function spellSheetLine(selection, derived, tag = "") {
-  const spell = spellIndex[selection.id];
-  const detail = getSpellSheetDetail(selection.id);
-  const level = spell?.level === 0 ? "T" : `N${spell?.level ?? "?"}`;
-  const name = detail?.label || displayValue(selection.id) || spell?.label || spell?.name || selection.id;
+  const spell = resolveSpell(selection.id) || spellIndex[selection.id];
+  const spellId = spell?.id || selection.id;
+  const detail = getSpellSheetDetail(spellId) || getSpellSheetDetail(selection.id);
+  const level = spellLevelLabel(spell);
+  const name = detail?.label || displayValue(spellId) || spell?.label || spell?.name || selection.id;
   const detailText = cleanMechanic(detail?.detail || "");
+  const higherLevel = cleanMechanic(detail?.higherLevel || spell?.higherLevel || "");
   const usesSave = detailText.includes("salvacion");
   const usesSpellAttack = /ataques? de conjuro/.test(detailText);
   const notes = [
     spellFlags(spell),
     detailText,
+    higherLevel ? `A mayor nivel: ${higherLevel}` : "",
     usesSave && derived.spellcasting.saveDc ? `CD ${derived.spellcasting.saveDc}` : "",
     usesSpellAttack && derived.spellcasting.attackBonus !== null ? `ataque ${signed(derived.spellcasting.attackBonus)}` : "",
     tag,
@@ -322,11 +330,20 @@ function spellSheetLine(selection, derived, tag = "") {
 }
 
 function spellbookLine(selection) {
-  const spell = spellIndex[selection.id];
-  const detail = getSpellSheetDetail(selection.id);
-  const level = spell?.level === 0 ? "truco" : `N${spell?.level ?? "?"}`;
-  const name = detail?.label || displayValue(selection.id) || spell?.label || spell?.name || selection.id;
+  const spell = resolveSpell(selection.id) || spellIndex[selection.id];
+  const spellId = spell?.id || selection.id;
+  const detail = getSpellSheetDetail(spellId) || getSpellSheetDetail(selection.id);
+  const level = spellLevelLabel(spell);
+  const name = detail?.label || displayValue(spellId) || spell?.label || spell?.name || selection.id;
   return `${name} (${level})`;
+}
+
+function spellLevelLabel(spell) {
+  if (!spell) {
+    return "Nivel ?";
+  }
+
+  return Number(spell.level) === 0 ? "Truco" : `Nivel ${spell.level}`;
 }
 
 function formatCost(cost = {}) {

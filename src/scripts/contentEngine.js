@@ -1,6 +1,7 @@
 import { builds } from "../data/content/builds.js";
 import { classes, subclasses } from "../data/rules/index.js";
 import { displayName, displayValue } from "./displayLabels.js";
+import { compareVisibleName, sortByVisibleName } from "./sortUtils.js";
 
 function byId(items) {
   return Object.fromEntries(items.map((item) => [item.id, item]));
@@ -12,7 +13,7 @@ const buildIndex = byId(builds);
 
 export const contentEngine = {
   getClasses() {
-    return classes.map((classData) => ({ ...classData, type: "class" }));
+    return sortByVisibleName(classes.map((classData) => ({ ...classData, type: "class" })));
   },
 
   getClass(classId) {
@@ -21,7 +22,7 @@ export const contentEngine = {
   },
 
   getSubclasses() {
-    return subclasses.map((subclass) => enrichSubclass(subclass));
+    return sortByVisibleName(subclasses.map((subclass) => enrichSubclass(subclass)));
   },
 
   getSubclass(subclassId) {
@@ -32,11 +33,12 @@ export const contentEngine = {
   getSubclassesByClass(classId) {
     return subclasses
       .filter((subclass) => subclass.classId === classId)
-      .map((subclass) => enrichSubclass(subclass));
+      .map((subclass) => enrichSubclass(subclass))
+      .sort(compareVisibleName);
   },
 
   getBuilds() {
-    return builds.map((build) => enrichBuild(build));
+    return sortByVisibleName(builds.map((build) => enrichBuild(build)));
   },
 
   getBuild(buildId) {
@@ -47,13 +49,15 @@ export const contentEngine = {
   getBuildsByClass(classId) {
     return builds
       .filter((build) => build.classId === classId)
-      .map((build) => enrichBuild(build));
+      .map((build) => enrichBuild(build))
+      .sort(compareVisibleName);
   },
 
   getBuildsBySubclass(subclassId) {
     return builds
       .filter((build) => build.subclassId === subclassId)
-      .map((build) => enrichBuild(build));
+      .map((build) => enrichBuild(build))
+      .sort(compareVisibleName);
   },
 
   getContentIndex() {
@@ -67,7 +71,7 @@ export const contentEngine = {
   searchContent({ query = "", type = "all", classId = "all" } = {}) {
     const normalizedQuery = normalize(query);
 
-    return this.getContentIndex().filter((item) => {
+    return sortByVisibleName(this.getContentIndex().filter((item) => {
       const matchesType = type === "all" || item.type === type;
       const matchesClass = classId === "all" || item.id === classId || item.classId === classId;
       const searchableText = normalize([
@@ -87,7 +91,7 @@ export const contentEngine = {
       const matchesQuery = !normalizedQuery || searchableText.includes(normalizedQuery);
 
       return matchesType && matchesClass && matchesQuery;
-    });
+    }));
   },
 };
 

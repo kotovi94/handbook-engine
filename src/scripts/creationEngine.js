@@ -2,6 +2,7 @@ import { abilityLabels } from "../data/character/abilityScores.js";
 import { creationSteps } from "../data/character/creationSteps.js";
 import { backgrounds, equipment, feats, higherLevelStartingEquipment, magicItems, species } from "../data/rules/index.js";
 import { contentEngine } from "./contentEngine.js";
+import { compareVisibleName, sortByVisibleName } from "./sortUtils.js";
 
 const speciesIndex = byId(species);
 const backgroundIndex = byId(backgrounds);
@@ -67,15 +68,15 @@ export const creationEngine = {
     }
 
     if (stepId === "species") {
-      return species;
+      return sortByVisibleName(species);
     }
 
     if (stepId === "background") {
-      return backgrounds;
+      return sortByVisibleName(backgrounds);
     }
 
     if (stepId === "equipment") {
-      return equipment.map(enrichEquipmentChoice);
+      return sortByVisibleName(equipment.map(enrichEquipmentChoice));
     }
 
     return [];
@@ -162,7 +163,8 @@ export const creationEngine = {
       .map((feat) => ({
         ...feat,
         summary: [feat.summary, feat.prerequisite ? `Requisito: ${feat.prerequisite}` : ""].filter(Boolean).join(" "),
-      }));
+      }))
+      .sort(compareVisibleName);
   },
 
   getClassEquipmentOptions(classId) {
@@ -247,7 +249,7 @@ export const creationEngine = {
   },
 
   getMagicItemsByRarity(rarity) {
-    return magicItems.filter((item) => item.rarity === rarity);
+    return sortByVisibleName(magicItems.filter((item) => item.rarity === rarity));
   },
 
   getSelectedMagicItems(character) {

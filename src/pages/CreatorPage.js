@@ -8,8 +8,10 @@ import { getChoiceStatus } from "../scripts/choiceEngine.js";
 import { creationEngine } from "../scripts/creationEngine.js";
 import { getCharacter, resetCharacter, updateCharacter } from "../scripts/characterState.js";
 import { displayChoiceOption, displayName, displayValue } from "../scripts/displayLabels.js";
+import { getSpellSheetDetail } from "../scripts/spellSheetDetails.js";
 import { rulesEngine } from "../scripts/rulesEngine.js";
 import { mapCharacterToSheetSections } from "../scripts/sheetMapper.js";
+import { resolveSpell, sortByVisibleName, sortChoiceOptions } from "../scripts/sortUtils.js";
 
 export function CreatorPage({ stepId = "class" } = {}) {
   const page = document.createElement("section");
@@ -113,7 +115,8 @@ export function CreatorPage({ stepId = "class" } = {}) {
       choiceSection({
         title: "Trasfondo",
         helper: "Aporta aumentos de caracteristica, habilidades, dote inicial, equipo y monedas.",
-        content: ChoiceGrid({
+        content: originChoiceGrid({
+          type: "background",
           items: creationEngine.getChoices("background"),
           selectedIds: character.backgroundId ? [character.backgroundId] : [],
           onSelect(id) {
@@ -125,7 +128,8 @@ export function CreatorPage({ stepId = "class" } = {}) {
       choiceSection({
         title: "Especie",
         helper: "Aporta tamano, velocidad, idiomas y rasgos que se copian a la hoja.",
-        content: ChoiceGrid({
+        content: originChoiceGrid({
+          type: "species",
           items: creationEngine.getChoices("species"),
           selectedIds: character.speciesId ? [character.speciesId] : [],
           onSelect(id) {
@@ -177,6 +181,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
       }),
       ProgressionList({ title: "Rasgos de clase hasta nivel 5", entries: derived.classFeaturesByLevel }),
       ProgressionList({ title: "Rasgos de subclase hasta nivel 5", entries: derived.subclassFeaturesByLevel }),
+      ...(derived.spellcasting.canCast ? [renderSpellSlotsPanel(derived)] : []),
       CalculationGrid([
         {
           title: "Nivel",
@@ -193,11 +198,6 @@ export function CreatorPage({ stepId = "class" } = {}) {
           value: derived.hitPointMaximum,
           formula: derived.hitPointFormula,
         },
-        ...(derived.spellcasting.canCast ? [{
-          title: "Espacios de conjuro",
-          value: Array.isArray(derived.spellcasting.slotText) ? derived.spellcasting.slotText.join(" / ") : derived.spellcasting.slotText,
-          formula: "Se calculan desde la tabla de lanzamiento de conjuros, no como rasgos de clase.",
-        }] : []),
         {
           title: "Nivel 4",
           value: level4Summary(character),
@@ -448,9 +448,9 @@ export function CreatorPage({ stepId = "class" } = {}) {
     const controls = document.createElement("div");
     controls.className = "sheet-adjustments";
 
-    const armorOptions = derived.equipmentItems.filter((item) => item.category === "armor");
-    const shieldOptions = derived.equipmentItems.filter((item) => item.category === "shield");
-    const weaponOptions = derived.equipmentItems.filter((item) => item.category === "weapon");
+    const armorOptions = sortByVisibleName(derived.equipmentItems.filter((item) => item.category === "armor"));
+    const shieldOptions = sortByVisibleName(derived.equipmentItems.filter((item) => item.category === "shield"));
+    const weaponOptions = sortByVisibleName(derived.equipmentItems.filter((item) => item.category === "weapon"));
 
     controls.append(
       selectField({
@@ -732,7 +732,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
       const grid = document.createElement("div");
       grid.className = "choice-grid";
 
-      const options = choice.from || [];
+      const options = sortChoiceOptions(choice);
 
       if (!options.length) {
         section.append(emptyPanel(`Completa primero: ${choice.requiresChoiceLabel || "la eleccion anterior"}.`));
@@ -743,12 +743,14 @@ export function CreatorPage({ stepId = "class" } = {}) {
       options.forEach((option) => {
         const button = document.createElement("button");
         const selected = choice.selected.includes(option);
+        const spell = spellChoiceCardData(choice, option);
         button.type = "button";
         button.className = selected ? "choice-card is-selected" : "choice-card";
         button.setAttribute("aria-pressed", selected ? "true" : "false");
         button.innerHTML = `
           <span class="choice-card-mode">${displayValue(choice.type)}</span>
-          <strong>${displayChoiceOption(choice, option)}</strong>
+          <strong>${spell?.name || displayChoiceOption(choice, option)}</strong>
+          ${spell ? `<small class="choice-card-detail">${spell.detail}</small>` : ""}
           <span>${selected ? selectedChoiceLabel(choice, character) : availableChoiceLabel(choice, character)}</span>
         `;
         button.addEventListener("click", () => toggleRuleChoice(choice, option));
@@ -818,6 +820,33 @@ export function CreatorPage({ stepId = "class" } = {}) {
   return page;
 }
 
+function renderSpellSlotsPanel(derived) {
+  const panel = document.createElement("section");
+  panel.className = "spell-slot-panel";
+  const entries = derived.spellcasting.slotEntries || [];
+  const slotMarkup = entries.length
+    ? entries.map((entry) => `
+      <li>
+        <span>Nivel ${entry.level}</span>
+        <strong>${entry.count} espacio${entry.count === 1 ? "" : "s"}</strong>
+      </li>
+    `).join("")
+    : "<li><span>Espacios</span><strong>Sin espacios propios</strong></li>";
+
+  panel.innerHTML = `
+    <div>
+      <span>Magia</span>
+      <h3>Espacios de conjuro</h3>
+    </div>
+    <ul class="spell-slot-list">
+      ${slotMarkup}
+    </ul>
+    <p>Cuando lanzas un conjuro de nivel 1 o superior, marca un espacio de conjuro del mismo nivel o superior. Los trucos no consumen espacios.</p>
+  `;
+
+  return panel;
+}
+
 function choiceSection({ title, helper, content }) {
   const section = document.createElement("section");
   section.className = "choice-section";
@@ -829,6 +858,218 @@ function choiceSection({ title, helper, content }) {
   `;
   section.append(content);
   return section;
+}
+
+function originChoiceGrid({ type, items, selectedIds = [], onSelect }) {
+  const grid = document.createElement("div");
+  grid.className = "choice-grid origin-guide-grid";
+  grid.append(...items.map((item) => originChoiceCard({
+    type,
+    item,
+    selected: selectedIds.includes(item.id),
+    onSelect,
+  })));
+  return grid;
+}
+
+function originChoiceCard({ type, item, selected, onSelect }) {
+  const card = document.createElement("article");
+  card.className = selected ? "origin-guide-card is-selected" : "origin-guide-card";
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "origin-guide-select";
+  button.setAttribute("aria-pressed", selected ? "true" : "false");
+  button.innerHTML = `
+    <span class="choice-card-mode">${type === "background" ? "Trasfondo" : "Especie"}</span>
+    <strong>${displayName(item)}</strong>
+    <span>${item.summary || "Preparado para reglas futuras."}</span>
+  `;
+
+  const helpButton = document.createElement("button");
+  helpButton.type = "button";
+  helpButton.className = "origin-guide-help";
+  helpButton.setAttribute("aria-label", `Ver detalle de ${displayName(item)}`);
+  helpButton.textContent = "?";
+
+  let longPressTimer = 0;
+  let ignoreNextSelect = false;
+
+  button.addEventListener("click", () => {
+    if (ignoreNextSelect) {
+      ignoreNextSelect = false;
+      return;
+    }
+
+    onSelect(item.id);
+  });
+
+  card.addEventListener("mouseenter", () => {
+    if (canHover()) {
+      showOriginGuidePopover({ anchor: card, type, item });
+    }
+  });
+
+  card.addEventListener("mouseleave", () => {
+    if (canHover()) {
+      hideOriginGuidePopover();
+    }
+  });
+
+  card.addEventListener("pointerdown", () => {
+    if (canHover()) {
+      return;
+    }
+
+    longPressTimer = window.setTimeout(() => {
+      ignoreNextSelect = true;
+      showOriginGuidePopover({ anchor: card, type, item });
+    }, 520);
+  });
+
+  ["pointerup", "pointercancel", "pointerleave"].forEach((eventName) => {
+    card.addEventListener(eventName, () => {
+      window.clearTimeout(longPressTimer);
+    });
+  });
+
+  helpButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    showOriginGuidePopover({ anchor: card, type, item });
+  });
+  helpButton.addEventListener("pointerdown", (event) => {
+    event.stopPropagation();
+  });
+
+  card.append(button, helpButton);
+  return card;
+}
+
+function showOriginGuidePopover({ anchor, type, item }) {
+  hideOriginGuidePopover();
+
+  const popover = document.createElement("aside");
+  popover.className = "origin-guide-popover";
+  popover.setAttribute("role", "tooltip");
+  popover.innerHTML = `
+    <div class="origin-guide-popover-header">
+      <span>${type === "background" ? "Detalle de trasfondo" : "Detalle de especie"}</span>
+      <strong>${displayName(item)}</strong>
+    </div>
+    <dl>
+      ${originGuideRows(type, item).map(([label, value]) => `
+        <div>
+          <dt>${label}</dt>
+          <dd>${value}</dd>
+        </div>
+      `).join("")}
+    </dl>
+  `;
+
+  document.body.append(popover);
+  positionOriginGuidePopover(popover, anchor);
+
+  window.setTimeout(() => {
+    document.addEventListener("pointerdown", dismissOriginGuidePopover, true);
+    window.addEventListener("scroll", hideOriginGuidePopover, true);
+    window.addEventListener("resize", hideOriginGuidePopover);
+  }, 0);
+}
+
+function positionOriginGuidePopover(popover, anchor) {
+  const margin = 16;
+  const gap = 12;
+  const anchorRect = anchor.getBoundingClientRect();
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const maxWidth = Math.min(360, viewportWidth - margin * 2);
+
+  popover.style.width = `${maxWidth}px`;
+  const popoverRect = popover.getBoundingClientRect();
+  const placeBelow = anchorRect.bottom + gap + popoverRect.height < viewportHeight - margin;
+  const placeRight = anchorRect.right + gap + maxWidth < viewportWidth - margin;
+  const placeLeft = anchorRect.left - gap - maxWidth > margin;
+
+  let left = (viewportWidth - maxWidth) / 2;
+  let top = placeBelow ? anchorRect.bottom + gap : anchorRect.top - gap - popoverRect.height;
+
+  if (viewportWidth > 760) {
+    left = placeRight ? anchorRect.right + gap : placeLeft ? anchorRect.left - gap - maxWidth : anchorRect.left;
+    top = anchorRect.top;
+  }
+
+  popover.style.left = `${clamp(left, margin, viewportWidth - maxWidth - margin)}px`;
+  popover.style.top = `${clamp(top, margin, viewportHeight - popoverRect.height - margin)}px`;
+}
+
+function dismissOriginGuidePopover(event) {
+  if (!event.target.closest(".origin-guide-popover, .origin-guide-card")) {
+    hideOriginGuidePopover();
+  }
+}
+
+function hideOriginGuidePopover() {
+  document.querySelectorAll(".origin-guide-popover").forEach((popover) => popover.remove());
+  document.removeEventListener("pointerdown", dismissOriginGuidePopover, true);
+  window.removeEventListener("scroll", hideOriginGuidePopover, true);
+  window.removeEventListener("resize", hideOriginGuidePopover);
+}
+
+function canHover() {
+  return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+}
+
+function originGuideRows(type, item) {
+  if (type === "background") {
+    return [
+      ["Sube", formatValueList(item.abilityOptions)],
+      ["Dote", displayValue(item.grants?.featId)],
+      ["Competencias", formatValueList(item.grants?.skills)],
+      ["Herramienta", formatBackgroundTool(item)],
+      ["Equipo", formatEquipmentList(item.grants?.equipment)],
+      ["Ideal para", item.guide?.advice || "personajes que aprovechan sus competencias y equipo inicial."],
+    ];
+  }
+
+  return [
+    ["Tamano", displayValue(item.size)],
+    ["Velocidad", `${item.speed} pies`],
+    ["Idiomas", formatValueList(item.languages)],
+    ["Rasgos", formatTraitList(item.grants?.traits)],
+    ["Opciones", formatChoiceList(item.choices)],
+    ["Ideal para", item.guide?.advice || "personajes que quieren apoyarse en estos rasgos de especie."],
+  ];
+}
+
+function formatValueList(values) {
+  return (values || []).map(displayValue).join(", ") || "No aplica";
+}
+
+function formatTraitList(traits) {
+  return (traits || []).map((trait) => trait.label || trait.name).join(", ") || "No aplica";
+}
+
+function formatChoiceList(choices) {
+  const visibleChoices = (choices || []).filter((choice) => !choice.id.endsWith("-languages"));
+  return visibleChoices.map((choice) => choice.label || choice.id).join(", ") || "Idiomas de origen";
+}
+
+function formatBackgroundTool(background) {
+  const fixedTool = background.grants?.tool;
+
+  if (fixedTool && !fixedTool.endsWith("-choice")) {
+    return displayValue(fixedTool);
+  }
+
+  const choice = background.choices?.find((item) => item.type?.toLowerCase().includes("tool")
+    || item.type === "gamingSet"
+    || item.type === "musicalInstrument");
+  return choice?.label || "Herramienta a eleccion";
+}
+
+function formatEquipmentList(itemIds) {
+  const labels = (itemIds || []).map((itemId) => displayName(creationEngine.getEquipment(itemId) || itemId));
+  return labels.length ? labels.join(", ") : "No aplica";
 }
 
 function equipmentOptionGrid({ options, selectedId, onSelect }) {
@@ -925,6 +1166,59 @@ function availableChoiceLabel(choice, character) {
   }
 
   return "Disponible";
+}
+
+function spellChoiceCardData(choice, option) {
+  if (!["cantrip", "spell", "spellbook"].includes(choice.type)) {
+    return null;
+  }
+
+  const spell = resolveSpell(option);
+  const detail = getSpellSheetDetail(spell?.id || option);
+
+  if (!spell) {
+    return {
+      name: detail?.label || displayChoiceOption(choice, option),
+      detail: "Nivel por confirmar",
+    };
+  }
+
+  return {
+    name: detail?.label || displayValue(spell.id) || displayName(spell),
+    detail: [
+      spell.level === 0 ? "Truco" : `Nivel ${spell.level}`,
+      spellSchoolLabel(spell.school),
+      formatSpellTiming(spell.castingTime),
+      formatSpellTiming(spell.range),
+    ].filter(Boolean).join(" | "),
+  };
+}
+
+function spellSchoolLabel(school) {
+  const labels = {
+    Abjuration: "Abjuracion",
+    Conjuration: "Conjuracion",
+    Divination: "Adivinacion",
+    Enchantment: "Encantamiento",
+    Evocation: "Evocacion",
+    Illusion: "Ilusion",
+    Necromancy: "Nigromancia",
+    Transmutation: "Transmutacion",
+  };
+
+  return labels[school] || displayValue(school);
+}
+
+function formatSpellTiming(value) {
+  return String(value || "")
+    .replace(/1 bonus action|bonus action/gi, "accion adicional")
+    .replace(/1 reaction|reaction/gi, "reaccion")
+    .replace(/1 action|action/gi, "accion")
+    .replace(/self/gi, "personal")
+    .replace(/touch/gi, "toque")
+    .replace(/feet/gi, "pies")
+    .replace(/foot/gi, "pie")
+    .toLowerCase();
 }
 
 function clampPointBuyAbilities(abilities) {
