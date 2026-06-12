@@ -1,26 +1,18 @@
 import { themes } from "../data/themes.js";
 
-export function ThemeSwitcher({ activeTheme, onThemeChange }) {
-  const label = document.createElement("label");
-  label.className = "section-stack";
-  label.innerHTML = `<span class="nav-section-title">Tema</span>`;
+export function ThemeSwitcher({ activeTheme }) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "section-stack";
+  wrapper.innerHTML = `<span class="nav-section-title">Tema automatico</span>`;
 
-  const select = document.createElement("select");
-  select.className = "theme-select";
-  select.setAttribute("aria-label", "Seleccionar tema");
+  const currentTheme = themes.find((theme) => theme.className === activeTheme) || themes[0];
+  const indicator = document.createElement("div");
+  indicator.className = "theme-indicator";
+  indicator.innerHTML = `
+    <span data-theme-indicator-label>${currentTheme.label}</span>
+    <small>Sigue la clase elegida.</small>
+  `;
 
-  themes.forEach((theme) => {
-    const option = document.createElement("option");
-    option.value = theme.className;
-    option.textContent = theme.label;
-    option.selected = theme.className === activeTheme;
-    select.append(option);
-  });
-
-  select.addEventListener("change", () => {
-    onThemeChange(select.value);
-  });
-
-  label.append(select);
-  return label;
+  wrapper.append(indicator);
+  return wrapper;
 }

@@ -21,73 +21,73 @@
 }
 
 .mode-dark.theme-fighter {
-  --color-accent: #df7569;
-  --color-accent-strong: #ffd7d2;
-  --color-accent-soft: #482720;
+  --color-accent: #f06f62;
+  --color-accent-strong: #ffd9d5;
+  --color-accent-soft: #4b2422;
 }
 
 .mode-dark.theme-cleric {
-  --color-accent: #e2b96c;
-  --color-accent-strong: #fff0c8;
-  --color-accent-soft: #44331a;
+  --color-accent: #e4bd68;
+  --color-accent-strong: #fff1c6;
+  --color-accent-soft: #473414;
 }
 
 .mode-dark.theme-barbarian {
-  --color-accent: #e28a64;
-  --color-accent-strong: #ffd9c7;
-  --color-accent-soft: #4b281b;
+  --color-accent: #f07f4f;
+  --color-accent-strong: #ffd9c5;
+  --color-accent-soft: #502516;
 }
 
 .mode-dark.theme-bard {
-  --color-accent: #d99bd8;
-  --color-accent-strong: #ffe1ff;
-  --color-accent-soft: #432744;
+  --color-accent: #e490e5;
+  --color-accent-strong: #ffe0ff;
+  --color-accent-soft: #472349;
 }
 
 .mode-dark.theme-druid {
-  --color-accent: #9cc982;
-  --color-accent-strong: #e8ffd9;
-  --color-accent-soft: #2d3d25;
+  --color-accent: #88cc78;
+  --color-accent-strong: #e3ffd8;
+  --color-accent-soft: #263f22;
 }
 
 .mode-dark.theme-monk {
-  --color-accent: #d1ac79;
-  --color-accent-strong: #ffebcf;
-  --color-accent-soft: #42311f;
+  --color-accent: #70c5a7;
+  --color-accent-strong: #d8fff0;
+  --color-accent-soft: #213f34;
 }
 
 .mode-dark.theme-paladin {
-  --color-accent: #e5c36d;
-  --color-accent-strong: #fff2c4;
-  --color-accent-soft: #443719;
+  --color-accent: #f0c84f;
+  --color-accent-strong: #fff1ba;
+  --color-accent-soft: #4a3810;
 }
 
 .mode-dark.theme-ranger {
-  --color-accent: #abc87b;
-  --color-accent-strong: #efffd5;
-  --color-accent-soft: #303d24;
+  --color-accent: #b2c76e;
+  --color-accent-strong: #f3ffd0;
+  --color-accent-soft: #313d1f;
 }
 
 .mode-dark.theme-rogue {
-  --color-accent: #c7a48c;
-  --color-accent-strong: #ffe5d4;
-  --color-accent-soft: #3e3028;
+  --color-accent: #9ba9c7;
+  --color-accent-strong: #e1e9ff;
+  --color-accent-soft: #293244;
 }
 
 .mode-dark.theme-sorcerer {
-  --color-accent: #e792b5;
-  --color-accent-strong: #ffd8e8;
-  --color-accent-soft: #452938;
+  --color-accent: #ef83ad;
+  --color-accent-strong: #ffd5e6;
+  --color-accent-soft: #4b2336;
 }
 
 .mode-dark.theme-warlock {
-  --color-accent: #b99ad9;
-  --color-accent-strong: #ead8ff;
-  --color-accent-soft: #342741;
+  --color-accent: #b58ae6;
+  --color-accent-strong: #ead5ff;
+  --color-accent-soft: #35234d;
 }
 
 .mode-dark.theme-artificer {
-  --color-accent: #8fc3ad;
-  --color-accent-strong: #dcfff0;
-  --color-accent-soft: #243c34;
+  --color-accent: #6fc5c2;
+  --color-accent-strong: #d4fffc;
+  --color-accent-soft: #203f3e;
 }

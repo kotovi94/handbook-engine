@@ -1,13 +1,17 @@
 import { Layout } from "../components/Layout.js";
+import { classRegistry } from "../data/classes.js";
+import { themes } from "../data/themes.js";
+import { getCharacter } from "./characterState.js";
 import { applyDisplayMode, applyTheme } from "./theme.js";
 import { getInitialRoute, getRouteTheme, parseHashRoute, renderRoute } from "./router.js";
 
 const appRoot = document.querySelector("#app");
+const displayModeStorageKey = "handbook-engine-display-mode";
 
 const state = {
   route: getInitialRoute(),
   theme: "theme-default",
-  isDarkMode: false,
+  isDarkMode: loadDisplayMode() === "dark",
 };
 
 function navigate(route) {
@@ -18,13 +22,9 @@ function navigate(route) {
   window.location.hash = `/${route}`;
 }
 
-function setTheme(theme) {
-  state.theme = theme;
-  renderApp();
-}
-
 function setDarkMode(isDarkMode) {
   state.isDarkMode = isDarkMode;
+  saveDisplayMode(isDarkMode);
   renderApp();
 }
 
@@ -42,7 +42,6 @@ function renderApp() {
         navigate(route);
         layout.closeSidebar();
       },
-      onThemeChange: setTheme,
       onDarkModeChange: setDarkMode,
     });
 
@@ -73,9 +72,52 @@ function showStartupError(error) {
 window.addEventListener("hashchange", () => {
   const route = parseHashRoute(window.location.hash) || "creator";
   state.route = route;
-  state.theme = getRouteTheme(route);
+  state.theme = getActiveTheme(route);
   renderApp();
 });
 
-state.theme = getRouteTheme(state.route);
+window.addEventListener("handbook-character-class-change", () => {
+  if (!usesCharacterTheme(state.route)) {
+    return;
+  }
+
+  state.theme = getCharacterTheme();
+  applyTheme(state.theme);
+  updateThemeIndicator(state.theme);
+});
+
+function getActiveTheme(route) {
+  return usesCharacterTheme(route) ? getCharacterTheme() : getRouteTheme(route);
+}
+
+function usesCharacterTheme(route) {
+  return route === "creator"
+    || route.startsWith("creator:")
+    || route === "summary"
+    || route === "print-sheet";
+}
+
+function getCharacterTheme() {
+  const classId = getCharacter().classId;
+  return classRegistry[classId]?.theme || "theme-default";
+}
+
+function loadDisplayMode() {
+  return window.localStorage.getItem(displayModeStorageKey) || "light";
+}
+
+function saveDisplayMode(isDarkMode) {
+  window.localStorage.setItem(displayModeStorageKey, isDarkMode ? "dark" : "light");
+}
+
+function updateThemeIndicator(themeClassName) {
+  const label = document.querySelector("[data-theme-indicator-label]");
+  const theme = themes.find((item) => item.className === themeClassName) || themes[0];
+
+  if (label) {
+    label.textContent = theme.label;
+  }
+}
+
+state.theme = getActiveTheme(state.route);
 renderApp();

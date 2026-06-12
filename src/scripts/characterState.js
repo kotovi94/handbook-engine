@@ -23,6 +23,7 @@ const defaultCharacter = {
   level4Mode: "",
   level4FeatId: "",
   level4AbilityIncreases: {},
+  appearance: {},
   choiceSelections: {},
   baseAbilities: { ...abilityScores },
   backgroundAbilityIncreases: {},
@@ -36,6 +37,7 @@ export function getCharacter() {
 }
 
 export function updateCharacter(patch) {
+  const previousClassId = character.classId;
   const baseAbilities = {
     ...character.baseAbilities,
     ...(patch.baseAbilities || {}),
@@ -48,6 +50,10 @@ export function updateCharacter(patch) {
     ...character.level4AbilityIncreases,
     ...(patch.level4AbilityIncreases || {}),
   };
+  const appearance = {
+    ...character.appearance,
+    ...(patch.appearance || {}),
+  };
   const shouldRecalculateAbilities = patch.baseAbilities || patch.backgroundAbilityIncreases || patch.level4AbilityIncreases;
 
   character = {
@@ -56,6 +62,7 @@ export function updateCharacter(patch) {
     baseAbilities,
     backgroundAbilityIncreases,
     level4AbilityIncreases,
+    appearance,
     abilities: {
       ...(shouldRecalculateAbilities
         ? calculateFinalAbilities(baseAbilities, backgroundAbilityIncreases, level4AbilityIncreases)
@@ -70,12 +77,15 @@ export function updateCharacter(patch) {
     },
   };
   saveCharacter();
+  notifyClassChange(previousClassId, character.classId);
   return getCharacter();
 }
 
 export function resetCharacter() {
+  const previousClassId = character.classId;
   character = structuredClone(defaultCharacter);
   saveCharacter();
+  notifyClassChange(previousClassId, character.classId);
   return getCharacter();
 }
 
@@ -92,11 +102,25 @@ function loadCharacter() {
       ...defaultCharacter.level4AbilityIncreases,
       ...(loaded.level4AbilityIncreases || {}),
     };
+    loaded.appearance = {
+      ...defaultCharacter.appearance,
+      ...(loaded.appearance || {}),
+    };
     loaded.abilities = calculateFinalAbilities(loaded.baseAbilities, loaded.backgroundAbilityIncreases, loaded.level4AbilityIncreases);
     return loaded;
   } catch {
     return structuredClone(defaultCharacter);
   }
+}
+
+function notifyClassChange(previousClassId, nextClassId) {
+  if (previousClassId === nextClassId || typeof window === "undefined") {
+    return;
+  }
+
+  window.dispatchEvent(new CustomEvent("handbook-character-class-change", {
+    detail: { classId: nextClassId },
+  }));
 }
 
 function saveCharacter() {

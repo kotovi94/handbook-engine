@@ -12,6 +12,12 @@ export const creationSteps = [
     helper: "El origen combina trasfondo, especie e idiomas. Estas elecciones preparan dotes, habilidades, rasgos y equipo.",
   },
   {
+    id: "appearance",
+    label: "Apariencia",
+    title: "Apariencia del personaje",
+    helper: "Paso opcional para crear una descripcion visual y un prompt copiables. Usa como base la clase, especie, trasfondo y subclase elegidos.",
+  },
+  {
     id: "abilities",
     label: "Atributos",
     title: "Atributos y aumentos",

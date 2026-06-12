@@ -3,7 +3,7 @@ import { HeaderActions } from "./HeaderActions.js";
 import { Sidebar } from "./Sidebar.js";
 import { ThemeSwitcher } from "./ThemeSwitcher.js";
 
-export function Layout({ activeRoute, activeTheme, isDarkMode, onNavigate, onThemeChange, onDarkModeChange }) {
+export function Layout({ activeRoute, activeTheme, isDarkMode, onNavigate, onDarkModeChange }) {
   const shell = document.createElement("div");
   shell.className = "app-shell";
 
@@ -14,7 +14,7 @@ export function Layout({ activeRoute, activeTheme, isDarkMode, onNavigate, onThe
 
   const sidebar = Sidebar({ activeRoute, onNavigate });
   const themeSlot = sidebar.querySelector("[data-sidebar-footer]");
-  themeSlot.append(ThemeSwitcher({ activeTheme, onThemeChange }));
+  themeSlot.append(ThemeSwitcher({ activeTheme }));
 
   const mainLayout = document.createElement("div");
   mainLayout.className = "main-layout";
