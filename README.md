@@ -1,6 +1,6 @@
-# Handbook Engine
+# Compendio D20 Travesias
 
-Aplicacion web para guiar la creacion de personajes de Dungeons & Dragons 5e 2024 y ayudar a jugadores a completar hojas fisicas durante sesiones presenciales.
+Aplicacion web oficial del servidor D20 Travesias para guiar la creacion de personajes de Dungeons & Dragons 5e 2024 y ayudar a jugadores a completar hojas fisicas durante sesiones presenciales.
 
 ## Arquitectura
 

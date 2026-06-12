@@ -1,5 +1,7 @@
 import { CalculationGrid } from "../components/CalculationBox.js";
 import { ChoiceGrid } from "../components/ChoiceCard.js";
+import { HeroBanner } from "../components/HeroBanner.js";
+import { Icon } from "../components/Icon.js";
 import { ProgressionList } from "../components/ProgressionList.js";
 import { SheetSectionList } from "../components/SheetField.js";
 import { Stepper } from "../components/Stepper.js";
@@ -12,6 +14,7 @@ import { getSpellSheetDetail } from "../scripts/spellSheetDetails.js";
 import { rulesEngine } from "../scripts/rulesEngine.js";
 import { mapCharacterToSheetSections } from "../scripts/sheetMapper.js";
 import { resolveSpell, sortByVisibleName, sortChoiceOptions } from "../scripts/sortUtils.js";
+import { getVisualIcon } from "../scripts/visualIdentity.js";
 
 export function CreatorPage({ stepId = "class" } = {}) {
   const page = document.createElement("section");
@@ -35,6 +38,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
       </div>
       <div class="panel"><p>${step.helper}</p></div>
     `;
+    main.prepend(HeroBanner());
 
     main.append(Stepper({
       steps: creationEngine.getSteps(),
@@ -1328,6 +1332,10 @@ function originChoiceCard({ type, item, selected, onSelect }) {
     <strong>${displayName(item)}</strong>
     <span>${item.summary || "Preparado para reglas futuras."}</span>
   `;
+  const iconName = getVisualIcon(item);
+  if (iconName) {
+    button.prepend(Icon({ name: iconName, className: "choice-card-icon" }));
+  }
 
   const helpButton = document.createElement("button");
   helpButton.type = "button";

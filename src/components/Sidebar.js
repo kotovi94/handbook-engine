@@ -1,4 +1,5 @@
 import { navigationSections } from "../data/navigation.js";
+import { Icon } from "./Icon.js";
 
 export function Sidebar({ activeRoute, onNavigate }) {
   const sidebar = document.createElement("aside");
@@ -7,7 +8,7 @@ export function Sidebar({ activeRoute, onNavigate }) {
 
   sidebar.innerHTML = `
     <div class="sidebar-header">
-      <h1 class="sidebar-title">Handbook Engine</h1>
+      <h1 class="sidebar-title">Compendio D20 Travesias</h1>
       <span class="sidebar-subtitle">D&D 5e 2024</span>
     </div>
     <nav class="sidebar-body" aria-label="Navegacion principal"></nav>
@@ -33,10 +34,9 @@ export function Sidebar({ activeRoute, onNavigate }) {
       link.href = `#/${item.route}`;
       link.className = item.route === activeRoute ? "nav-link is-active" : "nav-link";
       link.dataset.route = item.route;
-      link.innerHTML = `
-        <span class="nav-link-icon" aria-hidden="true">${item.icon}</span>
-        <span>${item.label}</span>
-      `;
+      const label = document.createElement("span");
+      label.textContent = item.label;
+      link.append(Icon({ name: item.icon, className: "nav-link-icon" }), label);
 
       link.addEventListener("click", (event) => {
         event.preventDefault();

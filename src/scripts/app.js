@@ -1,3 +1,4 @@
+import { AppIntro } from "../components/AppIntro.js";
 import { Layout } from "../components/Layout.js";
 import { classRegistry } from "../data/classes.js";
 import { themes } from "../data/themes.js";
@@ -63,7 +64,7 @@ function showStartupError(error) {
   panel.innerHTML = `
     <section>
       <p class="page-kicker">Error de arranque</p>
-      <h1>Handbook Engine no pudo pintar la interfaz</h1>
+      <h1>Compendio D20 Travesias no pudo pintar la interfaz</h1>
       <p>${message}</p>
       <pre>${stack}</pre>
     </section>
@@ -168,3 +169,8 @@ function updateThemeIndicator(themeClassName) {
 
 state.theme = getActiveTheme(state.route);
 renderApp();
+
+const appIntro = AppIntro();
+if (appIntro) {
+  document.body.append(appIntro);
+}

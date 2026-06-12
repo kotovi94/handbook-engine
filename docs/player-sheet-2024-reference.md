@@ -4,7 +4,7 @@ Archivo de referencia: `D:\Hojas del jugador en 2024.pdf`
 
 ## Observacion tecnica
 
-El PDF tiene 2 paginas y no contiene campos rellenables detectables. Handbook Engine debe generar instrucciones para completar la hoja fisica, no intentar escribir sobre campos PDF internos.
+El PDF tiene 2 paginas y no contiene campos rellenables detectables. Compendio D20 Travesias debe generar instrucciones para completar la hoja fisica, no intentar escribir sobre campos PDF internos.
 
 ## Pagina 1
 

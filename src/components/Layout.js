@@ -30,7 +30,7 @@ export function Layout({ activeRoute, activeTheme, isDarkMode, onNavigate, onDar
   });
 
   const headerTitle = document.createElement("strong");
-  headerTitle.textContent = "Handbook Engine";
+  headerTitle.textContent = "Compendio D20 Travesias";
 
   mainHeader.append(
     menuButton,

@@ -3,11 +3,11 @@ export function HomePage() {
   page.className = "section-stack";
   page.innerHTML = `
     <div>
-      <p class="page-kicker">Asistente</p>
-      <h2 class="page-title">Handbook Engine</h2>
+      <p class="page-kicker">D20 Travesias</p>
+      <h2 class="page-title">Compendio D20 Travesias</h2>
     </div>
     <div class="panel">
-      <p>Herramienta para guiar la creacion de personajes y decir que escribir en una hoja fisica.</p>
+      <p>Compendio oficial del servidor para crear personajes y preparar sus hojas de D&D 5e 2024.</p>
     </div>
   `;
 

@@ -30,7 +30,9 @@
   .pending-panel,
   .stepper,
   .creator-actions,
-  .summary-panel {
+  .summary-panel,
+  .hero-banner,
+  .app-intro {
     display: none;
   }
 

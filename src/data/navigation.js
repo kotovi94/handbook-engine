@@ -1,10 +1,11 @@
 import { classes } from "./rules/index.js";
 import { sortByVisibleName } from "../scripts/sortUtils.js";
+import { getClassIcon } from "../scripts/visualIdentity.js";
 
 const classNavigationItems = sortByVisibleName(classes).map((classData) => ({
   label: classData.label || classData.name || classData.id,
   route: `class:${classData.id}`,
-  icon: (classData.label || classData.name || classData.id).slice(0, 1).toUpperCase(),
+  icon: getClassIcon(classData.id),
   theme: classData.theme || "theme-default",
 }));
 
@@ -15,25 +16,25 @@ export const navigationSections = [
       {
         label: "Crear personaje",
         route: "creator",
-        icon: "P",
+        icon: "book",
         theme: "theme-default",
       },
       {
         label: "Resumen",
         route: "summary",
-        icon: "R",
+        icon: "shield",
         theme: "theme-default",
       },
       {
         label: "Apariencia",
         route: "appearance",
-        icon: "A",
+        icon: "spark",
         theme: "theme-default",
       },
       {
         label: "Imprimir hoja",
         route: "print-sheet",
-        icon: "I",
+        icon: "quill",
         theme: "theme-default",
       },
     ],
@@ -44,13 +45,13 @@ export const navigationSections = [
       {
         label: "Clases",
         route: "classes",
-        icon: "C",
+        icon: "helm",
         theme: "theme-default",
       },
       {
         label: "Busqueda",
         route: "search",
-        icon: "Q",
+        icon: "search",
         theme: "theme-default",
       },
     ],
