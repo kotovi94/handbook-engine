@@ -7,6 +7,7 @@ import { getInitialRoute, getRouteTheme, parseHashRoute, renderRoute } from "./r
 
 const appRoot = document.querySelector("#app");
 const displayModeStorageKey = "handbook-engine-display-mode";
+const themeIntroStorageKey = "handbook-engine-theme-intro-seen";
 
 const state = {
   route: getInitialRoute(),
@@ -47,6 +48,7 @@ function renderApp() {
 
     layout.pageRoot.replaceChildren(renderRoute(state.route));
     appRoot.append(layout.element);
+    showThemeIntroNotice();
   } catch (error) {
     showStartupError(error);
   }
@@ -109,6 +111,50 @@ function loadDisplayMode() {
 
 function saveDisplayMode(isDarkMode) {
   window.localStorage.setItem(displayModeStorageKey, isDarkMode ? "dark" : "light");
+}
+
+function showThemeIntroNotice() {
+  if (window.localStorage.getItem(themeIntroStorageKey)) {
+    return;
+  }
+
+  document.querySelectorAll(".theme-intro-notice").forEach((notice) => notice.remove());
+
+  const notice = document.createElement("aside");
+  notice.className = "theme-intro-notice";
+  notice.setAttribute("role", "dialog");
+  notice.setAttribute("aria-label", "Preferencia de tema");
+  notice.innerHTML = `
+    <div>
+      <span>Antes de empezar</span>
+      <h2>Elige como quieres ver la app</h2>
+      <p>El modo claro u oscuro cambia la lectura general. El color del tema se ajusta automaticamente a la clase elegida; si aun no hay clase, se usa el tema Default.</p>
+    </div>
+    <div class="theme-intro-actions">
+      <button type="button" class="button" data-mode="light">Modo claro</button>
+      <button type="button" class="button" data-mode="dark">Modo oscuro</button>
+      <button type="button" class="button secondary-button" data-dismiss>Mantener por ahora</button>
+    </div>
+  `;
+
+  notice.querySelector('[data-mode="light"]').addEventListener("click", () => {
+    dismissThemeIntroNotice(notice);
+    setDarkMode(false);
+  });
+  notice.querySelector('[data-mode="dark"]').addEventListener("click", () => {
+    dismissThemeIntroNotice(notice);
+    setDarkMode(true);
+  });
+  notice.querySelector("[data-dismiss]").addEventListener("click", () => {
+    dismissThemeIntroNotice(notice);
+  });
+
+  document.body.append(notice);
+}
+
+function dismissThemeIntroNotice(notice) {
+  window.localStorage.setItem(themeIntroStorageKey, "true");
+  notice.remove();
 }
 
 function updateThemeIndicator(themeClassName) {
