@@ -94,6 +94,7 @@ function usesCharacterTheme(route) {
   return route === "creator"
     || route.startsWith("creator:")
     || route === "summary"
+    || route === "appearance"
     || route === "print-sheet";
 }
 

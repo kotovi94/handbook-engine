@@ -1,5 +1,6 @@
 import { classRegistry } from "../data/classes.js";
 import { navigationSections } from "../data/navigation.js";
+import { AppearancePage } from "../pages/AppearancePage.js";
 import { BuildPage } from "../pages/BuildPage.js";
 import { BuildsPage } from "../pages/BuildsPage.js";
 import { CharacterSummaryPage } from "../pages/CharacterSummaryPage.js";
@@ -63,6 +64,10 @@ export function renderRoute(route) {
 
   if (route === "summary") {
     return CharacterSummaryPage();
+  }
+
+  if (route === "appearance") {
+    return AppearancePage();
   }
 
   if (route === "print-sheet") {

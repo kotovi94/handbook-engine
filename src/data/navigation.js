@@ -25,6 +25,12 @@ export const navigationSections = [
         theme: "theme-default",
       },
       {
+        label: "Apariencia",
+        route: "appearance",
+        icon: "A",
+        theme: "theme-default",
+      },
+      {
         label: "Imprimir hoja",
         route: "print-sheet",
         icon: "I",
