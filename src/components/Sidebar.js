@@ -32,7 +32,9 @@ export function Sidebar({ activeRoute, onNavigate }) {
       const listItem = document.createElement("li");
       const link = document.createElement("a");
       link.href = `#/${item.route}`;
-      link.className = item.route === activeRoute ? "nav-link is-active" : "nav-link";
+      const isActive = item.route === activeRoute
+        || (item.route === "search" && activeRoute.startsWith("search:"));
+      link.className = isActive ? "nav-link is-active" : "nav-link";
       link.dataset.route = item.route;
       const label = document.createElement("span");
       label.textContent = item.label;

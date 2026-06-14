@@ -15,7 +15,7 @@ import { SubclassesPage } from "../pages/SubclassesPage.js";
 import { contentEngine } from "./contentEngine.js";
 
 export function getInitialRoute() {
-  return parseHashRoute(window.location.hash) || "creator";
+  return parseHashRoute(window.location.hash) || "home";
 }
 
 export function parseHashRoute(hash) {
@@ -88,6 +88,14 @@ export function renderRoute(route) {
 
   if (route === "search") {
     return SearchPage();
+  }
+
+  if (route === "search:items") {
+    return SearchPage({ initialTab: "equipment" });
+  }
+
+  if (route === "search:spells") {
+    return SearchPage({ initialTab: "spell" });
   }
 
   if (route.startsWith("class:")) {

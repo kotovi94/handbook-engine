@@ -73,7 +73,7 @@ function showStartupError(error) {
 }
 
 window.addEventListener("hashchange", () => {
-  const route = parseHashRoute(window.location.hash) || "creator";
+  const route = parseHashRoute(window.location.hash) || "home";
   state.route = route;
   state.theme = getActiveTheme(route);
   renderApp();

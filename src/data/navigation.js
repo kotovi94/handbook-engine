@@ -14,6 +14,12 @@ export const navigationSections = [
     title: "Asistente",
     items: [
       {
+        label: "Inicio",
+        route: "home",
+        icon: "compass",
+        theme: "theme-default",
+      },
+      {
         label: "Crear personaje",
         route: "creator",
         icon: "book",

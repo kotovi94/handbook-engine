@@ -10,14 +10,14 @@ const tabs = [
   { id: "spell", label: "Hechizos" },
 ];
 
-export function SearchPage() {
+export function SearchPage({ initialTab = "all" } = {}) {
   const page = document.createElement("section");
   page.className = "section-stack";
   const resultsSlot = document.createElement("div");
   resultsSlot.className = "section-stack";
   const filters = {
     query: "",
-    tab: "all",
+    tab: tabs.some((tab) => tab.id === initialTab) ? initialTab : "all",
     equipmentCategory: "all",
     spellLevel: "all",
     spellClass: "all",
