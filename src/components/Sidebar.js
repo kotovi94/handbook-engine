@@ -31,16 +31,22 @@ export function Sidebar({ activeRoute, onNavigate }) {
     section.items.forEach((item) => {
       const listItem = document.createElement("li");
       const link = document.createElement("a");
-      link.href = `#/${item.route}`;
+      link.href = item.href || `#/${item.route}`;
       const isActive = item.route === activeRoute
         || (item.route === "search" && activeRoute.startsWith("search:"));
       link.className = isActive ? "nav-link is-active" : "nav-link";
-      link.dataset.route = item.route;
+      if (item.route) {
+        link.dataset.route = item.route;
+      }
       const label = document.createElement("span");
       label.textContent = item.label;
       link.append(Icon({ name: item.icon, className: "nav-link-icon" }), label);
 
       link.addEventListener("click", (event) => {
+        if (item.href) {
+          return;
+        }
+
         event.preventDefault();
         onNavigate(item.route);
       });

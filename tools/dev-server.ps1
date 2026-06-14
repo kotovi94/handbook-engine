@@ -40,6 +40,10 @@ try {
 
     $file = $resolved.Path
 
+    if (Test-Path -LiteralPath $file -PathType Container) {
+      $file = Join-Path $file "index.html"
+    }
+
     if (-not (Test-Path -LiteralPath $file -PathType Leaf)) {
       Write-Response $stream 404 "text/plain; charset=utf-8" ([System.Text.Encoding]::UTF8.GetBytes("Not found"))
       $client.Close()

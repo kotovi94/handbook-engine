@@ -43,6 +43,12 @@ export const navigationSections = [
         icon: "quill",
         theme: "theme-default",
       },
+      {
+        label: "Campanas y bitacora",
+        href: "./campaigns/",
+        icon: "map",
+        theme: "theme-default",
+      },
     ],
   },
   {

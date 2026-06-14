@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#15110d">
+  <title>D20 Travesías | Archivo de Campañas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;600;700&family=Cinzel:wght@500;600;700&family=IM+Fell+English:ital@0;1&family=Inter:wght@400;500;600;700&family=MedievalSharp&family=Uncial+Antiqua&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section id="campaigns-home" class="campaigns-home">
+    <header class="home-header">
+      <div class="home-brand">
+        <div class="brand-mark">20</div>
+        <div><strong>D20 Travesías</strong><span>Archivo de Campañas</span></div>
+      </div>
+      <div class="home-actions">
+        <a class="secondary-button handbook-link" href="../">Compendio y creador</a>
+        <button id="open-campaign-form" class="primary-button">+ Nueva campaña</button>
+      </div>
+    </header>
+    <main class="home-main">
+      <div class="home-hero">
+        <p class="eyebrow">Tu mesa, tus mundos, sus historias</p>
+        <h1>Bienvenido al archivo<br>de tus travesías</h1>
+        <p>Organiza cada campaña por separado y conserva sus personajes, sesiones, experiencia y recuerdos.</p>
+      </div>
+      <div class="section-heading">
+        <div><p class="eyebrow">Biblioteca</p><h2>Mis campañas</h2></div>
+        <span id="campaign-count" class="quiet-label"></span>
+      </div>
+      <div id="campaign-grid" class="campaign-library"></div>
+    </main>
+  </section>
+
+  <div id="campaign-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="campaign-form-title">
+    <form id="campaign-form" class="modal-card">
+      <input id="campaign-id" type="hidden">
+      <div class="modal-heading">
+        <div><p class="eyebrow">D20 Travesías</p><h2 id="campaign-form-title">Crear campaña</h2></div>
+        <button id="close-campaign-form" type="button" class="icon-button" aria-label="Cerrar">×</button>
+      </div>
+      <label>Nombre de la campaña<input id="campaign-name" required maxlength="80" placeholder="Ej. La corona de ceniza"></label>
+      <div class="form-row">
+        <label>Director de juego<input id="campaign-dm" maxlength="60" placeholder="Nombre del DM"></label>
+        <label>Sistema<input id="campaign-system" maxlength="50" value="D&D 5e"></label>
+      </div>
+      <label>Descripción<textarea id="campaign-description" rows="3" maxlength="300" placeholder="Una breve introducción a esta aventura..."></textarea></label>
+      <div class="form-row">
+        <label>Tema visual<select id="campaign-theme"><option value="parchment">Pergamino clásico</option><option value="forest">Bosque antiguo</option><option value="ocean">Mareas arcanas</option><option value="night">Noche astral</option><option value="crimson">Reino carmesí</option></select></label>
+        <label>Estilo de letra<select id="campaign-font"><option value="classic">Clásica aventurera</option><option value="medieval">Medieval</option><option value="chronicle">Crónica antigua</option><option value="arcane">Arcana</option><option value="modern">Moderna y clara</option></select></label>
+      </div>
+      <div class="form-row">
+        <label>Apariencia<select id="campaign-appearance"><option value="light">Modo claro</option><option value="dark">Modo oscuro</option><option value="auto">Según el dispositivo</option></select></label>
+        <label>Color distintivo<input id="campaign-color" type="color" value="#9b4e35"></label>
+      </div>
+      <div id="font-preview" class="font-preview" data-font="classic"><span>Vista previa</span><strong>La leyenda comienza aquí</strong></div>
+      <label>Imagen de portada o banner<input id="campaign-banner" type="file" accept="image/png,image/jpeg,image/webp"></label>
+      <div id="campaign-banner-preview" class="banner-preview"><span>Sin imagen seleccionada</span></div>
+      <button id="remove-campaign-banner" type="button" class="text-button hidden">Quitar imagen</button>
+      <label class="toggle-field"><input id="campaign-protected" type="checkbox"><span>Proteger esta campaña con contraseña</span></label>
+      <div id="campaign-password-fields" class="hidden">
+        <label>Contraseña<input id="campaign-password" type="password" minlength="4" maxlength="80" autocomplete="new-password" placeholder="Mínimo 4 caracteres"></label>
+        <p class="helper">La contraseña protege el acceso en este navegador. Al editar, déjala vacía para conservar la actual.</p>
+      </div>
+      <button type="submit" class="primary-button full-width">Guardar campaña</button>
+    </form>
+  </div>
+
+  <div id="unlock-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="unlock-title">
+    <form id="unlock-form" class="modal-card compact-modal">
+      <input id="unlock-campaign-id" type="hidden">
+      <div class="modal-heading">
+        <div><p class="eyebrow">Campaña protegida</p><h2 id="unlock-title">Abrir campaña</h2></div>
+        <button id="close-unlock-form" type="button" class="icon-button" aria-label="Cerrar">×</button>
+      </div>
+      <p id="unlock-copy" class="helper"></p>
+      <label>Contraseña<input id="unlock-password" type="password" required autocomplete="current-password"></label>
+      <p id="unlock-error" class="form-error hidden">La contraseña no es correcta.</p>
+      <button type="submit" class="primary-button full-width">Entrar</button>
+    </form>
+  </div>
+
+  <div id="campaign-app" class="app-shell hidden" data-theme="parchment">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">20</div>
+        <div>
+          <strong>D20 Travesías</strong>
+          <span id="sidebar-campaign-name">Campaña</span>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a class="nav-item handbook-nav-link" href="../"><span>↗</span> Compendio</a>
+        <button class="nav-item campaign-home-button" data-action="campaigns-home"><span>◇</span> Campañas</button>
+        <button class="nav-item active" data-view="dashboard"><span>⌂</span> Resumen</button>
+        <button class="nav-item" data-view="characters"><span>♙</span> Personajes</button>
+        <button class="nav-item" data-view="new-session"><span>✦</span> Nueva sesión</button>
+        <button class="nav-item" data-view="log"><span>☷</span> Bitácora</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>Los datos se guardan en este navegador.</p>
+        <button id="export-data" class="text-button">Exportar respaldo</button>
+        <label class="text-button file-button">Importar respaldo<input id="import-data" type="file" accept="application/json"></label>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p id="campaign-context" class="eyebrow">Campaña</p>
+          <h1 id="page-title">Resumen de campaña</h1>
+        </div>
+        <button class="primary-button" data-go="new-session">+ Registrar sesión</button>
+      </header>
+
+      <section id="dashboard-view" class="view active">
+        <div id="stats-grid" class="stats-grid"></div>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Compañía</p>
+            <h2>Progreso de personajes</h2>
+          </div>
+          <button class="secondary-button" data-go="characters">Gestionar personajes</button>
+        </div>
+        <div id="dashboard-characters" class="character-grid"></div>
+        <div class="section-heading compact-heading">
+          <div>
+            <p class="eyebrow">Historia reciente</p>
+            <h2>Últimas sesiones</h2>
+          </div>
+          <button class="text-button" data-go="log">Ver bitácora completa</button>
+        </div>
+        <div id="recent-sessions" class="timeline"></div>
+      </section>
+
+      <section id="characters-view" class="view">
+        <div class="two-column characters-layout">
+          <div>
+            <div class="section-heading no-top">
+              <div>
+                <p class="eyebrow">Aventureros</p>
+                <h2>Personajes de la campaña</h2>
+              </div>
+            </div>
+            <div id="character-list" class="character-list"></div>
+          </div>
+          <form id="character-form" class="panel sticky-panel">
+            <input id="character-id" type="hidden">
+            <p class="eyebrow">Ficha rápida</p>
+            <h2 id="character-form-title">Añadir personaje</h2>
+            <label>Nombre del personaje<input id="character-name" required maxlength="60" placeholder="Ej. Lyra Noctis"></label>
+            <label>Jugador<input id="player-name" maxlength="60" placeholder="Nombre del jugador"></label>
+            <div class="form-row">
+              <label>Clase<input id="character-class" maxlength="40" placeholder="Ej. Bardo"></label>
+              <label>Experiencia actual o previa<input id="character-xp" required type="number" min="0" step="1" value="0"><small class="field-help">Si ya jugaba antes de usar la app, escribe aquí toda la experiencia que ya tenía.</small></label>
+            </div>
+            <label>Color de ficha<input id="character-color" type="color" value="#b97a45"></label>
+            <div class="form-actions">
+              <button type="submit" class="primary-button">Guardar personaje</button>
+              <button id="cancel-character" type="button" class="secondary-button hidden">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="new-session-view" class="view">
+        <form id="session-form">
+          <div class="session-header panel">
+            <div>
+              <p class="eyebrow">Nueva entrada</p>
+              <h2>Datos de la sesión</h2>
+            </div>
+            <div class="session-fields">
+              <label>Número<input id="session-number" required type="number" min="1" step="1"></label>
+              <label>Fecha<input id="session-date" required type="date"></label>
+              <label class="wide-field">Nombre de la sesión<input id="session-name" required maxlength="100" placeholder="Ej. Las ruinas bajo la luna"></label>
+            </div>
+          </div>
+          <label class="historical-session"><input id="historical-session" type="checkbox"><span><b>Esta es una sesión anterior</b><small>Puedes registrar ahora una sesión jugada antes de crear la aplicación, usando su número y fecha reales.</small></span></label>
+
+          <div class="two-column session-layout">
+            <div class="stack">
+              <div class="panel">
+                <div class="panel-heading">
+                  <div><p class="eyebrow">Asistencia</p><h2>¿Quién participó?</h2></div>
+                  <button id="select-all" type="button" class="text-button">Marcar todos</button>
+                </div>
+                <div id="attendance-list" class="attendance-list"></div>
+              </div>
+
+              <div class="panel">
+                <p class="eyebrow">Experiencia grupal</p>
+                <h2>Fondos de la sesión</h2>
+                <p class="helper">Cada cantidad se divide en partes iguales entre quienes asistieron.</p>
+                <div class="xp-pools">
+                  <label><span><b>Combate</b><small>Enemigos y encuentros superados</small></span><input id="combat-pool" type="number" min="0" step="1" value="0"></label>
+                  <label><span><b>Roleo</b><small>Interpretación y decisiones narrativas</small></span><input id="roleplay-pool" type="number" min="0" step="1" value="0"></label>
+                  <label><span><b>Otros logros</b><small>Exploración, objetivos o ajustes manuales</small></span><input id="manual-pool" type="number" min="0" step="1" value="0"></label>
+                </div>
+              </div>
+
+              <div class="panel">
+                <p class="eyebrow">Contexto</p>
+                <h2>Notas para la bitácora</h2>
+                <label>Resumen de combate<textarea id="combat-notes" rows="3" maxlength="1000" placeholder="Enemigos, encuentros y resultados..."></textarea></label>
+                <label>Resumen de roleo y aventura<textarea id="roleplay-notes" rows="4" maxlength="1500" placeholder="Interpretación, resolución de problemas, decisiones, exploración..."></textarea></label>
+              </div>
+            </div>
+
+            <div class="stack">
+              <div class="panel sticky-summary">
+                <p class="eyebrow">Asignación individual</p>
+                <h2>Bonos por personaje</h2>
+                <p class="helper">Añade experiencia particular a quienes destacaron. Solo se aplica a asistentes.</p>
+                <div id="individual-bonuses" class="bonus-list"></div>
+                <div class="session-total">
+                  <span>Experiencia total otorgada</span>
+                  <strong id="session-total">0 PX</strong>
+                </div>
+                <div id="distribution-preview" class="distribution-preview"></div>
+                <button type="submit" class="primary-button full-width">Guardar en la bitácora</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section id="log-view" class="view">
+        <div class="section-heading no-top">
+          <div><p class="eyebrow">Archivo de campaña</p><h2>Bitácora de sesiones</h2></div>
+          <input id="log-search" class="search-input" type="search" placeholder="Buscar sesión o personaje...">
+        </div>
+        <div id="session-log" class="session-log"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
