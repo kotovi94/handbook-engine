@@ -210,11 +210,14 @@ textarea { resize: vertical; line-height: 1.5; }
 .bonus-inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .bonus-inputs label { margin: 0; font-size: 9px; text-transform: uppercase; letter-spacing: .05em; }
 .bonus-inputs input { padding: 8px; }
+.cyberpunk-award-inputs { grid-template-columns: 1.4fr 1fr; }
+.cyberpunk-award-inputs select { padding: 8px; font-size: 11px; }
 .session-total { margin: 24px 0 14px; padding: 18px 0; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .session-total span { color: var(--muted); font-size: 11px; }
 .session-total strong { color: var(--accent); font: 700 19px Cinzel, serif; }
 .distribution-preview { margin-bottom: 18px; display: grid; gap: 6px; }
 .preview-row { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; }
+.preview-row small { margin-left: 6px; color: var(--accent); font-weight: 700; text-transform: uppercase; }
 .preview-row b { color: var(--ink); }
 
 .search-input { max-width: 280px; }

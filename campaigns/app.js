@@ -60,6 +60,14 @@ const SYSTEM_ALIASES = {
   'cp red': 'cyberpunkRed',
   'cpr': 'cyberpunkRed',
 };
+const CYBERPUNK_PP_AWARDS = [10, 20, 30, 40, 50, 60, 70, 80];
+const CYBERPUNK_PP_COLUMNS = [
+  { id: 'grupo', label: 'Grupo' },
+  { id: 'guerrero', label: 'Guerrero' },
+  { id: 'sociable', label: 'Sociable' },
+  { id: 'explorador', label: 'Explorador' },
+  { id: 'actor', label: 'Actor' },
+];
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -329,7 +337,9 @@ function updateSystemCopy() {
   $('#bonus-title').textContent = system.bonusTitle;
   $('#bonus-help').textContent = system.bonusHelp;
   $('#session-total-label').textContent = system.totalAwardedLabel;
-  const poolsHeading = document.querySelector('.xp-pools')?.closest('.panel')?.querySelector('h2');
+  const poolsPanel = document.querySelector('.xp-pools')?.closest('.panel');
+  if (poolsPanel) poolsPanel.classList.toggle('hidden', system.id === 'cyberpunkRed');
+  const poolsHeading = poolsPanel?.querySelector('h2');
   if (poolsHeading) poolsHeading.textContent = system.poolsTitle;
 }
 
@@ -442,7 +452,7 @@ function renderSessionForm() {
   }
   attendance.innerHTML = state.characters.map(character => `
     <label class="attendance-item"><input class="attendance-check" type="checkbox" value="${character.id}" checked><span class="avatar" style="width:30px;height:30px;font-size:12px;background:${character.color}">${escapeHTML(character.name.charAt(0))}</span><b>${escapeHTML(character.name)}</b><small>${system.id === 'cyberpunkRed' ? formatResource(character.xp) : `Nivel ${getLevel(character.xp)}`}</small></label>`).join('');
-  $('#individual-bonuses').innerHTML = state.characters.map(character => `
+  $('#individual-bonuses').innerHTML = system.id === 'cyberpunkRed' ? renderCyberpunkAwards() : state.characters.map(character => `
     <div class="bonus-item" data-character="${character.id}">
       <div class="bonus-head"><span class="avatar" style="width:27px;height:27px;font-size:11px;background:${character.color}">${escapeHTML(character.name.charAt(0))}</span><strong>${escapeHTML(character.name)}</strong></div>
       <div class="bonus-inputs">
@@ -454,7 +464,32 @@ function renderSessionForm() {
   updateDistribution();
 }
 
+function renderCyberpunkAwards() {
+  const ppOptions = CYBERPUNK_PP_AWARDS.map(value => `<option value="${value}"${value === 40 ? ' selected' : ''}>${value} PP</option>`).join('');
+  return state.characters.map(character => {
+    const defaultColumn = getDefaultCyberpunkColumn(character);
+    const columnOptions = CYBERPUNK_PP_COLUMNS.map(column => `<option value="${column.id}"${column.id === defaultColumn ? ' selected' : ''}>${column.label}</option>`).join('');
+    return `
+    <div class="bonus-item cyberpunk-award" data-character="${character.id}">
+      <div class="bonus-head"><span class="avatar" style="width:27px;height:27px;font-size:11px;background:${character.color}">${escapeHTML(character.name.charAt(0))}</span><strong>${escapeHTML(character.name)}</strong></div>
+      <div class="bonus-inputs cyberpunk-award-inputs">
+        <label>Columna<select class="bonus-category">${columnOptions}</select></label>
+        <label>PP otorgados<select class="bonus-award">${ppOptions}</select></label>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function getDefaultCyberpunkColumn(character) {
+  const text = `${character.name || ''} ${character.className || ''}`.toLowerCase();
+  if (text.includes('merc') || text.includes('solo') || text.includes('raider')) return 'guerrero';
+  if (text.includes('netrunner') || text.includes('stella')) return 'explorador';
+  if (text.includes('tecnom') || text.includes('medtech') || text.includes('yiliao')) return 'sociable';
+  return 'grupo';
+}
+
 function getDistribution() {
+  if (getCampaignSystem().id === 'cyberpunkRed') return getCyberpunkDistribution();
   const attendees = $$('.attendance-check:checked').map(input => input.value);
   const pools = {
     combat: Number($('#combat-pool').value) || 0,
@@ -479,19 +514,39 @@ function getDistribution() {
   });
 }
 
+function getCyberpunkDistribution() {
+  return $$('.attendance-check:checked').map(input => {
+    const characterId = input.value;
+    const award = $(`.bonus-item[data-character="${characterId}"]`);
+    const categoryId = award?.querySelector('.bonus-category')?.value || 'grupo';
+    const category = CYBERPUNK_PP_COLUMNS.find(column => column.id === categoryId) || CYBERPUNK_PP_COLUMNS[0];
+    const total = Number(award?.querySelector('.bonus-award')?.value) || 0;
+    const character = state.characters.find(entry => entry.id === characterId);
+    return {
+      characterId,
+      characterName: character?.name || 'Personaje',
+      awardCategory: category.label,
+      group: { combat: 0, roleplay: 0, manual: 0 },
+      individual: { combat: 0, roleplay: 0, manual: total },
+      total,
+    };
+  });
+}
+
 function updateDistribution() {
   const attending = new Set($$('.attendance-check:checked').map(input => input.value));
   $$('.bonus-item').forEach(item => {
     const enabled = attending.has(item.dataset.character);
     item.classList.toggle('disabled', !enabled);
-    item.querySelectorAll('input').forEach(input => input.disabled = !enabled);
+    item.querySelectorAll('input, select').forEach(input => input.disabled = !enabled);
   });
   const distribution = getDistribution();
   const total = distribution.reduce((sum, item) => sum + item.total, 0);
   $('#session-total').textContent = formatResource(total);
   $('#distribution-preview').innerHTML = distribution.length ? distribution.map(item => {
     const character = state.characters.find(entry => entry.id === item.characterId);
-    return `<div class="preview-row"><span>${escapeHTML(character?.name || 'Personaje')}</span><b>+${formatResource(item.total)}</b></div>`;
+    const category = item.awardCategory ? ` <small>${escapeHTML(item.awardCategory)}</small>` : '';
+    return `<div class="preview-row"><span>${escapeHTML(character?.name || 'Personaje')}${category}</span><b>+${formatResource(item.total)}</b></div>`;
   }).join('') : '<p class="helper">Marca al menos un personaje como asistente.</p>';
 }
 
@@ -546,19 +601,33 @@ function renderLog(query = '') {
           <div class="log-note"><b>Combate</b><p>${escapeHTML(session.notes.combat || 'Sin notas de combate.')}</p></div>
           <div class="log-note"><b>Roleo y aventura</b><p>${escapeHTML(session.notes.roleplay || 'Sin notas de roleo.')}</p></div>
         </div>` : ''}
-        <table class="allocation-table">
-          <thead><tr><th>Personaje</th><th>${system.poolLabels[0]}</th><th>${system.poolLabels[1]}</th><th>${system.poolLabels[2]}</th><th>Total</th></tr></thead>
-          <tbody>${session.allocations.map(item => {
-            const character = state.characters.find(entry => entry.id === item.characterId);
-            const combat = item.group.combat + item.individual.combat;
-            const roleplay = item.group.roleplay + item.individual.roleplay;
-            const manual = item.group.manual + item.individual.manual;
-            return `<tr><td>${escapeHTML(item.characterName || character?.name || 'Personaje eliminado')}</td><td>${formatResource(combat)}</td><td>${formatResource(roleplay)}</td><td>${formatResource(manual)}</td><td><b>${formatResource(item.total)}</b></td></tr>`;
-          }).join('')}</tbody>
-        </table>
+        ${system.id === 'cyberpunkRed' ? renderCyberpunkLogTable(session) : renderStandardLogTable(session, system)}
         <footer class="log-footer"><button class="text-button danger-button delete-session" data-id="${session.id}">Eliminar sesión y revertir ${getCampaignSystem().unit}</button></footer>
       </div>
     </article>`).join('') : emptyState(normalized ? 'Sin resultados' : 'Bitácora vacía', normalized ? 'No encontramos sesiones que coincidan con la búsqueda.' : 'Registra la primera sesión para comenzar el historial.', 'new-session', 'Registrar sesión');
+}
+
+function renderStandardLogTable(session, system) {
+  return `<table class="allocation-table">
+    <thead><tr><th>Personaje</th><th>${system.poolLabels[0]}</th><th>${system.poolLabels[1]}</th><th>${system.poolLabels[2]}</th><th>Total</th></tr></thead>
+    <tbody>${session.allocations.map(item => {
+      const character = state.characters.find(entry => entry.id === item.characterId);
+      const combat = item.group.combat + item.individual.combat;
+      const roleplay = item.group.roleplay + item.individual.roleplay;
+      const manual = item.group.manual + item.individual.manual;
+      return `<tr><td>${escapeHTML(item.characterName || character?.name || 'Personaje eliminado')}</td><td>${formatResource(combat)}</td><td>${formatResource(roleplay)}</td><td>${formatResource(manual)}</td><td><b>${formatResource(item.total)}</b></td></tr>`;
+    }).join('')}</tbody>
+  </table>`;
+}
+
+function renderCyberpunkLogTable(session) {
+  return `<table class="allocation-table">
+    <thead><tr><th>Personaje</th><th>Columna</th><th>PP otorgados</th></tr></thead>
+    <tbody>${session.allocations.map(item => {
+      const character = state.characters.find(entry => entry.id === item.characterId);
+      return `<tr><td>${escapeHTML(item.characterName || character?.name || 'Personaje eliminado')}</td><td>${escapeHTML(item.awardCategory || 'Grupo')}</td><td><b>${formatResource(item.total)}</b></td></tr>`;
+    }).join('')}</tbody>
+  </table>`;
 }
 
 function formatDate(date) {
