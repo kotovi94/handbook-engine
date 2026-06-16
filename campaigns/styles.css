@@ -210,8 +210,13 @@ textarea { resize: vertical; line-height: 1.5; }
 .bonus-inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .bonus-inputs label { margin: 0; font-size: 9px; text-transform: uppercase; letter-spacing: .05em; }
 .bonus-inputs input { padding: 8px; }
-.cyberpunk-award-inputs { grid-template-columns: 1.4fr 1fr; }
-.cyberpunk-award-inputs select { padding: 8px; font-size: 11px; }
+.cyberpunk-award-table { display: grid; gap: 7px; }
+.cyberpunk-award-header,
+.cyberpunk-award-row { display: grid; grid-template-columns: 1fr minmax(160px, 1.7fr) 72px auto; gap: 8px; align-items: center; }
+.cyberpunk-award-header { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.cyberpunk-award-row select { padding: 8px; font-size: 11px; }
+.bonus-award-value { color: var(--accent); text-align: right; font-size: 12px; }
+.cyberpunk-add-award { margin-top: 11px; }
 .session-total { margin: 24px 0 14px; padding: 18px 0; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .session-total span { color: var(--muted); font-size: 11px; }
 .session-total strong { color: var(--accent); font: 700 19px Cinzel, serif; }
@@ -280,6 +285,9 @@ textarea { resize: vertical; line-height: 1.5; }
   .timeline-item { grid-template-columns: 55px 1fr; }
   .timeline-xp { grid-column: 2; }
   .bonus-inputs { grid-template-columns: 1fr; }
+  .cyberpunk-award-header { display: none; }
+  .cyberpunk-award-row { grid-template-columns: 1fr; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .bonus-award-value { text-align: left; }
   .log-card-header { grid-template-columns: auto 1fr; }
   .log-card-total { grid-column: 2; text-align: left; }
   .allocation-table { display: block; overflow-x: auto; }

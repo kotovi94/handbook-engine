@@ -60,7 +60,6 @@ const SYSTEM_ALIASES = {
   'cp red': 'cyberpunkRed',
   'cpr': 'cyberpunkRed',
 };
-const CYBERPUNK_PP_AWARDS = [10, 20, 30, 40, 50, 60, 70, 80];
 const CYBERPUNK_PP_COLUMNS = [
   { id: 'grupo', label: 'Grupo' },
   { id: 'guerrero', label: 'Guerrero' },
@@ -68,6 +67,58 @@ const CYBERPUNK_PP_COLUMNS = [
   { id: 'explorador', label: 'Explorador' },
   { id: 'actor', label: 'Actor' },
 ];
+const CYBERPUNK_PP_REASONS = {
+  grupo: [
+    [10, 'Fallaron, pero lo intentaron'],
+    [20, 'Apenas cumplieron objetivos'],
+    [30, 'Cumplieron la mayoria de objetivos'],
+    [40, 'Buena mision y cooperacion'],
+    [50, 'Muy buena mision con momentos estelares'],
+    [60, 'Gran exito, todos los objetivos cumplidos'],
+    [70, 'Exito rotundo y objetivos secundarios'],
+    [80, 'Mision legendaria y cooperacion excepcional'],
+  ],
+  guerrero: [
+    [10, 'Uso combate con frecuencia'],
+    [20, 'Combatio con eficacia'],
+    [30, 'Derroto enemigos peligrosos'],
+    [40, 'Logro de combate fuera de lo comun'],
+    [50, 'Combate muy eficaz o inteligente'],
+    [60, 'Combate critico para su personaje'],
+    [70, 'Combate critico para todo el grupo'],
+    [80, 'Algo increible en combate'],
+  ],
+  sociable: [
+    [10, 'Ayudo al grupo'],
+    [20, 'Apoyo la cohesion del grupo'],
+    [30, 'Apoyo bastante al grupo'],
+    [40, 'Apoyo excepcional al grupo'],
+    [50, 'Ayuda muy eficaz al grupo'],
+    [60, 'Apoyo muy importante para el grupo'],
+    [70, 'Apoyo fundamental para todo el grupo'],
+    [80, 'Algo increible apoyando al grupo'],
+  ],
+  explorador: [
+    [10, 'Intento investigar o explorar'],
+    [20, 'Exploro o investigo con eficacia'],
+    [30, 'Investigo para avanzar objetivos'],
+    [40, 'Descubrimiento fuera de lo comun'],
+    [50, 'Descubre persona, lugar, pista o cosa importante'],
+    [60, 'Investigacion clave para su personaje'],
+    [70, 'Investigacion fundamental para todo el grupo'],
+    [80, 'Descubrimiento realmente increible'],
+  ],
+  actor: [
+    [10, 'Intento interpretar'],
+    [20, 'Interpreto constantemente'],
+    [30, 'Interpreto para lograr objetivos'],
+    [40, 'Momento fuerte de interpretacion'],
+    [50, 'Interpretacion muy eficaz o inteligente'],
+    [60, 'Interpretacion decisiva para su personaje'],
+    [70, 'Interpretacion cambia el resultado de la partida'],
+    [80, 'Actuacion realmente increible'],
+  ],
+};
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -465,19 +516,36 @@ function renderSessionForm() {
 }
 
 function renderCyberpunkAwards() {
-  const ppOptions = CYBERPUNK_PP_AWARDS.map(value => `<option value="${value}"${value === 40 ? ' selected' : ''}>${value} PP</option>`).join('');
   return state.characters.map(character => {
     const defaultColumn = getDefaultCyberpunkColumn(character);
-    const columnOptions = CYBERPUNK_PP_COLUMNS.map(column => `<option value="${column.id}"${column.id === defaultColumn ? ' selected' : ''}>${column.label}</option>`).join('');
     return `
     <div class="bonus-item cyberpunk-award" data-character="${character.id}">
       <div class="bonus-head"><span class="avatar" style="width:27px;height:27px;font-size:11px;background:${character.color}">${escapeHTML(character.name.charAt(0))}</span><strong>${escapeHTML(character.name)}</strong></div>
-      <div class="bonus-inputs cyberpunk-award-inputs">
-        <label>Columna<select class="bonus-category">${columnOptions}</select></label>
-        <label>PP otorgados<select class="bonus-award">${ppOptions}</select></label>
+      <div class="cyberpunk-award-table">
+        <div class="cyberpunk-award-header"><span>Columna</span><span>Motivo</span><span>PP</span><span></span></div>
+        <div class="cyberpunk-award-rows">
+          ${renderCyberpunkAwardRow(defaultColumn, 40)}
+        </div>
       </div>
+      <button type="button" class="text-button cyberpunk-add-award" data-action="cyberpunk-add-award">+ Agregar PP</button>
     </div>`;
   }).join('');
+}
+
+function renderCyberpunkAwardRow(columnId = 'grupo', selectedValue = 40) {
+  const columnOptions = CYBERPUNK_PP_COLUMNS.map(column => `<option value="${column.id}"${column.id === columnId ? ' selected' : ''}>${column.label}</option>`).join('');
+  const reasonOptions = getCyberpunkReasonOptions(columnId, selectedValue);
+  return `<div class="cyberpunk-award-row">
+    <select class="bonus-category" aria-label="Columna de PP">${columnOptions}</select>
+    <select class="bonus-reason" aria-label="Motivo de PP">${reasonOptions}</select>
+    <strong class="bonus-award-value">${selectedValue} PP</strong>
+    <button type="button" class="text-button danger-button cyberpunk-remove-award" data-action="cyberpunk-remove-award" aria-label="Quitar PP">Quitar</button>
+  </div>`;
+}
+
+function getCyberpunkReasonOptions(columnId, selectedValue = 40) {
+  const reasons = CYBERPUNK_PP_REASONS[columnId] || CYBERPUNK_PP_REASONS.grupo;
+  return reasons.map(([value, reason]) => `<option value="${value}" data-reason="${escapeHTML(reason)}"${value === Number(selectedValue) ? ' selected' : ''}>${value} PP - ${escapeHTML(reason)}</option>`).join('');
 }
 
 function getDefaultCyberpunkColumn(character) {
@@ -518,14 +586,21 @@ function getCyberpunkDistribution() {
   return $$('.attendance-check:checked').map(input => {
     const characterId = input.value;
     const award = $(`.bonus-item[data-character="${characterId}"]`);
-    const categoryId = award?.querySelector('.bonus-category')?.value || 'grupo';
-    const category = CYBERPUNK_PP_COLUMNS.find(column => column.id === categoryId) || CYBERPUNK_PP_COLUMNS[0];
-    const total = Number(award?.querySelector('.bonus-award')?.value) || 0;
+    const details = [...(award?.querySelectorAll('.cyberpunk-award-row') || [])].map(row => {
+      const categoryId = row.querySelector('.bonus-category')?.value || 'grupo';
+      const category = CYBERPUNK_PP_COLUMNS.find(column => column.id === categoryId) || CYBERPUNK_PP_COLUMNS[0];
+      const reasonSelect = row.querySelector('.bonus-reason');
+      const total = Number(reasonSelect?.value) || 0;
+      const reason = reasonSelect?.selectedOptions?.[0]?.dataset.reason || reasonSelect?.selectedOptions?.[0]?.textContent || '';
+      return { category: category.label, reason, total };
+    }).filter(item => item.total > 0);
+    const total = details.reduce((sum, item) => sum + item.total, 0);
     const character = state.characters.find(entry => entry.id === characterId);
     return {
       characterId,
       characterName: character?.name || 'Personaje',
-      awardCategory: category.label,
+      awardCategory: details.map(item => item.category).join(', ') || 'Grupo',
+      awardDetails: details,
       group: { combat: 0, roleplay: 0, manual: 0 },
       individual: { combat: 0, roleplay: 0, manual: total },
       total,
@@ -538,14 +613,16 @@ function updateDistribution() {
   $$('.bonus-item').forEach(item => {
     const enabled = attending.has(item.dataset.character);
     item.classList.toggle('disabled', !enabled);
-    item.querySelectorAll('input, select').forEach(input => input.disabled = !enabled);
+    item.querySelectorAll('input, select, button').forEach(input => input.disabled = !enabled);
   });
   const distribution = getDistribution();
   const total = distribution.reduce((sum, item) => sum + item.total, 0);
   $('#session-total').textContent = formatResource(total);
   $('#distribution-preview').innerHTML = distribution.length ? distribution.map(item => {
     const character = state.characters.find(entry => entry.id === item.characterId);
-    const category = item.awardCategory ? ` <small>${escapeHTML(item.awardCategory)}</small>` : '';
+    const category = item.awardDetails?.length
+      ? ` <small>${item.awardDetails.length} motivo${item.awardDetails.length === 1 ? '' : 's'}</small>`
+      : (item.awardCategory ? ` <small>${escapeHTML(item.awardCategory)}</small>` : '');
     return `<div class="preview-row"><span>${escapeHTML(character?.name || 'Personaje')}${category}</span><b>+${formatResource(item.total)}</b></div>`;
   }).join('') : '<p class="helper">Marca al menos un personaje como asistente.</p>';
 }
@@ -621,12 +698,15 @@ function renderStandardLogTable(session, system) {
 }
 
 function renderCyberpunkLogTable(session) {
+  const rows = session.allocations.flatMap(item => {
+    const character = state.characters.find(entry => entry.id === item.characterId);
+    const name = escapeHTML(item.characterName || character?.name || 'Personaje eliminado');
+    const details = item.awardDetails?.length ? item.awardDetails : [{ category: item.awardCategory || 'Grupo', reason: '', total: item.total }];
+    return details.map(detail => `<tr><td>${name}</td><td>${escapeHTML(detail.category || 'Grupo')}</td><td>${escapeHTML(detail.reason || 'Sin motivo registrado')}</td><td><b>${formatResource(detail.total)}</b></td></tr>`);
+  }).join('');
   return `<table class="allocation-table">
-    <thead><tr><th>Personaje</th><th>Columna</th><th>PP otorgados</th></tr></thead>
-    <tbody>${session.allocations.map(item => {
-      const character = state.characters.find(entry => entry.id === item.characterId);
-      return `<tr><td>${escapeHTML(item.characterName || character?.name || 'Personaje eliminado')}</td><td>${escapeHTML(item.awardCategory || 'Grupo')}</td><td><b>${formatResource(item.total)}</b></td></tr>`;
-    }).join('')}</tbody>
+    <thead><tr><th>Personaje</th><th>Columna</th><th>Motivo</th><th>PP otorgados</th></tr></thead>
+    <tbody>${rows}</tbody>
   </table>`;
 }
 
@@ -652,6 +732,23 @@ document.addEventListener('click', event => {
     else if (campaign) openCampaignModal(campaign);
   }
   if (event.target.closest('#empty-new-campaign')) openCampaignModal();
+  const addCyberpunkAward = event.target.closest('[data-action="cyberpunk-add-award"]');
+  if (addCyberpunkAward) {
+    const award = addCyberpunkAward.closest('.cyberpunk-award');
+    const character = state.characters.find(entry => entry.id === award?.dataset.character);
+    award?.querySelector('.cyberpunk-award-rows')?.insertAdjacentHTML('beforeend', renderCyberpunkAwardRow(getDefaultCyberpunkColumn(character || {}), 40));
+    updateDistribution();
+  }
+  const removeCyberpunkAward = event.target.closest('[data-action="cyberpunk-remove-award"]');
+  if (removeCyberpunkAward) {
+    const rows = removeCyberpunkAward.closest('.cyberpunk-award-rows');
+    if (rows && rows.querySelectorAll('.cyberpunk-award-row').length > 1) {
+      removeCyberpunkAward.closest('.cyberpunk-award-row')?.remove();
+      updateDistribution();
+    } else {
+      showToast('Deja al menos una fila de PP para ese personaje.');
+    }
+  }
   const deleteCampaignButton = event.target.closest('.delete-campaign');
   if (deleteCampaignButton) {
     const campaign = portfolio.campaigns.find(entry => entry.id === deleteCampaignButton.dataset.id);
@@ -728,7 +825,19 @@ $('#character-form').addEventListener('submit', event => {
 $('#cancel-character').addEventListener('click', resetCharacterForm);
 $('#session-form').addEventListener('submit', saveSession);
 $('#session-form').addEventListener('input', updateDistribution);
-$('#session-form').addEventListener('change', updateDistribution);
+$('#session-form').addEventListener('change', event => {
+  if (event.target.matches('.bonus-category')) {
+    const row = event.target.closest('.cyberpunk-award-row');
+    const reason = row?.querySelector('.bonus-reason');
+    const currentValue = Number(reason?.value) || 40;
+    if (reason) reason.innerHTML = getCyberpunkReasonOptions(event.target.value, currentValue);
+    row?.querySelector('.bonus-award-value')?.replaceChildren(document.createTextNode(`${reason?.value || currentValue} PP`));
+  }
+  if (event.target.matches('.bonus-reason')) {
+    event.target.closest('.cyberpunk-award-row')?.querySelector('.bonus-award-value')?.replaceChildren(document.createTextNode(`${event.target.value} PP`));
+  }
+  updateDistribution();
+});
 $('#select-all').addEventListener('click', () => {
   const checks = $$('.attendance-check');
   const shouldCheck = checks.some(check => !check.checked);
