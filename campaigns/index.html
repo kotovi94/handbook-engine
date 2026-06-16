@@ -46,7 +46,7 @@
       <label>Nombre de la campaña<input id="campaign-name" required maxlength="80" placeholder="Ej. La corona de ceniza"></label>
       <div class="form-row">
         <label>Director de juego<input id="campaign-dm" maxlength="60" placeholder="Nombre del DM"></label>
-        <label>Sistema<input id="campaign-system" maxlength="50" value="D&D 5e"></label>
+        <label>Sistema<select id="campaign-system"><option value="dnd5e2024">D&D 5e 2024</option><option value="cyberpunkRed">Cyberpunk RED</option></select></label>
       </div>
       <label>Descripción<textarea id="campaign-description" rows="3" maxlength="300" placeholder="Una breve introducción a esta aventura..."></textarea></label>
       <div class="form-row">
@@ -157,8 +157,8 @@
             <label>Nombre del personaje<input id="character-name" required maxlength="60" placeholder="Ej. Lyra Noctis"></label>
             <label>Jugador<input id="player-name" maxlength="60" placeholder="Nombre del jugador"></label>
             <div class="form-row">
-              <label>Clase<input id="character-class" maxlength="40" placeholder="Ej. Bardo"></label>
-              <label>Experiencia actual o previa<input id="character-xp" required type="number" min="0" step="1" value="0"><small class="field-help">Si ya jugaba antes de usar la app, escribe aquí toda la experiencia que ya tenía.</small></label>
+              <label><span id="character-class-label">Clase</span><input id="character-class" maxlength="40" placeholder="Ej. Bardo"></label>
+              <label><span id="character-xp-label">Experiencia actual o previa</span><input id="character-xp" required type="number" min="0" step="1" value="0"><small id="character-xp-help" class="field-help">Si ya jugaba antes de usar la app, escribe aquí toda la experiencia que ya tenía.</small></label>
             </div>
             <label>Color de ficha<input id="character-color" type="color" value="#b97a45"></label>
             <div class="form-actions">
@@ -197,11 +197,11 @@
               <div class="panel">
                 <p class="eyebrow">Experiencia grupal</p>
                 <h2>Fondos de la sesión</h2>
-                <p class="helper">Cada cantidad se divide en partes iguales entre quienes asistieron.</p>
+                <p id="pools-help" class="helper">Cada cantidad se divide en partes iguales entre quienes asistieron.</p>
                 <div class="xp-pools">
-                  <label><span><b>Combate</b><small>Enemigos y encuentros superados</small></span><input id="combat-pool" type="number" min="0" step="1" value="0"></label>
-                  <label><span><b>Roleo</b><small>Interpretación y decisiones narrativas</small></span><input id="roleplay-pool" type="number" min="0" step="1" value="0"></label>
-                  <label><span><b>Otros logros</b><small>Exploración, objetivos o ajustes manuales</small></span><input id="manual-pool" type="number" min="0" step="1" value="0"></label>
+                  <label><span><b id="pool-combat-label">Combate</b><small id="pool-combat-help">Enemigos y encuentros superados</small></span><input id="combat-pool" type="number" min="0" step="1" value="0"></label>
+                  <label><span><b id="pool-roleplay-label">Roleo</b><small id="pool-roleplay-help">Interpretación y decisiones narrativas</small></span><input id="roleplay-pool" type="number" min="0" step="1" value="0"></label>
+                  <label><span><b id="pool-manual-label">Otros logros</b><small id="pool-manual-help">Exploración, objetivos o ajustes manuales</small></span><input id="manual-pool" type="number" min="0" step="1" value="0"></label>
                 </div>
               </div>
 
@@ -216,11 +216,11 @@
             <div class="stack">
               <div class="panel sticky-summary">
                 <p class="eyebrow">Asignación individual</p>
-                <h2>Bonos por personaje</h2>
-                <p class="helper">Añade experiencia particular a quienes destacaron. Solo se aplica a asistentes.</p>
+                <h2 id="bonus-title">Bonos por personaje</h2>
+                <p id="bonus-help" class="helper">Añade experiencia particular a quienes destacaron. Solo se aplica a asistentes.</p>
                 <div id="individual-bonuses" class="bonus-list"></div>
                 <div class="session-total">
-                  <span>Experiencia total otorgada</span>
+                  <span id="session-total-label">Experiencia total otorgada</span>
                   <strong id="session-total">0 PX</strong>
                 </div>
                 <div id="distribution-preview" class="distribution-preview"></div>

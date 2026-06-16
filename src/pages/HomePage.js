@@ -22,6 +22,14 @@ const homeActions = [
     icon: "spark",
     eyebrow: "Magia",
   },
+  {
+    title: "Campanas y bitacora",
+    description: "Administra tus campanas, registra sesiones y consulta la bitacora de aventuras.",
+    href: "./campaigns/",
+    icon: "map",
+    eyebrow: "Archivo",
+    actionLabel: "Abrir",
+  },
 ];
 
 export function HomePage() {
@@ -41,13 +49,13 @@ export function HomePage() {
   homeActions.forEach((action) => {
     const link = document.createElement("a");
     link.className = "home-action-card";
-    link.href = `#/${action.route}`;
+    link.href = action.href || `#/${action.route}`;
     link.innerHTML = `
       <span class="home-action-eyebrow">${action.eyebrow}</span>
       <span class="home-action-icon"></span>
       <strong>${action.title}</strong>
       <span class="home-action-description">${action.description}</span>
-      <span class="home-action-link">Empezar <span aria-hidden="true">&rarr;</span></span>
+      <span class="home-action-link">${action.actionLabel || "Empezar"} <span aria-hidden="true">&rarr;</span></span>
     `;
     link.querySelector(".home-action-icon").append(Icon({ name: action.icon }));
     actionGrid.append(link);

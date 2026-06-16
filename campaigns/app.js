@@ -1,10 +1,69 @@
 const STORAGE_KEY = 'd20-travesias-archivo-v2';
 const LEGACY_STORAGE_KEY = 'cronicas-experiencia-v1';
 const XP_THRESHOLDS = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000];
+const SYSTEMS = {
+  dnd5e2024: {
+    id: 'dnd5e2024',
+    name: 'D&D 5e 2024',
+    unit: 'PX',
+    resourceName: 'experiencia',
+    characterValueLabel: 'Experiencia actual o previa',
+    characterValueHelp: 'Si ya jugaba antes de usar la app, escribe aqui toda la experiencia que ya tenia.',
+    roleLabel: 'Clase',
+    rolePlaceholder: 'Ej. Bardo',
+    progressName: 'Nivel',
+    maxProgressText: 'Nivel maximo',
+    totalAwardedLabel: 'Experiencia total otorgada',
+    poolsTitle: 'Fondos de la sesion',
+    poolsHelp: 'Cada cantidad se divide en partes iguales entre quienes asistieron.',
+    poolLabels: ['Combate', 'Roleo', 'Otros logros'],
+    poolHelps: ['Enemigos y encuentros superados', 'Interpretacion y decisiones narrativas', 'Exploracion, objetivos o ajustes manuales'],
+    bonusTitle: 'Bonos por personaje',
+    bonusHelp: 'Anade experiencia particular a quienes destacaron. Solo se aplica a asistentes.',
+    averageStatLabel: 'Nivel promedio',
+  },
+  cyberpunkRed: {
+    id: 'cyberpunkRed',
+    name: 'Cyberpunk RED',
+    unit: 'PP',
+    resourceName: 'puntos de perfeccionamiento',
+    characterValueLabel: 'PP actuales o previos',
+    characterValueHelp: 'Registra los Puntos de Perfeccionamiento disponibles o acumulados antes de usar la app.',
+    roleLabel: 'Rol',
+    rolePlaceholder: 'Ej. Netrunner',
+    progressName: 'PP',
+    maxProgressText: 'Lista para gastar',
+    totalAwardedLabel: 'PP totales otorgados',
+    poolsTitle: 'Puntos de perfeccionamiento',
+    poolsHelp: 'Otorga PP segun exito de grupo, estilo de juego o ajustes manuales del DJ.',
+    poolLabels: ['Grupo', 'Estilo', 'Manual'],
+    poolHelps: ['Resultado de la mision', 'Guerrero, sociable, explorador o actor', 'Ajustes o recompensas especiales'],
+    bonusTitle: 'PP por personaje',
+    bonusHelp: 'Anade PP particulares a quienes destacaron. Solo se aplica a asistentes.',
+    averageStatLabel: 'PP promedio',
+    costTables: {
+      typical: { label: 'Habilidad tipica', multiplier: 20 },
+      difficult: { label: 'Habilidad dificil (x2)', multiplier: 40 },
+      role: { label: 'Aptitud de rol', multiplier: 60 },
+    },
+  },
+};
+const SYSTEM_ALIASES = {
+  'd&d': 'dnd5e2024',
+  'd&d 5e': 'dnd5e2024',
+  'd&d 5e 2024': 'dnd5e2024',
+  'dnd': 'dnd5e2024',
+  'dnd 5e': 'dnd5e2024',
+  'dnd 5e 2024': 'dnd5e2024',
+  'cyberpunk': 'cyberpunkRed',
+  'cyberpunk red': 'cyberpunkRed',
+  'cp red': 'cyberpunkRed',
+  'cpr': 'cyberpunkRed',
+};
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
-const formatXP = (value) => `${Math.round(Number(value) || 0).toLocaleString('es-CL')} PX`;
+const formatNumber = (value) => Math.round(Number(value) || 0).toLocaleString('es-CL');
 const escapeHTML = (value = '') => String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
 const uid = () => crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
@@ -19,14 +78,16 @@ const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 function loadPortfolio() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (saved && Array.isArray(saved.campaigns)) return saved;
+    if (saved && Array.isArray(saved.campaigns)) {
+      return { ...saved, campaigns: saved.campaigns.map(normalizeCampaign) };
+    }
   } catch (error) {
     console.warn('No se pudo leer el guardado local.', error);
   }
   try {
     const legacy = JSON.parse(localStorage.getItem(LEGACY_STORAGE_KEY));
     if (legacy && Array.isArray(legacy.characters) && Array.isArray(legacy.sessions)) {
-      return { campaigns: [{ id: uid(), name: 'Mi primera campaña', dm: '', system: 'D&D 5e', description: 'Campaña recuperada de Crónicas de Experiencia.', color: '#9b4e35', characters: legacy.characters, sessions: legacy.sessions, createdAt: new Date().toISOString() }] };
+      return { campaigns: [normalizeCampaign({ id: uid(), name: 'Mi primera campaña', dm: '', system: 'D&D 5e 2024', description: 'Campaña recuperada de Crónicas de Experiencia.', color: '#9b4e35', characters: legacy.characters, sessions: legacy.sessions, createdAt: new Date().toISOString() })] };
     }
   } catch (error) {
     console.warn('No se pudo migrar el guardado anterior.', error);
@@ -40,6 +101,31 @@ function saveState() {
 
 function activeCampaign() {
   return portfolio.campaigns.find(campaign => campaign.id === activeCampaignId);
+}
+
+function getSystemId(value) {
+  const normalized = String(value || '').trim().toLowerCase();
+  return SYSTEMS[value]?.id || SYSTEM_ALIASES[normalized] || 'dnd5e2024';
+}
+
+function getCampaignSystem(campaign = state) {
+  return SYSTEMS[getSystemId(campaign?.systemId || campaign?.system)] || SYSTEMS.dnd5e2024;
+}
+
+function normalizeCampaign(campaign) {
+  const system = getCampaignSystem(campaign);
+  return {
+    ...campaign,
+    systemId: system.id,
+    system: system.name,
+    characters: Array.isArray(campaign.characters) ? campaign.characters : [],
+    sessions: Array.isArray(campaign.sessions) ? campaign.sessions : [],
+  };
+}
+
+function formatResource(value, campaign = state) {
+  const system = getCampaignSystem(campaign);
+  return `${formatNumber(value)} ${system.unit}`;
 }
 
 async function hashPassword(value) {
@@ -78,6 +164,7 @@ function activateCampaign(campaign) {
   topbar.style.backgroundImage = campaign.banner ? `linear-gradient(90deg, rgba(20,15,11,.86), rgba(20,15,11,.34)), url('${campaign.banner}')` : '';
   $('#sidebar-campaign-name').textContent = campaign.name;
   $('#campaign-context').textContent = campaign.name;
+  updateSystemCopy();
   renderAll();
   renderSessionForm();
   navigate('dashboard');
@@ -91,7 +178,7 @@ function openCampaign(id) {
 }
 
 function deleteCampaign(campaign) {
-  if (!confirm(`¿Eliminar la campaña ${campaign.name}? Se borrarán sus personajes, sesiones y experiencia.`)) return;
+  if (!confirm(`¿Eliminar la campaña ${campaign.name}? Se borrarán sus personajes, sesiones y ${getCampaignSystem(campaign).resourceName}.`)) return;
   portfolio.campaigns = portfolio.campaigns.filter(entry => entry.id !== campaign.id);
   unlockedCampaigns.delete(campaign.id);
   saveState();
@@ -111,16 +198,17 @@ function showCampaignsHome() {
 function renderCampaigns() {
   $('#campaign-count').textContent = `${portfolio.campaigns.length} campaña${portfolio.campaigns.length === 1 ? '' : 's'}`;
   $('#campaign-grid').innerHTML = portfolio.campaigns.length ? portfolio.campaigns.map(campaign => {
+    campaign = normalizeCampaign(campaign);
     const totalXP = campaign.sessions.reduce((sum, session) => sum + (session.totalAwarded || 0), 0);
     const bannerStyle = campaign.banner ? `background-image:url('${campaign.banner}')` : '';
     const fontFamilies = { classic: 'Cinzel,serif', medieval: 'MedievalSharp,cursive', chronicle: 'IM Fell English,serif', arcane: 'Uncial Antiqua,serif', modern: 'Inter,sans-serif' };
     return `<article class="campaign-card" style="--campaign-color:${campaign.color || '#9b4e35'};--card-display-font:${fontFamilies[campaign.font || 'classic']}">
       <div class="campaign-card-banner" style="${bannerStyle}"></div>
       <div class="campaign-card-content">
-        <p class="eyebrow">${escapeHTML(campaign.system || 'D&D')}</p>
+        <p class="eyebrow">${escapeHTML(getCampaignSystem(campaign).name)}</p>
         <h3>${escapeHTML(campaign.name)}</h3>
         <p>${escapeHTML(campaign.description || 'Una nueva travesía está a punto de comenzar.')}</p>
-        <div class="campaign-meta"><span>${campaign.characters.length} personajes</span><span>${campaign.sessions.length} sesiones</span><span>${formatXP(totalXP)}</span>${campaign.dm ? `<span>DM: ${escapeHTML(campaign.dm)}</span>` : ''}${campaign.passwordHash ? '<span class="lock-label">Protegida</span>' : ''}</div>
+        <div class="campaign-meta"><span>${campaign.characters.length} personajes</span><span>${campaign.sessions.length} sesiones</span><span>${formatResource(totalXP, campaign)}</span>${campaign.dm ? `<span>DM: ${escapeHTML(campaign.dm)}</span>` : ''}${campaign.passwordHash ? '<span class="lock-label">Protegida</span>' : ''}</div>
       </div>
       <div class="campaign-card-actions">
         <button class="primary-button open-campaign" data-id="${campaign.id}">Entrar a la campaña</button>
@@ -131,11 +219,12 @@ function renderCampaigns() {
 }
 
 function openCampaignModal(campaign = null) {
+  const system = getCampaignSystem(campaign);
   $('#campaign-form').reset();
   $('#campaign-id').value = campaign?.id || '';
   $('#campaign-name').value = campaign?.name || '';
   $('#campaign-dm').value = campaign?.dm || '';
-  $('#campaign-system').value = campaign?.system || 'D&D 5e';
+  $('#campaign-system').value = system.id;
   $('#campaign-description').value = campaign?.description || '';
   $('#campaign-theme').value = campaign?.theme || 'parchment';
   $('#campaign-font').value = campaign?.font || 'classic';
@@ -192,11 +281,56 @@ function getLevel(xp) {
 }
 
 function getProgress(xp) {
+  const system = getCampaignSystem();
+  if (system.id === 'cyberpunkRed') return getCyberpunkProgress(xp);
   const level = getLevel(xp);
   if (level === 20) return { level, percent: 100, current: xp, next: null, remaining: 0 };
   const current = XP_THRESHOLDS[level - 1];
   const next = XP_THRESHOLDS[level];
   return { level, current, next, remaining: next - xp, percent: Math.max(0, Math.min(100, ((xp - current) / (next - current)) * 100)) };
+}
+
+function getCyberpunkProgress(points) {
+  const pp = Math.max(0, Math.round(Number(points) || 0));
+  const nextCost = Array.from({ length: 10 }, (_, index) => (index + 1) * SYSTEMS.cyberpunkRed.costTables.typical.multiplier).find(cost => pp < cost) || null;
+  return {
+    level: pp,
+    percent: nextCost ? Math.max(0, Math.min(100, (pp / nextCost) * 100)) : 100,
+    current: pp,
+    next: nextCost,
+    remaining: nextCost ? nextCost - pp : 0,
+  };
+}
+
+function getCyberpunkUpgradeSummary(points) {
+  const pp = Math.max(0, Math.round(Number(points) || 0));
+  return Object.values(SYSTEMS.cyberpunkRed.costTables).map(table => {
+    const maxRank = Math.min(10, Math.floor(pp / table.multiplier));
+    const nextRank = Math.min(10, maxRank + 1);
+    const nextCost = nextRank <= 10 ? nextRank * table.multiplier : null;
+    const status = maxRank > 0 ? `cubre coste hasta valor ${maxRank}` : 'sin mejora disponible';
+    return `${table.label}: ${status}${nextCost ? `; siguiente ${nextCost} PP` : '; coste maximo cubierto'}`;
+  }).join(' | ');
+}
+
+function updateSystemCopy() {
+  const system = getCampaignSystem();
+  $('#character-class-label').textContent = system.roleLabel;
+  $('#character-class').placeholder = system.rolePlaceholder;
+  $('#character-xp-label').textContent = system.characterValueLabel;
+  $('#character-xp-help').textContent = system.characterValueHelp;
+  $('#pools-help').textContent = system.poolsHelp;
+  $('#pool-combat-label').textContent = system.poolLabels[0];
+  $('#pool-roleplay-label').textContent = system.poolLabels[1];
+  $('#pool-manual-label').textContent = system.poolLabels[2];
+  $('#pool-combat-help').textContent = system.poolHelps[0];
+  $('#pool-roleplay-help').textContent = system.poolHelps[1];
+  $('#pool-manual-help').textContent = system.poolHelps[2];
+  $('#bonus-title').textContent = system.bonusTitle;
+  $('#bonus-help').textContent = system.bonusHelp;
+  $('#session-total-label').textContent = system.totalAwardedLabel;
+  const poolsHeading = document.querySelector('.xp-pools')?.closest('.panel')?.querySelector('h2');
+  if (poolsHeading) poolsHeading.textContent = system.poolsTitle;
 }
 
 function showToast(message) {
@@ -219,41 +353,47 @@ function navigate(view) {
 }
 
 function characterCard(character) {
+  const system = getCampaignSystem();
   const progress = getProgress(character.xp);
   const subtitle = [character.className, character.player ? `Jugador: ${character.player}` : ''].filter(Boolean).join(' · ') || 'Aventurero';
+  const progressCaption = system.id === 'cyberpunkRed'
+    ? getCyberpunkUpgradeSummary(character.xp)
+    : (progress.next ? `${formatResource(progress.remaining)} para nivel ${progress.level + 1}` : system.maxProgressText);
   return `
     <article class="character-card">
       <div class="character-top">
         <div class="avatar" style="background:${character.color}">${escapeHTML(character.name.charAt(0).toUpperCase())}</div>
         <div class="character-meta"><h3>${escapeHTML(character.name)}</h3><p>${escapeHTML(subtitle)}</p></div>
-        <div class="level-badge">NIVEL<b>${progress.level}</b></div>
+        <div class="level-badge">${system.progressName.toUpperCase()}<b>${system.id === 'cyberpunkRed' ? formatNumber(progress.level) : progress.level}</b></div>
       </div>
       <div class="progress-track"><div class="progress-fill" style="width:${progress.percent}%"></div></div>
-      <div class="progress-caption"><span>${formatXP(character.xp)}</span><span>${progress.next ? `${formatXP(progress.remaining)} para nivel ${progress.level + 1}` : 'Nivel máximo'}</span></div>
+      <div class="progress-caption"><span>${formatResource(character.xp)}</span><span>${progressCaption}</span></div>
     </article>`;
 }
 
 function renderDashboard() {
+  const system = getCampaignSystem();
   const totalAwarded = state.sessions.reduce((sum, session) => sum + session.totalAwarded, 0);
-  const attendance = state.sessions.reduce((sum, session) => sum + session.allocations.length, 0);
-  const averageLevel = state.characters.length ? (state.characters.reduce((sum, character) => sum + getLevel(character.xp), 0) / state.characters.length).toFixed(1) : '—';
+  const averageProgress = state.characters.length
+    ? (state.characters.reduce((sum, character) => sum + (system.id === 'cyberpunkRed' ? Number(character.xp || 0) : getLevel(character.xp)), 0) / state.characters.length).toFixed(1)
+    : '—';
   $('#stats-grid').innerHTML = [
     ['Personajes', state.characters.length],
     ['Sesiones', state.sessions.length],
-    ['PX otorgados', Math.round(totalAwarded).toLocaleString('es-CL')],
-    ['Nivel promedio', averageLevel]
+    [`${system.unit} otorgados`, formatNumber(totalAwarded)],
+    [system.averageStatLabel, averageProgress]
   ].map(([label, value]) => `<article class="stat-card"><span>${label}</span><strong>${value}</strong></article>`).join('');
 
   $('#dashboard-characters').innerHTML = state.characters.length
     ? state.characters.map(characterCard).join('')
-    : emptyState('Aún no hay personajes', 'Añade a los aventureros de la campaña para comenzar a registrar experiencia.', 'characters', 'Crear primer personaje');
+    : emptyState('Aún no hay personajes', `Añade a los aventureros de la campaña para comenzar a registrar ${system.resourceName}.`, 'characters', 'Crear primer personaje');
 
   const recent = [...state.sessions].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 4);
   $('#recent-sessions').innerHTML = recent.length ? recent.map(session => `
     <article class="timeline-item">
       <div class="timeline-number">SESIÓN ${session.number}</div>
       <div><h3>${escapeHTML(session.name)}</h3><p>${formatDate(session.date)} · ${session.allocations.length} participante${session.allocations.length === 1 ? '' : 's'}</p></div>
-      <div class="timeline-xp">${formatXP(session.totalAwarded)}</div>
+      <div class="timeline-xp">${formatResource(session.totalAwarded)}</div>
     </article>`).join('') : emptyState('La historia comienza aquí', 'Cuando registres una sesión, aparecerá en esta línea de tiempo.', 'new-session', 'Registrar sesión');
 }
 
@@ -263,12 +403,17 @@ function emptyState(title, copy, view, action) {
 }
 
 function renderCharacters() {
+  const system = getCampaignSystem();
   $('#character-list').innerHTML = state.characters.length ? state.characters.map(character => {
     const progress = getProgress(character.xp);
+    const progressLabel = system.id === 'cyberpunkRed' ? `${formatNumber(character.xp)} PP` : `Nivel ${progress.level}`;
+    const progressHelp = system.id === 'cyberpunkRed'
+      ? getCyberpunkUpgradeSummary(character.xp)
+      : (progress.next ? `${formatResource(progress.remaining)} para subir` : system.maxProgressText);
     return `<article class="character-row">
       <div class="avatar" style="background:${character.color}">${escapeHTML(character.name.charAt(0).toUpperCase())}</div>
-      <div class="character-meta"><h3>${escapeHTML(character.name)}</h3><p>${escapeHTML(character.className || 'Sin clase')} · Nivel ${progress.level}${character.player ? ` · ${escapeHTML(character.player)}` : ''}</p></div>
-      <div class="xp-amount">${formatXP(character.xp)}<small>${progress.next ? `${formatXP(progress.remaining)} para subir` : 'Nivel máximo'}</small></div>
+      <div class="character-meta"><h3>${escapeHTML(character.name)}</h3><p>${escapeHTML(character.className || `Sin ${system.roleLabel.toLowerCase()}`)} · ${progressLabel}${character.player ? ` · ${escapeHTML(character.player)}` : ''}</p></div>
+      <div class="xp-amount">${formatResource(character.xp)}<small>${progressHelp}</small></div>
       <div class="row-actions"><button class="text-button edit-character" data-id="${character.id}">Editar</button><button class="text-button danger-button delete-character" data-id="${character.id}">Eliminar</button></div>
     </article>`;
   }).join('') : emptyState('Sin aventureros', 'Usa el formulario para añadir el primer personaje de la campaña.', '', '');
@@ -284,24 +429,26 @@ function resetCharacterForm() {
 }
 
 function renderSessionForm() {
+  updateSystemCopy();
+  const system = getCampaignSystem();
   $('#session-number').value = state.sessions.length ? Math.max(...state.sessions.map(session => Number(session.number) || 0)) + 1 : 1;
   if (!$('#session-date').value) $('#session-date').value = new Date().toISOString().slice(0, 10);
   const attendance = $('#attendance-list');
   if (!state.characters.length) {
-    attendance.innerHTML = emptyState('Primero necesitas personajes', 'Añade los integrantes de la campaña antes de repartir experiencia.', 'characters', 'Añadir personajes');
+    attendance.innerHTML = emptyState('Primero necesitas personajes', `Añade los integrantes de la campaña antes de repartir ${system.resourceName}.`, 'characters', 'Añadir personajes');
     $('#individual-bonuses').innerHTML = '';
     updateDistribution();
     return;
   }
   attendance.innerHTML = state.characters.map(character => `
-    <label class="attendance-item"><input class="attendance-check" type="checkbox" value="${character.id}" checked><span class="avatar" style="width:30px;height:30px;font-size:12px;background:${character.color}">${escapeHTML(character.name.charAt(0))}</span><b>${escapeHTML(character.name)}</b><small>Nivel ${getLevel(character.xp)}</small></label>`).join('');
+    <label class="attendance-item"><input class="attendance-check" type="checkbox" value="${character.id}" checked><span class="avatar" style="width:30px;height:30px;font-size:12px;background:${character.color}">${escapeHTML(character.name.charAt(0))}</span><b>${escapeHTML(character.name)}</b><small>${system.id === 'cyberpunkRed' ? formatResource(character.xp) : `Nivel ${getLevel(character.xp)}`}</small></label>`).join('');
   $('#individual-bonuses').innerHTML = state.characters.map(character => `
     <div class="bonus-item" data-character="${character.id}">
       <div class="bonus-head"><span class="avatar" style="width:27px;height:27px;font-size:11px;background:${character.color}">${escapeHTML(character.name.charAt(0))}</span><strong>${escapeHTML(character.name)}</strong></div>
       <div class="bonus-inputs">
-        <label>Combate<input class="bonus-combat" type="number" min="0" step="1" value="0"></label>
-        <label>Roleo<input class="bonus-roleplay" type="number" min="0" step="1" value="0"></label>
-        <label>Manual<input class="bonus-manual" type="number" min="0" step="1" value="0"></label>
+        <label>${system.poolLabels[0]}<input class="bonus-combat" type="number" min="0" step="1" value="0"></label>
+        <label>${system.poolLabels[1]}<input class="bonus-roleplay" type="number" min="0" step="1" value="0"></label>
+        <label>${system.poolLabels[2]}<input class="bonus-manual" type="number" min="0" step="1" value="0"></label>
       </div>
     </div>`).join('');
   updateDistribution();
@@ -341,10 +488,10 @@ function updateDistribution() {
   });
   const distribution = getDistribution();
   const total = distribution.reduce((sum, item) => sum + item.total, 0);
-  $('#session-total').textContent = formatXP(total);
+  $('#session-total').textContent = formatResource(total);
   $('#distribution-preview').innerHTML = distribution.length ? distribution.map(item => {
     const character = state.characters.find(entry => entry.id === item.characterId);
-    return `<div class="preview-row"><span>${escapeHTML(character?.name || 'Personaje')}</span><b>+${formatXP(item.total)}</b></div>`;
+    return `<div class="preview-row"><span>${escapeHTML(character?.name || 'Personaje')}</span><b>+${formatResource(item.total)}</b></div>`;
   }).join('') : '<p class="helper">Marca al menos un personaje como asistente.</p>';
 }
 
@@ -377,10 +524,11 @@ function saveSession(event) {
   $('#session-date').value = new Date().toISOString().slice(0, 10);
   renderAll();
   navigate('log');
-  showToast('Sesión guardada y experiencia aplicada.');
+  showToast(`Sesión guardada y ${getCampaignSystem().resourceName} aplicada.`);
 }
 
 function renderLog(query = '') {
+  const system = getCampaignSystem();
   const normalized = query.trim().toLowerCase();
   const sessions = [...state.sessions].sort((a, b) => new Date(b.date) - new Date(a.date)).filter(session => {
     const participantNames = session.allocations.map(item => item.characterName || state.characters.find(character => character.id === item.characterId)?.name || '').join(' ');
@@ -391,7 +539,7 @@ function renderLog(query = '') {
       <header class="log-card-header">
         <div class="session-seal">${session.number}</div>
         <div><h3>${escapeHTML(session.name)}${session.historical ? '<span class="history-badge">Sesión anterior</span>' : ''}</h3><p>${formatDate(session.date)} · ${session.allocations.length} participante${session.allocations.length === 1 ? '' : 's'}</p></div>
-        <div class="log-card-total">${formatXP(session.totalAwarded)}<small>Total otorgado</small></div>
+        <div class="log-card-total">${formatResource(session.totalAwarded)}<small>Total otorgado</small></div>
       </header>
       <div class="log-body">
         ${(session.notes.combat || session.notes.roleplay) ? `<div class="log-notes">
@@ -399,16 +547,16 @@ function renderLog(query = '') {
           <div class="log-note"><b>Roleo y aventura</b><p>${escapeHTML(session.notes.roleplay || 'Sin notas de roleo.')}</p></div>
         </div>` : ''}
         <table class="allocation-table">
-          <thead><tr><th>Personaje</th><th>Combate</th><th>Roleo</th><th>Otros</th><th>Total</th></tr></thead>
+          <thead><tr><th>Personaje</th><th>${system.poolLabels[0]}</th><th>${system.poolLabels[1]}</th><th>${system.poolLabels[2]}</th><th>Total</th></tr></thead>
           <tbody>${session.allocations.map(item => {
             const character = state.characters.find(entry => entry.id === item.characterId);
             const combat = item.group.combat + item.individual.combat;
             const roleplay = item.group.roleplay + item.individual.roleplay;
             const manual = item.group.manual + item.individual.manual;
-            return `<tr><td>${escapeHTML(item.characterName || character?.name || 'Personaje eliminado')}</td><td>${formatXP(combat)}</td><td>${formatXP(roleplay)}</td><td>${formatXP(manual)}</td><td><b>${formatXP(item.total)}</b></td></tr>`;
+            return `<tr><td>${escapeHTML(item.characterName || character?.name || 'Personaje eliminado')}</td><td>${formatResource(combat)}</td><td>${formatResource(roleplay)}</td><td>${formatResource(manual)}</td><td><b>${formatResource(item.total)}</b></td></tr>`;
           }).join('')}</tbody>
         </table>
-        <footer class="log-footer"><button class="text-button danger-button delete-session" data-id="${session.id}">Eliminar sesión y revertir PX</button></footer>
+        <footer class="log-footer"><button class="text-button danger-button delete-session" data-id="${session.id}">Eliminar sesión y revertir ${getCampaignSystem().unit}</button></footer>
       </div>
     </article>`).join('') : emptyState(normalized ? 'Sin resultados' : 'Bitácora vacía', normalized ? 'No encontramos sesiones que coincidan con la búsqueda.' : 'Registra la primera sesión para comenzar el historial.', 'new-session', 'Registrar sesión');
 }
@@ -475,7 +623,7 @@ document.addEventListener('click', event => {
   const deleteSession = event.target.closest('.delete-session');
   if (deleteSession) {
     const session = state.sessions.find(entry => entry.id === deleteSession.dataset.id);
-    if (session && confirm(`¿Eliminar la sesión ${session.number}? La experiencia otorgada se descontará de los personajes.`)) {
+    if (session && confirm(`¿Eliminar la sesión ${session.number}? ${getCampaignSystem().resourceName} otorgada se descontará de los personajes.`)) {
       session.allocations.forEach(allocation => {
         const character = state.characters.find(entry => entry.id === allocation.characterId);
         if (character) character.xp = Math.max(0, Math.round((character.xp - allocation.total) * 100) / 100);
@@ -484,7 +632,7 @@ document.addEventListener('click', event => {
       saveState();
       renderAll();
       renderLog($('#log-search').value);
-      showToast('Sesión eliminada y experiencia revertida.');
+      showToast(`Sesión eliminada y ${getCampaignSystem().resourceName} revertida.`);
     }
   }
 });
@@ -572,6 +720,7 @@ $('#campaign-form').addEventListener('submit', async event => {
   event.preventDefault();
   const id = $('#campaign-id').value;
   const existing = portfolio.campaigns.find(campaign => campaign.id === id);
+  const selectedSystem = SYSTEMS[$('#campaign-system').value] || SYSTEMS.dnd5e2024;
   const wantsProtection = $('#campaign-protected').checked;
   const password = $('#campaign-password').value;
   if (wantsProtection && !existing?.passwordHash && password.length < 4) {
@@ -583,7 +732,8 @@ $('#campaign-form').addEventListener('submit', async event => {
     id: id || uid(),
     name: $('#campaign-name').value.trim(),
     dm: $('#campaign-dm').value.trim(),
-    system: $('#campaign-system').value.trim() || 'D&D 5e',
+    systemId: selectedSystem.id,
+    system: selectedSystem.name,
     description: $('#campaign-description').value.trim(),
     theme: $('#campaign-theme').value,
     font: $('#campaign-font').value,
@@ -621,7 +771,9 @@ $('#import-data').addEventListener('change', event => {
   reader.onload = () => {
     try {
       const imported = JSON.parse(reader.result);
-      const normalized = Array.isArray(imported.campaigns) ? imported : (Array.isArray(imported.characters) && Array.isArray(imported.sessions) ? { campaigns: [{ id: uid(), name: 'Campaña importada', dm: '', system: 'D&D 5e', description: '', color: '#9b4e35', characters: imported.characters, sessions: imported.sessions, createdAt: new Date().toISOString() }] } : null);
+      const normalized = Array.isArray(imported.campaigns)
+        ? { ...imported, campaigns: imported.campaigns.map(normalizeCampaign) }
+        : (Array.isArray(imported.characters) && Array.isArray(imported.sessions) ? { campaigns: [normalizeCampaign({ id: uid(), name: 'Campaña importada', dm: '', system: 'D&D 5e 2024', description: '', color: '#9b4e35', characters: imported.characters, sessions: imported.sessions, createdAt: new Date().toISOString() })] } : null);
       if (!normalized) throw new Error('Formato inválido');
       if (!confirm('Esto reemplazará los datos actuales. ¿Continuar?')) return;
       portfolio = normalized;
