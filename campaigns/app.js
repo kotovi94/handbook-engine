@@ -351,28 +351,46 @@ function showCampaignsHome() {
 }
 
 function renderCampaigns() {
-  $('#campaign-count').textContent = `${portfolio.campaigns.length} campaña${portfolio.campaigns.length === 1 ? '' : 's'}`;
-  $('#campaign-grid').innerHTML = portfolio.campaigns.length ? portfolio.campaigns.map(campaign => {
-    campaign = normalizeCampaign(campaign);
+  const campaigns = portfolio.campaigns.map(normalizeCampaign);
+  const totals = campaigns.reduce((summary, campaign) => {
+    const characterCount = campaign.characterCount ?? campaign.characters.length;
+    const sessionCount = campaign.sessionCount ?? campaign.sessions.length;
+    const totalAwarded = campaign.totalAwarded ?? campaign.sessions.reduce((sum, session) => sum + (session.totalAwarded || 0), 0);
+    summary.characters += characterCount;
+    summary.sessions += sessionCount;
+    summary.awards += totalAwarded;
+    return summary;
+  }, { characters: 0, sessions: 0, awards: 0 });
+  $("#campaign-count").textContent = `${campaigns.length} campaña${campaigns.length === 1 ? "" : "s"}`;
+  $("#home-campaign-total").textContent = formatNumber(campaigns.length);
+  $("#home-character-total").textContent = formatNumber(totals.characters);
+  $("#home-session-total").textContent = formatNumber(totals.sessions);
+  $("#home-award-total").textContent = formatNumber(totals.awards);
+  $("#campaign-grid").classList.toggle("single-campaign", campaigns.length === 1);
+  $("#campaign-grid").innerHTML = campaigns.length ? campaigns.map(campaign => {
     const characterCount = campaign.characterCount ?? campaign.characters.length;
     const sessionCount = campaign.sessionCount ?? campaign.sessions.length;
     const totalXP = campaign.totalAwarded ?? campaign.sessions.reduce((sum, session) => sum + (session.totalAwarded || 0), 0);
-    const bannerStyle = campaign.banner ? `background-image:url('${campaign.banner}')` : '';
-    const fontFamilies = { classic: 'Cinzel,serif', medieval: 'MedievalSharp,cursive', chronicle: 'IM Fell English,serif', arcane: 'Uncial Antiqua,serif', modern: 'Inter,sans-serif' };
-    return `<article class="campaign-card" style="--campaign-color:${campaign.color || '#9b4e35'};--card-display-font:${fontFamilies[campaign.font || 'classic']}">
+    const nextStep = characterCount === 0
+      ? "Siguiente paso: agrega los personajes de la mesa."
+      : (sessionCount === 0 ? "Siguiente paso: registra la primera sesion." : "Lista para continuar la bitacora.");
+    const bannerStyle = campaign.banner ? `background-image:url('${campaign.banner}')` : "";
+    const fontFamilies = { classic: "Cinzel,serif", medieval: "MedievalSharp,cursive", chronicle: "IM Fell English,serif", arcane: "Uncial Antiqua,serif", modern: "Inter,sans-serif" };
+    return `<article class="campaign-card" style="--campaign-color:${campaign.color || "#9b4e35"};--card-display-font:${fontFamilies[campaign.font || "classic"]}">
       <div class="campaign-card-banner" style="${bannerStyle}"></div>
       <div class="campaign-card-content">
         <p class="eyebrow">${escapeHTML(getCampaignSystem(campaign).name)}</p>
         <h3>${escapeHTML(campaign.name)}</h3>
-        <p>${escapeHTML(campaign.description || 'Una nueva travesía está a punto de comenzar.')}</p>
-        <div class="campaign-meta"><span>${characterCount} personajes</span><span>${sessionCount} sesiones</span><span>${formatResource(totalXP, campaign)}</span>${campaign.dm ? `<span>DM: ${escapeHTML(campaign.dm)}</span>` : ''}${campaign.passwordHash ? '<span class="lock-label">Protegida</span>' : ''}</div>
+        <p>${escapeHTML(campaign.description || "Una nueva travesia esta a punto de comenzar.")}</p>
+        <div class="campaign-meta"><span>${characterCount} personajes</span><span>${sessionCount} sesiones</span><span>${formatResource(totalXP, campaign)}</span>${campaign.dm ? `<span>DM: ${escapeHTML(campaign.dm)}</span>` : ""}${campaign.passwordHash ? '<span class="lock-label">Protegida</span>' : ""}</div>
+        <div class="campaign-next-step">${nextStep}</div>
       </div>
       <div class="campaign-card-actions">
         <button class="primary-button open-campaign" data-id="${campaign.id}">Entrar a la campaña</button>
         <div class="campaign-card-tools"><button class="text-button share-campaign" data-id="${campaign.id}">Compartir</button><button class="text-button edit-campaign" data-id="${campaign.id}">Editar</button><button class="text-button danger-button delete-campaign" data-id="${campaign.id}">Eliminar</button></div>
       </div>
     </article>`;
-  }).join('') : `<div class="empty-state" style="grid-column:1/-1"><h3>Tu primera travesía te espera</h3><p>Crea una campaña para comenzar a reunir personajes, sesiones y experiencia.</p><button class="primary-button" id="empty-new-campaign">Crear primera campaña</button></div>`;
+  }).join("") : `<div class="empty-state" style="grid-column:1/-1"><h3>Tu primera travesia te espera</h3><p>Crea una campaña para comenzar a reunir personajes, sesiones y experiencia.</p><button class="primary-button" id="empty-new-campaign">Crear primera campaña</button></div>`;
 }
 
 function getCampaignShareUrl(campaign) {
@@ -1061,6 +1079,7 @@ $('#select-all').addEventListener('click', () => {
 $('#log-search').addEventListener('input', event => renderLog(event.target.value));
 
 $('#open-campaign-form').addEventListener('click', () => openCampaignModal());
+$('#hero-new-campaign').addEventListener('click', () => openCampaignModal());
 $('#close-campaign-form').addEventListener('click', closeCampaignModal);
 $('#campaign-modal').addEventListener('click', event => { if (event.target.id === 'campaign-modal') closeCampaignModal(); });
 $('#campaign-protected').addEventListener('change', event => {

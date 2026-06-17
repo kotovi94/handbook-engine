@@ -37,11 +37,23 @@
       </div>
     </header>
     <main class="home-main">
-      <div class="home-hero">
-        <p class="eyebrow">Tu mesa, tus mundos, sus historias</p>
-        <h1>Bienvenido al archivo<br>de tus travesías</h1>
-        <p>Organiza cada campaña por separado y conserva sus personajes, sesiones, experiencia y recuerdos.</p>
-      </div>
+      <section class="home-hero">
+        <div class="home-hero-copy">
+          <p class="eyebrow">Tu mesa, tus mundos, sus historias</p>
+          <h1>Bitácora de campañas</h1>
+          <p>Gestiona personajes, sesiones, recompensas y recuerdos desde un solo archivo compartido.</p>
+          <div class="hero-actions">
+            <button id="hero-new-campaign" class="primary-button">Nueva campaña</button>
+            <a class="secondary-button" href="../">Compendio y creador</a>
+          </div>
+        </div>
+        <div class="home-overview" aria-label="Resumen del archivo">
+          <div class="overview-card strong"><span>Campañas</span><strong id="home-campaign-total">0</strong></div>
+          <div class="overview-card"><span>Personajes</span><strong id="home-character-total">0</strong></div>
+          <div class="overview-card"><span>Sesiones</span><strong id="home-session-total">0</strong></div>
+          <div class="overview-card"><span>Recompensas</span><strong id="home-award-total">0</strong></div>
+        </div>
+      </section>
       <div class="section-heading">
         <div><p class="eyebrow">Biblioteca</p><h2>Mis campañas</h2></div>
         <span id="campaign-count" class="quiet-label"></span>
