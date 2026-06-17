@@ -38,6 +38,7 @@ module.exports = async function handler(req, res) {
           class_name: body.className || "",
           xp: Number(body.xp || 0),
           color: body.color || "#b97a45",
+          portrait: body.portrait || "",
         }),
       });
       return sendJson(res, 201, { character });
@@ -54,6 +55,7 @@ module.exports = async function handler(req, res) {
           class_name: body.className || "",
           xp: Number(body.xp || 0),
           color: body.color || "#b97a45",
+          portrait: body.portrait || "",
           updated_at: new Date().toISOString(),
         }),
       });

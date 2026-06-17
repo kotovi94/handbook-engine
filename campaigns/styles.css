@@ -149,7 +149,8 @@ h3 { font-size: 16px; }
 .character-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .character-card { padding: 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); box-shadow: var(--shadow); }
 .character-top { display: flex; align-items: center; gap: 13px; }
-.avatar { flex: 0 0 auto; width: 43px; height: 43px; display: grid; place-items: center; border-radius: 50%; color: white; font: 700 17px Cinzel, serif; box-shadow: inset 0 0 0 3px rgba(255,255,255,.22); }
+.avatar { flex: 0 0 auto; width: 43px; height: 43px; display: grid; place-items: center; overflow: hidden; border-radius: 50%; color: white; background-position: center; background-size: cover; font: 700 17px Cinzel, serif; box-shadow: inset 0 0 0 3px rgba(255,255,255,.22); }
+.portrait-preview { min-height: 132px; margin-top: 8px; display: grid; place-items: center; border: 1px dashed #cdbfae; border-radius: 8px; color: var(--muted); background: #fffcf7 center / cover no-repeat; font-size: 12px; text-align: center; }
 .character-meta { min-width: 0; }
 .character-meta h3 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .character-meta p { margin: 4px 0 0; color: var(--muted); font-size: 11px; }

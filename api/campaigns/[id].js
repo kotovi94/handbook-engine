@@ -36,6 +36,7 @@ function mapCharacter(row) {
     className: row.class_name || "",
     xp: Number(row.xp || 0),
     color: row.color || "#b97a45",
+    portrait: row.portrait || "",
   };
 }
 

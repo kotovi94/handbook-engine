@@ -28,9 +28,13 @@ create table if not exists public.characters (
   class_name text not null default '',
   xp numeric not null default 0,
   color text not null default '#b97a45',
+  portrait text not null default '',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.characters
+  add column if not exists portrait text not null default '';
 
 create table if not exists public.sessions (
   id uuid primary key default gen_random_uuid(),

@@ -133,6 +133,7 @@ let portfolio = { campaigns: [] };
 let activeCampaignId = null;
 let state = null;
 let pendingBanner = '';
+let pendingCharacterPortrait = '';
 let pendingUnlockAction = 'open';
 const unlockedCampaigns = new Set();
 const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -213,8 +214,15 @@ function normalizeCampaign(campaign) {
     ...campaign,
     systemId: system.id,
     system: system.name,
-    characters: Array.isArray(campaign.characters) ? campaign.characters : [],
+    characters: Array.isArray(campaign.characters) ? campaign.characters.map(normalizeCharacter) : [],
     sessions: Array.isArray(campaign.sessions) ? campaign.sessions : [],
+  };
+}
+
+function normalizeCharacter(character) {
+  return {
+    ...character,
+    portrait: character.portrait || character.image || character.avatar || '',
   };
 }
 
@@ -397,7 +405,14 @@ function updateBannerPreview() {
   $('#remove-campaign-banner').classList.toggle('hidden', !pendingBanner);
 }
 
-function resizeImage(file) {
+function updateCharacterPortraitPreview() {
+  const preview = $('#character-portrait-preview');
+  preview.style.backgroundImage = pendingCharacterPortrait ? `url('${pendingCharacterPortrait}')` : '';
+  preview.innerHTML = pendingCharacterPortrait ? '' : '<span>Sin retrato seleccionado</span>';
+  $('#remove-character-portrait').classList.toggle('hidden', !pendingCharacterPortrait);
+}
+
+function resizeImage(file, { maxWidth = 1600, quality = .82 } = {}) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onerror = reject;
@@ -405,13 +420,12 @@ function resizeImage(file) {
       const image = new Image();
       image.onerror = reject;
       image.onload = () => {
-        const maxWidth = 1600;
         const scale = Math.min(1, maxWidth / image.width);
         const canvas = document.createElement('canvas');
         canvas.width = Math.round(image.width * scale);
         canvas.height = Math.round(image.height * scale);
         canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
-        resolve(canvas.toDataURL('image/jpeg', .82));
+        resolve(canvas.toDataURL('image/jpeg', quality));
       };
       image.src = reader.result;
     };
@@ -517,13 +531,22 @@ function characterCard(character) {
   return `
     <article class="character-card">
       <div class="character-top">
-        <div class="avatar" style="background:${character.color}">${escapeHTML(character.name.charAt(0).toUpperCase())}</div>
+        ${characterAvatar(character)}
         <div class="character-meta"><h3>${escapeHTML(character.name)}</h3><p>${escapeHTML(subtitle)}</p></div>
         <div class="level-badge">${system.progressName.toUpperCase()}<b>${system.id === 'cyberpunkRed' ? formatNumber(progress.level) : progress.level}</b></div>
       </div>
       <div class="progress-track"><div class="progress-fill" style="width:${progress.percent}%"></div></div>
       <div class="progress-caption"><span>${formatResource(character.xp)}</span><span>${progressCaption}</span></div>
     </article>`;
+}
+
+function characterAvatar(character, size = 43, fontSize = 17) {
+  const initial = escapeHTML(character.name.charAt(0).toUpperCase());
+  const baseStyle = `width:${size}px;height:${size}px;font-size:${fontSize}px;`;
+  if (character.portrait) {
+    return `<span class="avatar" style="${baseStyle}background-image:url('${character.portrait}');background-color:${character.color}" aria-label="${escapeHTML(character.name)}"></span>`;
+  }
+  return `<span class="avatar" style="${baseStyle}background:${character.color}">${initial}</span>`;
 }
 
 function renderDashboard() {
@@ -566,7 +589,7 @@ function renderCharacters() {
       ? getCyberpunkUpgradeSummary(character.xp)
       : (progress.next ? `${formatResource(progress.remaining)} para subir` : system.maxProgressText);
     return `<article class="character-row">
-      <div class="avatar" style="background:${character.color}">${escapeHTML(character.name.charAt(0).toUpperCase())}</div>
+      ${characterAvatar(character)}
       <div class="character-meta"><h3>${escapeHTML(character.name)}</h3><p>${escapeHTML(character.className || `Sin ${system.roleLabel.toLowerCase()}`)} · ${progressLabel}${character.player ? ` · ${escapeHTML(character.player)}` : ''}</p></div>
       <div class="xp-amount">${formatResource(character.xp)}<small>${progressHelp}</small></div>
       <div class="row-actions"><button class="text-button edit-character" data-id="${character.id}">Editar</button><button class="text-button danger-button delete-character" data-id="${character.id}">Eliminar</button></div>
@@ -579,6 +602,8 @@ function resetCharacterForm() {
   $('#character-id').value = '';
   $('#character-color').value = '#b97a45';
   $('#character-xp').value = 0;
+  pendingCharacterPortrait = '';
+  updateCharacterPortraitPreview();
   $('#character-form-title').textContent = 'Añadir personaje';
   $('#cancel-character').classList.add('hidden');
 }
@@ -596,10 +621,10 @@ function renderSessionForm() {
     return;
   }
   attendance.innerHTML = state.characters.map(character => `
-    <label class="attendance-item"><input class="attendance-check" type="checkbox" value="${character.id}" checked><span class="avatar" style="width:30px;height:30px;font-size:12px;background:${character.color}">${escapeHTML(character.name.charAt(0))}</span><b>${escapeHTML(character.name)}</b><small>${system.id === 'cyberpunkRed' ? formatResource(character.xp) : `Nivel ${getLevel(character.xp)}`}</small></label>`).join('');
+    <label class="attendance-item"><input class="attendance-check" type="checkbox" value="${character.id}" checked>${characterAvatar(character, 30, 12)}<b>${escapeHTML(character.name)}</b><small>${system.id === 'cyberpunkRed' ? formatResource(character.xp) : `Nivel ${getLevel(character.xp)}`}</small></label>`).join('');
   $('#individual-bonuses').innerHTML = system.id === 'cyberpunkRed' ? renderCyberpunkAwards() : state.characters.map(character => `
     <div class="bonus-item" data-character="${character.id}">
-      <div class="bonus-head"><span class="avatar" style="width:27px;height:27px;font-size:11px;background:${character.color}">${escapeHTML(character.name.charAt(0))}</span><strong>${escapeHTML(character.name)}</strong></div>
+      <div class="bonus-head">${characterAvatar(character, 27, 11)}<strong>${escapeHTML(character.name)}</strong></div>
       <div class="bonus-inputs">
         <label>${system.poolLabels[0]}<input class="bonus-combat" type="number" min="0" step="1" value="0"></label>
         <label>${system.poolLabels[1]}<input class="bonus-roleplay" type="number" min="0" step="1" value="0"></label>
@@ -614,7 +639,7 @@ function renderCyberpunkAwards() {
     const defaultColumn = getDefaultCyberpunkColumn(character);
     return `
     <div class="bonus-item cyberpunk-award" data-character="${character.id}">
-      <div class="bonus-head"><span class="avatar" style="width:27px;height:27px;font-size:11px;background:${character.color}">${escapeHTML(character.name.charAt(0))}</span><strong>${escapeHTML(character.name)}</strong></div>
+      <div class="bonus-head">${characterAvatar(character, 27, 11)}<strong>${escapeHTML(character.name)}</strong></div>
       <div class="cyberpunk-award-table">
         <div class="cyberpunk-award-header"><span>Columna</span><span>Motivo</span><span>PP</span><span></span></div>
         <div class="cyberpunk-award-rows">
@@ -881,6 +906,8 @@ document.addEventListener('click', async event => {
     $('#character-class').value = character.className;
     $('#character-xp').value = character.xp;
     $('#character-color').value = character.color;
+    pendingCharacterPortrait = character.portrait || '';
+    updateCharacterPortraitPreview();
     $('#character-form-title').textContent = 'Editar personaje';
     $('#cancel-character').classList.remove('hidden');
     $('#character-name').focus();
@@ -944,7 +971,8 @@ $('#character-form').addEventListener('submit', async event => {
     player: $('#player-name').value.trim(),
     className: $('#character-class').value.trim(),
     xp: Number($('#character-xp').value) || 0,
-    color: $('#character-color').value
+    color: $('#character-color').value,
+    portrait: pendingCharacterPortrait
   };
   if (USE_REMOTE_STORAGE) {
     try {
@@ -1017,6 +1045,25 @@ $('#remove-campaign-banner').addEventListener('click', () => {
   pendingBanner = '';
   $('#campaign-banner').value = '';
   updateBannerPreview();
+});
+$('#character-portrait').addEventListener('change', async event => {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) {
+    event.target.value = '';
+    return showToast('El retrato debe pesar menos de 5 MB.');
+  }
+  try {
+    pendingCharacterPortrait = await resizeImage(file, { maxWidth: 640, quality: .8 });
+    updateCharacterPortraitPreview();
+  } catch (error) {
+    showToast('No se pudo leer ese retrato.');
+  }
+});
+$('#remove-character-portrait').addEventListener('click', () => {
+  pendingCharacterPortrait = '';
+  $('#character-portrait').value = '';
+  updateCharacterPortraitPreview();
 });
 $('#close-unlock-form').addEventListener('click', () => $('#unlock-modal').classList.add('hidden'));
 $('#unlock-modal').addEventListener('click', event => { if (event.target.id === 'unlock-modal') $('#unlock-modal').classList.add('hidden'); });

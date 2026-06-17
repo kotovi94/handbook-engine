@@ -160,6 +160,9 @@
               <label><span id="character-class-label">Clase</span><input id="character-class" maxlength="40" placeholder="Ej. Bardo"></label>
               <label><span id="character-xp-label">Experiencia actual o previa</span><input id="character-xp" required type="number" min="0" step="1" value="0"><small id="character-xp-help" class="field-help">Si ya jugaba antes de usar la app, escribe aquí toda la experiencia que ya tenía.</small></label>
             </div>
+            <label>Retrato del personaje<input id="character-portrait" type="file" accept="image/png,image/jpeg,image/webp"></label>
+            <div id="character-portrait-preview" class="portrait-preview"><span>Sin retrato seleccionado</span></div>
+            <button id="remove-character-portrait" type="button" class="text-button hidden">Quitar retrato</button>
             <label>Color de ficha<input id="character-color" type="color" value="#b97a45"></label>
             <div class="form-actions">
               <button type="submit" class="primary-button">Guardar personaje</button>
