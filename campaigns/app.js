@@ -369,10 +369,48 @@ function renderCampaigns() {
       </div>
       <div class="campaign-card-actions">
         <button class="primary-button open-campaign" data-id="${campaign.id}">Entrar a la campaña</button>
-        <div class="campaign-card-tools"><button class="text-button edit-campaign" data-id="${campaign.id}">Editar</button><button class="text-button danger-button delete-campaign" data-id="${campaign.id}">Eliminar</button></div>
+        <div class="campaign-card-tools"><button class="text-button share-campaign" data-id="${campaign.id}">Compartir</button><button class="text-button edit-campaign" data-id="${campaign.id}">Editar</button><button class="text-button danger-button delete-campaign" data-id="${campaign.id}">Eliminar</button></div>
       </div>
     </article>`;
   }).join('') : `<div class="empty-state" style="grid-column:1/-1"><h3>Tu primera travesía te espera</h3><p>Crea una campaña para comenzar a reunir personajes, sesiones y experiencia.</p><button class="primary-button" id="empty-new-campaign">Crear primera campaña</button></div>`;
+}
+
+function getCampaignShareUrl(campaign) {
+  if (USE_REMOTE_STORAGE) return `${window.location.origin}/api/campaigns/${campaign.id}/preview`;
+  const params = new URLSearchParams(window.location.search);
+  params.set('campaign', campaign.id);
+  return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+}
+
+async function copyText(value) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(value);
+    return;
+  }
+  const input = document.createElement('textarea');
+  input.value = value;
+  input.setAttribute('readonly', '');
+  input.style.position = 'fixed';
+  input.style.opacity = '0';
+  document.body.append(input);
+  input.select();
+  document.execCommand('copy');
+  input.remove();
+}
+
+async function shareCampaign(campaign) {
+  const url = getCampaignShareUrl(campaign);
+  const text = campaign.description || 'Bitacora compartida de D20 Travesias.';
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: campaign.name, text, url });
+      return;
+    }
+    await copyText(url);
+    showToast('Enlace de campana copiado.');
+  } catch (error) {
+    if (error.name !== 'AbortError') showToast('No se pudo compartir la campana.');
+  }
 }
 
 function openCampaignModal(campaign = null) {
@@ -858,6 +896,11 @@ document.addEventListener('click', async event => {
   if (event.target.closest('[data-action="campaigns-home"]')) showCampaignsHome();
   const openCampaignButton = event.target.closest('.open-campaign');
   if (openCampaignButton) openCampaign(openCampaignButton.dataset.id);
+  const shareCampaignButton = event.target.closest('.share-campaign');
+  if (shareCampaignButton) {
+    const campaign = portfolio.campaigns.find(entry => entry.id === shareCampaignButton.dataset.id);
+    if (campaign) shareCampaign(campaign);
+  }
   const editCampaignButton = event.target.closest('.edit-campaign');
   if (editCampaignButton) {
     const campaign = portfolio.campaigns.find(entry => entry.id === editCampaignButton.dataset.id);
@@ -1205,6 +1248,8 @@ async function initializeCampaigns() {
   const storageCopy = $('.sidebar-footer p');
   if (storageCopy) storageCopy.textContent = USE_REMOTE_STORAGE ? 'Los datos se guardan en el archivo compartido.' : 'Los datos se guardan en este navegador.';
   renderCampaigns();
+  const initialCampaignId = new URLSearchParams(window.location.search).get('campaign');
+  if (initialCampaignId) await openCampaign(initialCampaignId);
 }
 
 darkModeQuery.addEventListener('change', event => {
