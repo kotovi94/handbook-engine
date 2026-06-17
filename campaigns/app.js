@@ -1,5 +1,8 @@
+import { remoteStorage } from './remoteStorage.js';
+
 const STORAGE_KEY = 'd20-travesias-archivo-v2';
 const LEGACY_STORAGE_KEY = 'cronicas-experiencia-v1';
+const USE_REMOTE_STORAGE = !['', 'localhost', '127.0.0.1'].includes(window.location.hostname) && !window.location.search.includes('local=1');
 const XP_THRESHOLDS = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000];
 const SYSTEMS = {
   dnd5e2024: {
@@ -126,7 +129,7 @@ const formatNumber = (value) => Math.round(Number(value) || 0).toLocaleString('e
 const escapeHTML = (value = '') => String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
 const uid = () => crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
-let portfolio = loadPortfolio();
+let portfolio = { campaigns: [] };
 let activeCampaignId = null;
 let state = null;
 let pendingBanner = '';
@@ -154,12 +157,45 @@ function loadPortfolio() {
   return { campaigns: [] };
 }
 
+async function loadInitialPortfolio() {
+  if (!USE_REMOTE_STORAGE) return loadPortfolio();
+  try {
+    const data = await remoteStorage.listCampaigns();
+    return { campaigns: (data.campaigns || []).map(normalizeCampaign) };
+  } catch (error) {
+    console.warn('No se pudo cargar Supabase; usando guardado local.', error);
+    showToast('No se pudo conectar al archivo compartido. Usando modo local.');
+    return loadPortfolio();
+  }
+}
+
+async function reloadCampaigns() {
+  portfolio = await loadInitialPortfolio();
+  renderCampaigns();
+}
+
+async function reloadActiveCampaign() {
+  if (!USE_REMOTE_STORAGE || !activeCampaignId) return;
+  const data = await remoteStorage.getCampaign(activeCampaignId);
+  const campaign = normalizeCampaign(data.campaign);
+  portfolio.campaigns = portfolio.campaigns.map(entry => entry.id === campaign.id ? campaign : entry);
+  if (!portfolio.campaigns.some(entry => entry.id === campaign.id)) portfolio.campaigns.push(campaign);
+  state = campaign;
+  renderAll();
+  renderSessionForm();
+}
+
 function saveState() {
+  if (USE_REMOTE_STORAGE) return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
 }
 
 function activeCampaign() {
   return portfolio.campaigns.find(campaign => campaign.id === activeCampaignId);
+}
+
+function isSummaryOnlyMode() {
+  return Boolean(state?.passwordHash && !unlockedCampaigns.has(state.id));
 }
 
 function getSystemId(value) {
@@ -224,20 +260,72 @@ function activateCampaign(campaign) {
   $('#sidebar-campaign-name').textContent = campaign.name;
   $('#campaign-context').textContent = campaign.name;
   updateSystemCopy();
+  updateAccessMode();
   renderAll();
   renderSessionForm();
   navigate('dashboard');
 }
 
-function openCampaign(id) {
-  const campaign = portfolio.campaigns.find(entry => entry.id === id);
+function updateAccessMode() {
+  const locked = isSummaryOnlyMode();
+  const app = $('#campaign-app');
+  app.dataset.access = locked ? 'summary' : 'full';
+  $$('[data-view]').forEach(button => {
+    const shouldLock = locked && button.dataset.view !== 'dashboard';
+    button.disabled = shouldLock;
+    button.classList.toggle('is-locked', shouldLock);
+  });
+  $$('[data-go]').forEach(button => {
+    const shouldLock = locked && button.dataset.go !== 'dashboard';
+    button.disabled = shouldLock;
+    button.classList.toggle('is-locked', shouldLock);
+  });
+
+  const topbarButton = $('.topbar .primary-button');
+  if (!topbarButton) return;
+  if (locked) {
+    topbarButton.textContent = 'Desbloquear campaña';
+    delete topbarButton.dataset.go;
+    topbarButton.dataset.action = 'unlock-active-campaign';
+    topbarButton.disabled = false;
+    topbarButton.classList.remove('is-locked');
+  } else {
+    topbarButton.textContent = '+ Registrar sesión';
+    topbarButton.dataset.go = 'new-session';
+    delete topbarButton.dataset.action;
+    topbarButton.disabled = false;
+    topbarButton.classList.remove('is-locked');
+  }
+}
+
+async function openCampaign(id) {
+  let campaign = portfolio.campaigns.find(entry => entry.id === id);
   if (!campaign) return;
-  if (campaign.passwordHash && !unlockedCampaigns.has(id)) return requestCampaignUnlock(campaign);
+  if (USE_REMOTE_STORAGE) {
+    try {
+      const data = await remoteStorage.getCampaign(id);
+      campaign = normalizeCampaign(data.campaign);
+    } catch (error) {
+      showToast('No se pudo abrir la campaña compartida.');
+      return;
+    }
+  }
   activateCampaign(campaign);
 }
 
-function deleteCampaign(campaign) {
+async function deleteCampaign(campaign) {
   if (!confirm(`¿Eliminar la campaña ${campaign.name}? Se borrarán sus personajes, sesiones y ${getCampaignSystem(campaign).resourceName}.`)) return;
+  if (USE_REMOTE_STORAGE) {
+    try {
+      await remoteStorage.deleteCampaign(campaign.id);
+      unlockedCampaigns.delete(campaign.id);
+      await reloadCampaigns();
+      showToast('Campaña eliminada.');
+    } catch (error) {
+      showToast('No se pudo eliminar la campaña compartida.');
+    }
+    return;
+  }
   portfolio.campaigns = portfolio.campaigns.filter(entry => entry.id !== campaign.id);
   unlockedCampaigns.delete(campaign.id);
   saveState();
@@ -258,7 +346,9 @@ function renderCampaigns() {
   $('#campaign-count').textContent = `${portfolio.campaigns.length} campaña${portfolio.campaigns.length === 1 ? '' : 's'}`;
   $('#campaign-grid').innerHTML = portfolio.campaigns.length ? portfolio.campaigns.map(campaign => {
     campaign = normalizeCampaign(campaign);
-    const totalXP = campaign.sessions.reduce((sum, session) => sum + (session.totalAwarded || 0), 0);
+    const characterCount = campaign.characterCount ?? campaign.characters.length;
+    const sessionCount = campaign.sessionCount ?? campaign.sessions.length;
+    const totalXP = campaign.totalAwarded ?? campaign.sessions.reduce((sum, session) => sum + (session.totalAwarded || 0), 0);
     const bannerStyle = campaign.banner ? `background-image:url('${campaign.banner}')` : '';
     const fontFamilies = { classic: 'Cinzel,serif', medieval: 'MedievalSharp,cursive', chronicle: 'IM Fell English,serif', arcane: 'Uncial Antiqua,serif', modern: 'Inter,sans-serif' };
     return `<article class="campaign-card" style="--campaign-color:${campaign.color || '#9b4e35'};--card-display-font:${fontFamilies[campaign.font || 'classic']}">
@@ -267,7 +357,7 @@ function renderCampaigns() {
         <p class="eyebrow">${escapeHTML(getCampaignSystem(campaign).name)}</p>
         <h3>${escapeHTML(campaign.name)}</h3>
         <p>${escapeHTML(campaign.description || 'Una nueva travesía está a punto de comenzar.')}</p>
-        <div class="campaign-meta"><span>${campaign.characters.length} personajes</span><span>${campaign.sessions.length} sesiones</span><span>${formatResource(totalXP, campaign)}</span>${campaign.dm ? `<span>DM: ${escapeHTML(campaign.dm)}</span>` : ''}${campaign.passwordHash ? '<span class="lock-label">Protegida</span>' : ''}</div>
+        <div class="campaign-meta"><span>${characterCount} personajes</span><span>${sessionCount} sesiones</span><span>${formatResource(totalXP, campaign)}</span>${campaign.dm ? `<span>DM: ${escapeHTML(campaign.dm)}</span>` : ''}${campaign.passwordHash ? '<span class="lock-label">Protegida</span>' : ''}</div>
       </div>
       <div class="campaign-card-actions">
         <button class="primary-button open-campaign" data-id="${campaign.id}">Entrar a la campaña</button>
@@ -404,6 +494,10 @@ function showToast(message) {
 
 function navigate(view) {
   if (!state) return;
+  if (isSummaryOnlyMode() && view !== 'dashboard') {
+    requestCampaignUnlock(state, 'open');
+    return;
+  }
   $$('.view').forEach(section => section.classList.toggle('active', section.id === `${view}-view`));
   $$('.nav-item').forEach(button => button.classList.toggle('active', button.dataset.view === view));
   const titles = { dashboard: 'Resumen de campaña', characters: 'Personajes', 'new-session': 'Registrar nueva sesión', log: 'Bitácora de campaña' };
@@ -627,7 +721,7 @@ function updateDistribution() {
   }).join('') : '<p class="helper">Marca al menos un personaje como asistente.</p>';
 }
 
-function saveSession(event) {
+async function saveSession(event) {
   event.preventDefault();
   const distribution = getDistribution();
   if (!state.characters.length) return showToast('Añade personajes antes de crear una sesión.');
@@ -645,6 +739,20 @@ function saveSession(event) {
     totalAwarded: distribution.reduce((sum, item) => sum + item.total, 0),
     createdAt: new Date().toISOString()
   };
+
+  if (USE_REMOTE_STORAGE) {
+    try {
+      await remoteStorage.saveSession(activeCampaignId, session);
+      $('#session-form').reset();
+      $('#session-date').value = new Date().toISOString().slice(0, 10);
+      await reloadActiveCampaign();
+      navigate('log');
+      showToast(`Sesión guardada y ${getCampaignSystem().resourceName} aplicada.`);
+    } catch (error) {
+      showToast('No se pudo guardar la sesión compartida.');
+    }
+    return;
+  }
 
   session.allocations.forEach(allocation => {
     const character = state.characters.find(entry => entry.id === allocation.characterId);
@@ -721,7 +829,7 @@ function renderAll() {
   renderCharacters();
 }
 
-document.addEventListener('click', event => {
+document.addEventListener('click', async event => {
   if (event.target.closest('[data-action="campaigns-home"]')) showCampaignsHome();
   const openCampaignButton = event.target.closest('.open-campaign');
   if (openCampaignButton) openCampaign(openCampaignButton.dataset.id);
@@ -732,6 +840,9 @@ document.addEventListener('click', event => {
     else if (campaign) openCampaignModal(campaign);
   }
   if (event.target.closest('#empty-new-campaign')) openCampaignModal();
+  if (event.target.closest('[data-action="unlock-active-campaign"]')) {
+    if (state) requestCampaignUnlock(state, 'open');
+  }
   const addCyberpunkAward = event.target.closest('[data-action="cyberpunk-add-award"]');
   if (addCyberpunkAward) {
     const award = addCyberpunkAward.closest('.cyberpunk-award');
@@ -779,6 +890,16 @@ document.addEventListener('click', event => {
   if (deleteCharacter) {
     const character = state.characters.find(entry => entry.id === deleteCharacter.dataset.id);
     if (character && confirm(`¿Eliminar a ${character.name}? Las sesiones guardadas permanecerán en la bitácora.`)) {
+      if (USE_REMOTE_STORAGE) {
+        try {
+          await remoteStorage.deleteCharacter(activeCampaignId, character.id);
+          await reloadActiveCampaign();
+          showToast('Personaje eliminado.');
+        } catch (error) {
+          showToast('No se pudo eliminar el personaje compartido.');
+        }
+        return;
+      }
       state.characters = state.characters.filter(entry => entry.id !== character.id);
       saveState();
       renderAll();
@@ -790,6 +911,17 @@ document.addEventListener('click', event => {
   if (deleteSession) {
     const session = state.sessions.find(entry => entry.id === deleteSession.dataset.id);
     if (session && confirm(`¿Eliminar la sesión ${session.number}? ${getCampaignSystem().resourceName} otorgada se descontará de los personajes.`)) {
+      if (USE_REMOTE_STORAGE) {
+        try {
+          await remoteStorage.deleteSession(activeCampaignId, session.id);
+          await reloadActiveCampaign();
+          renderLog($('#log-search').value);
+          showToast(`Sesión eliminada y ${getCampaignSystem().resourceName} revertida.`);
+        } catch (error) {
+          showToast('No se pudo eliminar la sesión compartida.');
+        }
+        return;
+      }
       session.allocations.forEach(allocation => {
         const character = state.characters.find(entry => entry.id === allocation.characterId);
         if (character) character.xp = Math.max(0, Math.round((character.xp - allocation.total) * 100) / 100);
@@ -803,17 +935,28 @@ document.addEventListener('click', event => {
   }
 });
 
-$('#character-form').addEventListener('submit', event => {
+$('#character-form').addEventListener('submit', async event => {
   event.preventDefault();
   const id = $('#character-id').value;
   const data = {
-    id: id || uid(),
+    id: id || (USE_REMOTE_STORAGE ? undefined : uid()),
     name: $('#character-name').value.trim(),
     player: $('#player-name').value.trim(),
     className: $('#character-class').value.trim(),
     xp: Number($('#character-xp').value) || 0,
     color: $('#character-color').value
   };
+  if (USE_REMOTE_STORAGE) {
+    try {
+      await remoteStorage.saveCharacter(activeCampaignId, data);
+      resetCharacterForm();
+      await reloadActiveCampaign();
+      showToast(id ? 'Personaje actualizado.' : 'Personaje añadido.');
+    } catch (error) {
+      showToast('No se pudo guardar el personaje compartido.');
+    }
+    return;
+  }
   if (id) state.characters = state.characters.map(character => character.id === id ? data : character);
   else state.characters.push(data);
   saveState();
@@ -882,6 +1025,23 @@ $('#unlock-form').addEventListener('submit', async event => {
   const id = $('#unlock-campaign-id').value;
   const campaign = portfolio.campaigns.find(entry => entry.id === id);
   if (!campaign) return;
+  if (USE_REMOTE_STORAGE) {
+    try {
+      await remoteStorage.unlockCampaign(id, $('#unlock-password').value);
+      unlockedCampaigns.add(id);
+      $('#unlock-modal').classList.add('hidden');
+      const data = await remoteStorage.getCampaign(id);
+      const unlockedCampaign = normalizeCampaign(data.campaign);
+      portfolio.campaigns = portfolio.campaigns.map(entry => entry.id === id ? unlockedCampaign : entry);
+      if (pendingUnlockAction === 'edit') openCampaignModal(unlockedCampaign);
+      else if (pendingUnlockAction === 'delete') deleteCampaign(unlockedCampaign);
+      else activateCampaign(unlockedCampaign);
+    } catch (error) {
+      $('#unlock-error').classList.remove('hidden');
+      $('#unlock-password').select();
+    }
+    return;
+  }
   const passwordHash = await hashPassword($('#unlock-password').value);
   if (passwordHash !== campaign.passwordHash) {
     $('#unlock-error').classList.remove('hidden');
@@ -905,6 +1065,10 @@ $('#campaign-form').addEventListener('submit', async event => {
     $('#campaign-password').focus();
     return showToast('La contraseña debe tener al menos 4 caracteres.');
   }
+  if (USE_REMOTE_STORAGE && wantsProtection && existing?.passwordHash && password && password.length < 4) {
+    $('#campaign-password').focus();
+    return showToast('La contraseña debe tener al menos 4 caracteres.');
+  }
   const passwordHash = wantsProtection ? (password ? await hashPassword(password) : existing?.passwordHash) : '';
   const campaign = {
     id: id || uid(),
@@ -923,6 +1087,23 @@ $('#campaign-form').addEventListener('submit', async event => {
     sessions: existing?.sessions || [],
     createdAt: existing?.createdAt || new Date().toISOString()
   };
+  if (USE_REMOTE_STORAGE) {
+    try {
+      if (existing) {
+        await remoteStorage.updateCampaign(campaign, wantsProtection ? password : '', wantsProtection && !password);
+      } else {
+        await remoteStorage.createCampaign(campaign, wantsProtection ? password : '');
+      }
+      if (wantsProtection && password) unlockedCampaigns.add(campaign.id);
+      if (!wantsProtection) unlockedCampaigns.delete(campaign.id);
+      closeCampaignModal();
+      await reloadCampaigns();
+      showToast(existing ? 'Campaña actualizada.' : 'Campaña creada.');
+    } catch (error) {
+      showToast('No se pudo guardar la campaña compartida.');
+    }
+    return;
+  }
   if (existing) portfolio.campaigns = portfolio.campaigns.map(entry => entry.id === id ? campaign : entry);
   else portfolio.campaigns.push(campaign);
   if (passwordHash) unlockedCampaigns.add(campaign.id);
@@ -945,6 +1126,10 @@ $('#export-data').addEventListener('click', () => {
 $('#import-data').addEventListener('change', event => {
   const file = event.target.files[0];
   if (!file) return;
+  if (USE_REMOTE_STORAGE) {
+    event.target.value = '';
+    return showToast('La importación de respaldos solo está disponible en modo local.');
+  }
   const reader = new FileReader();
   reader.onload = () => {
     try {
@@ -966,7 +1151,14 @@ $('#import-data').addEventListener('change', event => {
   event.target.value = '';
 });
 
-renderCampaigns();
+initializeCampaigns();
+
+async function initializeCampaigns() {
+  portfolio = await loadInitialPortfolio();
+  const storageCopy = $('.sidebar-footer p');
+  if (storageCopy) storageCopy.textContent = USE_REMOTE_STORAGE ? 'Los datos se guardan en el archivo compartido.' : 'Los datos se guardan en este navegador.';
+  renderCampaigns();
+}
 
 darkModeQuery.addEventListener('change', event => {
   const app = $('#campaign-app');

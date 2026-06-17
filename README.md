@@ -225,3 +225,30 @@ Aplicacion web oficial del servidor D20 Travesias para guiar la creacion de pers
 - El grimorio muestra los conjuros por nombre visible y nivel.
 - El equipo impreso incluye precio, peso, dano, alcance, CA, propiedades y maestria cuando existen.
 - El selector de equipo adicional muestra precio y datos basicos para compras mas rapidas.
+
+## Etapa 12: Bitacora compartida y sistemas de campana
+
+- La pantalla de inicio ahora enlaza directamente con la bitacora de campanas.
+- La bitacora permite elegir sistema por campana: `D&D 5e 2024` o `Cyberpunk RED`.
+- El modo D&D conserva el flujo de experiencia por sesion y subida de nivel.
+- El modo Cyberpunk RED agrega el reparto de Puntos de Perfeccionamiento por sesion.
+- Los PP se asignan desde una tabla por columna de estilo: Grupo, Guerrero, Sociable, Explorador y Actor.
+- Cada personaje puede recibir mas de una asignacion de PP dentro de la misma sesion, con motivo y valor independientes.
+- La bitacora imprime el detalle de PP entregados por personaje al guardar una sesion.
+- Las campanas protegidas por contrasena pueden abrirse en modo resumen para visitantes.
+- Con contrasena se habilita edicion de campana, gestion de personajes, sesiones y borrado.
+- En `localhost`, la bitacora usa `localStorage` para seguir probando sin depender de red.
+- En Vercel, la bitacora usa Supabase mediante funciones serverless dentro de `api/`.
+- Se agrego `campaigns/remoteStorage.js` como cliente del frontend para la API compartida.
+- Se agregaron endpoints para listar, crear, editar y borrar campanas, desbloquear contrasena, gestionar personajes y registrar/eliminar sesiones.
+- Las sesiones guardadas en Supabase aplican o revierten PX/PP sobre los personajes compartidos.
+- Se agrego el esquema SQL en `docs/supabase-campaigns.sql`.
+- Se agrego la guia de despliegue en `docs/vercel-supabase-campaigns.md`.
+
+Variables necesarias en Vercel:
+
+```txt
+SUPABASE_URL
+SUPABASE_SERVICE_ROLE_KEY
+CAMPAIGN_UNLOCK_SECRET
+```
