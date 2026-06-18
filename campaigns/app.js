@@ -2,6 +2,7 @@ import { remoteStorage } from './remoteStorage.js';
 
 const STORAGE_KEY = 'd20-travesias-archivo-v2';
 const LEGACY_STORAGE_KEY = 'cronicas-experiencia-v1';
+const DISPLAY_MODE_STORAGE_KEY = 'handbook-engine-display-mode';
 const USE_REMOTE_STORAGE = !['', 'localhost', '127.0.0.1'].includes(window.location.hostname) && !window.location.search.includes('local=1');
 const XP_THRESHOLDS = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000];
 const SYSTEMS = {
@@ -137,6 +138,46 @@ let pendingCharacterPortrait = '';
 let pendingUnlockAction = 'open';
 const unlockedCampaigns = new Set();
 const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+let globalAppearance = loadGlobalAppearance();
+
+function loadGlobalAppearance() {
+  const saved = localStorage.getItem(DISPLAY_MODE_STORAGE_KEY);
+  if (saved === 'dark' || saved === 'light') return saved;
+  return darkModeQuery.matches ? 'dark' : 'light';
+}
+
+function hasSavedGlobalAppearance() {
+  const saved = localStorage.getItem(DISPLAY_MODE_STORAGE_KEY);
+  return saved === 'dark' || saved === 'light';
+}
+
+function resolveCampaignAppearance(preference = 'auto') {
+  return preference === 'auto' ? globalAppearance : preference;
+}
+
+function applyGlobalAppearance() {
+  document.body.classList.toggle('campaigns-dark', globalAppearance === 'dark');
+  document.body.dataset.appearance = globalAppearance;
+
+  const toggle = $('#campaigns-mode-toggle');
+  if (toggle) {
+    const nextLabel = globalAppearance === 'dark' ? 'Usar modo claro' : 'Usar modo oscuro';
+    toggle.textContent = globalAppearance === 'dark' ? '☀' : '☾';
+    toggle.setAttribute('aria-label', nextLabel);
+    toggle.title = nextLabel;
+  }
+
+  const app = $('#campaign-app');
+  if (app?.dataset.appearancePreference === 'auto') {
+    app.dataset.appearance = resolveCampaignAppearance('auto');
+  }
+}
+
+function setGlobalAppearance(appearance) {
+  globalAppearance = appearance;
+  localStorage.setItem(DISPLAY_MODE_STORAGE_KEY, appearance);
+  applyGlobalAppearance();
+}
 
 function loadPortfolio() {
   try {
@@ -251,7 +292,7 @@ function requestCampaignUnlock(campaign, action = 'open') {
 function activateCampaign(campaign) {
   const theme = campaign.theme || 'parchment';
   const font = campaign.font || 'classic';
-  const appearance = campaign.appearance || 'light';
+  const appearance = campaign.appearance || 'auto';
   const app = $('#campaign-app');
   activeCampaignId = campaign.id;
   state = campaign;
@@ -259,7 +300,7 @@ function activateCampaign(campaign) {
   app.classList.remove('hidden');
   app.dataset.theme = theme;
   app.dataset.font = font;
-  app.dataset.appearance = appearance === 'auto' ? (darkModeQuery.matches ? 'dark' : 'light') : appearance;
+  app.dataset.appearance = resolveCampaignAppearance(appearance);
   app.dataset.appearancePreference = appearance;
   app.style.setProperty('--accent', campaign.color || '#9b4e35');
   const topbar = app.querySelector('.topbar');
@@ -442,7 +483,7 @@ function openCampaignModal(campaign = null) {
   $('#campaign-theme').value = campaign?.theme || 'parchment';
   $('#campaign-font').value = campaign?.font || 'classic';
   $('#font-preview').dataset.font = campaign?.font || 'classic';
-  $('#campaign-appearance').value = campaign?.appearance || 'light';
+  $('#campaign-appearance').value = campaign?.appearance || 'auto';
   $('#campaign-color').value = campaign?.color || '#9b4e35';
   $('#campaign-protected').checked = Boolean(campaign?.passwordHash);
   $('#campaign-password').value = '';
@@ -1080,6 +1121,9 @@ $('#log-search').addEventListener('input', event => renderLog(event.target.value
 
 $('#open-campaign-form').addEventListener('click', () => openCampaignModal());
 $('#hero-new-campaign').addEventListener('click', () => openCampaignModal());
+$('#campaigns-mode-toggle').addEventListener('click', () => {
+  setGlobalAppearance(globalAppearance === 'dark' ? 'light' : 'dark');
+});
 $('#close-campaign-form').addEventListener('click', closeCampaignModal);
 $('#campaign-modal').addEventListener('click', event => { if (event.target.id === 'campaign-modal') closeCampaignModal(); });
 $('#campaign-protected').addEventListener('change', event => {
@@ -1263,6 +1307,7 @@ $('#import-data').addEventListener('change', event => {
 initializeCampaigns();
 
 async function initializeCampaigns() {
+  applyGlobalAppearance();
   portfolio = await loadInitialPortfolio();
   const storageCopy = $('.sidebar-footer p');
   if (storageCopy) storageCopy.textContent = USE_REMOTE_STORAGE ? 'Los datos se guardan en el archivo compartido.' : 'Los datos se guardan en este navegador.';
@@ -1272,6 +1317,14 @@ async function initializeCampaigns() {
 }
 
 darkModeQuery.addEventListener('change', event => {
-  const app = $('#campaign-app');
-  if (app.dataset.appearancePreference === 'auto') app.dataset.appearance = event.matches ? 'dark' : 'light';
+  if (!hasSavedGlobalAppearance()) {
+    globalAppearance = event.matches ? 'dark' : 'light';
+    applyGlobalAppearance();
+  }
+});
+
+window.addEventListener('storage', event => {
+  if (event.key !== DISPLAY_MODE_STORAGE_KEY) return;
+  globalAppearance = loadGlobalAppearance();
+  applyGlobalAppearance();
 });
