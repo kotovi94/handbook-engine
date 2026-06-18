@@ -1,4 +1,5 @@
 import { remoteStorage } from './remoteStorage.js';
+import { setupPageBridge } from '../src/scripts/pageBridge.js';
 
 const STORAGE_KEY = 'd20-travesias-archivo-v2';
 const LEGACY_STORAGE_KEY = 'cronicas-experiencia-v1';
@@ -139,6 +140,11 @@ let pendingUnlockAction = 'open';
 const unlockedCampaigns = new Set();
 const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 let globalAppearance = loadGlobalAppearance();
+
+setupPageBridge('campaigns', (link) => {
+  const href = link.getAttribute('href') || '';
+  return href.startsWith('../') ? 'compendium' : '';
+});
 
 function loadGlobalAppearance() {
   const saved = localStorage.getItem(DISPLAY_MODE_STORAGE_KEY);
@@ -431,7 +437,17 @@ function renderCampaigns() {
         <div class="campaign-card-tools"><button class="text-button share-campaign" data-id="${campaign.id}">Compartir</button><button class="text-button edit-campaign" data-id="${campaign.id}">Editar</button><button class="text-button danger-button delete-campaign" data-id="${campaign.id}">Eliminar</button></div>
       </div>
     </article>`;
-  }).join("") : `<div class="empty-state" style="grid-column:1/-1"><h3>Tu primera travesia te espera</h3><p>Crea una campaña para comenzar a reunir personajes, sesiones y experiencia.</p><button class="primary-button" id="empty-new-campaign">Crear primera campaña</button></div>`;
+  }).join("") : `<div class="empty-state" style="grid-column:1/-1"><h3>Tu primera travesia te espera</h3><p>Crea una campaña para comenzar a reunir personajes, sesiones y experiencia.</p><button class="primary-button new-campaign-button" id="empty-new-campaign">Crear primera campaña</button></div>`;
+}
+
+function openNewCampaignModal(trigger) {
+  if (trigger) {
+    trigger.classList.remove('is-launching');
+    void trigger.offsetWidth;
+    trigger.classList.add('is-launching');
+    window.setTimeout(() => trigger.classList.remove('is-launching'), 520);
+  }
+  window.setTimeout(() => openCampaignModal(), 110);
 }
 
 function getCampaignShareUrl(campaign) {
@@ -966,7 +982,8 @@ document.addEventListener('click', async event => {
     if (campaign?.passwordHash && !unlockedCampaigns.has(campaign.id)) requestCampaignUnlock(campaign, 'edit');
     else if (campaign) openCampaignModal(campaign);
   }
-  if (event.target.closest('#empty-new-campaign')) openCampaignModal();
+  const emptyNewCampaignButton = event.target.closest('#empty-new-campaign');
+  if (emptyNewCampaignButton) openNewCampaignModal(emptyNewCampaignButton);
   if (event.target.closest('[data-action="unlock-active-campaign"]')) {
     if (state) requestCampaignUnlock(state, 'open');
   }
@@ -1119,8 +1136,8 @@ $('#select-all').addEventListener('click', () => {
 });
 $('#log-search').addEventListener('input', event => renderLog(event.target.value));
 
-$('#open-campaign-form').addEventListener('click', () => openCampaignModal());
-$('#hero-new-campaign').addEventListener('click', () => openCampaignModal());
+$('#open-campaign-form').addEventListener('click', event => openNewCampaignModal(event.currentTarget));
+$('#hero-new-campaign').addEventListener('click', event => openNewCampaignModal(event.currentTarget));
 $('#campaigns-mode-toggle').addEventListener('click', () => {
   setGlobalAppearance(globalAppearance === 'dark' ? 'light' : 'dark');
 });

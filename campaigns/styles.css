@@ -1,3 +1,5 @@
+@import url("../src/styles/pageBridge.css");
+
 :root {
   --bg: #f3ede3;
   --paper: #fffdf8;
@@ -191,6 +193,11 @@ h3 { font-size: 16px; }
 .primary-button, .secondary-button { padding: 11px 17px; border-radius: 7px; font-weight: 700; font-size: 13px; transition: .2s ease; }
 .primary-button { border: 1px solid var(--accent); color: white; background: var(--accent); box-shadow: 0 8px 20px rgba(155, 78, 53, .18); }
 .primary-button:hover { background: var(--accent-dark); transform: translateY(-1px); }
+.new-campaign-button { position: relative; overflow: hidden; isolation: isolate; }
+.new-campaign-button::after { content: ''; position: absolute; inset: 50% auto auto 50%; z-index: 0; width: 170%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.42), rgba(255,255,255,0) 62%); opacity: 0; transform: translate(-50%, -50%) scale(.18); pointer-events: none; }
+.new-campaign-button:active { transform: translateY(1px) scale(.98); }
+.new-campaign-button.is-launching { animation: new-campaign-press .48s cubic-bezier(.2,.9,.2,1) both; }
+.new-campaign-button.is-launching::after { animation: new-campaign-ripple .52s ease-out both; }
 .secondary-button { border: 1px solid var(--line); color: var(--ink); background: transparent; }
 .secondary-button:hover { border-color: #ab9a86; background: #fffaf2; }
 .text-button { padding: 0; border: 0; color: var(--accent); background: transparent; font-size: 12px; font-weight: 700; }
@@ -325,6 +332,33 @@ textarea { resize: vertical; line-height: 1.5; }
 
 .toast { position: fixed; right: 24px; bottom: 24px; padding: 12px 17px; border-radius: 7px; color: white; background: #29231d; box-shadow: var(--shadow); opacity: 0; transform: translateY(12px); pointer-events: none; transition: .25s ease; z-index: 20; }
 .toast.show { opacity: 1; transform: translateY(0); }
+
+#campaign-modal:not(.hidden) { animation: modal-backdrop-enter .18s ease both; }
+#campaign-modal:not(.hidden) .modal-card { transform-origin: 50% 24px; animation: new-campaign-modal-enter .28s cubic-bezier(.2,.9,.2,1) both; }
+
+@keyframes new-campaign-press {
+  0% { transform: translateY(0) scale(1); box-shadow: 0 8px 20px rgba(155, 78, 53, .18); }
+  38% { transform: translateY(1px) scale(.97); box-shadow: 0 4px 12px rgba(155, 78, 53, .16); }
+  72% { transform: translateY(-2px) scale(1.025); box-shadow: 0 12px 24px rgba(155, 78, 53, .22); }
+  100% { transform: translateY(0) scale(1); box-shadow: 0 8px 20px rgba(155, 78, 53, .18); }
+}
+
+@keyframes new-campaign-ripple {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.18); }
+  32% { opacity: .8; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes modal-backdrop-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes new-campaign-modal-enter {
+  from { opacity: 0; transform: translateY(14px) scale(.97); }
+  72% { opacity: 1; transform: translateY(-2px) scale(1.006); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
 @media (max-width: 1050px) {
   .home-hero { grid-template-columns: 1fr; }

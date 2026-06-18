@@ -4,6 +4,7 @@ import { classRegistry } from "../data/classes.js";
 import { themes } from "../data/themes.js";
 import { getCharacter } from "./characterState.js";
 import { applyDisplayMode, applyTheme } from "./theme.js";
+import { setupPageBridge } from "./pageBridge.js";
 import { getInitialRoute, getRouteTheme, parseHashRoute, renderRoute } from "./router.js";
 
 const appRoot = document.querySelector("#app");
@@ -15,6 +16,11 @@ const state = {
   theme: "theme-default",
   isDarkMode: loadDisplayMode() === "dark",
 };
+
+setupPageBridge("compendium", (link) => {
+  const href = link.getAttribute("href") || "";
+  return href.includes("campaigns") ? "campaigns" : "";
+});
 
 function navigate(route) {
   if (state.route === route) {
