@@ -10,46 +10,195 @@ body.bridge-leaving-to-compendium {
   pointer-events: none;
 }
 
-body.bridge-enter-from-campaigns #app,
-body.bridge-enter-from-campaigns .campaigns-home:not(.hidden),
-body.bridge-enter-from-campaigns .app-shell:not(.hidden) {
-  animation: bridge-enter-from-left .34s cubic-bezier(.2, .9, .2, 1) both;
+body.bridge-preparing #app,
+body.bridge-preparing .campaigns-home:not(.hidden),
+body.bridge-preparing .app-shell:not(.hidden) {
+  opacity: 0;
 }
 
-body.bridge-enter-from-compendium #app,
-body.bridge-enter-from-compendium .campaigns-home:not(.hidden),
-body.bridge-enter-from-compendium .app-shell:not(.hidden) {
-  animation: bridge-enter-from-right .34s cubic-bezier(.2, .9, .2, 1) both;
+body:not(.bridge-has-pieces).bridge-enter-from-campaigns #app,
+body:not(.bridge-has-pieces).bridge-enter-from-campaigns .campaigns-home:not(.hidden),
+body:not(.bridge-has-pieces).bridge-enter-from-campaigns .app-shell:not(.hidden) {
+  animation: bridge-dissolve-enter-left .48s cubic-bezier(.2, .9, .2, 1) both;
 }
 
-body.bridge-leaving-to-campaigns #app,
-body.bridge-leaving-to-campaigns .campaigns-home:not(.hidden),
-body.bridge-leaving-to-campaigns .app-shell:not(.hidden) {
-  animation: bridge-leave-left .19s ease-in both;
+body:not(.bridge-has-pieces).bridge-enter-from-compendium #app,
+body:not(.bridge-has-pieces).bridge-enter-from-compendium .campaigns-home:not(.hidden),
+body:not(.bridge-has-pieces).bridge-enter-from-compendium .app-shell:not(.hidden) {
+  animation: bridge-dissolve-enter-right .48s cubic-bezier(.2, .9, .2, 1) both;
 }
 
-body.bridge-leaving-to-compendium #app,
-body.bridge-leaving-to-compendium .campaigns-home:not(.hidden),
-body.bridge-leaving-to-compendium .app-shell:not(.hidden) {
-  animation: bridge-leave-right .19s ease-in both;
+body:not(.bridge-has-pieces).bridge-leaving-to-campaigns #app,
+body:not(.bridge-has-pieces).bridge-leaving-to-campaigns .campaigns-home:not(.hidden),
+body:not(.bridge-has-pieces).bridge-leaving-to-campaigns .app-shell:not(.hidden) {
+  animation: bridge-dissolve-leave-left .36s ease-in both;
 }
 
-@keyframes bridge-enter-from-left {
-  from { opacity: 0; transform: translateX(-18px) scale(.992); filter: blur(3px); }
-  to { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
+body:not(.bridge-has-pieces).bridge-leaving-to-compendium #app,
+body:not(.bridge-has-pieces).bridge-leaving-to-compendium .campaigns-home:not(.hidden),
+body:not(.bridge-has-pieces).bridge-leaving-to-compendium .app-shell:not(.hidden) {
+  animation: bridge-dissolve-leave-right .36s ease-in both;
 }
 
-@keyframes bridge-enter-from-right {
-  from { opacity: 0; transform: translateX(18px) scale(.992); filter: blur(3px); }
-  to { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
+.bridge-piece {
+  transform-origin: var(--piece-origin);
+  will-change: opacity, transform, filter, clip-path;
 }
 
-@keyframes bridge-leave-left {
-  from { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
-  to { opacity: 0; transform: translateX(-16px) scale(.99); filter: blur(2px); }
+.bridge-piece-disassemble {
+  animation: bridge-piece-disassemble .46s cubic-bezier(.46, 0, .8, .18) var(--piece-delay) both;
 }
 
-@keyframes bridge-leave-right {
-  from { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
-  to { opacity: 0; transform: translateX(16px) scale(.99); filter: blur(2px); }
+.bridge-piece-assemble {
+  animation: bridge-piece-assemble .62s cubic-bezier(.16, .86, .2, 1) var(--piece-delay) both;
+}
+
+@keyframes bridge-piece-disassemble {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0) scale(1);
+    filter: blur(0) saturate(1);
+    clip-path: polygon(0 0, 100% 0, 100% 24%, 100% 43%, 100% 61%, 100% 81%, 100% 100%, 0 100%);
+  }
+  38% {
+    opacity: .92;
+    filter: blur(1px) saturate(.96);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--piece-dx), var(--piece-dy)) rotate(var(--piece-rotate)) scale(var(--piece-scale));
+    filter: blur(8px) saturate(.72);
+    clip-path: polygon(0 0, 76% 0, 87% 24%, 69% 43%, 82% 61%, 58% 81%, 72% 100%, 0 100%);
+  }
+}
+
+@keyframes bridge-piece-assemble {
+  0% {
+    opacity: 0;
+    transform: translate(var(--piece-dx), var(--piece-dy)) rotate(var(--piece-rotate)) scale(.92);
+    filter: blur(8px) saturate(.72);
+    clip-path: polygon(18% 0, 100% 0, 84% 24%, 100% 43%, 76% 61%, 88% 81%, 72% 100%, 0 100%);
+  }
+  58% {
+    opacity: 1;
+    filter: blur(1px) saturate(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0) scale(1);
+    filter: blur(0) saturate(1);
+    clip-path: polygon(0 0, 100% 0, 100% 24%, 100% 43%, 100% 61%, 100% 81%, 100% 100%, 0 100%);
+  }
+}
+
+.page-dissolve {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--color-accent, var(--accent, #ba8b47));
+}
+
+.page-dissolve span {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255,255,255,.9) 0 18%, currentColor 19% 58%, transparent 62%);
+  box-shadow: 0 0 16px color-mix(in srgb, currentColor 45%, transparent);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.35);
+  will-change: opacity, transform, filter;
+}
+
+.page-dissolve-leave span {
+  animation: dissolve-particle-leave .36s ease-out var(--delay) both;
+}
+
+.page-dissolve-enter span {
+  animation: dissolve-particle-enter .46s cubic-bezier(.2, .9, .2, 1) var(--delay) both;
+}
+
+@keyframes dissolve-particle-leave {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.35); filter: blur(0); }
+  28% { opacity: .92; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.35); filter: blur(2px); }
+}
+
+@keyframes dissolve-particle-enter {
+  0% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.28); filter: blur(2px); }
+  42% { opacity: .85; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(.22); filter: blur(0); }
+}
+
+@keyframes bridge-dissolve-enter-left {
+  from {
+    opacity: 0;
+    transform: translateX(-18px) scale(.992);
+    filter: blur(6px) saturate(.85);
+    clip-path: polygon(18% 0, 100% 0, 100% 100%, 22% 100%, 15% 82%, 23% 64%, 12% 46%, 25% 27%);
+  }
+  72% {
+    opacity: 1;
+    filter: blur(1px) saturate(1);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0) saturate(1);
+    clip-path: polygon(0 0, 100% 0, 100% 24%, 100% 43%, 100% 61%, 100% 81%, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes bridge-dissolve-enter-right {
+  from {
+    opacity: 0;
+    transform: translateX(18px) scale(.992);
+    filter: blur(6px) saturate(.85);
+    clip-path: polygon(0 0, 82% 0, 75% 24%, 88% 43%, 76% 61%, 85% 81%, 78% 100%, 0 100%);
+  }
+  72% {
+    opacity: 1;
+    filter: blur(1px) saturate(1);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0) saturate(1);
+    clip-path: polygon(0 0, 100% 0, 100% 24%, 100% 43%, 100% 61%, 100% 81%, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes bridge-dissolve-leave-left {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0) saturate(1);
+    clip-path: polygon(0 0, 100% 0, 100% 18%, 100% 36%, 100% 55%, 100% 71%, 100% 100%, 0 100%);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-16px) scale(.988);
+    filter: blur(8px) saturate(.75);
+    clip-path: polygon(0 0, 78% 0, 69% 18%, 82% 36%, 63% 55%, 74% 71%, 57% 100%, 0 100%);
+  }
+}
+
+@keyframes bridge-dissolve-leave-right {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0) saturate(1);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 76%, 0 58%, 0 39%, 0 18%);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(16px) scale(.988);
+    filter: blur(8px) saturate(.75);
+    clip-path: polygon(21% 0, 100% 0, 100% 100%, 18% 100%, 27% 76%, 14% 58%, 29% 39%, 17% 18%);
+  }
 }
