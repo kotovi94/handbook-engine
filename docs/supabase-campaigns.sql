@@ -72,6 +72,7 @@ select
   c.password_hash <> '' as protected,
   coalesce(character_counts.total, 0)::integer as character_count,
   coalesce(session_counts.total, 0)::integer as session_count,
+  coalesce(session_counts.latest_number, 0)::integer as latest_session_number,
   coalesce(session_counts.total_awarded, 0)::numeric as total_awarded
 from public.campaigns c
 left join (
@@ -80,7 +81,7 @@ left join (
   group by campaign_id
 ) character_counts on character_counts.campaign_id = c.id
 left join (
-  select campaign_id, count(*) as total, sum(total_awarded) as total_awarded
+  select campaign_id, count(*) as total, max(number) as latest_number, sum(total_awarded) as total_awarded
   from public.sessions
   group by campaign_id
 ) session_counts on session_counts.campaign_id = c.id;

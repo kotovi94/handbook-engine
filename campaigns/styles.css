@@ -205,7 +205,7 @@ h3 { font-size: 16px; }
 .full-width { width: 100%; }
 .hidden { display: none !important; }
 
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 17px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 17px; }
 .stat-card { position: relative; overflow: hidden; padding: 22px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); box-shadow: var(--shadow); }
 .stat-card::after { content: ''; position: absolute; right: -18px; bottom: -35px; width: 78px; height: 78px; border: 1px solid #eadfce; transform: rotate(45deg); }
 .stat-card span { display: block; margin-bottom: 8px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; }

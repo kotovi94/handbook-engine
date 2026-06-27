@@ -8,7 +8,7 @@ const {
   verifyUnlockToken,
 } = require("../_supabase");
 
-function mapCampaign(row, unlocked) {
+function mapCampaign(row, unlocked, latestSessionNumber = 0) {
   return {
     id: row.id,
     name: row.name,
@@ -24,6 +24,8 @@ function mapCampaign(row, unlocked) {
     passwordHash: row.protected && !unlocked ? "protected" : "",
     characters: [],
     sessions: [],
+    sessionCount: row.session_count || 0,
+    latestSessionNumber: Number(row.latest_session_number || latestSessionNumber || 0),
     createdAt: row.created_at,
   };
 }
@@ -98,7 +100,8 @@ module.exports = async function handler(req, res) {
       return sendJson(res, 405, { error: "Method not allowed" });
     }
 
-    const campaign = mapCampaign(summary, unlocked);
+    const [latestSession] = await supabaseFetch(`/sessions?campaign_id=eq.${encodeURIComponent(id)}&select=number&order=number.desc&limit=1`);
+    const campaign = mapCampaign(summary, unlocked, latestSession?.number);
 
     const characters = await supabaseFetch(`/characters?campaign_id=eq.${encodeURIComponent(id)}&select=*&order=created_at.asc`);
     campaign.characters = characters.map(mapCharacter);

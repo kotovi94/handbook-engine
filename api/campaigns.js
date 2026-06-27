@@ -6,7 +6,7 @@ const {
   supabaseFetch,
 } = require("./_supabase");
 
-function toCampaign(row) {
+function toCampaign(row, latestSessionNumber = 0) {
   return {
     id: row.id,
     name: row.name,
@@ -24,16 +24,29 @@ function toCampaign(row) {
     sessions: [],
     characterCount: row.character_count || 0,
     sessionCount: row.session_count || 0,
+    latestSessionNumber: Number(row.latest_session_number || latestSessionNumber || 0),
     totalAwarded: Number(row.total_awarded || 0),
     createdAt: row.created_at,
   };
+}
+
+async function getLatestSessionNumbers(campaignIds) {
+  if (!campaignIds.length) return new Map();
+  const ids = campaignIds.map(id => encodeURIComponent(id)).join(",");
+  const rows = await supabaseFetch(`/sessions?campaign_id=in.(${ids})&select=campaign_id,number`);
+  return rows.reduce((map, row) => {
+    const number = Number(row.number || 0);
+    map.set(row.campaign_id, Math.max(map.get(row.campaign_id) || 0, number));
+    return map;
+  }, new Map());
 }
 
 module.exports = async function handler(req, res) {
   try {
     if (req.method === "GET") {
       const rows = await supabaseFetch("/campaign_summaries?select=*&order=created_at.desc");
-      return sendJson(res, 200, { campaigns: rows.map(toCampaign) });
+      const latestSessionNumbers = await getLatestSessionNumbers(rows.map(row => row.id));
+      return sendJson(res, 200, { campaigns: rows.map(row => toCampaign(row, latestSessionNumbers.get(row.id))) });
     }
 
     if (req.method === "POST") {

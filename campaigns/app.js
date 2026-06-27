@@ -311,6 +311,38 @@ function formatResource(value, campaign = state) {
   return `${formatNumber(value)} ${system.unit}`;
 }
 
+function getSessionStats(campaign = state) {
+  const sessions = Array.isArray(campaign?.sessions) ? campaign.sessions : [];
+  const registered = Math.max(0, Number(campaign?.sessionCount ?? sessions.length) || 0);
+  const latestFromSessions = sessions.reduce((max, session) => Math.max(max, Number(session.number) || 0), 0);
+  const latest = Math.max(0, Number(campaign?.latestSessionNumber || 0), latestFromSessions);
+  return {
+    registered,
+    latest,
+    hasExternalHistory: latest > registered,
+  };
+}
+
+function formatSessionRegistrationLabel(count) {
+  return `${formatNumber(count)} registro${count === 1 ? '' : 's'} en bitacora`;
+}
+
+function formatCharacterCountLabel(count) {
+  return `${formatNumber(count)} personaje${count === 1 ? '' : 's'}`;
+}
+
+function formatSessionCurrentLabel(number) {
+  return number > 0 ? `Sesion actual ${formatNumber(number)}` : 'Sin sesiones';
+}
+
+function campaignSessionMeta(campaign) {
+  const stats = getSessionStats(campaign);
+  const meta = [];
+  if (stats.latest > 0 && stats.latest !== stats.registered) meta.push(formatSessionCurrentLabel(stats.latest));
+  meta.push(formatSessionRegistrationLabel(stats.registered));
+  return meta;
+}
+
 function formatSignedResource(value, campaign = state) {
   return `${Number(value) > 0 ? '+' : ''}${formatResource(value, campaign)}`;
 }
@@ -477,10 +509,10 @@ function renderCampaigns() {
   const campaigns = portfolio.campaigns.map(normalizeCampaign);
   const totals = campaigns.reduce((summary, campaign) => {
     const characterCount = campaign.characterCount ?? campaign.characters.length;
-    const sessionCount = campaign.sessionCount ?? campaign.sessions.length;
+    const sessionStats = getSessionStats(campaign);
     const totalAwarded = campaign.totalAwarded ?? campaign.sessions.reduce((sum, session) => sum + (session.totalAwarded || 0), 0);
     summary.characters += characterCount;
-    summary.sessions += sessionCount;
+    summary.sessions += sessionStats.registered;
     summary.awards += totalAwarded;
     return summary;
   }, { characters: 0, sessions: 0, awards: 0 });
@@ -492,11 +524,16 @@ function renderCampaigns() {
   $("#campaign-grid").classList.toggle("single-campaign", campaigns.length === 1);
   $("#campaign-grid").innerHTML = campaigns.length ? campaigns.map(campaign => {
     const characterCount = campaign.characterCount ?? campaign.characters.length;
-    const sessionCount = campaign.sessionCount ?? campaign.sessions.length;
+    const sessionStats = getSessionStats(campaign);
+    const sessionMeta = campaignSessionMeta(campaign).map(item => `<span>${escapeHTML(item)}</span>`).join("");
     const totalXP = campaign.totalAwarded ?? campaign.sessions.reduce((sum, session) => sum + (session.totalAwarded || 0), 0);
     const nextStep = characterCount === 0
       ? "Siguiente paso: agrega los personajes de la mesa."
-      : (sessionCount === 0 ? "Siguiente paso: registra la primera sesion." : "Lista para continuar la bitacora.");
+      : (sessionStats.registered === 0
+        ? "Siguiente paso: registra la primera sesion."
+        : (sessionStats.hasExternalHistory
+          ? `Bitacora iniciada en sesion ${formatNumber(sessionStats.latest)}; continua con la ${formatNumber(sessionStats.latest + 1)}.`
+          : "Lista para continuar la bitacora."));
     const bannerStyle = campaign.banner ? `background-image:url('${campaign.banner}')` : "";
     const fontFamilies = { classic: "Cinzel,serif", medieval: "MedievalSharp,cursive", chronicle: "IM Fell English,serif", arcane: "Uncial Antiqua,serif", modern: "Inter,sans-serif" };
     return `<article class="campaign-card" style="--campaign-color:${campaign.color || "#9b4e35"};--card-display-font:${fontFamilies[campaign.font || "classic"]}">
@@ -505,7 +542,7 @@ function renderCampaigns() {
         <p class="eyebrow">${escapeHTML(getCampaignSystem(campaign).name)}</p>
         <h3>${escapeHTML(campaign.name)}</h3>
         <p>${escapeHTML(campaign.description || "Una nueva travesia esta a punto de comenzar.")}</p>
-        <div class="campaign-meta"><span>${characterCount} personajes</span><span>${sessionCount} sesiones</span><span>${formatResource(totalXP, campaign)}</span>${campaign.dm ? `<span>DM: ${escapeHTML(campaign.dm)}</span>` : ""}${campaign.passwordHash ? '<span class="lock-label">Protegida</span>' : ""}</div>
+        <div class="campaign-meta"><span>${formatCharacterCountLabel(characterCount)}</span>${sessionMeta}<span>${formatResource(totalXP, campaign)}</span>${campaign.dm ? `<span>DM: ${escapeHTML(campaign.dm)}</span>` : ""}${campaign.passwordHash ? '<span class="lock-label">Protegida</span>' : ""}</div>
         <div class="campaign-next-step">${nextStep}</div>
       </div>
       <div class="campaign-card-actions">
@@ -740,13 +777,15 @@ function characterAvatar(character, size = 43, fontSize = 17) {
 
 function renderDashboard() {
   const system = getCampaignSystem();
+  const sessionStats = getSessionStats(state);
   const totalAwarded = state.sessions.reduce((sum, session) => sum + session.totalAwarded, 0);
   const averageProgress = state.characters.length
     ? (state.characters.reduce((sum, character) => sum + (system.id === 'cyberpunkRed' ? Number(character.xp || 0) : getLevel(character.xp)), 0) / state.characters.length).toFixed(1)
     : '—';
   $('#stats-grid').innerHTML = [
     ['Personajes', state.characters.length],
-    ['Sesiones', state.sessions.length],
+    ['Sesion actual', sessionStats.latest || 0],
+    ['Registros', sessionStats.registered],
     [`${system.unit} otorgados`, formatNumber(totalAwarded)],
     [system.averageStatLabel, averageProgress]
   ].map(([label, value]) => `<article class="stat-card"><span>${label}</span><strong>${value}</strong></article>`).join('');
@@ -800,7 +839,8 @@ function resetCharacterForm() {
 function renderSessionForm() {
   updateSystemCopy();
   const system = getCampaignSystem();
-  $('#session-number').value = state.sessions.length ? Math.max(...state.sessions.map(session => Number(session.number) || 0)) + 1 : 1;
+  const sessionStats = getSessionStats(state);
+  $('#session-number').value = sessionStats.latest ? sessionStats.latest + 1 : 1;
   if (!$('#session-date').value) $('#session-date').value = new Date().toISOString().slice(0, 10);
   const attendance = $('#attendance-list');
   if (!state.characters.length) {

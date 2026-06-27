@@ -34,6 +34,17 @@ function getPreviewImage(req, campaign) {
   return absoluteUrl(req, DEFAULT_IMAGE_PATH);
 }
 
+function sessionPreviewText(campaign, latestSessionNumber = 0) {
+  const characterCount = Number(campaign.character_count || 0);
+  const registeredCount = Number(campaign.session_count || 0);
+  const latest = Math.max(Number(campaign.latest_session_number || 0), Number(latestSessionNumber || 0));
+  const characters = `${characterCount} personaje${characterCount === 1 ? "" : "s"}`;
+  const records = `${registeredCount} registro${registeredCount === 1 ? "" : "s"} en bitacora`;
+  return latest > registeredCount
+    ? `${characters}, sesion actual ${latest} y ${records}.`
+    : `${characters}, ${records}.`;
+}
+
 function sendHtml(res, html) {
   res.statusCode = 200;
   res.setHeader("content-type", "text/html; charset=utf-8");
@@ -52,8 +63,9 @@ module.exports = async function handler(req, res) {
     }
 
     const origin = getOrigin(req);
+    const [latestSession] = await supabaseFetch(`/sessions?campaign_id=eq.${encodeURIComponent(id)}&select=number&order=number.desc&limit=1`);
     const title = campaign.name ? `${campaign.name} | D20 Travesias` : DEFAULT_TITLE;
-    const description = campaign.description || `${campaign.character_count || 0} personajes, ${campaign.session_count || 0} sesiones y bitacora compartida.`;
+    const description = campaign.description || sessionPreviewText(campaign, latestSession?.number);
     const image = getPreviewImage(req, campaign);
     const appUrl = `${origin}/campaigns/?campaign=${encodeURIComponent(campaign.id)}`;
     const system = campaign.system_name || "D20 Travesias";
