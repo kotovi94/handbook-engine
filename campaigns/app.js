@@ -124,6 +124,39 @@ const CYBERPUNK_PP_REASONS = {
     [80, 'Actuacion realmente increible'],
   ],
 };
+const DND_XP_REWARD_TIERS = buildDndRewardTiers();
+const DND_XP_REWARDS = [
+  { id: 'combat-low', bullet: 1, action: 'Combate (desempeno bajo)', xp: 20, note: 'Si los jugadores lucharon de manera torpe o sin estrategia.' },
+  { id: 'combat-standard', bullet: 2, action: 'Combate (desempeno aceptable)', xp: 30, note: 'Si usaron tacticas basicas y tuvieron un combate estandar.' },
+  { id: 'combat-excellent', bullet: 3, action: 'Combate (desempeno sobresaliente)', xp: 40, note: 'Si usaron estrategias avanzadas, combos o tacticas creativas.' },
+  { id: 'valuable-information', bullet: 4, action: 'Adquirir informacion valiosa', xp: 15, note: 'Descubrir pistas, aprender sobre la trama o revelar secretos importantes.' },
+  { id: 'accept-mission', bullet: 5, action: 'Aceptar una mision', xp: 10, note: 'Cuando el grupo se compromete con un objetivo importante.' },
+  { id: 'complete-mission', bullet: 6, action: 'Cumplir una mision', xp: 40, note: 'Dependiendo de la dificultad de la mision.' },
+  { id: 'noncombat-solution', bullet: 7, action: 'Resolver un problema sin combate', xp: 20, note: 'Diplomacia, sigilo, negociacion o engano para evitar un enfrentamiento.' },
+  { id: 'notable-exploration', bullet: 8, action: 'Exploracion destacada', xp: 25, note: 'Descubrir lugares ocultos, mapas secretos, pasadizos o tesoros escondidos.' },
+  { id: 'clever-skill-spell', bullet: 9, action: 'Uso ingenioso de habilidades o hechizos', xp: 25, note: 'Resolver una situacion de forma creativa usando mecanicas del juego.' },
+  { id: 'teamwork', bullet: 10, action: 'Trabajo en equipo destacado', xp: 20, note: 'Si los jugadores colaboraron excepcionalmente bien en una tarea.' },
+  { id: 'character-development', bullet: 11, action: 'Desarrollo de personaje (roleo significativo)', xp: 25, note: 'Si un jugador profundiza en su historia, relaciones o personalidad.' },
+  { id: 'story-impact', bullet: 12, action: 'Impacto en la historia', xp: 30, note: 'Si una decision del grupo cambia el rumbo de la narrativa de manera importante.' },
+  { id: 'heroic-act', bullet: 13, action: 'Sacrificio o acto heroico', xp: 30, note: 'Si un personaje pone en riesgo su seguridad por el grupo o la historia.' },
+  { id: 'heroic-inspiration', bullet: 14, action: 'Inspiracion Heroica', xp: 30, note: 'Recompensa extra por hazanas epicas.' },
+  { id: 'crisis-improvisation', bullet: 15, action: 'Improvisacion exitosa en crisis', xp: 25, note: 'Cuando un jugador resuelve algo sin recursos convencionales.' },
+  { id: 'sacrifice-for-ally', bullet: 16, action: 'Sacrificio por otro miembro del grupo', xp: 30, note: 'Incluye poner su vida en riesgo o perder un recurso valioso.' },
+  { id: 'deep-lore', bullet: 17, action: 'Descubrimiento de lore profundo o historia oculta', xp: 20, note: 'Cuando un jugador busca e interpreta informacion antigua o criptica.' },
+  { id: 'emotional-roleplay', bullet: 18, action: 'Escena de roleo emocional poderosa', xp: 30, note: 'Llantos, traiciones, confesiones o algo que afecte a todos.' },
+  { id: 'creative-feat', bullet: 19, action: 'Proeza ridiculamente creativa (y funcional)', xp: 27, note: 'Inventar una locura que funcione. Premia la locura logica.' },
+  { id: 'history-changing-diplomacy', bullet: 20, action: 'Diplomacia que cambia el curso de la historia', xp: 35, note: 'Convencer a un enemigo, evitar una guerra o unir facciones.' },
+  { id: 'nonviolent-defeat', bullet: 21, action: 'Derrotar a un enemigo de forma no violenta', xp: 30, note: 'Puede implicar engano, redencion, soborno o chantaje.' },
+  { id: 'npc-growth', bullet: 22, action: 'Inspirar a un NPC a cambiar o crecer', xp: 25, note: 'Cuando un jugador deja huella en otro personaje.' },
+  { id: 'mystic-event', bullet: 23, action: 'Desbloquear un destino, profecia o evento mistico', xp: 30, note: 'Usualmente relacionado a un arco narrativo.' },
+  { id: 'perfect-master-plan', bullet: 24, action: 'Plan maestro ejecutado a la perfeccion', xp: 35, note: 'Cuando el grupo actua coordinado y todo sale bien.' },
+  { id: 'combat-critical', bullet: 25, action: 'Critico en combate (natural 20)', xp: 10, note: 'Si el golpe tuvo impacto narrativo, fue creativo o decisivo.' },
+  { id: 'noncombat-critical', bullet: 26, action: 'Critico fuera de combate (habilidad/hechizo)', xp: 15, note: 'Acciones epicas como convencer a una multitud, resolver un acertijo o salvar una vida.' },
+  { id: 'plot-critical', bullet: 27, action: 'Critico en momento clave de trama', xp: 20, note: 'Ejemplo: activar un artefacto, evitar un desastre o cumplir una profecia.' },
+  { id: 'combat-fumble', bullet: 28, action: 'Pifia en combate (natural 1)', xp: -5, note: 'Solo si perjudica al grupo o causa dano serio. Se puede ignorar si se rolea bien.' },
+  { id: 'noncombat-fumble', bullet: 29, action: 'Pifia fuera de combate (habilidad)', xp: -5, note: 'Cuando genera consecuencias graves o muy costosas. Opcional segun el tono del juego.' },
+  { id: 'memorable-fumble', bullet: 30, action: 'Pifia epica bien roleada', xp: 5, note: 'Recompensa si el jugador convierte el fallo en un momento memorable y divertido.' },
+];
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -276,6 +309,49 @@ function normalizeCharacter(character) {
 function formatResource(value, campaign = state) {
   const system = getCampaignSystem(campaign);
   return `${formatNumber(value)} ${system.unit}`;
+}
+
+function formatSignedResource(value, campaign = state) {
+  return `${Number(value) > 0 ? '+' : ''}${formatResource(value, campaign)}`;
+}
+
+function formatSignedNumber(value) {
+  const number = Math.round(Number(value) || 0);
+  return number > 0 ? `+${formatNumber(number)}` : formatNumber(number);
+}
+
+function formatMultiplier(value) {
+  return Number(value).toFixed(1).replace(/\.0$/, '');
+}
+
+function getDndLevelGap(level) {
+  const index = Math.max(0, Math.min(XP_THRESHOLDS.length - 2, level - 1));
+  return XP_THRESHOLDS[index + 1] - XP_THRESHOLDS[index];
+}
+
+function getAverageDndLevelGap(minLevel, maxLevel) {
+  const gaps = [];
+  for (let level = minLevel; level <= maxLevel && level < 20; level += 1) gaps.push(getDndLevelGap(level));
+  return gaps.reduce((sum, gap) => sum + gap, 0) / Math.max(1, gaps.length);
+}
+
+function buildDndRewardTiers() {
+  const tiers = [
+    { minLevel: 1, maxLevel: 4, label: 'Niveles 1-4' },
+    { minLevel: 5, maxLevel: 8, label: 'Niveles 5-8' },
+    { minLevel: 9, maxLevel: 12, label: 'Niveles 9-12' },
+    { minLevel: 13, maxLevel: 16, label: 'Niveles 13-16' },
+    { minLevel: 17, maxLevel: 20, label: 'Niveles 17-20' },
+  ];
+  const baseGap = getAverageDndLevelGap(1, 4);
+  return tiers.map(tier => ({
+    ...tier,
+    multiplier: tier.minLevel === 1 ? 1 : Math.round((getAverageDndLevelGap(tier.minLevel, tier.maxLevel) / baseGap) * 10) / 10,
+  }));
+}
+
+function getDndRewardTier(level) {
+  return DND_XP_REWARD_TIERS.find(tier => level >= tier.minLevel && level <= tier.maxLevel) || DND_XP_REWARD_TIERS[0];
 }
 
 async function hashPassword(value) {
@@ -735,16 +811,59 @@ function renderSessionForm() {
   }
   attendance.innerHTML = state.characters.map(character => `
     <label class="attendance-item"><input class="attendance-check" type="checkbox" value="${character.id}" checked>${characterAvatar(character, 30, 12)}<b>${escapeHTML(character.name)}</b><small>${system.id === 'cyberpunkRed' ? formatResource(character.xp) : `Nivel ${getLevel(character.xp)}`}</small></label>`).join('');
-  $('#individual-bonuses').innerHTML = system.id === 'cyberpunkRed' ? renderCyberpunkAwards() : state.characters.map(character => `
-    <div class="bonus-item" data-character="${character.id}">
-      <div class="bonus-head">${characterAvatar(character, 27, 11)}<strong>${escapeHTML(character.name)}</strong></div>
-      <div class="bonus-inputs">
-        <label>${system.poolLabels[0]}<input class="bonus-combat" type="number" min="0" step="1" value="0"></label>
-        <label>${system.poolLabels[1]}<input class="bonus-roleplay" type="number" min="0" step="1" value="0"></label>
-        <label>${system.poolLabels[2]}<input class="bonus-manual" type="number" min="0" step="1" value="0"></label>
-      </div>
-    </div>`).join('');
+  $('#individual-bonuses').innerHTML = system.id === 'cyberpunkRed' ? renderCyberpunkAwards() : renderDndAwards();
   updateDistribution();
+}
+
+function renderDndAwards() {
+  const system = getCampaignSystem();
+  return state.characters.map(character => {
+    const level = getLevel(character.xp);
+    const tier = getDndRewardTier(level);
+    return `
+    <div class="bonus-item dnd-award" data-character="${character.id}">
+      <div class="bonus-head">${characterAvatar(character, 27, 11)}<strong>${escapeHTML(character.name)}</strong></div>
+      <div class="dnd-scale-summary">
+        <span class="dnd-scale-copy">Nivel ${level} - ${tier.label} - x${formatMultiplier(tier.multiplier)}</span>
+        <strong class="dnd-guided-total">0 PX</strong>
+      </div>
+      <div class="dnd-award-table">
+        <div class="dnd-award-header"><span>Logro</span><span>PX base</span><span></span></div>
+        <div class="dnd-award-rows">${renderDndAwardRow()}</div>
+      </div>
+      <button type="button" class="text-button dnd-add-award" data-action="dnd-add-award">+ Agregar logro</button>
+      <div class="bonus-inputs dnd-manual-inputs">
+        <label>${system.poolLabels[0]} manual<input class="bonus-combat" type="number" min="0" step="1" value="0"></label>
+        <label>${system.poolLabels[1]} manual<input class="bonus-roleplay" type="number" min="0" step="1" value="0"></label>
+        <label>${system.poolLabels[2]} manual<input class="bonus-manual" type="number" min="0" step="1" value="0"></label>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderDndAwardRow(selectedId = '') {
+  const reward = DND_XP_REWARDS.find(item => item.id === selectedId);
+  return `<div class="dnd-award-row">
+    <div class="dnd-award-select-wrap">
+      <select class="dnd-reward-select" aria-label="Logro de D&D">${getDndRewardOptions(selectedId)}</select>
+      <small class="dnd-award-note">${reward ? escapeHTML(reward.note) : ''}</small>
+    </div>
+    <strong class="dnd-award-value">${reward ? `${formatSignedNumber(reward.xp)} PX` : '0 PX'}</strong>
+    <button type="button" class="text-button danger-button dnd-remove-award" data-action="dnd-remove-award" aria-label="Quitar logro">Quitar</button>
+  </div>`;
+}
+
+function getDndRewardOptions(selectedId = '') {
+  const empty = `<option value=""${selectedId ? '' : ' selected'}>Sin logro seleccionado</option>`;
+  return empty + DND_XP_REWARDS.map(reward => {
+    return `<option value="${reward.id}"${reward.id === selectedId ? ' selected' : ''}>${reward.bullet}. ${escapeHTML(reward.action)} (${formatSignedNumber(reward.xp)} PX)</option>`;
+  }).join('');
+}
+
+function updateDndAwardRow(row) {
+  const reward = DND_XP_REWARDS.find(item => item.id === row?.querySelector('.dnd-reward-select')?.value);
+  row?.querySelector('.dnd-award-value')?.replaceChildren(document.createTextNode(reward ? `${formatSignedNumber(reward.xp)} PX` : '0 PX'));
+  row?.querySelector('.dnd-award-note')?.replaceChildren(document.createTextNode(reward?.note || ''));
 }
 
 function renderCyberpunkAwards() {
@@ -810,8 +929,49 @@ function getDistribution() {
       manual: count ? pools.manual / count : 0
     };
     const character = state.characters.find(entry => entry.id === characterId);
-    return { characterId, characterName: character?.name || 'Personaje', group, individual, total: group.combat + group.roleplay + group.manual + individual.combat + individual.roleplay + individual.manual };
+    const guided = getDndGuidedAward(bonus, character);
+    const rawTotal = group.combat + group.roleplay + group.manual + individual.combat + individual.roleplay + individual.manual + guided.total;
+    const total = Math.max(-(Number(character?.xp) || 0), rawTotal);
+    if (bonus?.querySelector('.dnd-guided-total')) {
+      bonus.querySelector('.dnd-guided-total').textContent = formatResource(guided.total);
+      bonus.querySelector('.dnd-scale-copy').textContent = `Nivel ${guided.level} - ${guided.tierLabel} - x${formatMultiplier(guided.multiplier)}`;
+    }
+    return {
+      characterId,
+      characterName: character?.name || 'Personaje',
+      group,
+      individual,
+      guided,
+      awardCategory: guided.details.length ? `${guided.details.length} logro${guided.details.length === 1 ? '' : 's'}` : '',
+      awardDetails: guided.details,
+      total,
+    };
   });
+}
+
+function getDndGuidedAward(award, character = {}) {
+  const level = getLevel(Number(character?.xp) || 0);
+  const tier = getDndRewardTier(level);
+  const details = [...(award?.querySelectorAll('.dnd-award-row') || [])].map(row => {
+    const reward = DND_XP_REWARDS.find(item => item.id === row.querySelector('.dnd-reward-select')?.value);
+    if (!reward) return null;
+    return {
+      category: 'Logro',
+      reason: reward.action,
+      note: reward.note,
+      baseXp: reward.xp,
+      total: Math.round(reward.xp * tier.multiplier),
+    };
+  }).filter(Boolean);
+  const baseTotal = details.reduce((sum, detail) => sum + detail.baseXp, 0);
+  return {
+    level,
+    tierLabel: tier.label,
+    multiplier: tier.multiplier,
+    baseTotal,
+    total: Math.round(baseTotal * tier.multiplier),
+    details,
+  };
 }
 
 function getCyberpunkDistribution() {
@@ -855,7 +1015,7 @@ function updateDistribution() {
     const category = item.awardDetails?.length
       ? ` <small>${item.awardDetails.length} motivo${item.awardDetails.length === 1 ? '' : 's'}</small>`
       : (item.awardCategory ? ` <small>${escapeHTML(item.awardCategory)}</small>` : '');
-    return `<div class="preview-row"><span>${escapeHTML(character?.name || 'Personaje')}${category}</span><b>+${formatResource(item.total)}</b></div>`;
+    return `<div class="preview-row"><span>${escapeHTML(character?.name || 'Personaje')}${category}</span><b>${formatSignedResource(item.total)}</b></div>`;
   }).join('') : '<p class="helper">Marca al menos un personaje como asistente.</p>';
 }
 
@@ -910,7 +1070,8 @@ function renderLog(query = '') {
   const normalized = query.trim().toLowerCase();
   const sessions = [...state.sessions].sort((a, b) => new Date(b.date) - new Date(a.date)).filter(session => {
     const participantNames = session.allocations.map(item => item.characterName || state.characters.find(character => character.id === item.characterId)?.name || '').join(' ');
-    return `${session.name} ${session.number} ${session.notes.combat} ${session.notes.roleplay} ${participantNames}`.toLowerCase().includes(normalized);
+    const awardText = session.allocations.flatMap(item => item.awardDetails?.map(detail => `${detail.reason || ''} ${detail.note || ''}`) || []).join(' ');
+    return `${session.name} ${session.number} ${session.notes.combat} ${session.notes.roleplay} ${participantNames} ${awardText}`.toLowerCase().includes(normalized);
   });
   $('#session-log').innerHTML = sessions.length ? sessions.map(session => `
     <article class="log-card">
@@ -931,16 +1092,27 @@ function renderLog(query = '') {
 }
 
 function renderStandardLogTable(session, system) {
+  const showGuided = system.id === 'dnd5e2024' && session.allocations.some(item => item.guided || item.awardDetails?.length);
   return `<table class="allocation-table">
-    <thead><tr><th>Personaje</th><th>${system.poolLabels[0]}</th><th>${system.poolLabels[1]}</th><th>${system.poolLabels[2]}</th><th>Total</th></tr></thead>
+    <thead><tr><th>Personaje</th>${showGuided ? '<th>Logros guiados</th>' : ''}<th>${system.poolLabels[0]}</th><th>${system.poolLabels[1]}</th><th>${system.poolLabels[2]}</th><th>Total</th></tr></thead>
     <tbody>${session.allocations.map(item => {
       const character = state.characters.find(entry => entry.id === item.characterId);
-      const combat = item.group.combat + item.individual.combat;
-      const roleplay = item.group.roleplay + item.individual.roleplay;
-      const manual = item.group.manual + item.individual.manual;
-      return `<tr><td>${escapeHTML(item.characterName || character?.name || 'Personaje eliminado')}</td><td>${formatResource(combat)}</td><td>${formatResource(roleplay)}</td><td>${formatResource(manual)}</td><td><b>${formatResource(item.total)}</b></td></tr>`;
+      const combat = (item.group?.combat || 0) + (item.individual?.combat || 0);
+      const roleplay = (item.group?.roleplay || 0) + (item.individual?.roleplay || 0);
+      const manual = (item.group?.manual || 0) + (item.individual?.manual || 0);
+      return `<tr><td>${escapeHTML(item.characterName || character?.name || 'Personaje eliminado')}</td>${showGuided ? `<td>${renderDndAllocationSummary(item)}</td>` : ''}<td>${formatResource(combat)}</td><td>${formatResource(roleplay)}</td><td>${formatResource(manual)}</td><td><b>${formatResource(item.total)}</b></td></tr>`;
     }).join('')}</tbody>
   </table>`;
+}
+
+function renderDndAllocationSummary(item) {
+  const details = item.awardDetails || [];
+  if (!details.length) return formatResource(0);
+  const guided = item.guided || {};
+  const detailText = details.slice(0, 3).map(detail => escapeHTML(detail.reason || 'Logro')).join('<br>');
+  const hiddenCount = details.length - 3;
+  const tierText = guided.tierLabel ? `<small>${escapeHTML(guided.tierLabel)} x${formatMultiplier(guided.multiplier || 1)}</small>` : '';
+  return `<b>${formatResource(guided.total || 0)}</b>${tierText}<small>${detailText}${hiddenCount > 0 ? `<br>+${hiddenCount} mas` : ''}</small>`;
 }
 
 function renderCyberpunkLogTable(session) {
@@ -986,6 +1158,24 @@ document.addEventListener('click', async event => {
   if (emptyNewCampaignButton) openNewCampaignModal(emptyNewCampaignButton);
   if (event.target.closest('[data-action="unlock-active-campaign"]')) {
     if (state) requestCampaignUnlock(state, 'open');
+  }
+  const addDndAward = event.target.closest('[data-action="dnd-add-award"]');
+  if (addDndAward) {
+    addDndAward.closest('.dnd-award')?.querySelector('.dnd-award-rows')?.insertAdjacentHTML('beforeend', renderDndAwardRow());
+    updateDistribution();
+  }
+  const removeDndAward = event.target.closest('[data-action="dnd-remove-award"]');
+  if (removeDndAward) {
+    const rows = removeDndAward.closest('.dnd-award-rows');
+    if (rows && rows.querySelectorAll('.dnd-award-row').length > 1) {
+      removeDndAward.closest('.dnd-award-row')?.remove();
+    } else {
+      const row = removeDndAward.closest('.dnd-award-row');
+      const select = row?.querySelector('.dnd-reward-select');
+      if (select) select.value = '';
+      updateDndAwardRow(row);
+    }
+    updateDistribution();
   }
   const addCyberpunkAward = event.target.closest('[data-action="cyberpunk-add-award"]');
   if (addCyberpunkAward) {
@@ -1116,6 +1306,9 @@ $('#cancel-character').addEventListener('click', resetCharacterForm);
 $('#session-form').addEventListener('submit', saveSession);
 $('#session-form').addEventListener('input', updateDistribution);
 $('#session-form').addEventListener('change', event => {
+  if (event.target.matches('.dnd-reward-select')) {
+    updateDndAwardRow(event.target.closest('.dnd-award-row'));
+  }
   if (event.target.matches('.bonus-category')) {
     const row = event.target.closest('.cyberpunk-award-row');
     const reason = row?.querySelector('.bonus-reason');
