@@ -48,7 +48,7 @@ export function createOfficialEncounterCreature({
     label: "",
     count,
     cr: String(monster?.cr || group?.cr || ""),
-    crValue: Number(group?.crValue) || 0,
+    crValue: crToNumber(monster?.cr || group?.cr),
     xpEach,
     totalXp: xpEach * count,
     tacticalRole: tacticalRole || group?.role || "",
@@ -67,45 +67,12 @@ export function createOfficialEncounterCreature({
   return creature;
 }
 
-export function createTemplateEncounterCreature({
-  flavorName = "",
-  group,
-  tacticalRole = "",
-} = {}) {
-  const count = normalizeCount(group?.count);
-  const xpEach = Number(group?.xpEach) || 0;
-  const creature = {
-    name: "Creature template",
-    flavorName: normalizeFlavorName(flavorName) || getFallbackTemplateName(tacticalRole || group?.role),
-    label: "",
-    count,
-    cr: String(group?.cr || ""),
-    crValue: Number(group?.crValue) || 0,
-    suggestedCr: String(group?.cr || ""),
-    xpEach,
-    totalXp: Number(group?.totalXp) || xpEach * count,
-    tacticalRole: tacticalRole || group?.role || "",
-    encounterRole: "",
-    source: "template-narrative",
-    sourceId: "",
-    isOfficial: false,
-    creatureType: "",
-    size: "",
-    habitat: [],
-    treasure: [],
-    extractionConfidence: "",
-  };
-
-  creature.label = formatCreatureEncounterLabel(creature);
-  return creature;
-}
-
 export function formatCreatureEncounterLabel(creature = {}) {
   if (creature.isOfficial) {
     return formatOfficialCreatureLabel(creature);
   }
 
-  return formatTemplateCreatureLabel(creature);
+  return "";
 }
 
 const inhabitantMonsterProfiles = {
@@ -276,15 +243,6 @@ function formatOfficialCreatureLabel(creature) {
   return `${count} ${name} (${crText}, ${xpText})${flavor}`;
 }
 
-function formatTemplateCreatureLabel(creature) {
-  const count = normalizeCount(creature.count);
-  const noun = count > 1 ? "Creature templates" : "Creature template";
-  const countPrefix = count > 1 ? `${count} ` : "";
-  const crText = creature.suggestedCr || creature.cr || "?";
-  const xpText = Number(creature.totalXp) ? `, ${creature.totalXp} XP sugerida total` : "";
-  return `${countPrefix}${noun}: ${creature.flavorName || "encuentro narrativo"} (CR sugerido ${crText}${count > 1 ? " c/u" : ""}${xpText})`;
-}
-
 function pluralizeCreatureName(name) {
   const value = String(name || "Creature").trim();
   if (!value) return "Creatures";
@@ -309,15 +267,19 @@ function normalizeFlavorName(flavorName, officialName = "") {
   return flavor.toLowerCase() === String(officialName || "").trim().toLowerCase() ? "" : flavor;
 }
 
-function getFallbackTemplateName(role) {
-  const labels = {
-    principal: "amenaza principal",
-    apoyo: "apoyo tactico",
-    extra: "presencia narrativa",
-  };
-  return labels[role] || "encuentro narrativo";
-}
-
 function unique(values) {
   return [...new Set(values.filter(Boolean))];
+}
+
+function crToNumber(cr) {
+  if (!cr) {
+    return 0;
+  }
+
+  if (String(cr).includes("/")) {
+    const [top, bottom] = String(cr).split("/").map(Number);
+    return bottom ? top / bottom : 0;
+  }
+
+  return Number(cr) || 0;
 }

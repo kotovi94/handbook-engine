@@ -107,7 +107,10 @@ export function renderRoomMarkdown(room) {
   if (room.encounterUi.creatureBlocks.length) {
     lines.push("", "**Encuentro:**");
     room.encounterUi.creatureBlocks.forEach((block) => {
-      lines.push(`- ${formatEncounterBlockLabel(block)}`);
+      const label = formatEncounterBlockLabel(block);
+      if (label) {
+        lines.push(`- ${label}`);
+      }
     });
     lines.push(`- Presupuesto: ${room.encounterUi.spentXp}/${room.encounterUi.budgetXp} XP (${room.encounterUi.difficultyLabel})`);
   }
@@ -145,7 +148,7 @@ export function renderEncounterTableMarkdown(rows) {
       row.difficultyLabel,
       `${row.spentXp}/${row.budgetXp}`,
       row.highestCr || "",
-      row.creatureBlocks.map(formatEncounterBlockLabel).join("; "),
+      row.creatureBlocks.map(formatEncounterBlockLabel).filter(Boolean).join("; "),
       row.warnings.join(" "),
     ].map(escapeTableCell).join(" | ")).map((line) => `| ${line} |`),
   ];
@@ -314,8 +317,8 @@ function formatEncounterBlockLabel(block = {}) {
     return `${count} ${block.name} (${cr}, ${xp})${flavor}`;
   }
 
-  if (block.source === "template-narrative" || block.flavorName) {
-    return `Creature template: ${block.flavorName || block.name || "encuentro narrativo"} (CR sugerido ${block.suggestedCr || block.cr || "?"})`;
+  if (block.source === "template-narrative") {
+    return "";
   }
 
   return block.name || "Encuentro sin criatura definida";

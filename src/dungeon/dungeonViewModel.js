@@ -710,10 +710,10 @@ export function buildDungeonEcology(dungeon) {
 export function buildEncounterUi(room) {
   const plan = room?.encounterPlan || null;
   const structuredCreatures = normalizeCreatureObjects(room?.creatures);
-  const enemyLines = normalizeTextList(room?.enemies);
+  const enemyLines = normalizeTextList(room?.enemies).filter((line) => !isNarrativeTemplateLine(line));
   const creatureLines = structuredCreatures.length
     ? structuredCreatures.map((creature) => creature.label).filter(Boolean)
-    : normalizeTextList(room?.enemies || room?.creatures);
+    : normalizeTextList(room?.enemies || room?.creatures).filter((line) => !isNarrativeTemplateLine(line));
   const groups = Array.isArray(plan?.groups) ? plan.groups : [];
   const creatureBlocks = groups.map((group, index) => {
     const creature = structuredCreatures[index] || null;
@@ -781,7 +781,7 @@ function buildCreatureRows(room) {
     source: "",
     sourceId: "",
     isOfficial: false,
-  }));
+  })).filter((creature) => !isNarrativeTemplateLine(creature.label));
 }
 
 function normalizeHazard(room) {
@@ -929,7 +929,8 @@ function normalizeCreatureObjects(value) {
       creature.label = creature.label || formatCreatureEncounterLabel(creature);
       return creature;
     })
-    .filter((creature) => creature.label || creature.name || creature.flavorName);
+    .filter((creature) => creature.label || creature.name || creature.flavorName)
+    .filter((creature) => creature.source !== "template-narrative" && creature.name !== "Creature template");
 }
 
 function normalizeTextItem(item) {
@@ -953,6 +954,10 @@ function extractCreatureName(line) {
     .replace(/\s*\(CR .*$/i, "")
     .replace(/\s*\(.*XP.*$/i, "")
     .trim();
+}
+
+function isNarrativeTemplateLine(line) {
+  return /^(\d+\s+)?Creature templates?:/i.test(String(line || "").trim());
 }
 
 function inferHazardTrigger(summary) {

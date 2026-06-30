@@ -1,10 +1,10 @@
 export const monsterManual2024Catalog = {
   "schema": "handbook-engine-monster-metadata-v1",
   "source": {
-    "kind": "local-pdf-ocr",
-    "file": "D:\\D&D - 5.5 - Manual de Monstruos - Ingles.pdf",
-    "pages": 390,
-    "copyrightNote": "Compact metadata extracted for local encounter generation. Stat blocks and descriptive text are intentionally omitted. Clean pasted monster text, when present, is parsed into metadata only."
+    "kind": "pasted-monster-text",
+    "file": "",
+    "pages": 0,
+    "copyrightNote": "Compact metadata extracted from user-provided pasted monster text for local encounter generation. Stat blocks and descriptive text are intentionally omitted."
   },
   "fields": [
     "id",
@@ -380,24 +380,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "allosaurus",
-      "name": "Allosaurus",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "ancient-black-dragon",
       "name": "Ancient Black Dragon",
       "cr": "21",
@@ -744,42 +726,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "brute"
     },
     {
-      "id": "ankylosaurus",
-      "name": "Ankylosaurus",
-      "cr": "3",
-      "xp": 700,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "ape",
-      "name": "Ape",
-      "cr": "1/2",
-      "xp": 100,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "arcanaloth",
       "name": "Arcanaloth",
       "cr": "12",
@@ -820,24 +766,6 @@ export const monsterManual2024Catalog = {
         "fey"
       ],
       "encounterRole": "boss"
-    },
-    {
-      "id": "archelon",
-      "name": "Archelon",
-      "cr": "4",
-      "xp": 1100,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "archmage",
@@ -884,29 +812,6 @@ export const monsterManual2024Catalog = {
         "humanoid"
       ],
       "encounterRole": "boss"
-    },
-    {
-      "id": "arurxec",
-      "name": "Arurxec",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Monstrosity",
-      "size": "Large",
-      "habitat": [
-        "Forest",
-        "Grassland"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 21,
-      "extractionConfidence": "high",
-      "tags": [
-        "forest",
-        "grassland",
-        "monstrosity"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "assassin",
@@ -1046,42 +951,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "baboon",
-      "name": "Baboon",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Small",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "badger",
-      "name": "Badger",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "balor",
       "name": "Balor",
       "cr": "19",
@@ -1187,27 +1056,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "baneeo-devt",
-      "name": "Baneeo Devt",
-      "cr": "5",
-      "xp": 1800,
-      "creatureType": "Fiend",
-      "size": "Medium",
-      "habitat": [
-        "Planar (Nine Hells)"
-      ],
-      "treasure": [
-        "Any"
-      ],
-      "sourcePage": 33,
-      "extractionConfidence": "high",
-      "tags": [
-        "fiend",
-        "planar-nine-hells"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "banshee",
       "name": "Banshee",
       "cr": "4",
@@ -1290,24 +1138,6 @@ export const monsterManual2024Catalog = {
         "monstrosity",
         "mountain",
         "underdark"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "bat",
-      "name": "Bat",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
       ],
       "encounterRole": "brute"
     },
@@ -1444,24 +1274,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "leader"
     },
     {
-      "id": "black-bear",
-      "name": "Black Bear",
-      "cr": "1/2",
-      "xp": 100,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "black-dragon-wyrmling",
       "name": "Black Dragon Wyrmling",
       "cr": "2",
@@ -1549,24 +1361,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "boss"
     },
     {
-      "id": "blood-hawk",
-      "name": "Blood Hawk",
-      "cr": "1/8",
-      "xp": 25,
-      "creatureType": "Beast",
-      "size": "Small",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "blue-dragon-wyrmling",
       "name": "Blue Dragon Wyrmling",
       "cr": "3",
@@ -1610,24 +1404,6 @@ export const monsterManual2024Catalog = {
         "planar-limbo"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "boar",
-      "name": "Boar",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "bone-devil",
@@ -1739,24 +1515,6 @@ export const monsterManual2024Catalog = {
         "young"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "brown-bear",
-      "name": "Brown Bear",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "bugbear-stalker",
@@ -1930,24 +1688,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "camel",
-      "name": "Camel",
-      "cr": "1/8",
-      "xp": 25,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "carrion-crawler",
       "name": "Carrion Crawler",
       "cr": "2",
@@ -1967,24 +1707,6 @@ export const monsterManual2024Catalog = {
         "monstrosity",
         "underdark",
         "urban"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "cat",
-      "name": "Cat",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
       ],
       "encounterRole": "brute"
     },
@@ -2196,27 +1918,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "clouo-grlur",
-      "name": "Clouo Grlur",
-      "cr": "9",
-      "xp": 5000,
-      "creatureType": "Giant",
-      "size": "Huge",
-      "habitat": [
-        "Mountain"
-      ],
-      "treasure": [
-        "Arcana"
-      ],
-      "sourcePage": 77,
-      "extractionConfidence": "high",
-      "tags": [
-        "giant",
-        "mountain"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "cockatrice",
       "name": "Cockatrice",
       "cr": "1/2",
@@ -2301,24 +2002,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "minion"
     },
     {
-      "id": "constrictor-snake",
-      "name": "Constrictor Snake",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "copper-dragon-wyrmling",
       "name": "Copper Dragon Wyrmling",
       "cr": "1",
@@ -2368,24 +2051,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "crab",
-      "name": "Crab",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "crawling-claw",
       "name": "Crawling Claw",
       "cr": "0",
@@ -2405,24 +2070,6 @@ export const monsterManual2024Catalog = {
         "undead"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "crocodile",
-      "name": "Crocodile",
-      "cr": "1/2",
-      "xp": 100,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "cultist",
@@ -2728,24 +2375,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "boss"
     },
     {
-      "id": "deer",
-      "name": "Deer",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "demilich",
       "name": "Demilich",
       "cr": "18",
@@ -2786,24 +2415,6 @@ export const monsterManual2024Catalog = {
         "planar-upper-planes"
       ],
       "encounterRole": "boss"
-    },
-    {
-      "id": "dire-wolf",
-      "name": "Dire Wolf",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "dire-worg",
@@ -2854,27 +2465,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "brute"
     },
     {
-      "id": "displacer-rea-t",
-      "name": "Displacer Rea <t",
-      "cr": "3",
-      "xp": 700,
-      "creatureType": "Monstrosity",
-      "size": "Large",
-      "habitat": [
-        "Forest"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 101,
-      "extractionConfidence": "high",
-      "tags": [
-        "forest",
-        "monstrosity"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "djinni",
       "name": "Djinni",
       "cr": "11",
@@ -2896,29 +2486,6 @@ export const monsterManual2024Catalog = {
         "planar-elemental-plane-of-air"
       ],
       "encounterRole": "boss"
-    },
-    {
-      "id": "dnroen",
-      "name": "Dnroen",
-      "cr": "6",
-      "xp": 2300,
-      "creatureType": "Monstrosity",
-      "size": "Large",
-      "habitat": [
-        "Forest",
-        "Underdark"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 108,
-      "extractionConfidence": "high",
-      "tags": [
-        "forest",
-        "monstrosity",
-        "underdark"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "doppelganger",
@@ -2963,24 +2530,6 @@ export const monsterManual2024Catalog = {
         "undead"
       ],
       "encounterRole": "boss"
-    },
-    {
-      "id": "draft-horse",
-      "name": "Draft Horse",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "dragon-turtle",
@@ -3114,24 +2663,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "eagle",
-      "name": "Eagle",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Small",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "earth-elemental",
       "name": "Earth Elemental",
       "cr": "5",
@@ -3222,42 +2753,6 @@ export const monsterManual2024Catalog = {
         "humanoid"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "elephant",
-      "name": "Elephant",
-      "cr": "4",
-      "xp": 1100,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "elk",
-      "name": "Elk",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "empyrean",
@@ -3369,27 +2864,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "eupvneen-iora",
-      "name": "EupvneeN IorA",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Celestial",
-      "size": "Medium",
-      "habitat": [
-        "Any"
-      ],
-      "treasure": [
-        "Relics"
-      ],
-      "sourcePage": 115,
-      "extractionConfidence": "high",
-      "tags": [
-        "any",
-        "celestial"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "faerie-dragon-adult",
       "name": "Faerie Dragon Adult",
       "cr": "2",
@@ -3428,49 +2902,6 @@ export const monsterManual2024Catalog = {
       "tags": [
         "dragon",
         "forest"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "ffi",
-      "name": "Ffi",
-      "cr": "5",
-      "xp": 1800,
-      "creatureType": "Aberration",
-      "size": "Large",
-      "habitat": [
-        "Planar (Limbo)"
-      ],
-      "treasure": [
-        "Any"
-      ],
-      "sourcePage": 288,
-      "extractionConfidence": "high",
-      "tags": [
-        "aberration",
-        "planar-limbo"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "fiend-cuitist",
-      "name": "Fiend CuItist",
-      "cr": "8",
-      "xp": 3900,
-      "creatureType": "Humanoid",
-      "size": "Small",
-      "habitat": [
-        "Any"
-      ],
-      "treasure": [
-        "Individual",
-        "Relics"
-      ],
-      "sourcePage": 90,
-      "extractionConfidence": "medium",
-      "tags": [
-        "any",
-        "humanoid"
       ],
       "encounterRole": "standard"
     },
@@ -3649,47 +3080,6 @@ export const monsterManual2024Catalog = {
       "tags": [
         "giant",
         "underdark"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "frog",
-      "name": "Frog",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "frost-cienf",
-      "name": "Frost Cienf",
-      "cr": "8",
-      "xp": 3900,
-      "creatureType": "Giant",
-      "size": "Huge",
-      "habitat": [
-        "Arctic",
-        "Mountain"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 127,
-      "extractionConfidence": "high",
-      "tags": [
-        "arctic",
-        "giant",
-        "mountain"
       ],
       "encounterRole": "standard"
     },
@@ -3878,29 +3268,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "ghou1",
-      "name": "Ghou1",
-      "cr": "9",
-      "xp": 5000,
-      "creatureType": "Fiend",
-      "size": "Large",
-      "habitat": [
-        "Coastal",
-        "Desert"
-      ],
-      "treasure": [
-        "Relics"
-      ],
-      "sourcePage": 55,
-      "extractionConfidence": "medium",
-      "tags": [
-        "coastal",
-        "desert",
-        "fiend"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "ghoul",
       "name": "Ghoul",
       "cr": "1",
@@ -3926,25 +3293,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "giant-ape",
-      "name": "Giant Ape",
-      "cr": "7",
-      "xp": 2900,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "giant-axe-beak",
       "name": "Giant Axe Beak",
       "cr": "5",
@@ -3967,462 +3315,6 @@ export const monsterManual2024Catalog = {
         "grassland",
         "hill",
         "monstrosity"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-badger",
-      "name": "Giant Badger",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-bat",
-      "name": "Giant Bat",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-boar",
-      "name": "Giant Boar",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-centipede",
-      "name": "Giant Centipede",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Small",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-constrictor-snake",
-      "name": "Giant Constrictor Snake",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-crab",
-      "name": "Giant Crab",
-      "cr": "1/8",
-      "xp": 25,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-crocodile",
-      "name": "Giant Crocodile",
-      "cr": "5",
-      "xp": 1800,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-fire-beetle",
-      "name": "Giant Fire Beetle",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Small",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-frog",
-      "name": "Giant Frog",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-goat",
-      "name": "Giant Goat",
-      "cr": "1/2",
-      "xp": 100,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-hyena",
-      "name": "Giant Hyena",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-lizard",
-      "name": "Giant Lizard",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-octopus",
-      "name": "Giant Octopus",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-rat",
-      "name": "Giant Rat",
-      "cr": "1/8",
-      "xp": 25,
-      "creatureType": "Beast",
-      "size": "Small",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-scorpion",
-      "name": "Giant Scorpion",
-      "cr": "3",
-      "xp": 700,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-seahorse",
-      "name": "Giant Seahorse",
-      "cr": "1/2",
-      "xp": 100,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-shark",
-      "name": "Giant Shark",
-      "cr": "5",
-      "xp": 1800,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-spider",
-      "name": "Giant Spider",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-squid",
-      "name": "Giant Squid",
-      "cr": "6",
-      "xp": 2300,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-toad",
-      "name": "Giant Toad",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-venomous-snake",
-      "name": "Giant Venomous Snake",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-wasp",
-      "name": "Giant Wasp",
-      "cr": "1/2",
-      "xp": 100,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-weasel",
-      "name": "Giant Weasel",
-      "cr": "1/8",
-      "xp": 25,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "giant-wolf-spider",
-      "name": "Giant Wolf Spider",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast",
-        "giant"
       ],
       "encounterRole": "brute"
     },
@@ -4533,27 +3425,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "githzerai-monk-i",
-      "name": "Githzerai Monk I",
-      "cr": "13",
-      "xp": 10000,
-      "creatureType": "Aberration",
-      "size": "Large",
-      "habitat": [
-        "Underdark"
-      ],
-      "treasure": [
-        "Arcana"
-      ],
-      "sourcePage": 39,
-      "extractionConfidence": "medium",
-      "tags": [
-        "aberration",
-        "underdark"
-      ],
-      "encounterRole": "boss"
-    },
-    {
       "id": "githzerai-psion",
       "name": "Githzerai Psion",
       "cr": "12",
@@ -4637,29 +3508,6 @@ export const monsterManual2024Catalog = {
       "tags": [
         "any",
         "humanoid"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "gnncoyle",
-      "name": "GnncoYle",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Elemental",
-      "size": "Medium",
-      "habitat": [
-        "Underdark",
-        "Urban"
-      ],
-      "treasure": [
-        "Any"
-      ],
-      "sourcePage": 131,
-      "extractionConfidence": "high",
-      "tags": [
-        "elemental",
-        "underdark",
-        "urban"
       ],
       "encounterRole": "standard"
     },
@@ -4774,24 +3622,6 @@ export const monsterManual2024Catalog = {
         "hill"
       ],
       "encounterRole": "minion"
-    },
-    {
-      "id": "goat",
-      "name": "Goat",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "goblin-boss",
@@ -5059,27 +3889,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "green-ct",
-      "name": "Green Ct \u00c4",
-      "cr": "8",
-      "xp": 3900,
-      "creatureType": "Aberration",
-      "size": "Large",
-      "habitat": [
-        "Planar (Limbo)"
-      ],
-      "treasure": [
-        "Any"
-      ],
-      "sourcePage": 289,
-      "extractionConfidence": "medium",
-      "tags": [
-        "aberration",
-        "planar-limbo"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "green-dragon-wyrmling",
       "name": "Green Dragon Wyrmling",
       "cr": "2",
@@ -5265,58 +4074,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "grlrur-axe",
-      "name": "Grlrur Axe",
-      "cr": "5",
-      "xp": 1800,
-      "creatureType": "Monstrosity",
-      "size": "Huge",
-      "habitat": [
-        "Arctic",
-        "Grassland",
-        "Hill"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 27,
-      "extractionConfidence": "high",
-      "tags": [
-        "arctic",
-        "grassland",
-        "hill",
-        "monstrosity"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "gttor-r-wlnnron",
-      "name": "Gttor-r- Wlnnron",
-      "cr": "1/2",
-      "xp": 100,
-      "creatureType": "Fiend",
-      "size": "Medium",
-      "habitat": [
-        "Desert",
-        "Forest",
-        "Crassland",
-        "Hill"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 143,
-      "extractionConfidence": "high",
-      "tags": [
-        "crassland",
-        "desert",
-        "fiend",
-        "forest",
-        "hill"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "guard",
       "name": "Guard",
       "cr": "1/8",
@@ -5480,24 +4237,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "boss"
     },
     {
-      "id": "hawk",
-      "name": "Hawk",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "hell-hound",
       "name": "Hell Hound",
       "cr": "3",
@@ -5607,24 +4346,6 @@ export const monsterManual2024Catalog = {
         "hill",
         "monstrosity",
         "mountain"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "hippopotamus",
-      "name": "Hippopotamus",
-      "cr": "4",
-      "xp": 1100,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
       ],
       "encounterRole": "brute"
     },
@@ -5794,24 +4515,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "boss"
     },
     {
-      "id": "hunter-shark",
-      "name": "Hunter Shark",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "hydra",
       "name": "Hydra",
       "cr": "8",
@@ -5833,45 +4536,6 @@ export const monsterManual2024Catalog = {
         "swamp"
       ],
       "encounterRole": "brute"
-    },
-    {
-      "id": "hyena",
-      "name": "Hyena",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "i-vnocr",
-      "name": "I Vnocr",
-      "cr": "5",
-      "xp": 2300,
-      "creatureType": "Fiend",
-      "size": "Large",
-      "habitat": [
-        "Planar (Abyss)"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 322,
-      "extractionConfidence": "high",
-      "tags": [
-        "fiend",
-        "planar-abyss"
-      ],
-      "encounterRole": "standard"
     },
     {
       "id": "ice-devil",
@@ -5916,27 +4580,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "iii",
-      "name": "Iii",
-      "cr": "3",
-      "xp": 700,
-      "creatureType": "Monstrosity",
-      "size": "Large",
-      "habitat": [
-        "Arctic"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 337,
-      "extractionConfidence": "high",
-      "tags": [
-        "arctic",
-        "monstrosity"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "imp",
       "name": "Imp",
       "cr": "1",
@@ -5979,29 +4622,6 @@ export const monsterManual2024Catalog = {
         "urban"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "inferno-master",
-      "name": "Inferno Master",
-      "cr": "15",
-      "xp": 13000,
-      "creatureType": "Elemental",
-      "size": "Large",
-      "habitat": [
-        "Planar (Elemental Plane of Fire)",
-        "Underdark"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 270,
-      "extractionConfidence": "high",
-      "tags": [
-        "elemental",
-        "planar-elemental-plane-of-fire",
-        "underdark"
-      ],
-      "encounterRole": "boss"
     },
     {
       "id": "intellect-devourer",
@@ -6065,24 +4685,6 @@ export const monsterManual2024Catalog = {
         "construct"
       ],
       "encounterRole": "boss"
-    },
-    {
-      "id": "jackal",
-      "name": "Jackal",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Small",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "jackalwere",
@@ -6153,24 +4755,6 @@ export const monsterManual2024Catalog = {
         "monstrosity",
         "planar-shadowfell",
         "urban"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "killer-whale",
-      "name": "Killer Whale",
-      "cr": "3",
-      "xp": 700,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
       ],
       "encounterRole": "brute"
     },
@@ -6457,42 +5041,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "boss"
     },
     {
-      "id": "lion",
-      "name": "Lion",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "lizard",
-      "name": "Lizard",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "lizardfolk-geomancer",
       "name": "Lizardfolk Geomancer",
       "cr": "2",
@@ -6535,71 +5083,6 @@ export const monsterManual2024Catalog = {
         "elemental",
         "forest",
         "swamp"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "llnvl",
-      "name": "Llnvl",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Fiend",
-      "size": "Medium",
-      "habitat": [
-        "Planar (Lower Planes)"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 196,
-      "extractionConfidence": "high",
-      "tags": [
-        "fiend",
-        "planar-lower-planes"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "lnoru-goleu",
-      "name": "Lnoru Goleu",
-      "cr": "16",
-      "xp": 15000,
-      "creatureType": "Construct",
-      "size": "Large",
-      "habitat": [
-        "Urban"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 184,
-      "extractionConfidence": "high",
-      "tags": [
-        "construct",
-        "urban"
-      ],
-      "encounterRole": "boss"
-    },
-    {
-      "id": "lrirror",
-      "name": "LrirroR",
-      "cr": "3",
-      "xp": 700,
-      "creatureType": "Aberration",
-      "size": "Medium",
-      "habitat": [
-        "Coastal",
-        "Underdark"
-      ],
-      "treasure": [
-        "Relics"
-      ],
-      "sourcePage": 193,
-      "extractionConfidence": "high",
-      "tags": [
-        "aberration",
-        "coastal",
-        "underdark"
       ],
       "encounterRole": "standard"
     },
@@ -6690,24 +5173,6 @@ export const monsterManual2024Catalog = {
         "planar-elemental-plane-of-fire"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "mammoth",
-      "name": "Mammoth",
-      "cr": "6",
-      "xp": 2300,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "manes",
@@ -6825,52 +5290,6 @@ export const monsterManual2024Catalog = {
         "planar-abyss"
       ],
       "encounterRole": "boss"
-    },
-    {
-      "id": "mastiff",
-      "name": "Mastiff",
-      "cr": "1/8",
-      "xp": 25,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "medium-or",
-      "name": "Medium or",
-      "cr": "4",
-      "xp": 1100,
-      "creatureType": "Humanoid",
-      "size": "Small",
-      "habitat": [
-        "Any",
-        "Desert",
-        "Swamp"
-      ],
-      "treasure": [
-        "Armaments",
-        "Individual",
-        "Relics"
-      ],
-      "sourcePage": 165,
-      "extractionConfidence": "high",
-      "tags": [
-        "any",
-        "desert",
-        "humanoid",
-        "swamp",
-        "undead"
-      ],
-      "encounterRole": "standard"
     },
     {
       "id": "medusa",
@@ -7095,28 +5514,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "minion"
     },
     {
-      "id": "mlce",
-      "name": "Mlce",
-      "cr": "6",
-      "xp": 2300,
-      "creatureType": "Humanoid",
-      "size": "Medium or Small",
-      "habitat": [
-        "Any"
-      ],
-      "treasure": [
-        "Arcana",
-        "Individual"
-      ],
-      "sourcePage": 202,
-      "extractionConfidence": "high",
-      "tags": [
-        "any",
-        "humanoid"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "modron-duodrone",
       "name": "Modron Duodrone",
       "cr": "1/4",
@@ -7243,24 +5640,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "mule",
-      "name": "Mule",
-      "cr": "1/8",
-      "xp": 25,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "mummy",
       "name": "Mummy",
       "cr": "3",
@@ -7305,48 +5684,6 @@ export const monsterManual2024Catalog = {
         "undead"
       ],
       "encounterRole": "boss"
-    },
-    {
-      "id": "muo-mrpnrr",
-      "name": "Muo Mrpnrr",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Elemental",
-      "size": "Small",
-      "habitat": [
-        "Planar (Elemental Planes)"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 210,
-      "extractionConfidence": "high",
-      "tags": [
-        "elemental",
-        "planar-elemental-planes"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "mvcor-r-rd-sovererc-n",
-      "name": "Mvcor R RD SovERErc N",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Plant",
-      "size": "Large",
-      "habitat": [
-        "Underdark"
-      ],
-      "treasure": [
-        "Any"
-      ],
-      "sourcePage": 226,
-      "extractionConfidence": "high",
-      "tags": [
-        "plant",
-        "underdark"
-      ],
-      "encounterRole": "standard"
     },
     {
       "id": "myconid-adult",
@@ -7580,27 +5917,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "nrcxrulne",
-      "name": "Nrcxrulne",
-      "cr": "3",
-      "xp": 700,
-      "creatureType": "Fiend",
-      "size": "Large",
-      "habitat": [
-        "Planar (Lower Planes)"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 229,
-      "extractionConfidence": "high",
-      "tags": [
-        "fiend",
-        "planar-lower-planes"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "nycaloth",
       "name": "Nycaloth",
       "cr": "9",
@@ -7641,45 +5957,6 @@ export const monsterManual2024Catalog = {
         "underdark"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "ocntloru-ocnr",
-      "name": "Ocntloru Ocnr",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Giant",
-      "size": "Large",
-      "habitat": [
-        "Underdark"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 234,
-      "extractionConfidence": "high",
-      "tags": [
-        "giant",
-        "underdark"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "octopus",
-      "name": "Octopus",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Small",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "ogre",
@@ -7777,29 +6054,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "on",
-      "name": "On",
-      "cr": "7",
-      "xp": 2900,
-      "creatureType": "Fiend",
-      "size": "Large",
-      "habitat": [
-        "Forest",
-        "Urban"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 235,
-      "extractionConfidence": "medium",
-      "tags": [
-        "fiend",
-        "forest",
-        "urban"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "oni",
       "name": "Oni",
       "cr": "7",
@@ -7844,24 +6098,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "owl",
-      "name": "Owl",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "owlbear",
       "name": "Owlbear",
       "cr": "3",
@@ -7879,24 +6115,6 @@ export const monsterManual2024Catalog = {
       "tags": [
         "forest",
         "monstrosity"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "panther",
-      "name": "Panther",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
       ],
       "encounterRole": "brute"
     },
@@ -7946,33 +6164,6 @@ export const monsterManual2024Catalog = {
       "tags": [
         "any",
         "humanoid"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "performer-lege-nd",
-      "name": "Performer Lege Nd",
-      "cr": "6",
-      "xp": 2300,
-      "creatureType": "Humanoid",
-      "size": "Medium or Small",
-      "habitat": [
-        "Forest",
-        "Crassland",
-        "Hill",
-        "Planar (Upper Planes)"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 240,
-      "extractionConfidence": "medium",
-      "tags": [
-        "crassland",
-        "forest",
-        "hill",
-        "humanoid",
-        "planar-upper-planes"
       ],
       "encounterRole": "standard"
     },
@@ -8077,27 +6268,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "brute"
     },
     {
-      "id": "pianetar",
-      "name": "PIanetar",
-      "cr": "16",
-      "xp": 15000,
-      "creatureType": "Celestial",
-      "size": "Large",
-      "habitat": [
-        "Planar (Upper Planes)"
-      ],
-      "treasure": [
-        "Relics"
-      ],
-      "sourcePage": 248,
-      "extractionConfidence": "high",
-      "tags": [
-        "celestial",
-        "planar-upper-planes"
-      ],
-      "encounterRole": "boss"
-    },
-    {
       "id": "piercer",
       "name": "Piercer",
       "cr": "1/2",
@@ -8119,24 +6289,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "piranha",
-      "name": "Piranha",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "pirate",
       "name": "Pirate",
       "cr": "1",
@@ -8152,27 +6304,6 @@ export const monsterManual2024Catalog = {
       ],
       "sourcePage": 0,
       "extractionConfidence": "verified",
-      "tags": [
-        "any",
-        "humanoid"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "pirate-admira1",
-      "name": "Pirate Admira1",
-      "cr": "6",
-      "xp": 2300,
-      "creatureType": "Humanoid",
-      "size": "Medium or Small",
-      "habitat": [
-        "Any"
-      ],
-      "treasure": [
-        "Individual"
-      ],
-      "sourcePage": 245,
-      "extractionConfidence": "medium",
       "tags": [
         "any",
         "humanoid"
@@ -8312,42 +6443,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "boss"
     },
     {
-      "id": "plesiosaurus",
-      "name": "Plesiosaurus",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "polar-bear",
-      "name": "Polar Bear",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "poltergeist",
       "name": "Poltergeist",
       "cr": "2",
@@ -8369,24 +6464,6 @@ export const monsterManual2024Catalog = {
         "urban"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "pony",
-      "name": "Pony",
-      "cr": "1/8",
-      "xp": 25,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "priest",
@@ -8456,27 +6533,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "brute"
     },
     {
-      "id": "prnlre",
-      "name": "Prnlre",
-      "cr": "12",
-      "xp": 8400,
-      "creatureType": "Humanoid",
-      "size": "Medium or Small",
-      "habitat": [
-        "Any"
-      ],
-      "treasure": [
-        "Individual"
-      ],
-      "sourcePage": 245,
-      "extractionConfidence": "high",
-      "tags": [
-        "any",
-        "humanoid"
-      ],
-      "encounterRole": "boss"
-    },
-    {
       "id": "pseudodragon",
       "name": "Pseudodragon",
       "cr": "1/4",
@@ -8508,27 +6564,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "psvcxrc-gray-ooze",
-      "name": "Psvcxrc GRAY Ooze",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Ooze",
-      "size": "Medium",
-      "habitat": [
-        "Planar (Abyss)"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 154,
-      "extractionConfidence": "high",
-      "tags": [
-        "ooze",
-        "planar-abyss"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "psychic-gray-ooze",
       "name": "Psychic Gray Ooze",
       "cr": "1",
@@ -8548,24 +6583,6 @@ export const monsterManual2024Catalog = {
         "underdark"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "pteranodon",
-      "name": "Pteranodon",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "purple-worm",
@@ -8654,27 +6671,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "quasit-252-treant",
-      "name": "Quasit 252 Treant",
-      "cr": "9",
-      "xp": 5000,
-      "creatureType": "Plant",
-      "size": "Huge",
-      "habitat": [
-        "Forest"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 311,
-      "extractionConfidence": "medium",
-      "tags": [
-        "forest",
-        "plant"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "questing-knight",
       "name": "Questing Knight",
       "cr": "12",
@@ -8695,27 +6691,6 @@ export const monsterManual2024Catalog = {
         "humanoid"
       ],
       "encounterRole": "boss"
-    },
-    {
-      "id": "qurs",
-      "name": "Qurs",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Fiend",
-      "size": "Tiny",
-      "habitat": [
-        "Planar (Abyss)"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 255,
-      "extractionConfidence": "high",
-      "tags": [
-        "fiend",
-        "planar-abyss"
-      ],
-      "encounterRole": "standard"
     },
     {
       "id": "rakshasa",
@@ -8739,42 +6714,6 @@ export const monsterManual2024Catalog = {
         "urban"
       ],
       "encounterRole": "boss"
-    },
-    {
-      "id": "rat",
-      "name": "Rat",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "raven",
-      "name": "Raven",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "red-dragon-wyrmling",
@@ -8822,45 +6761,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "reef-shark",
-      "name": "Reef Shark",
-      "cr": "1/2",
-      "xp": 100,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "remorha2",
-      "name": "Remorha2",
-      "cr": "11",
-      "xp": 7200,
-      "creatureType": "Monstrosity",
-      "size": "Huge",
-      "habitat": [
-        "Arctic"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 261,
-      "extractionConfidence": "high",
-      "tags": [
-        "arctic",
-        "monstrosity"
-      ],
-      "encounterRole": "boss"
-    },
-    {
       "id": "remorhaz",
       "name": "Remorhaz",
       "cr": "11",
@@ -8905,65 +6805,6 @@ export const monsterManual2024Catalog = {
         "urban"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "rhinoceros",
-      "name": "Rhinoceros",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "ri-xreen-psioi-t",
-      "name": "RI-XREEN PSIOI T",
-      "cr": "8",
-      "xp": 3900,
-      "creatureType": "Monstrosity",
-      "size": "Medium",
-      "habitat": [
-        "Desert",
-        "Grassland"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 309,
-      "extractionConfidence": "high",
-      "tags": [
-        "desert",
-        "grassland",
-        "monstrosity"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "riding-horse",
-      "name": "Riding Horse",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "roc",
@@ -9033,24 +6874,6 @@ export const monsterManual2024Catalog = {
       "tags": [
         "monstrosity",
         "underdark"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "saber-toothed-tiger",
-      "name": "Saber-Toothed Tiger",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
       ],
       "encounterRole": "brute"
     },
@@ -9261,68 +7084,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "scorpion",
-      "name": "Scorpion",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "scour",
-      "name": "Scour",
-      "cr": "1/2",
-      "xp": 100,
-      "creatureType": "Humanoid",
-      "size": "Medium or Small",
-      "habitat": [
-        "Any"
-      ],
-      "treasure": [
-        "Implements",
-        "Individual"
-      ],
-      "sourcePage": 273,
-      "extractionConfidence": "high",
-      "tags": [
-        "any",
-        "humanoid"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "scour-clprnrru",
-      "name": "Scour Clprnrru",
-      "cr": "3",
-      "xp": 700,
-      "creatureType": "Humanoid",
-      "size": "Medium or Small",
-      "habitat": [
-        "Any"
-      ],
-      "treasure": [
-        "Implements",
-        "Individual"
-      ],
-      "sourcePage": 273,
-      "extractionConfidence": "high",
-      "tags": [
-        "any",
-        "humanoid"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "scout",
       "name": "Scout",
       "cr": "1/2",
@@ -9388,24 +7149,6 @@ export const monsterManual2024Catalog = {
         "underwater"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "seahorse",
-      "name": "Seahorse",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "shadow",
@@ -9542,29 +7285,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "shrieker-fungus-i",
-      "name": "Shrieker Fungus I",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Elemental",
-      "size": "Medium",
-      "habitat": [
-        "Mountain",
-        "Planar (Elemental Plane of Fire)"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 28,
-      "extractionConfidence": "medium",
-      "tags": [
-        "elemental",
-        "mountain",
-        "planar-elemental-plane-of-fire"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "silver-dragon-wyrmling",
       "name": "Silver Dragon Wyrmling",
       "cr": "2",
@@ -9654,27 +7374,6 @@ export const monsterManual2024Catalog = {
         "planar-elemental-planes"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "sol-ln",
-      "name": "Sol Ln",
-      "cr": "21",
-      "xp": 33000,
-      "creatureType": "Celestial",
-      "size": "Large",
-      "habitat": [
-        "Planar (Upper Planes)"
-      ],
-      "treasure": [
-        "Any"
-      ],
-      "sourcePage": 291,
-      "extractionConfidence": "high",
-      "tags": [
-        "celestial",
-        "planar-upper-planes"
-      ],
-      "encounterRole": "boss"
     },
     {
       "id": "solar",
@@ -9834,24 +7533,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "spider",
-      "name": "Spider",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "spined-devil",
       "name": "Spined Devil",
       "cr": "2",
@@ -9919,27 +7600,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "spv",
-      "name": "Spv",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Humanoid",
-      "size": "Medium or Small",
-      "habitat": [
-        "Any"
-      ],
-      "treasure": [
-        "Individual"
-      ],
-      "sourcePage": 298,
-      "extractionConfidence": "high",
-      "tags": [
-        "any",
-        "humanoid"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "spy",
       "name": "Spy",
       "cr": "1",
@@ -9982,29 +7642,6 @@ export const monsterManual2024Catalog = {
         "humanoid"
       ],
       "encounterRole": "boss"
-    },
-    {
-      "id": "srr-hnc",
-      "name": "Srr Hnc",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Fey",
-      "size": "Medium",
-      "habitat": [
-        "Coastal",
-        "Underwater"
-      ],
-      "treasure": [
-        "Arcana"
-      ],
-      "sourcePage": 274,
-      "extractionConfidence": "high",
-      "tags": [
-        "coastal",
-        "fey",
-        "underwater"
-      ],
-      "encounterRole": "standard"
     },
     {
       "id": "steam-mephit",
@@ -10153,27 +7790,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "swanu-of-dretches",
-      "name": "Swanu of DRETcHEs",
-      "cr": "4",
-      "xp": 1100,
-      "creatureType": "Fiend",
-      "size": "Large",
-      "habitat": [
-        "Planar (Abyss)"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 107,
-      "extractionConfidence": "high",
-      "tags": [
-        "fiend",
-        "planar-abyss"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "swarm-of-crawling-claws",
       "name": "Swarm of Crawling Claws",
       "cr": "3",
@@ -10298,69 +7914,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "minion"
     },
     {
-      "id": "sxloow-deuou",
-      "name": "Sxloow Deuou",
-      "cr": "4",
-      "xp": 1100,
-      "creatureType": "Fiend",
-      "size": "Medium",
-      "habitat": [
-        "Planar (Abyss)"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 276,
-      "extractionConfidence": "high",
-      "tags": [
-        "fiend",
-        "planar-abyss"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "sxnrrxen-fuucus",
-      "name": "Sxnrrxen Fuucus",
-      "cr": "0",
-      "xp": 0,
-      "creatureType": "Plant",
-      "size": "Medium",
-      "habitat": [
-        "Underdark"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 128,
-      "extractionConfidence": "low",
-      "tags": [
-        "plant",
-        "underdark"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "t-clolren",
-      "name": "T Clolren",
-      "cr": "8",
-      "xp": 3900,
-      "creatureType": "Aberration",
-      "size": "Large",
-      "habitat": [
-        "Underdark"
-      ],
-      "treasure": [
-        "Implements"
-      ],
-      "sourcePage": 76,
-      "extractionConfidence": "high",
-      "tags": [
-        "aberration",
-        "underdark"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "tarrasque",
       "name": "Tarrasque",
       "cr": "30",
@@ -10426,66 +7979,6 @@ export const monsterManual2024Catalog = {
         "monstrosity"
       ],
       "encounterRole": "brute"
-    },
-    {
-      "id": "tiger",
-      "name": "Tiger",
-      "cr": "1",
-      "xp": 200,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "touc-n",
-      "name": "Touc N",
-      "cr": "1/2",
-      "xp": 100,
-      "creatureType": "Humanoid",
-      "size": "Medium or Small",
-      "habitat": [
-        "Any"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 310,
-      "extractionConfidence": "high",
-      "tags": [
-        "any",
-        "humanoid"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "toucn-boss",
-      "name": "Toucn Boss",
-      "cr": "4",
-      "xp": 1100,
-      "creatureType": "Humanoid",
-      "size": "Medium or Small",
-      "habitat": [
-        "Any"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 310,
-      "extractionConfidence": "high",
-      "tags": [
-        "any",
-        "humanoid"
-      ],
-      "encounterRole": "standard"
     },
     {
       "id": "tough",
@@ -10570,24 +8063,6 @@ export const monsterManual2024Catalog = {
         "plant"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "triceratops",
-      "name": "Triceratops",
-      "cr": "5",
-      "xp": 1800,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "troglodyte",
@@ -10694,89 +8169,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "twrc-br-rcnr",
-      "name": "Twrc Br-rcnr",
-      "cr": "1/8",
-      "xp": 25,
-      "creatureType": "Plant",
-      "size": "Small",
-      "habitat": [
-        "Forest"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 46,
-      "extractionConfidence": "high",
-      "tags": [
-        "forest",
-        "plant"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "tyrannosaurus-rex",
-      "name": "Tyrannosaurus Rex",
-      "cr": "8",
-      "xp": 3900,
-      "creatureType": "Beast",
-      "size": "Huge",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "u-r-r",
-      "name": "U R R",
-      "cr": "5",
-      "xp": 1800,
-      "creatureType": "Celestial",
-      "size": "Large",
-      "habitat": [
-        "Forest",
-        "Planar (Feywild)"
-      ],
-      "treasure": [
-        "Any"
-      ],
-      "sourcePage": 316,
-      "extractionConfidence": "high",
-      "tags": [
-        "celestial",
-        "forest",
-        "planar-feywild"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "ulrnolorx",
-      "name": "Ulrnolorx",
-      "cr": "13",
-      "xp": 10000,
-      "creatureType": "Fiend",
-      "size": "Medium",
-      "habitat": [
-        "Planar (Lower Planes)"
-      ],
-      "treasure": [
-        "Armaments"
-      ],
-      "sourcePage": 314,
-      "extractionConfidence": "high",
-      "tags": [
-        "fiend",
-        "planar-lower-planes"
-      ],
-      "encounterRole": "boss"
-    },
-    {
       "id": "ultroloth",
       "name": "Ultroloth",
       "cr": "13",
@@ -10840,50 +8232,6 @@ export const monsterManual2024Catalog = {
         "planar-feywild"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "uueen-hulr",
-      "name": "Uueen Hulr",
-      "cr": "5",
-      "xp": 1800,
-      "creatureType": "Monstrosity",
-      "size": "Large",
-      "habitat": [
-        "Underdark"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 315,
-      "extractionConfidence": "high",
-      "tags": [
-        "monstrosity",
-        "underdark"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "vampi-re",
-      "name": "Vampi Re",
-      "cr": "13",
-      "xp": 1,
-      "creatureType": "Undead",
-      "size": "Medium or Small",
-      "habitat": [
-        "Underdark",
-        "Urban"
-      ],
-      "treasure": [
-        "Any"
-      ],
-      "sourcePage": 320,
-      "extractionConfidence": "high",
-      "tags": [
-        "undead",
-        "underdark",
-        "urban"
-      ],
-      "encounterRole": "boss"
     },
     {
       "id": "vampire",
@@ -11001,24 +8349,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "boss"
     },
     {
-      "id": "venomous-snake",
-      "name": "Venomous Snake",
-      "cr": "1/8",
-      "xp": 25,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
       "id": "vine-blight",
       "name": "Vine Blight",
       "cr": "1/2",
@@ -11101,42 +8431,6 @@ export const monsterManual2024Catalog = {
         "planar-abyss"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "vulture",
-      "name": "Vulture",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "warhorse",
-      "name": "Warhorse",
-      "cr": "1/2",
-      "xp": 100,
-      "creatureType": "Beast",
-      "size": "Large",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "warhorse-skeleton",
@@ -11275,24 +8569,6 @@ export const monsterManual2024Catalog = {
         "urban"
       ],
       "encounterRole": "standard"
-    },
-    {
-      "id": "weasel",
-      "name": "Weasel",
-      "cr": "0",
-      "xp": 10,
-      "creatureType": "Beast",
-      "size": "Tiny",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
-      ],
-      "encounterRole": "brute"
     },
     {
       "id": "werebear",
@@ -11492,31 +8768,6 @@ export const monsterManual2024Catalog = {
       "encounterRole": "standard"
     },
     {
-      "id": "will-olwisp",
-      "name": "Will-olWisp",
-      "cr": "2",
-      "xp": 450,
-      "creatureType": "Undead",
-      "size": "Tiny",
-      "habitat": [
-        "Forest",
-        "Swamp",
-        "Urban"
-      ],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 336,
-      "extractionConfidence": "high",
-      "tags": [
-        "forest",
-        "swamp",
-        "undead",
-        "urban"
-      ],
-      "encounterRole": "standard"
-    },
-    {
       "id": "winged-kobold",
       "name": "Winged Kobold",
       "cr": "1/4",
@@ -11571,24 +8822,6 @@ export const monsterManual2024Catalog = {
       "tags": [
         "arctic",
         "monstrosity"
-      ],
-      "encounterRole": "brute"
-    },
-    {
-      "id": "wolf",
-      "name": "Wolf",
-      "cr": "1/4",
-      "xp": 50,
-      "creatureType": "Beast",
-      "size": "Medium",
-      "habitat": [],
-      "treasure": [
-        "None"
-      ],
-      "sourcePage": 351,
-      "extractionConfidence": "high",
-      "tags": [
-        "beast"
       ],
       "encounterRole": "brute"
     },
@@ -11662,29 +8895,6 @@ export const monsterManual2024Catalog = {
         "dragon",
         "hill",
         "mountain"
-      ],
-      "encounterRole": "standard"
-    },
-    {
-      "id": "xonru",
-      "name": "Xonru",
-      "cr": "5",
-      "xp": 1800,
-      "creatureType": "Elemental",
-      "size": "Medium",
-      "habitat": [
-        "Underdark",
-        "Planar (Elemental Plane of Earth)"
-      ],
-      "treasure": [
-        "Any"
-      ],
-      "sourcePage": 341,
-      "extractionConfidence": "high",
-      "tags": [
-        "elemental",
-        "planar-elemental-plane-of-earth",
-        "underdark"
       ],
       "encounterRole": "standard"
     },

@@ -8,7 +8,6 @@ import { pickMany, pickOne } from "./dungeonTypes.js";
 import { findMonsterManualCandidateForEncounter } from "./monsterManualCatalog.js";
 import {
   createOfficialEncounterCreature,
-  createTemplateEncounterCreature,
   generateMonsterNotes,
 } from "./monsterRules.js";
 
@@ -82,17 +81,19 @@ export function generateEncounterBundle(config, roomType, rng, context = {}) {
         rng,
       }) : null,
     ].filter(Boolean);
+    const missingNotes = buildMissingMonsterNotes([primaryGroup, supportGroup], creatures, [leader, supportFlavor]);
     const encounterExtras = [
       `${Math.max(1, Math.ceil(config.playerCount / 2))} elemento(s) de terreno activo`,
       context.narrative?.finalHooks?.[0] ? `objetivo de escena: ${context.narrative.finalHooks[0]}` : "",
     ].filter(Boolean);
+    const finalPlan = finalizeEncounterPlan(encounterPlan, creatures, missingNotes);
 
     return {
       enemies: formatEncounterLines(creatures, encounterExtras),
       creatures,
       encounterExtras,
-      encounterPlan: addEncounterContext(encounterPlan, encounterInhabitants, context),
-      encounterSummary: formatEncounterPlanSummary(encounterPlan),
+      encounterPlan: addEncounterContext(finalPlan, encounterInhabitants, context),
+      encounterSummary: formatEncounterPlanSummary(finalPlan),
     };
   }
 
@@ -107,7 +108,7 @@ export function generateEncounterBundle(config, roomType, rng, context = {}) {
       flavorName: picks[0] || "oponentes principales",
       rng,
     }),
-  ];
+  ].filter(Boolean);
   const encounterExtras = [];
 
   if (supportGroup) {
@@ -115,16 +116,20 @@ export function generateEncounterBundle(config, roomType, rng, context = {}) {
       ? pickEnemyForInhabitant(encounterInhabitants.secondaryId, levelRange.id, rng)
       : picks[1];
     if (supportPick) {
-      creatures.push(buildCreatureForGroup({
+      const supportCreature = buildCreatureForGroup({
         group: supportGroup,
         config,
         roomType,
         inhabitantId: encounterInhabitants.secondaryId || encounterInhabitants.primaryId,
         flavorName: supportPick,
         rng,
-      }));
+      });
+      if (supportCreature) {
+        creatures.push(supportCreature);
+      }
     }
   }
+  const missingNotes = buildMissingMonsterNotes([primaryGroup, supportGroup], creatures, [picks[0], picks[1]]);
 
   if (encounterInhabitants.isMixed) {
     encounterExtras.push(`tension de facciones: ${roomInhabitant?.note || context.inhabitantMix?.relationship?.summary || "dos grupos se cruzan en esta sala"}`);
@@ -133,13 +138,14 @@ export function generateEncounterBundle(config, roomType, rng, context = {}) {
   if (roomType === "entrada" || roomType === "pasillo") {
     encounterExtras.push("alarma o ruta de retirada cercana");
   }
+  const finalPlan = finalizeEncounterPlan(encounterPlan, creatures, missingNotes);
 
   return {
     enemies: formatEncounterLines(creatures, encounterExtras),
     creatures,
     encounterExtras,
-    encounterPlan: addEncounterContext(encounterPlan, encounterInhabitants, context),
-    encounterSummary: formatEncounterPlanSummary(encounterPlan),
+    encounterPlan: addEncounterContext(finalPlan, encounterInhabitants, context),
+    encounterSummary: formatEncounterPlanSummary(finalPlan),
   };
 }
 
@@ -201,11 +207,7 @@ function buildCreatureForGroup({
     });
   }
 
-  return createTemplateEncounterCreature({
-    flavorName,
-    group,
-    tacticalRole: group?.role || "",
-  });
+  return null;
 }
 
 function formatEncounterLines(creatures = [], extras = []) {
@@ -213,6 +215,40 @@ function formatEncounterLines(creatures = [], extras = []) {
     ...creatures.map((creature) => creature.label),
     ...extras,
   ].filter(Boolean);
+}
+
+function finalizeEncounterPlan(plan, creatures = [], missingNotes = []) {
+  const groups = creatures.map((creature) => ({
+    role: creature.tacticalRole || "principal",
+    count: creature.count || 1,
+    cr: creature.cr || "",
+    crValue: Number(creature.crValue) || 0,
+    xpEach: Number(creature.xpEach) || 0,
+    totalXp: Number(creature.totalXp) || 0,
+  }));
+  const spentXp = groups.reduce((sum, group) => sum + group.totalXp, 0);
+
+  return {
+    ...plan,
+    groups,
+    spentXp,
+    remainingXp: Math.max(0, (plan?.adjustedBudgetXp || 0) - spentXp),
+    warnings: [
+      ...(plan?.warnings || []),
+      ...missingNotes,
+    ],
+  };
+}
+
+function buildMissingMonsterNotes(groups = [], creatures = [], flavorNames = []) {
+  const creatureRoles = new Set(creatures.filter(Boolean).map((creature) => creature.tacticalRole || ""));
+  return groups
+    .filter(Boolean)
+    .filter((group) => !creatureRoles.has(group.role || ""))
+    .map((group, index) => {
+      const flavor = flavorNames[index] ? ` para "${flavorNames[index]}"` : "";
+      return `Sin monstruo verificado del compendio${flavor} en CR objetivo ${group.cr}. Regenera enemigos o elige manualmente una criatura oficial.`;
+    });
 }
 
 function resolveEncounterInhabitants(config, roomType, context, rng) {

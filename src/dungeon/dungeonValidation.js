@@ -335,7 +335,7 @@ function addTreasureWarnings(issues, rooms, config) {
 
 function addEncounterWarnings(issues, rooms, config) {
   const combatRooms = rooms.filter((room) => ["combate", "jefe"].includes(room.type));
-  const roomsWithoutEnemies = combatRooms.filter((room) => !room.enemies?.length && !room.creatures?.length);
+  const roomsWithoutEnemies = combatRooms.filter((room) => !hasOfficialEncounterCreature(room));
 
   if (roomsWithoutEnemies.length) {
     issues.push(createIssue(
@@ -352,6 +352,21 @@ function addEncounterWarnings(issues, rooms, config) {
       "La densidad de encuentros esta en alta, pero el mapa tiene pocas salas de combate.",
     ));
   }
+}
+
+function hasOfficialEncounterCreature(room) {
+  if ((room.creatures || []).some((creature) => (
+    creature?.isOfficial === true
+    && creature.source === "monster-manual-2024"
+    && creature.name
+  ))) {
+    return true;
+  }
+
+  return (room.enemies || []).some((line) => (
+    /\(CR\s+/i.test(String(line || ""))
+    && !/^(\d+\s+)?Creature templates?:/i.test(String(line || "").trim())
+  ));
 }
 
 function addMixedEncounterWarnings(issues, dungeon, rooms) {

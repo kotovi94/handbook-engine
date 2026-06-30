@@ -77,7 +77,7 @@ Genera:
 - Mapa visual de tiles con salas de distintas formas, pasillos, puertas, secretos, elevacion, entradas secundarias y salida.
 - Salas con descripcion, conexiones, pistas, peligros, tesoro, notas y encuentros.
 - Encuentros por CR con criaturas oficiales del catalogo cuando existen.
-- Plantillas narrativas cuando no hay criatura oficial adecuada.
+- Avisos de revision cuando no hay criatura oficial adecuada; no inventa statblocks.
 - Exportacion a JSON, Markdown y borrador para Foundry VTT.
 
 El generador funciona sin IA externa. Usa tablas internas, catalogos locales y algoritmos procedurales.
@@ -109,7 +109,7 @@ Estructura principal:
 - `docs`: documentacion tecnica auxiliar.
 - `tools`: scripts de validacion y extraccion de datos.
 
-El extractor de metadatos de monstruos puede recibir la ruta del PDF por argumento o mediante la variable `MONSTER_MANUAL_PDF`.
+El extractor de metadatos de monstruos trabaja solo con texto pegado por el usuario y entradas manuales verificadas; no usa OCR del PDF escaneado.
 
 ## Arquitectura de reglas
 
@@ -157,11 +157,7 @@ Los encuentros usan CR, XP, cantidad y rol tactico. Si el sistema encuentra una 
 2 Mind Flayers (CR 7 c/u, 5800 XP total) - rol narrativo: cazadores de mente
 ```
 
-Si no encuentra una criatura oficial adecuada, no inventa un statblock. Usa una plantilla explicita:
-
-```text
-Creature template: enjambre del vacio (CR sugerido 7)
-```
+Si no encuentra una criatura oficial adecuada, no inventa un statblock. El encuentro queda con una alerta para regenerar enemigos o elegir manualmente una criatura oficial del compendio.
 
 Esto mantiene separada la informacion oficial del color narrativo que el DM puede ajustar.
 

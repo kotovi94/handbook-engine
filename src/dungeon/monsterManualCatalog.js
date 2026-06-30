@@ -71,11 +71,12 @@ export function getMonsterManualCatalog() {
 export function getMonsterManualEntries(options = {}) {
   const {
     includeReviewRequired = false,
-    minConfidence = "medium",
+    minConfidence = "verified",
   } = options;
 
   return monsterManual2024Catalog.monsters.filter((monster) => (
-    (includeReviewRequired || !isReviewRequiredMonster(monster))
+    isPastedMonsterEntry(monster)
+    && (includeReviewRequired || !isReviewRequiredMonster(monster))
     && confidenceRank(monster.extractionConfidence) >= confidenceRank(minConfidence)
   ));
 }
@@ -91,7 +92,7 @@ export function findMonsterManualCandidates({
   treasure = [],
   limit = 24,
   includeReviewRequired = false,
-  minConfidence = "medium",
+  minConfidence = "verified",
 } = {}) {
   const desiredTypes = creatureTypes.length
     ? creatureTypes
@@ -126,7 +127,7 @@ export function findMonsterManualCandidateForEncounter({
   flavorName = "",
   rng = null,
   includeReviewRequired = false,
-  minConfidence = "medium",
+  minConfidence = "verified",
 } = {}) {
   const crValue = Number(group?.crValue) || crToNumber(group?.cr);
   const encounterConfig = {
@@ -135,7 +136,7 @@ export function findMonsterManualCandidateForEncounter({
   };
   const roles = getRolePreferences(roomType, tacticalRole);
   const nameHints = getNameHintsForFlavor(flavorName);
-  let candidates = findMonsterManualCandidates({
+  let candidates = findCandidatesForEncounterRange({
     config: encounterConfig,
     minCr: crValue,
     maxCr: crValue,
@@ -144,12 +145,20 @@ export function findMonsterManualCandidateForEncounter({
     limit: 16,
     includeReviewRequired,
     minConfidence,
+    nameHints,
   });
 
-  if (nameHints.length) {
-    candidates = candidates.filter((monster) => {
-      const searchableText = getMonsterSearchText(monster);
-      return nameHints.some((hint) => searchableText.includes(hint));
+  if (!candidates.length) {
+    const window = getFallbackCrWindow(crValue);
+    candidates = findCandidatesForEncounterRange({
+      config: encounterConfig,
+      minCr: window.min,
+      maxCr: window.max,
+      roles,
+      limit: 32,
+      includeReviewRequired,
+      minConfidence,
+      nameHints,
     });
   }
 
@@ -163,6 +172,56 @@ export function findMonsterManualCandidateForEncounter({
     .slice(0, 6);
 
   return pickCandidate(strongest, rng);
+}
+
+function findCandidatesForEncounterRange({
+  config,
+  minCr,
+  maxCr,
+  roles,
+  limit,
+  includeReviewRequired,
+  minConfidence,
+  nameHints,
+}) {
+  const targetCr = (minCr + maxCr) / 2;
+  let candidates = findMonsterManualCandidates({
+    config,
+    minCr,
+    maxCr,
+    roles,
+    nameHints,
+    limit,
+    includeReviewRequired,
+    minConfidence,
+  });
+
+  if (nameHints.length) {
+    candidates = candidates.filter((monster) => {
+      const searchableText = getMonsterSearchText(monster);
+      return nameHints.some((hint) => searchableText.includes(hint));
+    });
+  }
+
+  return candidates
+    .map((monster) => ({
+      ...monster,
+      crDistance: Math.abs(crToNumber(monster.cr) - targetCr),
+    }))
+    .sort((first, second) => (
+      first.crDistance - second.crDistance
+      || second.matchScore - first.matchScore
+      || first.name.localeCompare(second.name)
+    ));
+}
+
+function getFallbackCrWindow(crValue) {
+  const value = Number(crValue) || 0;
+  const radius = value >= 10 ? 3 : 2;
+  return {
+    min: Math.max(0, value - radius),
+    max: Math.min(30, value + radius),
+  };
 }
 
 export function getCreatureTypesForInhabitants(inhabitants) {
@@ -190,6 +249,10 @@ export function isReviewRequiredMonster(monster) {
     || /[a-z][A-Z]{2,}/.test(monster.name)
     || /\b[A-Z]{2,}\b/.test(monster.name)
   );
+}
+
+export function isPastedMonsterEntry(monster) {
+  return monster?.sourcePage === 0 && monster?.extractionConfidence === "verified";
 }
 
 export function crToNumber(cr) {

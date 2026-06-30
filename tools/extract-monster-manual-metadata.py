@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import hashlib
-import os
 import re
 import sys
 from dataclasses import dataclass, asdict
@@ -17,7 +16,6 @@ except ImportError:  # pragma: no cover - optional runtime helper
     pdfplumber = None
 
 
-PDF_PATH = Path(os.environ.get("MONSTER_MANUAL_PDF", r"D:\D&D - 5.5 - Manual de Monstruos - Ingles.pdf"))
 OUTPUT_PATH = Path("src/dungeon/generated/monsterManual2024Catalog.json")
 JS_OUTPUT_PATH = Path("src/dungeon/generated/monsterManual2024Catalog.js")
 TEXT_SOURCE_ROOT = Path.home() / ".codex" / "attachments"
@@ -216,60 +214,22 @@ class MonsterEntry:
 
 
 def main() -> int:
-    pdf_path = Path(sys.argv[1]) if len(sys.argv) > 1 else PDF_PATH
-    output_path = Path(sys.argv[2]) if len(sys.argv) > 2 else OUTPUT_PATH
-
-    if not pdf_path.exists():
-        print(f"PDF not found: {pdf_path}", file=sys.stderr)
-        return 1
-
-    reader = PdfReader(str(pdf_path))
-    plumber_pdf = open_pdfplumber(pdf_path)
-    index_names_by_pdf_page = extract_index_names_by_pdf_page(reader)
-    current_habitat: list[str] = []
-    current_treasure: list[str] = []
     monsters: list[MonsterEntry] = []
-
-    try:
-        for page_index, page in enumerate(reader.pages, start=1):
-            if page_index < 13 or page_index > 376:
-                continue
-
-            plumber_page = plumber_pdf.pages[page_index - 1] if plumber_pdf else None
-            raw_text = extract_page_text(page, plumber_page)
-            text = normalize_ocr_text(raw_text)
-            habitat, treasure = extract_habitat_treasure(text)
-            if habitat or treasure:
-                current_habitat = habitat or current_habitat
-                current_treasure = treasure or current_treasure
-            elif page_index >= 351:
-                current_habitat = []
-                current_treasure = ["None"]
-
-            found_entries = extract_statblocks_from_page(text, page_index, current_habitat, current_treasure)
-            if page_index >= 351:
-                monsters.extend(found_entries)
-            else:
-                monsters.extend(apply_index_names(found_entries, index_names_by_pdf_page.get(page_index, [])))
-    finally:
-        if plumber_pdf:
-            plumber_pdf.close()
-
-    monsters = [monster for monster in monsters if monster.sourcePage < 351]
-    monsters.extend(build_appendix_animal_entries())
+    output_path = resolve_output_path(sys.argv[1:])
     manual_entries = build_manual_metadata_entries()
     monsters.extend(manual_entries)
     clean_text_entries = extract_clean_text_source_entries()
     monsters.extend(clean_text_entries)
     monsters = merge_duplicate_entries(monsters)
+    monsters = [monster for monster in monsters if is_pasted_monster_entry(monster)]
     output_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "schema": "handbook-engine-monster-metadata-v1",
         "source": {
-            "kind": "local-pdf-ocr",
-            "file": str(pdf_path),
-            "pages": len(reader.pages),
-            "copyrightNote": "Compact metadata extracted for local encounter generation. Stat blocks and descriptive text are intentionally omitted. Clean pasted monster text, when present, is parsed into metadata only.",
+            "kind": "pasted-monster-text",
+            "file": "",
+            "pages": 0,
+            "copyrightNote": "Compact metadata extracted from user-provided pasted monster text for local encounter generation. Stat blocks and descriptive text are intentionally omitted.",
         },
         "fields": [
             "id",
@@ -288,7 +248,7 @@ def main() -> int:
         "monsters": [asdict(monster) for monster in sorted(monsters, key=lambda item: natural_sort_key(item.name))],
     }
     output_path.write_text(json.dumps(payload, indent=2, ensure_ascii=True), encoding="utf-8")
-    js_output_path = output_path.with_suffix(".js") if len(sys.argv) > 2 else JS_OUTPUT_PATH
+    js_output_path = output_path.with_suffix(".js") if output_path != OUTPUT_PATH else JS_OUTPUT_PATH
     js_output_path.write_text(
         "export const monsterManual2024Catalog = "
         + json.dumps(payload, indent=2, ensure_ascii=True)
@@ -300,14 +260,25 @@ def main() -> int:
         "output": str(output_path),
         "jsOutput": str(js_output_path),
         "monsterCount": len(payload["monsters"]),
-        "indexNameCount": sum(len(items) for items in index_names_by_pdf_page.values()),
+        "indexNameCount": 0,
         "manualMetadataEntryCount": len(manual_entries),
         "cleanTextEntryCount": len(clean_text_entries),
-        "pages": len(reader.pages),
+        "pages": 0,
         "confidence": count_by_confidence(monsters),
         "sample": payload["monsters"][:8],
     }, indent=2))
     return 0
+
+
+def resolve_output_path(args: list[str]) -> Path:
+    if not args:
+        return OUTPUT_PATH
+
+    if len(args) == 1:
+        candidate = Path(args[0])
+        return candidate if candidate.suffix.lower() == ".json" else OUTPUT_PATH
+
+    return Path(args[1])
 
 
 def open_pdfplumber(pdf_path: Path):
@@ -1115,6 +1086,10 @@ def count_by_confidence(entries: list[MonsterEntry]) -> dict[str, int]:
     for entry in entries:
         counts[entry.extractionConfidence] = counts.get(entry.extractionConfidence, 0) + 1
     return counts
+
+
+def is_pasted_monster_entry(entry: MonsterEntry) -> bool:
+    return entry.sourcePage == 0 and entry.extractionConfidence == "verified"
 
 
 def slugify(value: str) -> str:

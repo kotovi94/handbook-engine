@@ -36,7 +36,7 @@ export function exportFoundryDraft(dungeon) {
       budgetXp: row.budgetXp,
       spentXp: row.spentXp,
       highestCr: row.highestCr,
-      creatures: row.creatureBlocks.map(normalizeFoundryCreature),
+      creatures: row.creatureBlocks.filter((creature) => creature.isOfficial).map(normalizeFoundryCreature),
       warnings: row.warnings,
     })),
     validation: viewModel.warnings,
@@ -78,7 +78,7 @@ export function exportFoundryDraft(dungeon) {
       investigationClues: room.investigationClues,
       visibleSigns: room.visibleSigns,
       connections: room.connections,
-      creatures: room.creatures.map(normalizeFoundryCreature),
+      creatures: room.creatures.filter((creature) => creature.isOfficial).map(normalizeFoundryCreature),
       encounterPlan: room.raw.encounterPlan || null,
       encounterUi: room.encounterUi,
       hazard: room.hazard,
@@ -101,7 +101,7 @@ export function exportFoundryDraft(dungeon) {
 
 function normalizeFoundryCreature(creature = {}) {
   return {
-    name: creature.name || "Creature template",
+    name: creature.name || "",
     flavorName: creature.flavorName || "",
     label: creature.label || creature.name || "",
     count: creature.count || "",
