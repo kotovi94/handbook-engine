@@ -49,6 +49,12 @@ export const navigationSections = [
         icon: "map",
         theme: "theme-default",
       },
+      {
+        label: "Dungeon Generator",
+        route: "dungeon-generator",
+        icon: "map",
+        theme: "theme-default",
+      },
     ],
   },
   {

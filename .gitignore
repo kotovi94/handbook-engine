@@ -3,6 +3,8 @@ node_modules/
 
 # Local logs/state
 *.log
+__pycache__/
+*.pyc
 
 # Rendered/debug artifacts
 player-sheet-*.png

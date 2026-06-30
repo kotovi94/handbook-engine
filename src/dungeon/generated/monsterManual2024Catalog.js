@@ -1,0 +1,12156 @@
+export const monsterManual2024Catalog = {
+  "schema": "handbook-engine-monster-metadata-v1",
+  "source": {
+    "kind": "local-pdf-ocr",
+    "file": "D:\\D&D - 5.5 - Manual de Monstruos - Ingles.pdf",
+    "pages": 390,
+    "copyrightNote": "Compact metadata extracted for local encounter generation. Stat blocks and descriptive text are intentionally omitted. Clean pasted monster text, when present, is parsed into metadata only."
+  },
+  "fields": [
+    "id",
+    "name",
+    "cr",
+    "xp",
+    "creatureType",
+    "size",
+    "habitat",
+    "treasure",
+    "sourcePage",
+    "extractionConfidence",
+    "tags",
+    "encounterRole"
+  ],
+  "monsters": [
+    {
+      "id": "aarakocra-aeromancer",
+      "name": "Aarakocra Aeromancer",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Mountain",
+        "Planar (Elemental Plane of Air)"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "mountain",
+        "planar-elemental-plane-of-air"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "aarakocra-skirmisher",
+      "name": "Aarakocra Skirmisher",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Mountain",
+        "Planar (Elemental Plane of Air)"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "mountain",
+        "planar-elemental-plane-of-air"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "aberrant-cultist",
+      "name": "Aberrant Cultist",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "aboleth",
+      "name": "Aboleth",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Underdark",
+        "Underwater"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark",
+        "underwater"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "abominable-yeti",
+      "name": "Abominable Yeti",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Monstrosity",
+      "size": "Huge",
+      "habitat": [
+        "Arctic"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "adult-black-dragon",
+      "name": "Adult Black Dragon",
+      "cr": "14",
+      "xp": 11500,
+      "creatureType": "Dragon",
+      "size": "Huge",
+      "habitat": [
+        "Swamp"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "swamp"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "adult-blue-dragon",
+      "name": "Adult Blue Dragon",
+      "cr": "16",
+      "xp": 15000,
+      "creatureType": "Dragon",
+      "size": "Huge",
+      "habitat": [
+        "Coastal",
+        "Desert"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "desert",
+        "dragon"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "adult-brass-dragon",
+      "name": "Adult Brass Dragon",
+      "cr": "13",
+      "xp": 10000,
+      "creatureType": "Dragon",
+      "size": "Huge",
+      "habitat": [
+        "Desert"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "dragon"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "adult-bronze-dragon",
+      "name": "Adult Bronze Dragon",
+      "cr": "15",
+      "xp": 13000,
+      "creatureType": "Dragon",
+      "size": "Huge",
+      "habitat": [
+        "Coastal"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "dragon"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "adult-copper-dragon",
+      "name": "Adult Copper Dragon",
+      "cr": "14",
+      "xp": 11500,
+      "creatureType": "Dragon",
+      "size": "Huge",
+      "habitat": [
+        "Hill"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "hill"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "adult-gold-dragon",
+      "name": "Adult Gold Dragon",
+      "cr": "17",
+      "xp": 18000,
+      "creatureType": "Dragon",
+      "size": "Huge",
+      "habitat": [
+        "Forest",
+        "Grassland"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "forest",
+        "grassland"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "adult-green-dragon",
+      "name": "Adult Green Dragon",
+      "cr": "15",
+      "xp": 13000,
+      "creatureType": "Dragon",
+      "size": "Huge",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "forest"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "adult-red-dragon",
+      "name": "Adult Red Dragon",
+      "cr": "17",
+      "xp": 18000,
+      "creatureType": "Dragon",
+      "size": "Huge",
+      "habitat": [
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "hill",
+        "mountain"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "adult-silver-dragon",
+      "name": "Adult Silver Dragon",
+      "cr": "16",
+      "xp": 15000,
+      "creatureType": "Dragon",
+      "size": "Huge",
+      "habitat": [
+        "Mountain",
+        "Urban"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "mountain",
+        "urban"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "adult-white-dragon",
+      "name": "Adult White Dragon",
+      "cr": "13",
+      "xp": 10000,
+      "creatureType": "Dragon",
+      "size": "Huge",
+      "habitat": [
+        "Arctic"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "dragon"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "air-elemental",
+      "name": "Air Elemental",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Desert",
+        "Mountain",
+        "Planar (Elemental Plane of Air)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "elemental",
+        "mountain",
+        "planar-elemental-plane-of-air"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "allosaurus",
+      "name": "Allosaurus",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "ancient-black-dragon",
+      "name": "Ancient Black Dragon",
+      "cr": "21",
+      "xp": 33000,
+      "creatureType": "Dragon",
+      "size": "Gargantuan",
+      "habitat": [
+        "Swamp"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "swamp"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ancient-blue-dragon",
+      "name": "Ancient Blue Dragon",
+      "cr": "23",
+      "xp": 50000,
+      "creatureType": "Dragon",
+      "size": "Gargantuan",
+      "habitat": [
+        "Coastal",
+        "Desert"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "desert",
+        "dragon"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ancient-brass-dragon",
+      "name": "Ancient Brass Dragon",
+      "cr": "20",
+      "xp": 25000,
+      "creatureType": "Dragon",
+      "size": "Gargantuan",
+      "habitat": [
+        "Desert"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "dragon"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ancient-bronze-dragon",
+      "name": "Ancient Bronze Dragon",
+      "cr": "22",
+      "xp": 41000,
+      "creatureType": "Dragon",
+      "size": "Gargantuan",
+      "habitat": [
+        "Coastal"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "dragon"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ancient-copper-dragon",
+      "name": "Ancient Copper Dragon",
+      "cr": "21",
+      "xp": 33000,
+      "creatureType": "Dragon",
+      "size": "Gargantuan",
+      "habitat": [
+        "Hill"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "hill"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ancient-gold-dragon",
+      "name": "Ancient Gold Dragon",
+      "cr": "24",
+      "xp": 62000,
+      "creatureType": "Dragon",
+      "size": "Gargantuan",
+      "habitat": [
+        "Forest",
+        "Grassland"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "forest",
+        "grassland"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ancient-green-dragon",
+      "name": "Ancient Green Dragon",
+      "cr": "22",
+      "xp": 41000,
+      "creatureType": "Dragon",
+      "size": "Gargantuan",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "forest"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ancient-red-dragon",
+      "name": "Ancient Red Dragon",
+      "cr": "24",
+      "xp": 62000,
+      "creatureType": "Dragon",
+      "size": "Gargantuan",
+      "habitat": [
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "hill",
+        "mountain"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ancient-silver-dragon",
+      "name": "Ancient Silver Dragon",
+      "cr": "23",
+      "xp": 50000,
+      "creatureType": "Dragon",
+      "size": "Gargantuan",
+      "habitat": [
+        "Mountain",
+        "Urban"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "mountain",
+        "urban"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ancient-white-dragon",
+      "name": "Ancient White Dragon",
+      "cr": "20",
+      "xp": 25000,
+      "creatureType": "Dragon",
+      "size": "Gargantuan",
+      "habitat": [
+        "Arctic"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "dragon"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "animal-lord",
+      "name": "Animal Lord",
+      "cr": "20",
+      "xp": 25000,
+      "creatureType": "Celestial",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Beastlands)"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "planar-beastlands"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "animated-armor",
+      "name": "Animated Armor",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Construct",
+      "size": "Medium",
+      "habitat": [
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "animated-broom",
+      "name": "Animated Broom",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Construct",
+      "size": "Small",
+      "habitat": [
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "animated-flying-sword",
+      "name": "Animated Flying Sword",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Construct",
+      "size": "Small",
+      "habitat": [
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "animated-rug-of-smothering",
+      "name": "Animated Rug of Smothering",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Construct",
+      "size": "Large",
+      "habitat": [
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ankheg",
+      "name": "Ankheg",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Grassland"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "grassland",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "ankylosaurus",
+      "name": "Ankylosaurus",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "ape",
+      "name": "Ape",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "arcanaloth",
+      "name": "Arcanaloth",
+      "cr": "12",
+      "xp": 8400,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Lower Planes)"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-lower-planes"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "arch-hag",
+      "name": "Arch-hag",
+      "cr": "21",
+      "xp": 33000,
+      "creatureType": "Fey",
+      "size": "Large",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "fey"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "archelon",
+      "name": "Archelon",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "archmage",
+      "name": "Archmage",
+      "cr": "12",
+      "xp": 8000,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Arcana",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "archpriest",
+      "name": "Archpriest",
+      "cr": "12",
+      "xp": 8400,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "arurxec",
+      "name": "Arurxec",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Grassland"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 21,
+      "extractionConfidence": "high",
+      "tags": [
+        "forest",
+        "grassland",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "assassin",
+      "name": "Assassin",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "awakened-shrub",
+      "name": "Awakened Shrub",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Plant",
+      "size": "Small",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "plant"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "awakened-tree",
+      "name": "Awakened Tree",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Plant",
+      "size": "Huge",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "plant"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "axe-beak",
+      "name": "Axe Beak",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Arctic",
+        "Grassland",
+        "Hill"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "grassland",
+        "hill",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "azer-pyromancer",
+      "name": "Azer Pyromancer",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Mountain",
+        "Planar (Elemental Plane of Fire)"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "mountain",
+        "planar-elemental-plane-of-fire"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "azer-sentinel",
+      "name": "Azer Sentinel",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Mountain",
+        "Planar (Elemental Plane of Fire)"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "mountain",
+        "planar-elemental-plane-of-fire"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "baboon",
+      "name": "Baboon",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Small",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "badger",
+      "name": "Badger",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "balor",
+      "name": "Balor",
+      "cr": "19",
+      "xp": 22000,
+      "creatureType": "Fiend",
+      "size": "Huge",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "bandit",
+      "name": "Bandit",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "bandit-captain",
+      "name": "Bandit Captain",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "bandit-crime-lord",
+      "name": "Bandit Crime Lord",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "bandit-deceiver",
+      "name": "Bandit Deceiver",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "baneeo-devt",
+      "name": "Baneeo Devt",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 33,
+      "extractionConfidence": "high",
+      "tags": [
+        "fiend",
+        "planar-nine-hells"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "banshee",
+      "name": "Banshee",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "undead"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "barbed-devil",
+      "name": "Barbed Devil",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "barlgura",
+      "name": "Barlgura",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "basilisk",
+      "name": "Basilisk",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Mountain",
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "mountain",
+        "underdark"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "bat",
+      "name": "Bat",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "bearded-devil",
+      "name": "Bearded Devil",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "behir",
+      "name": "Behir",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Monstrosity",
+      "size": "Huge",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "beholder",
+      "name": "Beholder",
+      "cr": "13",
+      "xp": 10000,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "beholder-zombie",
+      "name": "Beholder Zombie",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Undead",
+      "size": "Large",
+      "habitat": [
+        "Planar (Shadowfell)",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "planar-shadowfell",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "berserker",
+      "name": "Berserker",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "berserker-commander",
+      "name": "Berserker Commander",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "black-bear",
+      "name": "Black Bear",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "black-dragon-wyrmling",
+      "name": "Black Dragon Wyrmling",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Swamp"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "swamp",
+        "young"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "black-pudding",
+      "name": "Black Pudding",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Ooze",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "ooze",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "blink-dog",
+      "name": "Blink Dog",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "planar-feywild"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "blob-of-annihilation",
+      "name": "Blob of Annihilation",
+      "cr": "23",
+      "xp": 50000,
+      "creatureType": "Ooze",
+      "size": "Gargantuan",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "ooze"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "blood-hawk",
+      "name": "Blood Hawk",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Beast",
+      "size": "Small",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "blue-dragon-wyrmling",
+      "name": "Blue Dragon Wyrmling",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Desert"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "desert",
+        "dragon",
+        "young"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "blue-slaad",
+      "name": "Blue Slaad",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Planar (Limbo)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-limbo"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "boar",
+      "name": "Boar",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "bone-devil",
+      "name": "Bone Devil",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "bone-naga",
+      "name": "Bone Naga",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Undead",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "undead",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "brass-dragon-wyrmling",
+      "name": "Brass Dragon Wyrmling",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Desert"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "dragon",
+        "young"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "brazen-gorgon",
+      "name": "Brazen Gorgon",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Construct",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Hill"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "forest",
+        "grassland",
+        "hill"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "bronze-dragon-wyrmling",
+      "name": "Bronze Dragon Wyrmling",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Coastal"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "dragon",
+        "young"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "brown-bear",
+      "name": "Brown Bear",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "bugbear-stalker",
+      "name": "Bugbear Stalker",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Planar (Feywild)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "grassland",
+        "planar-feywild",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "bugbear-warrior",
+      "name": "Bugbear Warrior",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Planar (Feywild)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "grassland",
+        "planar-feywild",
+        "underdark"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "bulette",
+      "name": "Bulette",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Grassland",
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "grassland",
+        "hill",
+        "monstrosity",
+        "mountain"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "bulette-pup",
+      "name": "Bulette Pup",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Grassland",
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "grassland",
+        "hill",
+        "monstrosity",
+        "mountain"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "bullywug-bog-sage",
+      "name": "Bullywug Bog Sage",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Swamp"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "swamp"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "bullywug-warrior",
+      "name": "Bullywug Warrior",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Swamp"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "swamp"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "cambion",
+      "name": "Cambion",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "fiend"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "camel",
+      "name": "Camel",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "carrion-crawler",
+      "name": "Carrion Crawler",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "cat",
+      "name": "Cat",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "centaur-trooper",
+      "name": "Centaur Trooper",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Fey",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "grassland",
+        "planar-feywild"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "centaur-warden",
+      "name": "Centaur Warden",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Fey",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "grassland",
+        "planar-feywild"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "chain-devil",
+      "name": "Chain Devil",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "chasme",
+      "name": "Chasme",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "chimera",
+      "name": "Chimera",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Grassland",
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "grassland",
+        "hill",
+        "monstrosity",
+        "mountain"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "chuul",
+      "name": "Chuul",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Coastal",
+        "Swamp",
+        "Underdark"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "coastal",
+        "swamp",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "clay-golem",
+      "name": "Clay Golem",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Construct",
+      "size": "Large",
+      "habitat": [
+        "Urban"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "cloaker",
+      "name": "Cloaker",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "cloud-giant",
+      "name": "Cloud Giant",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Giant",
+      "size": "Huge",
+      "habitat": [
+        "Mountain"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "giant",
+        "mountain"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "clouo-grlur",
+      "name": "Clouo Grlur",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Giant",
+      "size": "Huge",
+      "habitat": [
+        "Mountain"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 77,
+      "extractionConfidence": "high",
+      "tags": [
+        "giant",
+        "mountain"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "cockatrice",
+      "name": "Cockatrice",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Monstrosity",
+      "size": "Small",
+      "habitat": [
+        "Grassland"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "grassland",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "cockatrice-regent",
+      "name": "Cockatrice Regent",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Grassland"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "grassland",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "colossus",
+      "name": "Colossus",
+      "cr": "25",
+      "xp": 75000,
+      "creatureType": "Construct",
+      "size": "Gargantuan",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "construct"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "commoner",
+      "name": "Commoner",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "constrictor-snake",
+      "name": "Constrictor Snake",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "copper-dragon-wyrmling",
+      "name": "Copper Dragon Wyrmling",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Hill"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "hill",
+        "young"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "couatl",
+      "name": "Couatl",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Celestial",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Urban"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "desert",
+        "forest",
+        "grassland",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "crab",
+      "name": "Crab",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "crawling-claw",
+      "name": "Crawling Claw",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Undead",
+      "size": "Tiny",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "undead"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "crocodile",
+      "name": "Crocodile",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "cultist",
+      "name": "Cultist",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "cultist-fanatic",
+      "name": "Cultist Fanatic",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "cultist-hierophant",
+      "name": "Cultist Hierophant",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "cyclops-oracle",
+      "name": "Cyclops Oracle",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Giant",
+      "size": "Huge",
+      "habitat": [
+        "Coastal",
+        "Desert",
+        "Grassland",
+        "Hill",
+        "Mountain",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "desert",
+        "giant",
+        "grassland",
+        "hill",
+        "mountain",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "cyclops-sentry",
+      "name": "Cyclops Sentry",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Giant",
+      "size": "Huge",
+      "habitat": [
+        "Coastal",
+        "Desert",
+        "Grassland",
+        "Hill",
+        "Mountain",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "desert",
+        "giant",
+        "grassland",
+        "hill",
+        "mountain",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "dao",
+      "name": "Dao",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Planar (Elemental Plane of Earth)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-plane-of-earth",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "darkmantle",
+      "name": "Darkmantle",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Aberration",
+      "size": "Small",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "death-cultist",
+      "name": "Death Cultist",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "death-dog",
+      "name": "Death Dog",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Desert"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "death-knight",
+      "name": "Death Knight",
+      "cr": "17",
+      "xp": 18000,
+      "creatureType": "Undead",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "undead"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "death-knight-aspirant",
+      "name": "Death Knight Aspirant",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Undead",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "undead"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "death-slaad",
+      "name": "Death Slaad",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Limbo)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-limbo"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "death-tyrant",
+      "name": "Death Tyrant",
+      "cr": "14",
+      "xp": 11500,
+      "creatureType": "Undead",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "undead",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "deer",
+      "name": "Deer",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "demilich",
+      "name": "Demilich",
+      "cr": "18",
+      "xp": 20000,
+      "creatureType": "Undead",
+      "size": "Tiny",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "undead"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "deva",
+      "name": "Deva",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Celestial",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "dire-wolf",
+      "name": "Dire Wolf",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "dire-worg",
+      "name": "Dire Worg",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Fey",
+      "size": "Huge",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "grassland",
+        "hill",
+        "planar-feywild"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "displacer-beast",
+      "name": "Displacer Beast",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "displacer-rea-t",
+      "name": "Displacer Rea <t",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 101,
+      "extractionConfidence": "high",
+      "tags": [
+        "forest",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "djinni",
+      "name": "Djinni",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Coastal",
+        "Planar (Elemental Plane of Air)"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "elemental",
+        "planar-elemental-plane-of-air"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "dnroen",
+      "name": "Dnroen",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 108,
+      "extractionConfidence": "high",
+      "tags": [
+        "forest",
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "doppelganger",
+      "name": "Doppelganger",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "dracolich",
+      "name": "Dracolich",
+      "cr": "17",
+      "xp": 18000,
+      "creatureType": "Undead",
+      "size": "Huge",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "undead"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "draft-horse",
+      "name": "Draft Horse",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "dragon-turtle",
+      "name": "Dragon Turtle",
+      "cr": "17",
+      "xp": 18000,
+      "creatureType": "Dragon",
+      "size": "Gargantuan",
+      "habitat": [
+        "Coastal",
+        "Underwater"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "dragon",
+        "underwater"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "dretch",
+      "name": "Dretch",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Fiend",
+      "size": "Small",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "drider",
+      "name": "Drider",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "druid",
+      "name": "Druid",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "dryad",
+      "name": "Dryad",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "dust-mephit",
+      "name": "Dust Mephit",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Elemental",
+      "size": "Small",
+      "habitat": [
+        "Planar (Elemental Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "eagle",
+      "name": "Eagle",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Small",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "earth-elemental",
+      "name": "Earth Elemental",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Mountain",
+        "Planar (Elemental Plane of Earth)",
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "mountain",
+        "planar-elemental-plane-of-earth",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "efreeti",
+      "name": "Efreeti",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Desert",
+        "Planar (Elemental Plane of Fire)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "elemental",
+        "planar-elemental-plane-of-fire"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "elemental-cataclysm",
+      "name": "Elemental Cataclysm",
+      "cr": "22",
+      "xp": 41000,
+      "creatureType": "Elemental",
+      "size": "Gargantuan",
+      "habitat": [
+        "Planar (Elemental Chaos)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-chaos"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "elemental-cultist",
+      "name": "Elemental Cultist",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "elephant",
+      "name": "Elephant",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "elk",
+      "name": "Elk",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "empyrean",
+      "name": "Empyrean",
+      "cr": "23",
+      "xp": 50000,
+      "creatureType": "Celestial",
+      "size": "Huge",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "celestial"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "empyrean-iota",
+      "name": "Empyrean Iota",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Celestial",
+      "size": "Medium",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "celestial"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "erinyes",
+      "name": "Erinyes",
+      "cr": "12",
+      "xp": 8400,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ettercap",
+      "name": "Ettercap",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "ettin",
+      "name": "Ettin",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Giant",
+      "size": "Large",
+      "habitat": [
+        "Hill",
+        "Mountain",
+        "Underdark"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "giant",
+        "hill",
+        "mountain",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "eupvneen-iora",
+      "name": "EupvneeN IorA",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Celestial",
+      "size": "Medium",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 115,
+      "extractionConfidence": "high",
+      "tags": [
+        "any",
+        "celestial"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "faerie-dragon-adult",
+      "name": "Faerie Dragon Adult",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Dragon",
+      "size": "Tiny",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "forest"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "faerie-dragon-youth",
+      "name": "Faerie Dragon Youth",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Dragon",
+      "size": "Tiny",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "forest"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ffi",
+      "name": "Ffi",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Planar (Limbo)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 288,
+      "extractionConfidence": "high",
+      "tags": [
+        "aberration",
+        "planar-limbo"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "fiend-cuitist",
+      "name": "Fiend CuItist",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Humanoid",
+      "size": "Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 90,
+      "extractionConfidence": "medium",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "fiend-cultist",
+      "name": "Fiend Cultist",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "fire-elemental",
+      "name": "Fire Elemental",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Desert",
+        "Planar (Elemental Plane of Fire)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "elemental",
+        "planar-elemental-plane-of-fire"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "fire-giant",
+      "name": "Fire Giant",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Giant",
+      "size": "Huge",
+      "habitat": [
+        "Mountain",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "giant",
+        "mountain",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "flameskull",
+      "name": "Flameskull",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Undead",
+      "size": "Tiny",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "undead",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "flaming-skeleton",
+      "name": "Flaming Skeleton",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Shadowfell)",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "planar-shadowfell",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "flesh-golem",
+      "name": "Flesh Golem",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Construct",
+      "size": "Medium",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "construct"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "flumph",
+      "name": "Flumph",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Aberration",
+      "size": "Small",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "fomorian",
+      "name": "Fomorian",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Giant",
+      "size": "Huge",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "giant",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "frog",
+      "name": "Frog",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "frost-cienf",
+      "name": "Frost Cienf",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Giant",
+      "size": "Huge",
+      "habitat": [
+        "Arctic",
+        "Mountain"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 127,
+      "extractionConfidence": "high",
+      "tags": [
+        "arctic",
+        "giant",
+        "mountain"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "frost-giant",
+      "name": "Frost Giant",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Giant",
+      "size": "Huge",
+      "habitat": [
+        "Arctic",
+        "Mountain"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "giant",
+        "mountain"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "galeb-duhr",
+      "name": "Galeb Duhr",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "hill",
+        "mountain"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "gargoyle",
+      "name": "Gargoyle",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "gas-spore-fungus",
+      "name": "Gas Spore Fungus",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Plant",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "plant",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "gelatinous-cube",
+      "name": "Gelatinous Cube",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Ooze",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "ooze",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ghast",
+      "name": "Ghast",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Swamp",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "swamp",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ghast-gravecaller",
+      "name": "Ghast Gravecaller",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Swamp",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "swamp",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ghost",
+      "name": "Ghost",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ghou1",
+      "name": "Ghou1",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Coastal",
+        "Desert"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 55,
+      "extractionConfidence": "medium",
+      "tags": [
+        "coastal",
+        "desert",
+        "fiend"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ghoul",
+      "name": "Ghoul",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Swamp",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "swamp",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "giant-ape",
+      "name": "Giant Ape",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-axe-beak",
+      "name": "Giant Axe Beak",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Monstrosity",
+      "size": "Huge",
+      "habitat": [
+        "Arctic",
+        "Grassland",
+        "Hill"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "giant",
+        "grassland",
+        "hill",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-badger",
+      "name": "Giant Badger",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-bat",
+      "name": "Giant Bat",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-boar",
+      "name": "Giant Boar",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-centipede",
+      "name": "Giant Centipede",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Small",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-constrictor-snake",
+      "name": "Giant Constrictor Snake",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-crab",
+      "name": "Giant Crab",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-crocodile",
+      "name": "Giant Crocodile",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-fire-beetle",
+      "name": "Giant Fire Beetle",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Small",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-frog",
+      "name": "Giant Frog",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-goat",
+      "name": "Giant Goat",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-hyena",
+      "name": "Giant Hyena",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-lizard",
+      "name": "Giant Lizard",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-octopus",
+      "name": "Giant Octopus",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-rat",
+      "name": "Giant Rat",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Beast",
+      "size": "Small",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-scorpion",
+      "name": "Giant Scorpion",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-seahorse",
+      "name": "Giant Seahorse",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-shark",
+      "name": "Giant Shark",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-spider",
+      "name": "Giant Spider",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-squid",
+      "name": "Giant Squid",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-toad",
+      "name": "Giant Toad",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-venomous-snake",
+      "name": "Giant Venomous Snake",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-wasp",
+      "name": "Giant Wasp",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-weasel",
+      "name": "Giant Weasel",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "giant-wolf-spider",
+      "name": "Giant Wolf Spider",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast",
+        "giant"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "gibbering-mouther",
+      "name": "Gibbering Mouther",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "githyanki-dracomancer",
+      "name": "Githyanki Dracomancer",
+      "cr": "16",
+      "xp": 15000,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Astral Plane)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-astral-plane"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "githyanki-knight",
+      "name": "Githyanki Knight",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Astral Plane)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-astral-plane"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "githyanki-warrior",
+      "name": "Githyanki Warrior",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Astral Plane)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-astral-plane"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "githzerai-monk",
+      "name": "Githzerai Monk",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Limbo)"
+      ],
+      "treasure": [
+        "Arcana",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-limbo"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "githzerai-monk-i",
+      "name": "Githzerai Monk I",
+      "cr": "13",
+      "xp": 10000,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 39,
+      "extractionConfidence": "medium",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "githzerai-psion",
+      "name": "Githzerai Psion",
+      "cr": "12",
+      "xp": 8400,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Limbo)"
+      ],
+      "treasure": [
+        "Arcana",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-limbo"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "githzerai-zerth",
+      "name": "Githzerai Zerth",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Limbo)"
+      ],
+      "treasure": [
+        "Arcana",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-limbo"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "glabrezu",
+      "name": "Glabrezu",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "gladiator",
+      "name": "Gladiator",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "gnncoyle",
+      "name": "GnncoYle",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 131,
+      "extractionConfidence": "high",
+      "tags": [
+        "elemental",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "gnoll-demoniac",
+      "name": "Gnoll Demoniac",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "fiend",
+        "forest",
+        "grassland",
+        "hill"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "gnoll-fang-of-yeenoghu",
+      "name": "Gnoll Fang of Yeenoghu",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "fiend",
+        "forest",
+        "grassland",
+        "hill"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "gnoll-pack-lord",
+      "name": "Gnoll Pack Lord",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "fiend",
+        "forest",
+        "grassland",
+        "hill"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "gnoll-warrior",
+      "name": "Gnoll Warrior",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "fiend",
+        "forest",
+        "grassland",
+        "hill"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "goat",
+      "name": "Goat",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "goblin-boss",
+      "name": "Goblin Boss",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Fey",
+      "size": "Small",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Planar (Acheron",
+        "Feywild)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "feywild",
+        "forest",
+        "grassland",
+        "hill",
+        "planar-acheron",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "goblin-hexer",
+      "name": "Goblin Hexer",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Fey",
+      "size": "Small",
+      "habitat": [
+        "Feywild)",
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Planar (Acheron",
+        "Underdark"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "feywild",
+        "forest",
+        "grassland",
+        "hill",
+        "planar-acheron",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "goblin-minion",
+      "name": "Goblin Minion",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Fey",
+      "size": "Small",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Planar (Acheron",
+        "Feywild)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "feywild",
+        "forest",
+        "grassland",
+        "hill",
+        "planar-acheron",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "goblin-warrior",
+      "name": "Goblin Warrior",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Fey",
+      "size": "Small",
+      "habitat": [
+        "Feywild)",
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Planar (Acheron",
+        "Underdark"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "feywild",
+        "forest",
+        "grassland",
+        "hill",
+        "planar-acheron",
+        "underdark"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "gold-dragon-wyrmling",
+      "name": "Gold Dragon Wyrmling",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Grassland"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "forest",
+        "grassland",
+        "young"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "gorgon",
+      "name": "Gorgon",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Construct",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Hill"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "forest",
+        "grassland",
+        "hill"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "goristro",
+      "name": "Goristro",
+      "cr": "17",
+      "xp": 18000,
+      "creatureType": "Fiend",
+      "size": "Huge",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "graveyard-revenant",
+      "name": "Graveyard Revenant",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Undead",
+      "size": "Huge",
+      "habitat": [
+        "Forest",
+        "Swamp",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "swamp",
+        "undead",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "gray-ooze",
+      "name": "Gray Ooze",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Ooze",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "ooze",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "gray-slaad",
+      "name": "Gray Slaad",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Limbo)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-limbo"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "green-ct",
+      "name": "Green Ct \u00c4",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Planar (Limbo)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 289,
+      "extractionConfidence": "medium",
+      "tags": [
+        "aberration",
+        "planar-limbo"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "green-dragon-wyrmling",
+      "name": "Green Dragon Wyrmling",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "forest",
+        "young"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "green-hag",
+      "name": "Green Hag",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Hill",
+        "Swamp"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "hill",
+        "swamp"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "green-slaad",
+      "name": "Green Slaad",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Planar (Limbo)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-limbo"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "grell",
+      "name": "Grell",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "grick",
+      "name": "Grick",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "forest",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "grick-ancient",
+      "name": "Grick Ancient",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "forest",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "griffon",
+      "name": "Griffon",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Arctic",
+        "Coastal",
+        "Grassland",
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "coastal",
+        "grassland",
+        "hill",
+        "monstrosity",
+        "mountain"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "grimlock",
+      "name": "Grimlock",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "grlrur-axe",
+      "name": "Grlrur Axe",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Monstrosity",
+      "size": "Huge",
+      "habitat": [
+        "Arctic",
+        "Grassland",
+        "Hill"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 27,
+      "extractionConfidence": "high",
+      "tags": [
+        "arctic",
+        "grassland",
+        "hill",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "gttor-r-wlnnron",
+      "name": "Gttor-r- Wlnnron",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Crassland",
+        "Hill"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 143,
+      "extractionConfidence": "high",
+      "tags": [
+        "crassland",
+        "desert",
+        "fiend",
+        "forest",
+        "hill"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "guard",
+      "name": "Guard",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "guard-captain",
+      "name": "Guard Captain",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "guardian-naga",
+      "name": "Guardian Naga",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Celestial",
+      "size": "Large",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "desert",
+        "forest",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "gulthias-blight",
+      "name": "Gulthias Blight",
+      "cr": "16",
+      "xp": 15000,
+      "creatureType": "Plant",
+      "size": "Gargantuan",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "plant"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "half-dragon",
+      "name": "Half-Dragon",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "dragon"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "harpy",
+      "name": "Harpy",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Forest",
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "forest",
+        "hill",
+        "monstrosity",
+        "mountain"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "haunting-revenant",
+      "name": "Haunting Revenant",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Undead",
+      "size": "Gargantuan",
+      "habitat": [
+        "Forest",
+        "Swamp",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "swamp",
+        "undead",
+        "urban"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "hawk",
+      "name": "Hawk",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "hell-hound",
+      "name": "Hell Hound",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Mountain",
+        "Planar (Lower Planes)",
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "mountain",
+        "planar-lower-planes",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "helmed-horror",
+      "name": "Helmed Horror",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Construct",
+      "size": "Medium",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "construct"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "hezrou",
+      "name": "Hezrou",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "hill-giant",
+      "name": "Hill Giant",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Giant",
+      "size": "Huge",
+      "habitat": [
+        "Hill"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "giant",
+        "hill"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "hippogriff",
+      "name": "Hippogriff",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Grassland",
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "grassland",
+        "hill",
+        "monstrosity",
+        "mountain"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "hippopotamus",
+      "name": "Hippopotamus",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "hobgoblin-captain",
+      "name": "Hobgoblin Captain",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Mountain",
+        "Planar (Acheron)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "fey",
+        "forest",
+        "grassland",
+        "hill",
+        "mountain",
+        "planar-acheron",
+        "underdark"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "hobgoblin-warlord",
+      "name": "Hobgoblin Warlord",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Mountain",
+        "Planar (Acheron)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "fey",
+        "forest",
+        "grassland",
+        "hill",
+        "mountain",
+        "planar-acheron",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "hobgoblin-warrior",
+      "name": "Hobgoblin Warrior",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Mountain",
+        "Planar (Acheron)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "fey",
+        "forest",
+        "grassland",
+        "hill",
+        "mountain",
+        "planar-acheron",
+        "underdark"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "homunculus",
+      "name": "Homunculus",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Construct",
+      "size": "Tiny",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "construct"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "hook-horror",
+      "name": "Hook Horror",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "horned-devil",
+      "name": "Horned Devil",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "hunter-shark",
+      "name": "Hunter Shark",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "hydra",
+      "name": "Hydra",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Monstrosity",
+      "size": "Huge",
+      "habitat": [
+        "Coastal",
+        "Swamp"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "monstrosity",
+        "swamp"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "hyena",
+      "name": "Hyena",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "i-vnocr",
+      "name": "I Vnocr",
+      "cr": "5",
+      "xp": 2300,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 322,
+      "extractionConfidence": "high",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ice-devil",
+      "name": "Ice Devil",
+      "cr": "14",
+      "xp": 11500,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ice-mephit",
+      "name": "Ice Mephit",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Elemental",
+      "size": "Small",
+      "habitat": [
+        "Planar (Elemental Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "iii",
+      "name": "Iii",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Arctic"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 337,
+      "extractionConfidence": "high",
+      "tags": [
+        "arctic",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "imp",
+      "name": "Imp",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Fiend",
+      "size": "Tiny",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "fiend"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "incubus",
+      "name": "Incubus",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Lower Planes)",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-lower-planes",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "inferno-master",
+      "name": "Inferno Master",
+      "cr": "15",
+      "xp": 13000,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Planar (Elemental Plane of Fire)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 270,
+      "extractionConfidence": "high",
+      "tags": [
+        "elemental",
+        "planar-elemental-plane-of-fire",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "intellect-devourer",
+      "name": "Intellect Devourer",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Aberration",
+      "size": "Tiny",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "invisible-stalker",
+      "name": "Invisible Stalker",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "iron-golem",
+      "name": "Iron Golem",
+      "cr": "16",
+      "xp": 15000,
+      "creatureType": "Construct",
+      "size": "Large",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "construct"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "jackal",
+      "name": "Jackal",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Small",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "jackalwere",
+      "name": "Jackalwere",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Fiend",
+      "size": "Small",
+      "habitat": [
+        "Desert",
+        "Grassland"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "fiend",
+        "grassland"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "juvenile-shadow-dragon",
+      "name": "Juvenile Shadow Dragon",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Shadowfell)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "planar-shadowfell",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "kenku",
+      "name": "Kenku",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Planar (Shadowfell)",
+        "Urban"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "monstrosity",
+        "planar-shadowfell",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "killer-whale",
+      "name": "Killer Whale",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "knight",
+      "name": "Knight",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "kobold-warrior",
+      "name": "Kobold Warrior",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Dragon",
+      "size": "Small",
+      "habitat": [
+        "Arctic",
+        "Coastal",
+        "Desert",
+        "Forest",
+        "Hill",
+        "Mountain",
+        "Swamp",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "coastal",
+        "desert",
+        "dragon",
+        "forest",
+        "hill",
+        "mountain",
+        "swamp",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "kraken",
+      "name": "Kraken",
+      "cr": "23",
+      "xp": 50000,
+      "creatureType": "Monstrosity",
+      "size": "Gargantuan",
+      "habitat": [
+        "Underwater"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underwater"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "kuo-toa",
+      "name": "Kuo-toa",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Underdark"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "coastal",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "kuo-toa-archpriest",
+      "name": "Kuo-toa Archpriest",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Underdark"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "caster",
+        "coastal",
+        "underdark"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "kuo-toa-monitor",
+      "name": "Kuo-toa Monitor",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Underdark"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "coastal",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "kuo-toa-whip",
+      "name": "Kuo-toa Whip",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Underdark"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "coastal",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "lacedon-ghoul",
+      "name": "Lacedon Ghoul",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Swamp",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "swamp",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "lamia",
+      "name": "Lamia",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Desert"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "fiend"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "larva",
+      "name": "Larva",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Lower Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-lower-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "lemure",
+      "name": "Lemure",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "lich",
+      "name": "Lich",
+      "cr": "21",
+      "xp": 33000,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "undead"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "lion",
+      "name": "Lion",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "lizard",
+      "name": "Lizard",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "lizardfolk-geomancer",
+      "name": "Lizardfolk Geomancer",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Swamp"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "forest",
+        "swamp"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "lizardfolk-sovereign",
+      "name": "Lizardfolk Sovereign",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Swamp"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "forest",
+        "swamp"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "llnvl",
+      "name": "Llnvl",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Lower Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 196,
+      "extractionConfidence": "high",
+      "tags": [
+        "fiend",
+        "planar-lower-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "lnoru-goleu",
+      "name": "Lnoru Goleu",
+      "cr": "16",
+      "xp": 15000,
+      "creatureType": "Construct",
+      "size": "Large",
+      "habitat": [
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 184,
+      "extractionConfidence": "high",
+      "tags": [
+        "construct",
+        "urban"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "lrirror",
+      "name": "LrirroR",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Underdark"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 193,
+      "extractionConfidence": "high",
+      "tags": [
+        "aberration",
+        "coastal",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "mage",
+      "name": "Mage",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Arcana",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "mage-apprentice",
+      "name": "Mage Apprentice",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Arcana",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "magma-mephit",
+      "name": "Magma Mephit",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Elemental",
+      "size": "Small",
+      "habitat": [
+        "Planar (Elemental Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "magmin",
+      "name": "Magmin",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Elemental",
+      "size": "Small",
+      "habitat": [
+        "Planar (Elemental Plane of Fire)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-plane-of-fire"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "mammoth",
+      "name": "Mammoth",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "manes",
+      "name": "Manes",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Fiend",
+      "size": "Small",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "manes-vaporspawn",
+      "name": "Manes Vaporspawn",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "manticore",
+      "name": "Manticore",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Arctic",
+        "Coastal",
+        "Grassland",
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "coastal",
+        "grassland",
+        "hill",
+        "monstrosity",
+        "mountain"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "marid",
+      "name": "Marid",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Coastal",
+        "Planar (Elemental Plane of Water)",
+        "Underwater"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "elemental",
+        "planar-elemental-plane-of-water",
+        "underwater"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "marilith",
+      "name": "Marilith",
+      "cr": "16",
+      "xp": 15000,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "mastiff",
+      "name": "Mastiff",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "medium-or",
+      "name": "Medium or",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Humanoid",
+      "size": "Small",
+      "habitat": [
+        "Any",
+        "Desert",
+        "Swamp"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 165,
+      "extractionConfidence": "high",
+      "tags": [
+        "any",
+        "desert",
+        "humanoid",
+        "swamp",
+        "undead"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "medusa",
+      "name": "Medusa",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Desert"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "merfolk-skirmisher",
+      "name": "Merfolk Skirmisher",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Underwater"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "elemental",
+        "underwater"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "merfolk-wavebender",
+      "name": "Merfolk Wavebender",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Underwater"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "elemental",
+        "underwater"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "merrow",
+      "name": "Merrow",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Coastal",
+        "Underwater"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "monstrosity",
+        "underwater"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "mezzoloth",
+      "name": "Mezzoloth",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Gehenna)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-gehenna"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "mimic",
+      "name": "Mimic",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "mind-flayer",
+      "name": "Mind Flayer",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "mind-flayer-arcanist",
+      "name": "Mind Flayer Arcanist",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "minotaur-of-baphomet",
+      "name": "Minotaur of Baphomet",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "minotaur-skeleton",
+      "name": "Minotaur Skeleton",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Undead",
+      "size": "Large",
+      "habitat": [
+        "Planar (Shadowfell)",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "planar-shadowfell",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "mlce",
+      "name": "Mlce",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Arcana",
+        "Individual"
+      ],
+      "sourcePage": 202,
+      "extractionConfidence": "high",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "modron-duodrone",
+      "name": "Modron Duodrone",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Construct",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Mechanus)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "planar-mechanus"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "modron-monodrone",
+      "name": "Modron Monodrone",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Construct",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Mechanus)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "planar-mechanus"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "modron-pentadrone",
+      "name": "Modron Pentadrone",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Construct",
+      "size": "Large",
+      "habitat": [
+        "Planar (Mechanus)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "planar-mechanus"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "modron-quadrone",
+      "name": "Modron Quadrone",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Construct",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Mechanus)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "planar-mechanus"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "modron-tridrone",
+      "name": "Modron Tridrone",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Construct",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Mechanus)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "planar-mechanus"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "mud-mephit",
+      "name": "Mud Mephit",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Elemental",
+      "size": "Small",
+      "habitat": [
+        "Planar (Elemental Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "mule",
+      "name": "Mule",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "mummy",
+      "name": "Mummy",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Undead",
+      "size": "Medium or Small",
+      "habitat": [
+        "Desert",
+        "Swamp"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "swamp",
+        "undead"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "mummy-lord",
+      "name": "Mummy Lord",
+      "cr": "15",
+      "xp": 13000,
+      "creatureType": "Undead",
+      "size": "Medium or Small",
+      "habitat": [
+        "Desert",
+        "Swamp"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "swamp",
+        "undead"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "muo-mrpnrr",
+      "name": "Muo Mrpnrr",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Elemental",
+      "size": "Small",
+      "habitat": [
+        "Planar (Elemental Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 210,
+      "extractionConfidence": "high",
+      "tags": [
+        "elemental",
+        "planar-elemental-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "mvcor-r-rd-sovererc-n",
+      "name": "Mvcor R RD SovERErc N",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Plant",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 226,
+      "extractionConfidence": "high",
+      "tags": [
+        "plant",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "myconid-adult",
+      "name": "Myconid Adult",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Plant",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "plant",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "myconid-sovereign",
+      "name": "Myconid Sovereign",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Plant",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "plant",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "myconid-spore-servant",
+      "name": "Myconid Spore Servant",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Plant",
+      "size": "Medium or Small",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "plant",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "myconid-sprout",
+      "name": "Myconid Sprout",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Plant",
+      "size": "Small",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "plant",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "nalfeshnee",
+      "name": "Nalfeshnee",
+      "cr": "13",
+      "xp": 10000,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "needle-blight",
+      "name": "Needle Blight",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Plant",
+      "size": "Medium",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "plant"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "night-hag",
+      "name": "Night Hag",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Lower Planes)"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-lower-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "nightmare",
+      "name": "Nightmare",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Lower Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-lower-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "noble",
+      "name": "Noble",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "noble-prodigy",
+      "name": "Noble Prodigy",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "nothic",
+      "name": "Nothic",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "nrcxrulne",
+      "name": "Nrcxrulne",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Lower Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 229,
+      "extractionConfidence": "high",
+      "tags": [
+        "fiend",
+        "planar-lower-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "nycaloth",
+      "name": "Nycaloth",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Gehenna)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-gehenna"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ochre-jelly",
+      "name": "Ochre Jelly",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Ooze",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "ooze",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ocntloru-ocnr",
+      "name": "Ocntloru Ocnr",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Giant",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 234,
+      "extractionConfidence": "high",
+      "tags": [
+        "giant",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "octopus",
+      "name": "Octopus",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Small",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "ogre",
+      "name": "Ogre",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Giant",
+      "size": "Large",
+      "habitat": [
+        "Arctic",
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Mountain",
+        "Swamp",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "desert",
+        "forest",
+        "giant",
+        "grassland",
+        "hill",
+        "mountain",
+        "swamp",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ogre-zombie",
+      "name": "Ogre Zombie",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Undead",
+      "size": "Large",
+      "habitat": [
+        "Planar (Shadowfell)",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "planar-shadowfell",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "ogrillon-ogre",
+      "name": "Ogrillon Ogre",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Giant",
+      "size": "Large",
+      "habitat": [
+        "Arctic",
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Mountain",
+        "Swamp",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "desert",
+        "forest",
+        "giant",
+        "grassland",
+        "hill",
+        "mountain",
+        "swamp",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "on",
+      "name": "On",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Urban"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 235,
+      "extractionConfidence": "medium",
+      "tags": [
+        "fiend",
+        "forest",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "oni",
+      "name": "Oni",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Urban"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "forest",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "otyugh",
+      "name": "Otyugh",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "owl",
+      "name": "Owl",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "owlbear",
+      "name": "Owlbear",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "panther",
+      "name": "Panther",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "pegasus",
+      "name": "Pegasus",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Celestial",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "forest",
+        "grassland",
+        "hill",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "performer",
+      "name": "Performer",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "performer-lege-nd",
+      "name": "Performer Lege Nd",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Forest",
+        "Crassland",
+        "Hill",
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 240,
+      "extractionConfidence": "medium",
+      "tags": [
+        "crassland",
+        "forest",
+        "hill",
+        "humanoid",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "performer-legend",
+      "name": "Performer Legend",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "performer-maestro",
+      "name": "Performer Maestro",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "peryton",
+      "name": "Peryton",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "hill",
+        "monstrosity",
+        "mountain"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "phase-spider",
+      "name": "Phase Spider",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Planar (Ethereal Plane)",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "forest",
+        "grassland",
+        "hill",
+        "monstrosity",
+        "planar-ethereal-plane",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "pianetar",
+      "name": "PIanetar",
+      "cr": "16",
+      "xp": 15000,
+      "creatureType": "Celestial",
+      "size": "Large",
+      "habitat": [
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 248,
+      "extractionConfidence": "high",
+      "tags": [
+        "celestial",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "piercer",
+      "name": "Piercer",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "piranha",
+      "name": "Piranha",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "pirate",
+      "name": "Pirate",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "pirate-admira1",
+      "name": "Pirate Admira1",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 245,
+      "extractionConfidence": "medium",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "pirate-admiral",
+      "name": "Pirate Admiral",
+      "cr": "12",
+      "xp": 8400,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "pirate-captain",
+      "name": "Pirate Captain",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "pit-fiend",
+      "name": "Pit Fiend",
+      "cr": "20",
+      "xp": 25000,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "pixie",
+      "name": "Pixie",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Fey",
+      "size": "Tiny",
+      "habitat": [
+        "Forest",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "planar-feywild"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "pixie-wonderbringer",
+      "name": "Pixie Wonderbringer",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Fey",
+      "size": "Tiny",
+      "habitat": [
+        "Forest",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "planar-feywild"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "planetar",
+      "name": "Planetar",
+      "cr": "16",
+      "xp": 15000,
+      "creatureType": "Celestial",
+      "size": "Large",
+      "habitat": [
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "plesiosaurus",
+      "name": "Plesiosaurus",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "polar-bear",
+      "name": "Polar Bear",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "poltergeist",
+      "name": "Poltergeist",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Undead",
+      "size": "Medium or Small",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "pony",
+      "name": "Pony",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "priest",
+      "name": "Priest",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "priest-acolyte",
+      "name": "Priest Acolyte",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual",
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "caster",
+        "humanoid"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "primeval-owlbear",
+      "name": "Primeval Owlbear",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Monstrosity",
+      "size": "Huge",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "prnlre",
+      "name": "Prnlre",
+      "cr": "12",
+      "xp": 8400,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 245,
+      "extractionConfidence": "high",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "pseudodragon",
+      "name": "Pseudodragon",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Dragon",
+      "size": "Tiny",
+      "habitat": [
+        "Coastal",
+        "Desert",
+        "Forest",
+        "Hill",
+        "Mountain",
+        "Urban"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "desert",
+        "dragon",
+        "forest",
+        "hill",
+        "mountain",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "psvcxrc-gray-ooze",
+      "name": "Psvcxrc GRAY Ooze",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Ooze",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 154,
+      "extractionConfidence": "high",
+      "tags": [
+        "ooze",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "psychic-gray-ooze",
+      "name": "Psychic Gray Ooze",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Ooze",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "ooze",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "pteranodon",
+      "name": "Pteranodon",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "purple-worm",
+      "name": "Purple Worm",
+      "cr": "15",
+      "xp": 13000,
+      "creatureType": "Monstrosity",
+      "size": "Gargantuan",
+      "habitat": [
+        "Desert",
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "quaggoth",
+      "name": "Quaggoth",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "quaggoth-thonot",
+      "name": "Quaggoth Thonot",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "quasit",
+      "name": "Quasit",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Fiend",
+      "size": "Tiny",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "quasit-252-treant",
+      "name": "Quasit 252 Treant",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Plant",
+      "size": "Huge",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 311,
+      "extractionConfidence": "medium",
+      "tags": [
+        "forest",
+        "plant"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "questing-knight",
+      "name": "Questing Knight",
+      "cr": "12",
+      "xp": 8400,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "qurs",
+      "name": "Qurs",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Fiend",
+      "size": "Tiny",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 255,
+      "extractionConfidence": "high",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "rakshasa",
+      "name": "Rakshasa",
+      "cr": "13",
+      "xp": 10000,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Nine Hells)",
+        "Urban"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells",
+        "urban"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "rat",
+      "name": "Rat",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "raven",
+      "name": "Raven",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "red-dragon-wyrmling",
+      "name": "Red Dragon Wyrmling",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "hill",
+        "mountain",
+        "young"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "red-slaad",
+      "name": "Red Slaad",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Planar (Limbo)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-limbo"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "reef-shark",
+      "name": "Reef Shark",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "remorha2",
+      "name": "Remorha2",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Monstrosity",
+      "size": "Huge",
+      "habitat": [
+        "Arctic"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 261,
+      "extractionConfidence": "high",
+      "tags": [
+        "arctic",
+        "monstrosity"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "remorhaz",
+      "name": "Remorhaz",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Monstrosity",
+      "size": "Huge",
+      "habitat": [
+        "Arctic"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "monstrosity"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "revenant",
+      "name": "Revenant",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Swamp",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "swamp",
+        "undead",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "rhinoceros",
+      "name": "Rhinoceros",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "ri-xreen-psioi-t",
+      "name": "RI-XREEN PSIOI T",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Grassland"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 309,
+      "extractionConfidence": "high",
+      "tags": [
+        "desert",
+        "grassland",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "riding-horse",
+      "name": "Riding Horse",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "roc",
+      "name": "Roc",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Monstrosity",
+      "size": "Gargantuan",
+      "habitat": [
+        "Arctic",
+        "Coastal",
+        "Desert",
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "coastal",
+        "desert",
+        "hill",
+        "monstrosity",
+        "mountain"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "roper",
+      "name": "Roper",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "rust-monster",
+      "name": "Rust Monster",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "saber-toothed-tiger",
+      "name": "Saber-Toothed Tiger",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "sahuagin-baron",
+      "name": "Sahuagin Baron",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Coastal",
+        "Underwater"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "fiend",
+        "underwater"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "sahuagin-priest",
+      "name": "Sahuagin Priest",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Underwater"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "caster",
+        "coastal",
+        "fiend",
+        "underwater"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "sahuagin-warrior",
+      "name": "Sahuagin Warrior",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Underwater"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "fiend",
+        "underwater"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "salamander",
+      "name": "Salamander",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Planar (Elemental Plane of Fire)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-plane-of-fire",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "salamander-fire-snake",
+      "name": "Salamander Fire Snake",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Elemental Plane of Fire)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-plane-of-fire",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "salamander-inferno-master",
+      "name": "Salamander Inferno Master",
+      "cr": "15",
+      "xp": 13000,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Planar (Elemental Plane of Fire)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-plane-of-fire",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "satyr",
+      "name": "Satyr",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "planar-feywild"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "satyr-revelmaster",
+      "name": "Satyr Revelmaster",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Forest",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "planar-feywild"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "scarecrow",
+      "name": "Scarecrow",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Construct",
+      "size": "Medium",
+      "habitat": [
+        "Grassland"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "grassland"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "scorpion",
+      "name": "Scorpion",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "scour",
+      "name": "Scour",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 273,
+      "extractionConfidence": "high",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "scour-clprnrru",
+      "name": "Scour Clprnrru",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 273,
+      "extractionConfidence": "high",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "scout",
+      "name": "Scout",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "scout-captain",
+      "name": "Scout Captain",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "leader"
+    },
+    {
+      "id": "sea-hag",
+      "name": "Sea Hag",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Underwater"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "fey",
+        "underwater"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "seahorse",
+      "name": "Seahorse",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "shadow",
+      "name": "Shadow",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Shadowfell)",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "planar-shadowfell",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "shadow-demon",
+      "name": "Shadow Demon",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "shadow-dragon",
+      "name": "Shadow Dragon",
+      "cr": "13",
+      "xp": 10000,
+      "creatureType": "Dragon",
+      "size": "Huge",
+      "habitat": [
+        "Planar (Shadowfell)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "planar-shadowfell",
+        "underdark"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "shambling-mound",
+      "name": "Shambling Mound",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Plant",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Swamp"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "plant",
+        "swamp"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "shield-guardian",
+      "name": "Shield Guardian",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Construct",
+      "size": "Large",
+      "habitat": [
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "construct",
+        "urban"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "shrieker-fungus",
+      "name": "Shrieker Fungus",
+      "cr": "0",
+      "xp": 0,
+      "creatureType": "Plant",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "plant",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "shrieker-fungus-i",
+      "name": "Shrieker Fungus I",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Mountain",
+        "Planar (Elemental Plane of Fire)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 28,
+      "extractionConfidence": "medium",
+      "tags": [
+        "elemental",
+        "mountain",
+        "planar-elemental-plane-of-fire"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "silver-dragon-wyrmling",
+      "name": "Silver Dragon Wyrmling",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Mountain",
+        "Urban"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "mountain",
+        "urban",
+        "young"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Shadowfell)",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "planar-shadowfell",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "slaad-tadpole",
+      "name": "Slaad Tadpole",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Aberration",
+      "size": "Tiny",
+      "habitat": [
+        "Planar (Limbo)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "planar-limbo"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "smoke-mephit",
+      "name": "Smoke Mephit",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Elemental",
+      "size": "Small",
+      "habitat": [
+        "Planar (Elemental Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "sol-ln",
+      "name": "Sol Ln",
+      "cr": "21",
+      "xp": 33000,
+      "creatureType": "Celestial",
+      "size": "Large",
+      "habitat": [
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 291,
+      "extractionConfidence": "high",
+      "tags": [
+        "celestial",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "solar",
+      "name": "Solar",
+      "cr": "21",
+      "xp": 33000,
+      "creatureType": "Celestial",
+      "size": "Large",
+      "habitat": [
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "spectator",
+      "name": "Spectator",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Aberration",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "specter",
+      "name": "Specter",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "sphinx-of-lore",
+      "name": "Sphinx of Lore",
+      "cr": "11",
+      "xp": 7200,
+      "creatureType": "Celestial",
+      "size": "Large",
+      "habitat": [
+        "Desert",
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "desert",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "sphinx-of-secrets",
+      "name": "Sphinx of Secrets",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Celestial",
+      "size": "Large",
+      "habitat": [
+        "Desert",
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "desert",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "sphinx-of-valor",
+      "name": "Sphinx of Valor",
+      "cr": "17",
+      "xp": 18000,
+      "creatureType": "Celestial",
+      "size": "Large",
+      "habitat": [
+        "Desert",
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "desert",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "sphinx-of-wonder",
+      "name": "Sphinx of Wonder",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Celestial",
+      "size": "Tiny",
+      "habitat": [
+        "Desert",
+        "Planar (Upper Planes)"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "desert",
+        "planar-upper-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "spider",
+      "name": "Spider",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "spined-devil",
+      "name": "Spined Devil",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Fiend",
+      "size": "Small",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "spirit-naga",
+      "name": "Spirit Naga",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Lower Planes)",
+        "Underdark"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-lower-planes",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "sprite",
+      "name": "Sprite",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Fey",
+      "size": "Tiny",
+      "habitat": [
+        "Forest",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "planar-feywild"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "spv",
+      "name": "Spv",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 298,
+      "extractionConfidence": "high",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "spy",
+      "name": "Spy",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "spy-master",
+      "name": "Spy Master",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Implements",
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "srr-hnc",
+      "name": "Srr Hnc",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Fey",
+      "size": "Medium",
+      "habitat": [
+        "Coastal",
+        "Underwater"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 274,
+      "extractionConfidence": "high",
+      "tags": [
+        "coastal",
+        "fey",
+        "underwater"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "steam-mephit",
+      "name": "Steam Mephit",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Elemental",
+      "size": "Small",
+      "habitat": [
+        "Planar (Elemental Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-planes"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "stirge",
+      "name": "Stirge",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Monstrosity",
+      "size": "Tiny",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Mountain",
+        "Swamp",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "forest",
+        "grassland",
+        "hill",
+        "monstrosity",
+        "mountain",
+        "swamp",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "stone-giant",
+      "name": "Stone Giant",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Giant",
+      "size": "Huge",
+      "habitat": [
+        "Mountain",
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "giant",
+        "mountain",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "stone-golem",
+      "name": "Stone Golem",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Construct",
+      "size": "Large",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "construct"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "storm-giant",
+      "name": "Storm Giant",
+      "cr": "13",
+      "xp": 10000,
+      "creatureType": "Giant",
+      "size": "Huge",
+      "habitat": [
+        "Coastal",
+        "Underwater"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "giant",
+        "underwater"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "succubus",
+      "name": "Succubus",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Lower Planes)",
+        "Urban"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-lower-planes",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "swanu-of-dretches",
+      "name": "Swanu of DRETcHEs",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 107,
+      "extractionConfidence": "high",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "swarm-of-crawling-claws",
+      "name": "Swarm of Crawling Claws",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "swarm",
+        "undead"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "swarm-of-dretches",
+      "name": "Swarm of Dretches",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss",
+        "swarm"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "swarm-of-larvae",
+      "name": "Swarm of Larvae",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Lower Planes)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-lower-planes",
+        "swarm"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "swarm-of-lemures",
+      "name": "Swarm of Lemures",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Nine Hells)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-nine-hells",
+        "swarm"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "swarm-of-stirges",
+      "name": "Swarm of Stirges",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Mountain",
+        "Swamp",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "forest",
+        "grassland",
+        "hill",
+        "monstrosity",
+        "mountain",
+        "swamp",
+        "swarm",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "sxloow-deuou",
+      "name": "Sxloow Deuou",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 276,
+      "extractionConfidence": "high",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "sxnrrxen-fuucus",
+      "name": "Sxnrrxen Fuucus",
+      "cr": "0",
+      "xp": 0,
+      "creatureType": "Plant",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 128,
+      "extractionConfidence": "low",
+      "tags": [
+        "plant",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "t-clolren",
+      "name": "T Clolren",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Aberration",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 76,
+      "extractionConfidence": "high",
+      "tags": [
+        "aberration",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "tarrasque",
+      "name": "Tarrasque",
+      "cr": "30",
+      "xp": 155000,
+      "creatureType": "Monstrosity",
+      "size": "Gargantuan",
+      "habitat": [
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "urban"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "thri-kreen-marauder",
+      "name": "Thri-kreen Marauder",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Grassland"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "grassland",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "thri-kreen-psion",
+      "name": "Thri-kreen Psion",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Grassland"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "grassland",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "tiger",
+      "name": "Tiger",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "touc-n",
+      "name": "Touc N",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 310,
+      "extractionConfidence": "high",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "toucn-boss",
+      "name": "Toucn Boss",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 310,
+      "extractionConfidence": "high",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "tough",
+      "name": "Tough",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "tough-boss",
+      "name": "Tough Boss",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "treant",
+      "name": "Treant",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Plant",
+      "size": "Huge",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "plant"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "tree-blight",
+      "name": "Tree Blight",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Plant",
+      "size": "Huge",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "plant"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "triceratops",
+      "name": "Triceratops",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "troglodyte",
+      "name": "Troglodyte",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "troll",
+      "name": "Troll",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Giant",
+      "size": "Large",
+      "habitat": [
+        "Arctic",
+        "Forest",
+        "Hill",
+        "Mountain",
+        "Swamp",
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "forest",
+        "giant",
+        "hill",
+        "mountain",
+        "swamp",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "troll-limb",
+      "name": "Troll Limb",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Giant",
+      "size": "Small",
+      "habitat": [
+        "Arctic",
+        "Forest",
+        "Hill",
+        "Mountain",
+        "Swamp",
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "forest",
+        "giant",
+        "hill",
+        "mountain",
+        "swamp",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "twig-blight",
+      "name": "Twig Blight",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Plant",
+      "size": "Small",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "plant"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "twrc-br-rcnr",
+      "name": "Twrc Br-rcnr",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Plant",
+      "size": "Small",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 46,
+      "extractionConfidence": "high",
+      "tags": [
+        "forest",
+        "plant"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "tyrannosaurus-rex",
+      "name": "Tyrannosaurus Rex",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Beast",
+      "size": "Huge",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "u-r-r",
+      "name": "U R R",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Celestial",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 316,
+      "extractionConfidence": "high",
+      "tags": [
+        "celestial",
+        "forest",
+        "planar-feywild"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "ulrnolorx",
+      "name": "Ulrnolorx",
+      "cr": "13",
+      "xp": 10000,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Lower Planes)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 314,
+      "extractionConfidence": "high",
+      "tags": [
+        "fiend",
+        "planar-lower-planes"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "ultroloth",
+      "name": "Ultroloth",
+      "cr": "13",
+      "xp": 10000,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Lower Planes)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-lower-planes"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "umber-hulk",
+      "name": "Umber Hulk",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "unicorn",
+      "name": "Unicorn",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Celestial",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "celestial",
+        "forest",
+        "planar-feywild"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "uueen-hulr",
+      "name": "Uueen Hulr",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 315,
+      "extractionConfidence": "high",
+      "tags": [
+        "monstrosity",
+        "underdark"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "vampi-re",
+      "name": "Vampi Re",
+      "cr": "13",
+      "xp": 1,
+      "creatureType": "Undead",
+      "size": "Medium or Small",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 320,
+      "extractionConfidence": "high",
+      "tags": [
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "vampire",
+      "name": "Vampire",
+      "cr": "13",
+      "xp": 10000,
+      "creatureType": "Undead",
+      "size": "Medium or Small",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "vampire-familiar",
+      "name": "Vampire Familiar",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "humanoid",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "vampire-nightbringer",
+      "name": "Vampire Nightbringer",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Undead",
+      "size": "Medium or Small",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "vampire-spawn",
+      "name": "Vampire Spawn",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Undead",
+      "size": "Medium or Small",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "vampire-umbral-lord",
+      "name": "Vampire Umbral Lord",
+      "cr": "15",
+      "xp": 13000,
+      "creatureType": "Undead",
+      "size": "Medium or Small",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "venomous-snake",
+      "name": "Venomous Snake",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "vine-blight",
+      "name": "Vine Blight",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Plant",
+      "size": "Medium",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "plant"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "violet-fungus",
+      "name": "Violet Fungus",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Plant",
+      "size": "Medium",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "plant",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "violet-fungus-necrohulk",
+      "name": "Violet Fungus Necrohulk",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Plant",
+      "size": "Large",
+      "habitat": [
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "plant",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "vrock",
+      "name": "Vrock",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Fiend",
+      "size": "Large",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "vulture",
+      "name": "Vulture",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "warhorse",
+      "name": "Warhorse",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Beast",
+      "size": "Large",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "warhorse-skeleton",
+      "name": "Warhorse Skeleton",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Undead",
+      "size": "Large",
+      "habitat": [
+        "Planar (Shadowfell)",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "planar-shadowfell",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "warrior-commander",
+      "name": "Warrior Commander",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "warrior-infantry",
+      "name": "Warrior Infantry",
+      "cr": "1/8",
+      "xp": 25,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "warrior-veteran",
+      "name": "Warrior Veteran",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Humanoid",
+      "size": "Medium or Small",
+      "habitat": [
+        "Any"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "any",
+        "humanoid"
+      ],
+      "encounterRole": "minion"
+    },
+    {
+      "id": "water-elemental",
+      "name": "Water Elemental",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Coastal",
+        "Planar (Elemental Plane of Water)",
+        "Swamp",
+        "Underwater"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "elemental",
+        "planar-elemental-plane-of-water",
+        "swamp",
+        "underwater"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "water-weird",
+      "name": "Water Weird",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Elemental",
+      "size": "Large",
+      "habitat": [
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "weasel",
+      "name": "Weasel",
+      "cr": "0",
+      "xp": 10,
+      "creatureType": "Beast",
+      "size": "Tiny",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "werebear",
+      "name": "Werebear",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Monstrosity",
+      "size": "Medium or Small",
+      "habitat": [
+        "Arctic",
+        "Forest",
+        "Hill"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "forest",
+        "hill",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "wereboar",
+      "name": "Wereboar",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Monstrosity",
+      "size": "Medium or Small",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Hill"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "grassland",
+        "hill",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "wererat",
+      "name": "Wererat",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Monstrosity",
+      "size": "Medium or Small",
+      "habitat": [
+        "Forest",
+        "Urban"
+      ],
+      "treasure": [
+        "Individual"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "monstrosity",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "weretiger",
+      "name": "Weretiger",
+      "cr": "4",
+      "xp": 1100,
+      "creatureType": "Monstrosity",
+      "size": "Medium or Small",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Grassland"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "forest",
+        "grassland",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "werewolf",
+      "name": "Werewolf",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Medium or Small",
+      "habitat": [
+        "Forest",
+        "Hill"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "hill",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "white-dragon-wyrmling",
+      "name": "White Dragon Wyrmling",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Dragon",
+      "size": "Medium",
+      "habitat": [
+        "Arctic"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "dragon",
+        "young"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "wight",
+      "name": "Wight",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Planar (Shadowfell)",
+        "Swamp",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "planar-shadowfell",
+        "swamp",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "will-o-wisp",
+      "name": "Will-o'-Wisp",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Undead",
+      "size": "Tiny",
+      "habitat": [
+        "Forest",
+        "Swamp",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "forest",
+        "swamp",
+        "undead",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "will-olwisp",
+      "name": "Will-olWisp",
+      "cr": "2",
+      "xp": 450,
+      "creatureType": "Undead",
+      "size": "Tiny",
+      "habitat": [
+        "Forest",
+        "Swamp",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 336,
+      "extractionConfidence": "high",
+      "tags": [
+        "forest",
+        "swamp",
+        "undead",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "winged-kobold",
+      "name": "Winged Kobold",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Dragon",
+      "size": "Small",
+      "habitat": [
+        "Arctic",
+        "Coastal",
+        "Desert",
+        "Forest",
+        "Hill",
+        "Mountain",
+        "Swamp",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "Armaments"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "coastal",
+        "desert",
+        "dragon",
+        "forest",
+        "hill",
+        "mountain",
+        "swamp",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "winter-wolf",
+      "name": "Winter Wolf",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Arctic"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "wolf",
+      "name": "Wolf",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Beast",
+      "size": "Medium",
+      "habitat": [],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 351,
+      "extractionConfidence": "high",
+      "tags": [
+        "beast"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "worg",
+      "name": "Worg",
+      "cr": "1/2",
+      "xp": 100,
+      "creatureType": "Fey",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Grassland",
+        "Hill",
+        "Planar (Feywild)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fey",
+        "forest",
+        "grassland",
+        "hill",
+        "planar-feywild"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "wraith",
+      "name": "Wraith",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Undead",
+      "size": "Medium or Small",
+      "habitat": [
+        "Planar (Shadowfell)",
+        "Underdark"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "planar-shadowfell",
+        "undead",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "wyvern",
+      "name": "Wyvern",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Dragon",
+      "size": "Large",
+      "habitat": [
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "hill",
+        "mountain"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "xonru",
+      "name": "Xonru",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Underdark",
+        "Planar (Elemental Plane of Earth)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 341,
+      "extractionConfidence": "high",
+      "tags": [
+        "elemental",
+        "planar-elemental-plane-of-earth",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "xorn",
+      "name": "Xorn",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Elemental",
+      "size": "Medium",
+      "habitat": [
+        "Underdark",
+        "Planar (Elemental Plane of Earth)"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "elemental",
+        "planar-elemental-plane-of-earth",
+        "underdark"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "yeti",
+      "name": "Yeti",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Arctic"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "yochlol",
+      "name": "Yochlol",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Fiend",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Abyss)"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "fiend",
+        "planar-abyss"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "young-black-dragon",
+      "name": "Young Black Dragon",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Dragon",
+      "size": "Large",
+      "habitat": [
+        "Swamp"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "swamp"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "young-blue-dragon",
+      "name": "Young Blue Dragon",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Dragon",
+      "size": "Large",
+      "habitat": [
+        "Coastal",
+        "Desert"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "desert",
+        "dragon"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "young-brass-dragon",
+      "name": "Young Brass Dragon",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Dragon",
+      "size": "Large",
+      "habitat": [
+        "Desert"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "dragon"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "young-bronze-dragon",
+      "name": "Young Bronze Dragon",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Dragon",
+      "size": "Large",
+      "habitat": [
+        "Coastal"
+      ],
+      "treasure": [
+        "Implements"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "coastal",
+        "dragon"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "young-copper-dragon",
+      "name": "Young Copper Dragon",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Dragon",
+      "size": "Large",
+      "habitat": [
+        "Hill"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "hill"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "young-gold-dragon",
+      "name": "Young Gold Dragon",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Dragon",
+      "size": "Large",
+      "habitat": [
+        "Forest",
+        "Grassland"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "forest",
+        "grassland"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "young-green-dragon",
+      "name": "Young Green Dragon",
+      "cr": "8",
+      "xp": 3900,
+      "creatureType": "Dragon",
+      "size": "Large",
+      "habitat": [
+        "Forest"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "forest"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "young-red-dragon",
+      "name": "Young Red Dragon",
+      "cr": "10",
+      "xp": 5900,
+      "creatureType": "Dragon",
+      "size": "Large",
+      "habitat": [
+        "Hill",
+        "Mountain"
+      ],
+      "treasure": [
+        "Any"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "hill",
+        "mountain"
+      ],
+      "encounterRole": "boss"
+    },
+    {
+      "id": "young-remorhaz",
+      "name": "Young Remorhaz",
+      "cr": "5",
+      "xp": 1800,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Arctic"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "monstrosity"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "young-silver-dragon",
+      "name": "Young Silver Dragon",
+      "cr": "9",
+      "xp": 5000,
+      "creatureType": "Dragon",
+      "size": "Large",
+      "habitat": [
+        "Mountain",
+        "Urban"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "dragon",
+        "mountain",
+        "urban"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "young-white-dragon",
+      "name": "Young White Dragon",
+      "cr": "6",
+      "xp": 2300,
+      "creatureType": "Dragon",
+      "size": "Large",
+      "habitat": [
+        "Arctic"
+      ],
+      "treasure": [
+        "Arcana"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "arctic",
+        "dragon"
+      ],
+      "encounterRole": "standard"
+    },
+    {
+      "id": "yuan-ti-abomination",
+      "name": "Yuan-ti Abomination",
+      "cr": "7",
+      "xp": 2900,
+      "creatureType": "Monstrosity",
+      "size": "Large",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Swamp",
+        "Urban"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "forest",
+        "monstrosity",
+        "swamp",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "yuan-ti-infiltrator",
+      "name": "Yuan-ti Infiltrator",
+      "cr": "1",
+      "xp": 200,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Swamp",
+        "Urban"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "forest",
+        "monstrosity",
+        "swamp",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "yuan-ti-malison-type-1",
+      "name": "Yuan-ti Malison (Type 1)",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Swamp",
+        "Urban"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "forest",
+        "monstrosity",
+        "swamp",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "yuan-ti-malison-type-2",
+      "name": "Yuan-ti Malison (Type 2)",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Swamp",
+        "Urban"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "forest",
+        "monstrosity",
+        "swamp",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "yuan-ti-malison-type-3",
+      "name": "Yuan-ti Malison (Type 3)",
+      "cr": "3",
+      "xp": 700,
+      "creatureType": "Monstrosity",
+      "size": "Medium",
+      "habitat": [
+        "Desert",
+        "Forest",
+        "Swamp",
+        "Urban"
+      ],
+      "treasure": [
+        "Relics"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "desert",
+        "forest",
+        "monstrosity",
+        "swamp",
+        "urban"
+      ],
+      "encounterRole": "brute"
+    },
+    {
+      "id": "zombie",
+      "name": "Zombie",
+      "cr": "1/4",
+      "xp": 50,
+      "creatureType": "Undead",
+      "size": "Medium",
+      "habitat": [
+        "Planar (Shadowfell)",
+        "Underdark",
+        "Urban"
+      ],
+      "treasure": [
+        "None"
+      ],
+      "sourcePage": 0,
+      "extractionConfidence": "verified",
+      "tags": [
+        "planar-shadowfell",
+        "undead",
+        "underdark",
+        "urban"
+      ],
+      "encounterRole": "minion"
+    }
+  ]
+};

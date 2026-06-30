@@ -23,6 +23,13 @@ const homeActions = [
     eyebrow: "Magia",
   },
   {
+    title: "Dungeon Generator",
+    description: "Genera mapas estructurales, salas, encuentros, peligros y tesoro para mesa.",
+    route: "dungeon-generator",
+    icon: "map",
+    eyebrow: "DM",
+  },
+  {
     title: "Campanas y bitacora",
     description: "Administra tus campanas, registra sesiones y consulta la bitacora de aventuras.",
     href: "./campaigns/",

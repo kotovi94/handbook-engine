@@ -7,6 +7,7 @@ import { CharacterSummaryPage } from "../pages/CharacterSummaryPage.js";
 import { ClassPage } from "../pages/ClassPage.js";
 import { ClassesPage } from "../pages/ClassesPage.js";
 import { CreatorPage } from "../pages/CreatorPage.js";
+import { DungeonGeneratorPage } from "../pages/DungeonGeneratorPage.js";
 import { HomePage } from "../pages/HomePage.js";
 import { PrintSheetPage } from "../pages/PrintSheetPage.js";
 import { SearchPage } from "../pages/SearchPage.js";
@@ -88,6 +89,10 @@ export function renderRoute(route) {
 
   if (route === "search") {
     return SearchPage();
+  }
+
+  if (route === "dungeon-generator") {
+    return DungeonGeneratorPage();
   }
 
   if (route === "search:items") {
