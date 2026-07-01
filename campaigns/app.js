@@ -311,9 +311,25 @@ function formatResource(value, campaign = state) {
   return `${formatNumber(value)} ${system.unit}`;
 }
 
+function compareSessionsByRecency(a = {}, b = {}) {
+  const aNumber = Number(a.number) || 0;
+  const bNumber = Number(b.number) || 0;
+  if (aNumber !== bNumber) return aNumber - bNumber;
+  const aDate = Date.parse(`${a.date || ''}T00:00:00Z`) || Date.parse(a.createdAt || '') || 0;
+  const bDate = Date.parse(`${b.date || ''}T00:00:00Z`) || Date.parse(b.createdAt || '') || 0;
+  return aDate - bDate;
+}
+
+function getLatestCampaignSession(sessions = []) {
+  return (sessions || []).reduce((latest, session) => (
+    !latest || compareSessionsByRecency(session, latest) > 0 ? session : latest
+  ), null);
+}
+
 function getCyberpunkAwardLedger(campaign = state, sessions = campaign?.sessions || []) {
   const characters = Array.isArray(campaign?.characters) ? campaign.characters : [];
   const characterIndex = new Map(characters.map((character, index) => [character.id, { character, index }]));
+  const latestCampaignSession = getLatestCampaignSession(sessions);
   const ledger = new Map();
 
   function ensureEntry(characterId, fallbackName = 'Personaje eliminado') {
@@ -328,8 +344,11 @@ function getCyberpunkAwardLedger(campaign = state, sessions = campaign?.sessions
         player: character?.player || '',
         current: character ? Number(character.xp || 0) : null,
         assigned: 0,
+        lastSessionAssigned: 0,
         sessionCount: 0,
         latestSession: 0,
+        campaignLatestSessionNumber: Number(latestCampaignSession?.number) || 0,
+        campaignLatestSessionName: latestCampaignSession?.name || '',
         categories: new Map(),
         order: indexed?.index ?? characters.length + ledger.size,
       });
@@ -351,6 +370,9 @@ function getCyberpunkAwardLedger(campaign = state, sessions = campaign?.sessions
       const entry = ensureEntry(allocation.characterId, allocation.characterName || character?.name || 'Personaje eliminado');
       const total = Number(allocation.total || 0);
       entry.assigned += total;
+      if (session === latestCampaignSession || (latestCampaignSession?.id && session.id === latestCampaignSession.id)) {
+        entry.lastSessionAssigned += total;
+      }
       entry.sessionCount += 1;
       entry.latestSession = Math.max(entry.latestSession, Number(session.number) || 0);
 
@@ -372,12 +394,35 @@ function getCyberpunkAwardLedger(campaign = state, sessions = campaign?.sessions
 }
 
 function getCyberpunkLedgerEntry(characterId, campaign = state) {
-  return getCyberpunkAwardLedger(campaign).find(entry => entry.characterId === characterId) || { assigned: 0, sessionCount: 0, categories: [] };
+  const latestCampaignSession = getLatestCampaignSession(campaign?.sessions || []);
+  return getCyberpunkAwardLedger(campaign).find(entry => entry.characterId === characterId) || {
+    assigned: 0,
+    lastSessionAssigned: 0,
+    sessionCount: 0,
+    campaignLatestSessionNumber: Number(latestCampaignSession?.number) || 0,
+    campaignLatestSessionName: latestCampaignSession?.name || '',
+    categories: [],
+  };
 }
 
 function formatCyberpunkLedgerLine(entry = {}) {
   const count = Number(entry.sessionCount || 0);
   return `Asignado en bitacora: ${formatResource(entry.assigned || 0)} en ${formatNumber(count)} sesion${count === 1 ? '' : 'es'}`;
+}
+
+function formatCyberpunkLastSessionLine(entry = {}) {
+  const sessionNumber = Number(entry.campaignLatestSessionNumber || 0);
+  const sessionLabel = sessionNumber ? `Sesion ${formatNumber(sessionNumber)}` : 'Sin sesiones';
+  return `Ultima sesion: ${formatResource(entry.lastSessionAssigned || 0)} (${sessionLabel})`;
+}
+
+function renderCyberpunkCharacterPpSummary(entry = {}) {
+  const sessionNumber = Number(entry.campaignLatestSessionNumber || 0);
+  const sessionLabel = sessionNumber ? `Sesion ${formatNumber(sessionNumber)}` : 'Sin sesiones';
+  return `<div class="character-pp-summary">
+    <div><span>PP asignados a este personaje</span><b>${formatResource(entry.assigned || 0)}</b></div>
+    <div><span>PP asignados en ultima sesion</span><b>${formatResource(entry.lastSessionAssigned || 0)}</b><small>${escapeHTML(sessionLabel)}</small></div>
+  </div>`;
 }
 
 function getSessionStats(campaign = state) {
@@ -822,9 +867,10 @@ function characterCard(character) {
   const subtitle = [character.className, character.player ? `Jugador: ${character.player}` : ''].filter(Boolean).join(' · ') || 'Aventurero';
   const cyberpunkLedger = system.id === 'cyberpunkRed' ? getCyberpunkLedgerEntry(character.id) : null;
   const progressCaption = system.id === 'cyberpunkRed'
-    ? formatCyberpunkLedgerLine(cyberpunkLedger)
+    ? 'PP actuales o disponibles'
     : (progress.next ? `${formatResource(progress.remaining)} para nivel ${progress.level + 1}` : system.maxProgressText);
   const progressValue = system.id === 'cyberpunkRed' ? `Actual: ${formatResource(character.xp)}` : formatResource(character.xp);
+  const cyberpunkPpSummary = system.id === 'cyberpunkRed' ? renderCyberpunkCharacterPpSummary(cyberpunkLedger) : '';
   return `
     <article class="character-card">
       <div class="character-top">
@@ -834,6 +880,7 @@ function characterCard(character) {
       </div>
       <div class="progress-track"><div class="progress-fill" style="width:${progress.percent}%"></div></div>
       <div class="progress-caption"><span>${progressValue}</span><span>${progressCaption}</span></div>
+      ${cyberpunkPpSummary}
     </article>`;
 }
 
@@ -886,7 +933,7 @@ function renderCharacters() {
     const cyberpunkLedger = system.id === 'cyberpunkRed' ? getCyberpunkLedgerEntry(character.id) : null;
     const progressLabel = system.id === 'cyberpunkRed' ? `${formatNumber(character.xp)} PP actuales` : `Nivel ${progress.level}`;
     const progressHelp = system.id === 'cyberpunkRed'
-      ? formatCyberpunkLedgerLine(cyberpunkLedger)
+      ? `${formatCyberpunkLedgerLine(cyberpunkLedger)} | ${formatCyberpunkLastSessionLine(cyberpunkLedger)}`
       : (progress.next ? `${formatResource(progress.remaining)} para subir` : system.maxProgressText);
     return `<article class="character-row">
       ${characterAvatar(character)}
@@ -1219,9 +1266,10 @@ function renderCyberpunkAwardLedger(sessions, filtered = false) {
     const current = entry.current === null ? '-' : formatResource(entry.current);
     return `<tr>
       <td>${escapeHTML(player)}</td>
-      <td>${escapeHTML(entry.characterName)}${entry.latestSession ? `<small>Ultima sesion: ${formatNumber(entry.latestSession)}</small>` : ''}</td>
+      <td>${escapeHTML(entry.characterName)}${entry.latestSession ? `<small>Ultima asistencia: ${formatNumber(entry.latestSession)}</small>` : ''}</td>
       <td>${current}</td>
       <td><b>${formatResource(entry.assigned)}</b></td>
+      <td>${formatResource(entry.lastSessionAssigned || 0)}</td>
       <td>${formatNumber(entry.sessionCount)}</td>
       <td>${details}</td>
     </tr>`;
@@ -1235,7 +1283,7 @@ function renderCyberpunkAwardLedger(sessions, filtered = false) {
     </header>
     <div class="log-body">
       <table class="allocation-table cyberpunk-ledger-table">
-        <thead><tr><th>Jugador</th><th>Personaje</th><th>PP actual</th><th>PP asignados</th><th>Sesiones</th><th>Detalle</th></tr></thead>
+        <thead><tr><th>Jugador</th><th>Personaje</th><th>PP actual</th><th>PP asignados</th><th>Ultima sesion</th><th>Sesiones</th><th>Detalle</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>

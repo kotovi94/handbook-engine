@@ -138,6 +138,7 @@ body.campaigns-dark .modal .toggle-field { background-color: #181512; border-col
 .app-shell[data-appearance="dark"] .xp-pools label,
 .app-shell[data-appearance="dark"] .bonus-item,
 .app-shell[data-appearance="dark"] .toggle-field { background:rgba(255,255,255,.02); }
+.app-shell[data-appearance="dark"] .character-pp-summary div { background:#181512; border-color:var(--line); }
 .app-shell[data-appearance="dark"] .portrait-preview,
 .app-shell[data-appearance="dark"] .banner-preview,
 .app-shell[data-appearance="dark"] .font-preview { color:var(--muted); background-color:#181512; border-color:var(--line); }
@@ -228,6 +229,11 @@ h3 { font-size: 16px; }
 .progress-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--gold)); }
 .progress-caption { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 10px; }
 .progress-caption span:last-child { max-width: 68%; text-align: right; line-height: 1.35; }
+.character-pp-summary { margin-top: 13px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.character-pp-summary div { min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 7px; background: #fffcf7; }
+.character-pp-summary span { display: block; color: var(--muted); font-size: 9px; font-weight: 700; line-height: 1.25; text-transform: uppercase; }
+.character-pp-summary b { display: block; margin-top: 5px; color: var(--accent); font: 700 16px Cinzel, serif; white-space: nowrap; }
+.character-pp-summary small { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; line-height: 1.25; }
 
 .empty-state { padding: 45px 22px; border: 1px dashed #cdbfae; border-radius: 10px; color: var(--muted); background: rgba(255,255,255,.28); text-align: center; }
 .empty-state h3 { margin-bottom: 8px; color: var(--ink); }
@@ -434,6 +440,7 @@ textarea { resize: vertical; line-height: 1.5; }
   .cyberpunk-award-header { display: none; }
   .cyberpunk-award-row { grid-template-columns: 1fr; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
   .bonus-award-value { text-align: left; }
+  .character-pp-summary { grid-template-columns: 1fr; }
   .log-card-header { grid-template-columns: auto 1fr; }
   .log-card-total { grid-column: 2; text-align: left; }
   .allocation-table { display: block; overflow-x: auto; }
