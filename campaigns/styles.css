@@ -342,6 +342,11 @@ textarea { resize: vertical; line-height: 1.5; }
 .allocation-table th:first-child, .allocation-table td:first-child { text-align: left; }
 .allocation-table th { color: var(--muted); font-size: 9px; text-transform: uppercase; }
 .allocation-table td small { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.35; text-align: inherit; }
+.cyberpunk-ledger-table th:nth-child(2),
+.cyberpunk-ledger-table td:nth-child(2),
+.cyberpunk-ledger-table th:last-child,
+.cyberpunk-ledger-table td:last-child { text-align: left; }
+.cyberpunk-ledger-table td:last-child { min-width: 160px; }
 .log-footer { padding-top: 15px; display: flex; justify-content: flex-end; }
 
 .toast { position: fixed; right: 24px; bottom: 24px; padding: 12px 17px; border-radius: 7px; color: white; background: #29231d; box-shadow: var(--shadow); opacity: 0; transform: translateY(12px); pointer-events: none; transition: .25s ease; z-index: 20; }

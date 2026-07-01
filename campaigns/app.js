@@ -311,6 +311,75 @@ function formatResource(value, campaign = state) {
   return `${formatNumber(value)} ${system.unit}`;
 }
 
+function getCyberpunkAwardLedger(campaign = state, sessions = campaign?.sessions || []) {
+  const characters = Array.isArray(campaign?.characters) ? campaign.characters : [];
+  const characterIndex = new Map(characters.map((character, index) => [character.id, { character, index }]));
+  const ledger = new Map();
+
+  function ensureEntry(characterId, fallbackName = 'Personaje eliminado') {
+    const indexed = characterIndex.get(characterId);
+    const character = indexed?.character;
+    const key = character?.id || characterId || fallbackName;
+    if (!ledger.has(key)) {
+      ledger.set(key, {
+        key,
+        characterId: character?.id || characterId || '',
+        characterName: character?.name || fallbackName || 'Personaje eliminado',
+        player: character?.player || '',
+        current: character ? Number(character.xp || 0) : null,
+        assigned: 0,
+        sessionCount: 0,
+        latestSession: 0,
+        categories: new Map(),
+        order: indexed?.index ?? characters.length + ledger.size,
+      });
+    }
+
+    const entry = ledger.get(key);
+    if (character) {
+      entry.characterName = character.name || entry.characterName;
+      entry.player = character.player || entry.player;
+      entry.current = Number(character.xp || 0);
+    }
+    return entry;
+  }
+
+  characters.forEach(character => ensureEntry(character.id, character.name));
+  (sessions || []).forEach(session => {
+    (session.allocations || []).forEach(allocation => {
+      const character = characterIndex.get(allocation.characterId)?.character;
+      const entry = ensureEntry(allocation.characterId, allocation.characterName || character?.name || 'Personaje eliminado');
+      const total = Number(allocation.total || 0);
+      entry.assigned += total;
+      entry.sessionCount += 1;
+      entry.latestSession = Math.max(entry.latestSession, Number(session.number) || 0);
+
+      const details = allocation.awardDetails?.length
+        ? allocation.awardDetails
+        : [{ category: allocation.awardCategory || 'Grupo', total }];
+      details.forEach(detail => {
+        const detailTotal = Number(detail.total || 0);
+        if (!detailTotal) return;
+        const category = String(detail.category || 'Grupo').trim() || 'Grupo';
+        entry.categories.set(category, (entry.categories.get(category) || 0) + detailTotal);
+      });
+    });
+  });
+
+  return [...ledger.values()]
+    .map(entry => ({ ...entry, categories: [...entry.categories.entries()] }))
+    .sort((a, b) => a.order - b.order || b.assigned - a.assigned || a.characterName.localeCompare(b.characterName));
+}
+
+function getCyberpunkLedgerEntry(characterId, campaign = state) {
+  return getCyberpunkAwardLedger(campaign).find(entry => entry.characterId === characterId) || { assigned: 0, sessionCount: 0, categories: [] };
+}
+
+function formatCyberpunkLedgerLine(entry = {}) {
+  const count = Number(entry.sessionCount || 0);
+  return `Asignado en bitacora: ${formatResource(entry.assigned || 0)} en ${formatNumber(count)} sesion${count === 1 ? '' : 'es'}`;
+}
+
 function getSessionStats(campaign = state) {
   const sessions = Array.isArray(campaign?.sessions) ? campaign.sessions : [];
   const registered = Math.max(0, Number(campaign?.sessionCount ?? sessions.length) || 0);
@@ -751,9 +820,11 @@ function characterCard(character) {
   const system = getCampaignSystem();
   const progress = getProgress(character.xp);
   const subtitle = [character.className, character.player ? `Jugador: ${character.player}` : ''].filter(Boolean).join(' · ') || 'Aventurero';
+  const cyberpunkLedger = system.id === 'cyberpunkRed' ? getCyberpunkLedgerEntry(character.id) : null;
   const progressCaption = system.id === 'cyberpunkRed'
-    ? getCyberpunkUpgradeSummary(character.xp)
+    ? formatCyberpunkLedgerLine(cyberpunkLedger)
     : (progress.next ? `${formatResource(progress.remaining)} para nivel ${progress.level + 1}` : system.maxProgressText);
+  const progressValue = system.id === 'cyberpunkRed' ? `Actual: ${formatResource(character.xp)}` : formatResource(character.xp);
   return `
     <article class="character-card">
       <div class="character-top">
@@ -762,7 +833,7 @@ function characterCard(character) {
         <div class="level-badge">${system.progressName.toUpperCase()}<b>${system.id === 'cyberpunkRed' ? formatNumber(progress.level) : progress.level}</b></div>
       </div>
       <div class="progress-track"><div class="progress-fill" style="width:${progress.percent}%"></div></div>
-      <div class="progress-caption"><span>${formatResource(character.xp)}</span><span>${progressCaption}</span></div>
+      <div class="progress-caption"><span>${progressValue}</span><span>${progressCaption}</span></div>
     </article>`;
 }
 
@@ -812,9 +883,10 @@ function renderCharacters() {
   const system = getCampaignSystem();
   $('#character-list').innerHTML = state.characters.length ? state.characters.map(character => {
     const progress = getProgress(character.xp);
-    const progressLabel = system.id === 'cyberpunkRed' ? `${formatNumber(character.xp)} PP` : `Nivel ${progress.level}`;
+    const cyberpunkLedger = system.id === 'cyberpunkRed' ? getCyberpunkLedgerEntry(character.id) : null;
+    const progressLabel = system.id === 'cyberpunkRed' ? `${formatNumber(character.xp)} PP actuales` : `Nivel ${progress.level}`;
     const progressHelp = system.id === 'cyberpunkRed'
-      ? getCyberpunkUpgradeSummary(character.xp)
+      ? formatCyberpunkLedgerLine(cyberpunkLedger)
       : (progress.next ? `${formatResource(progress.remaining)} para subir` : system.maxProgressText);
     return `<article class="character-row">
       ${characterAvatar(character)}
@@ -1113,7 +1185,8 @@ function renderLog(query = '') {
     const awardText = session.allocations.flatMap(item => item.awardDetails?.map(detail => `${detail.reason || ''} ${detail.note || ''}`) || []).join(' ');
     return `${session.name} ${session.number} ${session.notes.combat} ${session.notes.roleplay} ${participantNames} ${awardText}`.toLowerCase().includes(normalized);
   });
-  $('#session-log').innerHTML = sessions.length ? sessions.map(session => `
+  const cyberpunkLedger = system.id === 'cyberpunkRed' && sessions.length ? renderCyberpunkAwardLedger(sessions, Boolean(normalized)) : '';
+  $('#session-log').innerHTML = sessions.length ? cyberpunkLedger + sessions.map(session => `
     <article class="log-card">
       <header class="log-card-header">
         <div class="session-seal">${session.number}</div>
@@ -1129,6 +1202,44 @@ function renderLog(query = '') {
         <footer class="log-footer"><button class="text-button danger-button delete-session" data-id="${session.id}">Eliminar sesión y revertir ${getCampaignSystem().unit}</button></footer>
       </div>
     </article>`).join('') : emptyState(normalized ? 'Sin resultados' : 'Bitácora vacía', normalized ? 'No encontramos sesiones que coincidan con la búsqueda.' : 'Registra la primera sesión para comenzar el historial.', 'new-session', 'Registrar sesión');
+}
+
+function renderCyberpunkAwardLedger(sessions, filtered = false) {
+  const entries = getCyberpunkAwardLedger(state, sessions);
+  const visibleEntries = filtered ? entries.filter(entry => entry.assigned || entry.sessionCount) : entries;
+  if (!visibleEntries.length) return '';
+
+  const assignedTotal = visibleEntries.reduce((sum, entry) => sum + entry.assigned, 0);
+  const heading = filtered ? 'Reparto filtrado por jugador' : 'Reparto acumulado por jugador';
+  const rows = visibleEntries.map(entry => {
+    const details = entry.categories.length
+      ? entry.categories.map(([category, total]) => `<small>${escapeHTML(category)}: ${formatResource(total)}</small>`).join('')
+      : '<small>Sin PP registrados</small>';
+    const player = entry.player || 'Sin jugador';
+    const current = entry.current === null ? '-' : formatResource(entry.current);
+    return `<tr>
+      <td>${escapeHTML(player)}</td>
+      <td>${escapeHTML(entry.characterName)}${entry.latestSession ? `<small>Ultima sesion: ${formatNumber(entry.latestSession)}</small>` : ''}</td>
+      <td>${current}</td>
+      <td><b>${formatResource(entry.assigned)}</b></td>
+      <td>${formatNumber(entry.sessionCount)}</td>
+      <td>${details}</td>
+    </tr>`;
+  }).join('');
+
+  return `<article class="log-card cyberpunk-ledger">
+    <header class="log-card-header">
+      <div class="session-seal">PP</div>
+      <div><h3>${heading}</h3><p>${formatNumber(visibleEntries.length)} personaje${visibleEntries.length === 1 ? '' : 's'} incluido${visibleEntries.length === 1 ? '' : 's'}</p></div>
+      <div class="log-card-total">${formatResource(assignedTotal)}<small>Total asignado</small></div>
+    </header>
+    <div class="log-body">
+      <table class="allocation-table cyberpunk-ledger-table">
+        <thead><tr><th>Jugador</th><th>Personaje</th><th>PP actual</th><th>PP asignados</th><th>Sesiones</th><th>Detalle</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </article>`;
 }
 
 function renderStandardLogTable(session, system) {
@@ -1159,11 +1270,12 @@ function renderCyberpunkLogTable(session) {
   const rows = session.allocations.flatMap(item => {
     const character = state.characters.find(entry => entry.id === item.characterId);
     const name = escapeHTML(item.characterName || character?.name || 'Personaje eliminado');
+    const characterTotal = formatResource(item.total);
     const details = item.awardDetails?.length ? item.awardDetails : [{ category: item.awardCategory || 'Grupo', reason: '', total: item.total }];
-    return details.map(detail => `<tr><td>${name}</td><td>${escapeHTML(detail.category || 'Grupo')}</td><td>${escapeHTML(detail.reason || 'Sin motivo registrado')}</td><td><b>${formatResource(detail.total)}</b></td></tr>`);
+    return details.map(detail => `<tr><td>${name}</td><td><b>${characterTotal}</b></td><td>${escapeHTML(detail.category || 'Grupo')}</td><td>${escapeHTML(detail.reason || 'Sin motivo registrado')}</td><td><b>${formatResource(detail.total)}</b></td></tr>`);
   }).join('');
   return `<table class="allocation-table">
-    <thead><tr><th>Personaje</th><th>Columna</th><th>Motivo</th><th>PP otorgados</th></tr></thead>
+    <thead><tr><th>Personaje</th><th>Total personaje</th><th>Columna</th><th>Motivo</th><th>PP motivo</th></tr></thead>
     <tbody>${rows}</tbody>
   </table>`;
 }
