@@ -1,4 +1,19 @@
 import { remoteStorage } from './remoteStorage.js';
+import {
+  CAMPAIGN_MODEL_VERSION,
+  CAMPAIGN_VISIBILITY_PRESETS,
+  getCampaignVisibilityLabel,
+  getCampaignVisibilityPresetId,
+  normalizeCampaignCharacterRecord,
+  normalizeCampaignConnection,
+  normalizeCampaignEntity,
+  normalizeCampaignImage,
+  normalizeCampaignLink,
+  normalizeCampaignSession,
+  normalizeCampaignVisibility,
+  normalizeCampaignWorkspace,
+  normalizeDmToolState,
+} from './campaignModel.js';
 import { setupPageBridge } from '../src/scripts/pageBridge.js';
 
 const STORAGE_KEY = 'd20-travesias-archivo-v2';
@@ -157,6 +172,122 @@ const DND_XP_REWARDS = [
   { id: 'noncombat-fumble', bullet: 29, action: 'Pifia fuera de combate (habilidad)', xp: -5, note: 'Cuando genera consecuencias graves o muy costosas. Opcional segun el tono del juego.' },
   { id: 'memorable-fumble', bullet: 30, action: 'Pifia epica bien roleada', xp: 5, note: 'Recompensa si el jugador convierte el fallo en un momento memorable y divertido.' },
 ];
+const WORKSPACE_ENTITY_CONFIGS = [
+  { collection: 'notes', type: 'note', label: 'Nota', plural: 'Notas', emptyTitle: 'Nueva nota' },
+  { collection: 'places', type: 'place', label: 'Lugar', plural: 'Lugares', emptyTitle: 'Nuevo lugar' },
+  { collection: 'cities', type: 'city', label: 'Ciudad', plural: 'Ciudades', emptyTitle: 'Nueva ciudad' },
+  { collection: 'factions', type: 'faction', label: 'Facción', plural: 'Facciones', emptyTitle: 'Nueva facción' },
+  { collection: 'missions', type: 'mission', label: 'Misión', plural: 'Misiones', emptyTitle: 'Nueva misión' },
+  { collection: 'secrets', type: 'secret', label: 'Secreto', plural: 'Secretos', emptyTitle: 'Nuevo secreto' },
+];
+const WORKSPACE_COLLECTIONS = WORKSPACE_ENTITY_CONFIGS.map(config => config.collection);
+const WORKSPACE_IMAGE_MAX_BYTES = 2 * 1024 * 1024;
+const DM_TOOL_CONFIGS = [
+  { type: 'scene', label: 'Escena', plural: 'Escenas', fields: [
+    { key: 'purpose', label: 'Propósito' },
+    { key: 'pressure', label: 'Presión' },
+    { key: 'twist', label: 'Giro' },
+  ] },
+  { type: 'encounter', label: 'Encuentro', plural: 'Encuentros', fields: [
+    { key: 'goal', label: 'Objetivo' },
+    { key: 'terrain', label: 'Terreno' },
+    { key: 'complication', label: 'Complicación' },
+  ] },
+  { type: 'trap', label: 'Trampa', plural: 'Trampas', fields: [
+    { key: 'trigger', label: 'Detonante' },
+    { key: 'tell', label: 'Señal' },
+    { key: 'consequence', label: 'Consecuencia' },
+  ] },
+  { type: 'hazard', label: 'Peligro', plural: 'Peligros', fields: [
+    { key: 'source', label: 'Fuente' },
+    { key: 'zone', label: 'Zona' },
+    { key: 'escalation', label: 'Escalada' },
+  ] },
+  { type: 'reward', label: 'Recompensa', plural: 'Recompensas', fields: [
+    { key: 'type', label: 'Tipo' },
+    { key: 'value', label: 'Valor' },
+    { key: 'condition', label: 'Condición' },
+  ] },
+  { type: 'faction', label: 'Facción', plural: 'Facciones', fields: [
+    { key: 'desire', label: 'Deseo' },
+    { key: 'resource', label: 'Recurso' },
+    { key: 'pressure', label: 'Presión' },
+  ] },
+  { type: 'settlement', label: 'Asentamiento', plural: 'Asentamientos', fields: [
+    { key: 'trait', label: 'Rasgo' },
+    { key: 'problem', label: 'Problema' },
+    { key: 'opportunity', label: 'Oportunidad' },
+  ] },
+  { type: 'dungeon', label: 'Mazmorra', plural: 'Mazmorras', fields: [
+    { key: 'theme', label: 'Tema' },
+    { key: 'entrance', label: 'Entrada' },
+    { key: 'secret', label: 'Secreto' },
+  ] },
+  { type: 'npc', label: 'PNJ', plural: 'PNJ', fields: [
+    { key: 'role', label: 'Rol' },
+    { key: 'desire', label: 'Deseo' },
+    { key: 'secret', label: 'Secreto' },
+  ] },
+  { type: 'clock', label: 'Reloj', plural: 'Relojes', fields: [
+    { key: 'progress', label: 'Avance' },
+    { key: 'trigger', label: 'Disparador' },
+    { key: 'outcome', label: 'Resultado' },
+  ] },
+];
+const DM_TOOL_STATUSES = [
+  { id: 'draft', label: 'Borrador' },
+  { id: 'ready', label: 'Listo' },
+  { id: 'active', label: 'Activo' },
+  { id: 'resolved', label: 'Resuelto' },
+  { id: 'archived', label: 'Archivado' },
+];
+const ONBOARDING_STEPS = [
+  {
+    id: 'overview',
+    view: 'dashboard',
+    kicker: 'Mapa general',
+    title: 'Empieza por el resumen',
+    copy: 'El resumen concentra el estado de la campaña, el buscador global y los accesos rápidos para seguir preparando la mesa.',
+    points: ['Busca cualquier texto guardado dentro de la campaña.', 'Abre resultados de páginas, sesiones, personajes, recursos y herramientas DM.', 'Usa los accesos rápidos para pasar de preparación a registro de sesión.'],
+    action: 'Abrir resumen',
+  },
+  {
+    id: 'pages',
+    view: 'notes',
+    kicker: 'Diario vivo',
+    title: 'Escribe páginas enlazables',
+    copy: 'Páginas funciona como un diario de campaña para notas, lugares, ciudades, facciones, misiones y secretos.',
+    points: ['Usa visibilidad para separar borradores DM de contenido revelado.', 'Escribe [[Nombre]] para enlazar a otra página, personaje, sesión o herramienta.', 'Filtra por tipo y busca por título, etiqueta o contenido.'],
+    action: 'Abrir páginas',
+  },
+  {
+    id: 'resources',
+    view: 'notes',
+    kicker: 'Recursos',
+    title: 'Adjunta imágenes y links',
+    copy: 'Cada página puede guardar recursos útiles para describir escenas, pistas, lugares o referencias de mesa.',
+    points: ['Sube imágenes locales en PNG, JPG o WebP.', 'Guarda hipervínculos con una etiqueta legible.', 'Los recursos también aparecen en búsqueda y pueden entrar al tablero.'],
+    action: 'Abrir recursos',
+  },
+  {
+    id: 'board',
+    view: 'board',
+    kicker: 'Tablero detective',
+    title: 'Une puntos visualmente',
+    copy: 'El tablero conecta personajes, páginas, sesiones, imágenes, links y herramientas DM sin duplicar la información original.',
+    points: ['Añade nodos desde la biblioteca lateral.', 'Conecta dos nodos, etiqueta la relación y cambia el orden de pistas.', 'Mueve, elimina, deshace y rehace cambios mientras preparas.'],
+    action: 'Abrir tablero',
+  },
+  {
+    id: 'dm-tools',
+    view: 'tools',
+    kicker: 'Mesa del DM',
+    title: 'Prepara con herramientas DM',
+    copy: 'Herramientas DM guarda escenas, encuentros, trampas, peligros, recompensas, facciones, asentamientos, mazmorras, PNJ y relojes.',
+    points: ['Cada herramienta tiene estado, visibilidad, etiquetas y campos rápidos.', 'Puedes enlazarlas desde páginas con [[Nombre]].', 'También puedes llevarlas al tablero para relacionarlas con pistas y lugares.'],
+    action: 'Abrir DM',
+  },
+];
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -170,6 +301,19 @@ let state = null;
 let pendingBanner = '';
 let pendingCharacterPortrait = '';
 let pendingUnlockAction = 'open';
+let activeWorkspaceCollection = 'notes';
+let activeWorkspaceEntityId = '';
+let activeDmToolType = 'scene';
+let activeDmToolId = '';
+let activeOnboardingStep = 0;
+let activeBoardId = 'main';
+let selectedBoardNodeId = '';
+let selectedBoardConnectionId = '';
+let boardConnectMode = false;
+let boardConnectSourceNodeId = '';
+let boardDrag = null;
+let boardUndoStack = [];
+let boardRedoStack = [];
 const unlockedCampaigns = new Set();
 const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 let globalAppearance = loadGlobalAppearance();
@@ -295,15 +439,13 @@ function normalizeCampaign(campaign) {
     systemId: system.id,
     system: system.name,
     characters: Array.isArray(campaign.characters) ? campaign.characters.map(normalizeCharacter) : [],
-    sessions: Array.isArray(campaign.sessions) ? campaign.sessions : [],
+    sessions: Array.isArray(campaign.sessions) ? campaign.sessions.map(normalizeCampaignSession) : [],
+    workspace: normalizeCampaignWorkspace(campaign),
   };
 }
 
 function normalizeCharacter(character) {
-  return {
-    ...character,
-    portrait: character.portrait || character.image || character.avatar || '',
-  };
+  return normalizeCampaignCharacterRecord(character);
 }
 
 function formatResource(value, campaign = state) {
@@ -524,6 +666,7 @@ function activateCampaign(campaign) {
   const app = $('#campaign-app');
   activeCampaignId = campaign.id;
   state = campaign;
+  resetBoardRuntimeState();
   $('#campaigns-home').classList.add('hidden');
   app.classList.remove('hidden');
   app.dataset.theme = theme;
@@ -541,6 +684,7 @@ function activateCampaign(campaign) {
   renderAll();
   renderSessionForm();
   navigate('dashboard');
+  queueCampaignOnboarding();
 }
 
 function updateAccessMode() {
@@ -846,6 +990,1744 @@ function showToast(message) {
   showToast.timer = setTimeout(() => toast.classList.remove('show'), 2400);
 }
 
+function clampOnboardingStep(index = 0) {
+  return Math.min(Math.max(Number(index) || 0, 0), ONBOARDING_STEPS.length - 1);
+}
+
+function getCampaignOnboarding() {
+  const workspace = ensureWorkspace();
+  const current = workspace.onboarding || {};
+  workspace.onboarding = {
+    firstVisitAt: current.firstVisitAt || '',
+    completedSteps: Array.isArray(current.completedSteps) ? current.completedSteps : [],
+    dismissedAt: current.dismissedAt || '',
+  };
+  return workspace.onboarding;
+}
+
+function updateCampaignOnboarding(patch = {}) {
+  if (!state) return null;
+  const workspace = ensureWorkspace();
+  const current = getCampaignOnboarding();
+  workspace.onboarding = {
+    ...current,
+    ...patch,
+    completedSteps: [...new Set(patch.completedSteps || current.completedSteps || [])],
+  };
+  persistActiveCampaign();
+  return workspace.onboarding;
+}
+
+function markCampaignOnboardingStep(stepId) {
+  const onboarding = getCampaignOnboarding();
+  const nextSteps = [...new Set([...(onboarding.completedSteps || []), stepId])];
+  if (onboarding.completedSteps.length !== nextSteps.length) updateCampaignOnboarding({ completedSteps: nextSteps });
+}
+
+function renderCampaignOnboarding() {
+  const modal = $('#onboarding-modal');
+  if (!modal) return;
+  const step = ONBOARDING_STEPS[activeOnboardingStep];
+  $('#onboarding-progress').textContent = `Paso ${activeOnboardingStep + 1} de ${ONBOARDING_STEPS.length}`;
+  $('#onboarding-kicker').textContent = step.kicker;
+  $('#onboarding-step-title').textContent = step.title;
+  $('#onboarding-copy').textContent = step.copy;
+  $('#onboarding-points').innerHTML = step.points.map(point => `<li>${escapeHTML(point)}</li>`).join('');
+  $('#onboarding-stepper').innerHTML = ONBOARDING_STEPS.map((item, index) => (
+    `<button type="button" class="${index === activeOnboardingStep ? 'active' : ''}" data-onboarding-step="${index}" aria-label="Abrir paso ${index + 1}">${index + 1}<span>${escapeHTML(item.kicker)}</span></button>`
+  )).join('');
+  $('#onboarding-prev').disabled = activeOnboardingStep === 0;
+  $('#onboarding-next').textContent = activeOnboardingStep === ONBOARDING_STEPS.length - 1 ? 'Finalizar' : 'Siguiente';
+  $('#onboarding-open-section').textContent = step.action;
+  $('#onboarding-open-section').dataset.onboardingView = step.view;
+  markCampaignOnboardingStep(step.id);
+}
+
+function showCampaignOnboarding(options = {}) {
+  if (!state) return;
+  if (isSummaryOnlyMode()) {
+    if (options.manual) requestCampaignUnlock(state, 'open');
+    return;
+  }
+  const onboarding = getCampaignOnboarding();
+  if (!options.manual && onboarding.dismissedAt) return;
+  activeOnboardingStep = clampOnboardingStep(options.step ?? activeOnboardingStep);
+  if (!onboarding.firstVisitAt) updateCampaignOnboarding({ firstVisitAt: new Date().toISOString() });
+  renderCampaignOnboarding();
+  $('#onboarding-modal')?.classList.remove('hidden');
+  $('#onboarding-next')?.focus();
+}
+
+function queueCampaignOnboarding() {
+  window.setTimeout(() => {
+    if (!state || isSummaryOnlyMode()) return;
+    const onboarding = getCampaignOnboarding();
+    if (!onboarding.dismissedAt) showCampaignOnboarding({ step: 0 });
+  }, 350);
+}
+
+function hideCampaignOnboarding() {
+  $('#onboarding-modal')?.classList.add('hidden');
+}
+
+function dismissCampaignOnboarding(complete = false) {
+  const patch = { dismissedAt: new Date().toISOString() };
+  if (complete) patch.completedSteps = ONBOARDING_STEPS.map(step => step.id);
+  updateCampaignOnboarding(patch);
+  hideCampaignOnboarding();
+  showToast(complete ? 'Tutorial completado.' : 'Tutorial cerrado. Puedes reabrirlo desde Ver tutorial.');
+}
+
+function openCampaignOnboardingSection() {
+  const step = ONBOARDING_STEPS[activeOnboardingStep];
+  if (!step?.view) return;
+  navigate(step.view);
+  hideCampaignOnboarding();
+  showToast('Tutorial pausado. Puedes volver desde Ver tutorial.');
+}
+
+function normalizeSearchText(value = '') {
+  return String(value)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+function getWorkspaceConfig(collection = activeWorkspaceCollection) {
+  return WORKSPACE_ENTITY_CONFIGS.find(config => config.collection === collection) || WORKSPACE_ENTITY_CONFIGS[0];
+}
+
+function getWorkspaceConfigByType(type = '') {
+  return WORKSPACE_ENTITY_CONFIGS.find(config => config.type === type) || WORKSPACE_ENTITY_CONFIGS[0];
+}
+
+function ensureWorkspace() {
+  if (!state) return normalizeCampaignWorkspace({});
+  const workspace = state.workspace;
+  const needsNormalization = !workspace
+    || typeof workspace !== 'object'
+    || workspace.schemaVersion !== CAMPAIGN_MODEL_VERSION
+    || !Array.isArray(workspace.boards)
+    || !Array.isArray(workspace.dmTools)
+    || !workspace.onboarding
+    || !Array.isArray(workspace.onboarding.completedSteps);
+  if (needsNormalization) state.workspace = normalizeCampaignWorkspace(state);
+  return state.workspace;
+}
+
+function persistActiveCampaign() {
+  if (!state) return;
+  state = normalizeCampaign(state);
+  portfolio.campaigns = portfolio.campaigns.map(campaign => campaign.id === state.id ? state : campaign);
+  saveState();
+}
+
+function workspaceTypeOptions(selected = activeWorkspaceCollection, includeAll = false) {
+  const allOption = includeAll ? `<option value="all"${selected === 'all' ? ' selected' : ''}>Todo</option>` : '';
+  return allOption + WORKSPACE_ENTITY_CONFIGS
+    .map(config => `<option value="${config.collection}"${config.collection === selected ? ' selected' : ''}>${config.plural}</option>`)
+    .join('');
+}
+
+function visibilityOptions(selectedVisibility = {}) {
+  const selected = getCampaignVisibilityPresetId(selectedVisibility);
+  return Object.values(CAMPAIGN_VISIBILITY_PRESETS)
+    .map(preset => `<option value="${preset.id}"${preset.id === selected ? ' selected' : ''}>${preset.label}</option>`)
+    .join('');
+}
+
+function visibilityFromPreset(presetId) {
+  const preset = Object.values(CAMPAIGN_VISIBILITY_PRESETS).find(item => item.id === presetId);
+  return normalizeCampaignVisibility(preset?.visibility);
+}
+
+function parseTags(value = '') {
+  return String(value)
+    .split(',')
+    .map(tag => tag.trim())
+    .filter(Boolean);
+}
+
+function getWorkspaceEntities() {
+  const workspace = ensureWorkspace();
+  return WORKSPACE_ENTITY_CONFIGS.flatMap(config => (
+    (workspace[config.collection] || []).map(entity => ({ ...entity, collection: config.collection, config }))
+  ));
+}
+
+function getWorkspaceEntity(collection, id) {
+  const workspace = ensureWorkspace();
+  return (workspace[collection] || []).find(entity => entity.id === id) || null;
+}
+
+function findWorkspaceEntityByType(type, id) {
+  const config = getWorkspaceConfigByType(type);
+  return getWorkspaceEntity(config.collection, id);
+}
+
+function getMentionCandidates() {
+  const workspaceEntities = getWorkspaceEntities().map(entity => ({
+    id: entity.id,
+    type: entity.type,
+    title: entity.title,
+    label: entity.config.label,
+    collection: entity.collection,
+  }));
+  const characters = (state?.characters || []).map(character => ({
+    id: character.id,
+    type: 'character',
+    title: character.name,
+    label: character.kind === 'npc' ? 'PNJ' : 'Personaje',
+  }));
+  const sessions = (state?.sessions || []).map(session => ({
+    id: session.id,
+    type: 'session',
+    title: `Sesión ${session.number}: ${session.name}`,
+    label: 'Sesión',
+  }));
+  const dmTools = getDmTools().map(tool => ({
+    id: tool.id,
+    type: 'dmTool',
+    title: tool.title,
+    label: tool.config.label,
+  }));
+  return [...workspaceEntities, ...dmTools, ...characters, ...sessions].filter(item => item.id && item.title);
+}
+
+function getMentionIndex() {
+  return getMentionCandidates().reduce((index, item) => {
+    index.set(normalizeSearchText(item.title), item);
+    return index;
+  }, new Map());
+}
+
+function extractMentionRefs(text = '') {
+  const index = getMentionIndex();
+  return [...String(text).matchAll(/\[\[([^\]]+)\]\]/g)]
+    .map(match => index.get(normalizeSearchText(match[1].trim())))
+    .filter(Boolean)
+    .map(item => ({ type: item.type, id: item.id, title: item.title }));
+}
+
+function safeHref(value = '') {
+  try {
+    const parsed = new URL(String(value).replace(/&amp;/g, '&'), window.location.href);
+    if (['http:', 'https:', 'mailto:'].includes(parsed.protocol)) return escapeHTML(parsed.href);
+  } catch (error) {
+    return '#';
+  }
+  return '#';
+}
+
+function renderEditorInline(text = '') {
+  const mentionIndex = getMentionIndex();
+  let html = escapeHTML(text);
+  html = html.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, label, url) => (
+    `<a href="${safeHref(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`
+  ));
+  html = html.replace(/\[\[([^\]]+)\]\]/g, (_, label) => {
+    const entity = mentionIndex.get(normalizeSearchText(label.trim()));
+    if (!entity) return `<span class="workspace-mention missing">${label}</span>`;
+    return `<button type="button" class="workspace-mention" data-entity-type="${escapeHTML(entity.type)}" data-entity-id="${escapeHTML(entity.id)}">${label}</button>`;
+  });
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  return html;
+}
+
+function renderEditorPreview(text = '') {
+  const lines = String(text).split(/\r?\n/);
+  if (!lines.some(line => line.trim())) return '<p class="workspace-preview-empty">Sin contenido todavía.</p>';
+  return lines.map(line => {
+    if (!line.trim()) return '<div class="workspace-preview-spacer"></div>';
+    if (line.startsWith('### ')) return `<h4>${renderEditorInline(line.slice(4))}</h4>`;
+    if (line.startsWith('## ')) return `<h3>${renderEditorInline(line.slice(3))}</h3>`;
+    if (line.startsWith('# ')) return `<h2>${renderEditorInline(line.slice(2))}</h2>`;
+    const check = line.match(/^- \[( |x)\] (.+)$/i);
+    if (check) return `<p class="workspace-preview-check"><span>${check[1].toLowerCase() === 'x' ? '✓' : ''}</span>${renderEditorInline(check[2])}</p>`;
+    if (/^[-*] /.test(line)) return `<p class="workspace-preview-bullet">${renderEditorInline(line.slice(2))}</p>`;
+    if (line.startsWith('> ')) return `<blockquote>${renderEditorInline(line.slice(2))}</blockquote>`;
+    return `<p>${renderEditorInline(line)}</p>`;
+  }).join('');
+}
+
+function renderMentionSuggestions() {
+  const suggestions = $('#workspace-mention-suggestions');
+  if (!suggestions) return;
+  const candidates = getMentionCandidates().slice(0, 16);
+  suggestions.innerHTML = candidates.length
+    ? candidates.map(item => `<button type="button" data-mention-title="${escapeHTML(item.title)}">${escapeHTML(item.title)}<small>${escapeHTML(item.label)}</small></button>`).join('')
+    : '<span>Guarda páginas o personajes para enlazarlos aquí.</span>';
+}
+
+function renderWorkspaceTypeControls() {
+  const typeFilter = $('#workspace-type-filter');
+  const entryType = $('#workspace-entry-type');
+  if (typeFilter) typeFilter.innerHTML = workspaceTypeOptions(typeFilter.value || 'all', true);
+  if (entryType) entryType.innerHTML = workspaceTypeOptions(activeWorkspaceCollection, false);
+  const visibility = $('#workspace-entry-visibility');
+  if (visibility && !visibility.options.length) visibility.innerHTML = visibilityOptions(CAMPAIGN_VISIBILITY_PRESETS.dmDraft.visibility);
+}
+
+function currentWorkspaceEditorEntity() {
+  const id = $('#workspace-entry-id')?.value;
+  const collection = $('#workspace-entry-original-collection')?.value || activeWorkspaceCollection;
+  return id ? getWorkspaceEntity(collection, id) : null;
+}
+
+function parseResourceIds(value = '') {
+  return String(value || '').split(',').map(id => id.trim()).filter(Boolean);
+}
+
+function uniqueResourceIds(ids = []) {
+  return [...new Set(ids.map(id => String(id || '').trim()).filter(Boolean))];
+}
+
+function getWorkspaceResourceIds(kind) {
+  const input = kind === 'image' ? $('#workspace-entry-image-ids') : $('#workspace-entry-link-ids');
+  return parseResourceIds(input?.value || '');
+}
+
+function setWorkspaceResourceIds(kind, ids = []) {
+  const input = kind === 'image' ? $('#workspace-entry-image-ids') : $('#workspace-entry-link-ids');
+  if (input) input.value = uniqueResourceIds(ids).join(',');
+}
+
+function getWorkspaceImage(id) {
+  return (ensureWorkspace().images || []).find(image => image.id === id) || null;
+}
+
+function getWorkspaceLink(id) {
+  return (ensureWorkspace().links || []).find(link => link.id === id) || null;
+}
+
+function findWorkspaceEntityUsingResource(kind, id) {
+  const field = kind === 'image' ? 'imageIds' : 'linkIds';
+  return getWorkspaceEntities().find(entity => (entity[field] || []).includes(id)) || null;
+}
+
+function normalizeExternalUrl(value = '') {
+  try {
+    const raw = String(value || '').trim();
+    const normalized = /^[a-z][a-z\d+.-]*:/i.test(raw) ? raw : `https://${raw}`;
+    const parsed = new URL(normalized);
+    if (['http:', 'https:', 'mailto:'].includes(parsed.protocol)) return parsed.href;
+  } catch (error) {
+    return '';
+  }
+  return '';
+}
+
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => resolve(reader.result));
+    reader.addEventListener('error', () => reject(reader.error));
+    reader.readAsDataURL(file);
+  });
+}
+
+function resourceTitleFromFile(fileName = '') {
+  return String(fileName || 'Imagen').replace(/\.[^.]+$/, '').trim() || 'Imagen';
+}
+
+function syncCurrentWorkspaceEntityAssets() {
+  const entity = currentWorkspaceEditorEntity();
+  if (!entity) return;
+  entity.imageIds = getWorkspaceResourceIds('image');
+  entity.linkIds = getWorkspaceResourceIds('link');
+  entity.updatedAt = new Date().toISOString();
+  persistActiveCampaign();
+  renderWorkspaceList();
+  renderCampaignSearch();
+  if ($('#board-view')?.classList.contains('active')) renderBoard();
+}
+
+function renderWorkspaceResources() {
+  const list = $('#workspace-resource-list');
+  if (!list) return;
+  const images = getWorkspaceResourceIds('image').map(getWorkspaceImage).filter(Boolean);
+  const links = getWorkspaceResourceIds('link').map(getWorkspaceLink).filter(Boolean);
+  const items = [
+    ...images.map(image => ({ kind: 'image', item: image })),
+    ...links.map(link => ({ kind: 'link', item: link })),
+  ];
+
+  if (!items.length) {
+    list.innerHTML = emptyState('Sin recursos adjuntos', 'Esta página todavía no tiene imágenes ni links asociados.', '', '');
+    return;
+  }
+
+  list.innerHTML = items.map(({ kind, item }) => {
+    if (kind === 'image') {
+      return `<article class="workspace-resource-card image-resource">
+        <img src="${escapeHTML(item.src)}" alt="${escapeHTML(item.alt || item.title)}">
+        <div><span class="workspace-entry-type">Imagen</span><strong>${escapeHTML(item.title)}</strong><small>${escapeHTML(item.caption || item.alt || 'Sin descripción')}</small></div>
+        <button type="button" class="text-button danger-button" data-resource-remove-type="image" data-resource-remove-id="${escapeHTML(item.id)}">Quitar</button>
+      </article>`;
+    }
+    return `<article class="workspace-resource-card link-resource">
+      <div><span class="workspace-entry-type">Link</span><strong>${escapeHTML(item.label || item.title)}</strong><small>${escapeHTML(item.url)}</small></div>
+      <a class="text-button" href="${safeHref(item.url)}" target="_blank" rel="noopener noreferrer">Abrir</a>
+      <button type="button" class="text-button danger-button" data-resource-remove-type="link" data-resource-remove-id="${escapeHTML(item.id)}">Quitar</button>
+    </article>`;
+  }).join('');
+}
+
+async function addWorkspaceImage(event) {
+  const input = event.target;
+  const file = input.files?.[0];
+  input.value = '';
+  if (!file) return;
+  if (USE_REMOTE_STORAGE) return showToast('Los recursos de campaña todavía guardan solo en modo local.');
+  if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) {
+    showToast('Usa una imagen PNG, JPG o WebP.');
+    return;
+  }
+  if (file.size > WORKSPACE_IMAGE_MAX_BYTES) {
+    showToast('La imagen supera el límite local de 2 MB.');
+    return;
+  }
+
+  const workspace = ensureWorkspace();
+  const previousImages = [...(workspace.images || [])];
+  const previousIds = getWorkspaceResourceIds('image');
+  try {
+    const dataUrl = await fileToDataUrl(file);
+    const now = new Date().toISOString();
+    const image = normalizeCampaignImage({
+      id: uid(),
+      title: resourceTitleFromFile(file.name),
+      src: dataUrl,
+      alt: file.name,
+      caption: '',
+      mimeType: file.type,
+      size: file.size,
+      visibility: visibilityFromPreset($('#workspace-entry-visibility').value),
+      createdAt: now,
+      updatedAt: now,
+    });
+    workspace.images.push(image);
+    setWorkspaceResourceIds('image', [...previousIds, image.id]);
+    persistActiveCampaign();
+    syncCurrentWorkspaceEntityAssets();
+    renderWorkspaceResources();
+    renderCampaignSearch();
+    if ($('#board-view')?.classList.contains('active')) renderBoard();
+    showToast('Imagen adjuntada.');
+  } catch (error) {
+    ensureWorkspace().images = previousImages;
+    setWorkspaceResourceIds('image', previousIds);
+    showToast('No se pudo guardar la imagen.');
+  }
+}
+
+function addWorkspaceLink() {
+  if (USE_REMOTE_STORAGE) return showToast('Los recursos de campaña todavía guardan solo en modo local.');
+  const url = normalizeExternalUrl($('#workspace-link-url').value);
+  if (!url) {
+    $('#workspace-link-url').focus();
+    showToast('Ingresa una URL válida.');
+    return;
+  }
+
+  const workspace = ensureWorkspace();
+  const previousLinks = [...(workspace.links || [])];
+  const previousIds = getWorkspaceResourceIds('link');
+  const existing = workspace.links.find(link => link.url === url);
+  const label = $('#workspace-link-label').value.trim() || existing?.label || new URL(url).hostname || url;
+  const now = new Date().toISOString();
+  const link = existing || normalizeCampaignLink({
+    id: uid(),
+    title: label,
+    label,
+    url,
+    source: 'manual',
+    visibility: visibilityFromPreset($('#workspace-entry-visibility').value),
+    createdAt: now,
+    updatedAt: now,
+  });
+
+  try {
+    if (!existing) workspace.links.push(link);
+    setWorkspaceResourceIds('link', [...previousIds, link.id]);
+    $('#workspace-link-label').value = '';
+    $('#workspace-link-url').value = '';
+    persistActiveCampaign();
+    syncCurrentWorkspaceEntityAssets();
+    renderWorkspaceResources();
+    renderCampaignSearch();
+    if ($('#board-view')?.classList.contains('active')) renderBoard();
+    showToast('Link adjuntado.');
+  } catch (error) {
+    ensureWorkspace().links = previousLinks;
+    setWorkspaceResourceIds('link', previousIds);
+    showToast('No se pudo guardar el link.');
+  }
+}
+
+function detachWorkspaceResource(kind, id) {
+  const previousIds = getWorkspaceResourceIds(kind);
+  setWorkspaceResourceIds(kind, previousIds.filter(item => item !== id));
+  try {
+    syncCurrentWorkspaceEntityAssets();
+  } catch (error) {
+    setWorkspaceResourceIds(kind, previousIds);
+    showToast('No se pudo quitar el recurso.');
+    return;
+  }
+  renderWorkspaceResources();
+  showToast('Recurso quitado de la página.');
+}
+
+function getDmToolConfig(type = activeDmToolType) {
+  return DM_TOOL_CONFIGS.find(config => config.type === type) || DM_TOOL_CONFIGS[0];
+}
+
+function dmToolTypeOptions(selected = activeDmToolType, includeAll = false) {
+  const allOption = includeAll ? `<option value="all"${selected === 'all' ? ' selected' : ''}>Todo</option>` : '';
+  return allOption + DM_TOOL_CONFIGS
+    .map(config => `<option value="${config.type}"${config.type === selected ? ' selected' : ''}>${config.plural}</option>`)
+    .join('');
+}
+
+function dmToolStatusOptions(selected = 'draft') {
+  return DM_TOOL_STATUSES
+    .map(status => `<option value="${status.id}"${status.id === selected ? ' selected' : ''}>${status.label}</option>`)
+    .join('');
+}
+
+function getDmToolStatusLabel(value = 'draft') {
+  return DM_TOOL_STATUSES.find(status => status.id === value)?.label || 'Borrador';
+}
+
+function getDmTools() {
+  const workspace = ensureWorkspace();
+  return (workspace.dmTools || []).map(tool => ({ ...tool, config: getDmToolConfig(tool.toolType) }));
+}
+
+function getDmTool(id) {
+  return getDmTools().find(tool => tool.id === id) || null;
+}
+
+function renderDmToolTypeControls() {
+  const typeFilter = $('#dm-tool-type-filter');
+  const typeInput = $('#dm-tool-type');
+  if (typeFilter) typeFilter.innerHTML = dmToolTypeOptions(typeFilter.value || 'all', true);
+  if (typeInput) typeInput.innerHTML = dmToolTypeOptions(activeDmToolType, false);
+  const status = $('#dm-tool-status');
+  if (status && !status.options.length) status.innerHTML = dmToolStatusOptions('draft');
+  const visibility = $('#dm-tool-visibility');
+  if (visibility && !visibility.options.length) visibility.innerHTML = visibilityOptions(CAMPAIGN_VISIBILITY_PRESETS.dmDraft.visibility);
+}
+
+function renderDmToolFields(tool = null) {
+  const container = $('#dm-tool-dynamic-fields');
+  if (!container) return;
+  const config = getDmToolConfig($('#dm-tool-type')?.value || activeDmToolType);
+  const data = tool?.data || {};
+  container.innerHTML = config.fields.map(field => (
+    `<label>${escapeHTML(field.label)}<input class="dm-tool-data-field" data-tool-field="${escapeHTML(field.key)}" maxlength="180" value="${escapeHTML(data[field.key] || '')}"></label>`
+  )).join('');
+}
+
+function readDmToolData() {
+  return $$('.dm-tool-data-field').reduce((data, input) => {
+    data[input.dataset.toolField] = input.value.trim();
+    return data;
+  }, {});
+}
+
+function renderDmToolList() {
+  const list = $('#dm-tool-list');
+  if (!list) return;
+  const typeFilter = $('#dm-tool-type-filter')?.value || 'all';
+  const query = normalizeSearchText($('#dm-tool-search')?.value || '');
+  const tools = getDmTools()
+    .filter(tool => typeFilter === 'all' || tool.toolType === typeFilter)
+    .filter(tool => {
+      if (!query) return true;
+      const searchable = [
+        tool.title,
+        tool.summary,
+        tool.content?.plainText,
+        tool.config.label,
+        getDmToolStatusLabel(tool.status),
+        getCampaignVisibilityLabel(tool.visibility),
+        ...(tool.tags || []),
+        ...Object.values(tool.data || {}),
+      ].join(' ');
+      return normalizeSearchText(searchable).includes(query);
+    })
+    .sort((a, b) => String(b.updatedAt || b.createdAt).localeCompare(String(a.updatedAt || a.createdAt)));
+
+  if (!tools.length) {
+    list.innerHTML = emptyState(query ? 'Sin resultados' : 'Sin herramientas', query ? 'No hay herramientas que coincidan con la búsqueda.' : 'Crea la primera herramienta para preparar tu mesa.', '', '');
+    return;
+  }
+
+  list.innerHTML = tools.map(tool => {
+    const selected = tool.id === activeDmToolId;
+    const tags = (tool.tags || []).slice(0, 3).map(tag => `<span>${escapeHTML(tag)}</span>`).join('');
+    return `<button type="button" class="dm-tool-card${selected ? ' active' : ''}" data-dm-tool-id="${escapeHTML(tool.id)}">
+      <span class="workspace-entry-type">${escapeHTML(tool.config.label)} · ${escapeHTML(getDmToolStatusLabel(tool.status))}</span>
+      <strong>${escapeHTML(tool.title)}</strong>
+      <small>${escapeHTML(tool.summary || tool.content?.plainText || 'Sin resumen')}</small>
+      ${tags ? `<span class="workspace-entry-tags">${tags}</span>` : ''}
+    </button>`;
+  }).join('');
+}
+
+function clearDmToolForm(type = activeDmToolType) {
+  const config = getDmToolConfig(type);
+  activeDmToolType = config.type;
+  activeDmToolId = '';
+  $('#dm-tool-id').value = '';
+  $('#dm-tool-type').value = config.type;
+  $('#dm-tool-status').innerHTML = dmToolStatusOptions('draft');
+  $('#dm-tool-visibility').innerHTML = visibilityOptions(CAMPAIGN_VISIBILITY_PRESETS.dmDraft.visibility);
+  $('#dm-tool-title').value = '';
+  $('#dm-tool-summary').value = '';
+  $('#dm-tool-tags').value = '';
+  $('#dm-tool-notes').value = '';
+  $('#dm-tool-editor-title').textContent = `Nueva ${config.label.toLowerCase()}`;
+  $('#delete-dm-tool').classList.add('hidden');
+  renderDmToolFields();
+  renderDmToolList();
+}
+
+function loadDmTool(id) {
+  const tool = getDmTool(id);
+  if (!tool) return clearDmToolForm(activeDmToolType);
+  activeDmToolId = tool.id;
+  activeDmToolType = tool.toolType;
+  $('#dm-tool-id').value = tool.id;
+  $('#dm-tool-type').value = tool.toolType;
+  $('#dm-tool-status').innerHTML = dmToolStatusOptions(tool.status);
+  $('#dm-tool-visibility').innerHTML = visibilityOptions(tool.visibility);
+  $('#dm-tool-title').value = tool.title || '';
+  $('#dm-tool-summary').value = tool.summary || '';
+  $('#dm-tool-tags').value = (tool.tags || []).join(', ');
+  $('#dm-tool-notes').value = tool.content?.plainText || '';
+  $('#dm-tool-editor-title').textContent = `Editar ${tool.config.label.toLowerCase()}`;
+  $('#delete-dm-tool').classList.remove('hidden');
+  renderDmToolFields(tool);
+  renderDmToolList();
+}
+
+function renderDmTools() {
+  if (!state) return;
+  ensureWorkspace();
+  renderDmToolTypeControls();
+  $('#dm-tool-remote-warning')?.classList.toggle('hidden', !USE_REMOTE_STORAGE);
+  const activeExists = activeDmToolId && getDmTool(activeDmToolId);
+  if (activeExists) loadDmTool(activeDmToolId);
+  else clearDmToolForm(activeDmToolType);
+}
+
+function saveDmTool(event) {
+  event.preventDefault();
+  if (USE_REMOTE_STORAGE) return showToast('Las herramientas DM todavía guardan solo en modo local.');
+  const title = $('#dm-tool-title').value.trim();
+  if (!title) {
+    $('#dm-tool-title').focus();
+    showToast('Ponle un título a la herramienta.');
+    return;
+  }
+  const workspace = ensureWorkspace();
+  const id = $('#dm-tool-id').value || uid();
+  const previous = getDmTool(id);
+  const now = new Date().toISOString();
+  const toolType = $('#dm-tool-type').value;
+  const tool = normalizeDmToolState({
+    id,
+    title,
+    summary: $('#dm-tool-summary').value.trim(),
+    content: { format: 'dm-tool-v1', plainText: $('#dm-tool-notes').value.trim(), blocks: [] },
+    tags: parseTags($('#dm-tool-tags').value),
+    visibility: visibilityFromPreset($('#dm-tool-visibility').value),
+    toolType,
+    status: $('#dm-tool-status').value,
+    data: readDmToolData(),
+    createdAt: previous?.createdAt || now,
+    updatedAt: now,
+  });
+
+  workspace.dmTools = (workspace.dmTools || []).filter(entry => entry.id !== id);
+  workspace.dmTools.push(tool);
+  activeDmToolId = id;
+  activeDmToolType = toolType;
+  persistActiveCampaign();
+  loadDmTool(id);
+  renderCampaignSearch();
+  if ($('#board-view')?.classList.contains('active')) renderBoard();
+  showToast('Herramienta guardada.');
+}
+
+function deleteDmTool() {
+  if (USE_REMOTE_STORAGE) return showToast('Las herramientas DM todavía guardan solo en modo local.');
+  const id = $('#dm-tool-id').value;
+  const tool = getDmTool(id);
+  if (!tool || !confirm(`¿Eliminar "${tool.title}"?`)) return;
+  const workspace = ensureWorkspace();
+  const key = `dmTool:${id}`;
+  workspace.dmTools = (workspace.dmTools || []).filter(entry => entry.id !== id);
+  workspace.connections = (workspace.connections || []).filter(connection => (
+    boardEndpointKey(connection.from) !== key && boardEndpointKey(connection.to) !== key
+  ));
+  workspace.boards = (workspace.boards || []).map(board => ({
+    ...board,
+    nodes: (board.nodes || []).filter(node => !(node.entityType === 'dmTool' && node.entityId === id)),
+  }));
+  persistActiveCampaign();
+  clearDmToolForm(tool.toolType);
+  renderCampaignSearch();
+  if ($('#board-view')?.classList.contains('active')) renderBoard();
+  showToast('Herramienta eliminada.');
+}
+
+function renderWorkspaceList() {
+  const list = $('#workspace-entity-list');
+  if (!list) return;
+  const typeFilter = $('#workspace-type-filter')?.value || 'all';
+  const query = normalizeSearchText($('#workspace-search')?.value || '');
+  const items = getWorkspaceEntities()
+    .filter(entity => typeFilter === 'all' || entity.collection === typeFilter)
+    .filter(entity => {
+      if (!query) return true;
+      const searchable = [
+        entity.title,
+        entity.summary,
+        entity.content?.plainText,
+        ...(entity.tags || []),
+        getCampaignVisibilityLabel(entity.visibility),
+        entity.config.label,
+      ].join(' ');
+      return normalizeSearchText(searchable).includes(query);
+    })
+    .sort((a, b) => String(b.updatedAt || b.createdAt).localeCompare(String(a.updatedAt || a.createdAt)));
+
+  if (!items.length) {
+    list.innerHTML = emptyState(query ? 'Sin resultados' : 'Sin páginas', query ? 'No hay páginas que coincidan con la búsqueda.' : 'Crea la primera página de campaña para empezar a enlazar tu mundo.', '', '');
+    return;
+  }
+
+  list.innerHTML = items.map(entity => {
+    const selected = entity.id === activeWorkspaceEntityId && entity.collection === activeWorkspaceCollection;
+    const tags = (entity.tags || []).slice(0, 3).map(tag => `<span>${escapeHTML(tag)}</span>`).join('');
+    return `<button type="button" class="workspace-entry-card${selected ? ' active' : ''}" data-workspace-collection="${entity.collection}" data-workspace-id="${entity.id}">
+      <span class="workspace-entry-type">${escapeHTML(entity.config.label)} · ${escapeHTML(getCampaignVisibilityLabel(entity.visibility))}</span>
+      <strong>${escapeHTML(entity.title)}</strong>
+      <small>${escapeHTML(entity.summary || entity.content?.plainText || 'Sin resumen')}</small>
+      ${tags ? `<span class="workspace-entry-tags">${tags}</span>` : ''}
+    </button>`;
+  }).join('');
+}
+
+function updateWorkspacePreview() {
+  const preview = $('#workspace-entry-preview');
+  if (!preview) return;
+  const body = $('#workspace-entry-body')?.value || '';
+  preview.innerHTML = renderEditorPreview(body);
+  const mentions = extractMentionRefs(body);
+  $('#workspace-preview-meta').textContent = mentions.length
+    ? `${mentions.length} vínculo${mentions.length === 1 ? '' : 's'} interno${mentions.length === 1 ? '' : 's'}`
+    : 'Sin vínculos internos';
+}
+
+function clearWorkspaceEditor(collection = activeWorkspaceCollection) {
+  const config = getWorkspaceConfig(collection);
+  activeWorkspaceCollection = config.collection;
+  activeWorkspaceEntityId = '';
+  $('#workspace-entry-id').value = '';
+  $('#workspace-entry-original-collection').value = '';
+  $('#workspace-entry-type').value = config.collection;
+  $('#workspace-entry-visibility').innerHTML = visibilityOptions(CAMPAIGN_VISIBILITY_PRESETS.dmDraft.visibility);
+  $('#workspace-entry-title').value = '';
+  $('#workspace-entry-summary').value = '';
+  $('#workspace-entry-tags').value = '';
+  $('#workspace-entry-body').value = '';
+  $('#workspace-entry-image-ids').value = '';
+  $('#workspace-entry-link-ids').value = '';
+  $('#workspace-editor-title').textContent = config.emptyTitle;
+  $('#delete-workspace-entry').classList.add('hidden');
+  renderMentionSuggestions();
+  updateWorkspacePreview();
+  renderWorkspaceResources();
+  renderWorkspaceList();
+}
+
+function loadWorkspaceEntity(collection, id) {
+  const entity = getWorkspaceEntity(collection, id);
+  if (!entity) return clearWorkspaceEditor(collection);
+  activeWorkspaceCollection = collection;
+  activeWorkspaceEntityId = id;
+  const config = getWorkspaceConfig(collection);
+  $('#workspace-entry-id').value = entity.id;
+  $('#workspace-entry-original-collection').value = collection;
+  $('#workspace-entry-type').value = collection;
+  $('#workspace-entry-visibility').innerHTML = visibilityOptions(entity.visibility);
+  $('#workspace-entry-title').value = entity.title || '';
+  $('#workspace-entry-summary').value = entity.summary || '';
+  $('#workspace-entry-tags').value = (entity.tags || []).join(', ');
+  $('#workspace-entry-body').value = entity.content?.plainText || '';
+  $('#workspace-entry-image-ids').value = (entity.imageIds || []).join(',');
+  $('#workspace-entry-link-ids').value = (entity.linkIds || []).join(',');
+  $('#workspace-editor-title').textContent = `Editar ${config.label.toLowerCase()}`;
+  $('#delete-workspace-entry').classList.remove('hidden');
+  renderMentionSuggestions();
+  updateWorkspacePreview();
+  renderWorkspaceResources();
+  renderWorkspaceList();
+}
+
+function renderWorkspaceEditor() {
+  if (!state) return;
+  ensureWorkspace();
+  renderWorkspaceTypeControls();
+  $('#workspace-remote-warning')?.classList.toggle('hidden', !USE_REMOTE_STORAGE);
+  const activeExists = activeWorkspaceEntityId && getWorkspaceEntity(activeWorkspaceCollection, activeWorkspaceEntityId);
+  if (activeExists) loadWorkspaceEntity(activeWorkspaceCollection, activeWorkspaceEntityId);
+  else clearWorkspaceEditor(activeWorkspaceCollection);
+}
+
+function insertAtCursor(textarea, value) {
+  const start = textarea.selectionStart ?? textarea.value.length;
+  const end = textarea.selectionEnd ?? textarea.value.length;
+  textarea.value = `${textarea.value.slice(0, start)}${value}${textarea.value.slice(end)}`;
+  const cursor = start + value.length;
+  textarea.focus();
+  textarea.setSelectionRange(cursor, cursor);
+  updateWorkspacePreview();
+}
+
+function handleEditorInsert(kind) {
+  const textarea = $('#workspace-entry-body');
+  if (!textarea) return;
+  if (kind === 'heading') return insertAtCursor(textarea, '# ');
+  if (kind === 'bullet') return insertAtCursor(textarea, '- ');
+  if (kind === 'check') return insertAtCursor(textarea, '- [ ] ');
+  if (kind === 'quote') return insertAtCursor(textarea, '> ');
+  if (kind === 'link') {
+    const label = prompt('Texto del link');
+    if (!label) return;
+    const url = prompt('URL');
+    if (!url) return;
+    return insertAtCursor(textarea, `[${label}](${url})`);
+  }
+  if (kind === 'mention') {
+    const title = prompt('Nombre exacto de la página, personaje o sesión');
+    if (!title) return;
+    return insertAtCursor(textarea, `[[${title}]]`);
+  }
+}
+
+function saveWorkspaceEntity(event) {
+  event.preventDefault();
+  if (USE_REMOTE_STORAGE) {
+    showToast('El editor de páginas todavía guarda solo en modo local.');
+    return;
+  }
+  const collection = $('#workspace-entry-type').value;
+  const config = getWorkspaceConfig(collection);
+  const title = $('#workspace-entry-title').value.trim();
+  if (!title) {
+    $('#workspace-entry-title').focus();
+    showToast('Ponle un título a la página.');
+    return;
+  }
+
+  const workspace = ensureWorkspace();
+  const now = new Date().toISOString();
+  const id = $('#workspace-entry-id').value || uid();
+  const body = $('#workspace-entry-body').value.trim();
+  const previous = currentWorkspaceEditorEntity();
+  const mentions = extractMentionRefs(body);
+  const entity = normalizeCampaignEntity(config.type, {
+    id,
+    title,
+    summary: $('#workspace-entry-summary').value.trim(),
+    content: { format: 'campaign-markdown-v1', plainText: body, blocks: [] },
+    tags: parseTags($('#workspace-entry-tags').value),
+    visibility: visibilityFromPreset($('#workspace-entry-visibility').value),
+    imageIds: getWorkspaceResourceIds('image'),
+    linkIds: getWorkspaceResourceIds('link'),
+    relatedIds: mentions.map(item => item.id),
+    metadata: { ...(previous?.metadata || {}), mentions },
+    createdAt: previous?.createdAt || now,
+    updatedAt: now,
+  });
+
+  WORKSPACE_COLLECTIONS.forEach(name => {
+    workspace[name] = (workspace[name] || []).filter(item => item.id !== id);
+  });
+  workspace[collection].push(entity);
+  activeWorkspaceCollection = collection;
+  activeWorkspaceEntityId = id;
+  persistActiveCampaign();
+  loadWorkspaceEntity(collection, id);
+  renderCampaignSearch();
+  if ($('#board-view')?.classList.contains('active')) renderBoard();
+  showToast('Página guardada.');
+}
+
+function deleteWorkspaceEntity() {
+  if (USE_REMOTE_STORAGE) {
+    showToast('El editor de páginas todavía guarda solo en modo local.');
+    return;
+  }
+  const id = $('#workspace-entry-id').value;
+  const collection = $('#workspace-entry-original-collection').value || activeWorkspaceCollection;
+  const entity = getWorkspaceEntity(collection, id);
+  if (!entity || !confirm(`¿Eliminar "${entity.title}"?`)) return;
+  const workspace = ensureWorkspace();
+  workspace[collection] = (workspace[collection] || []).filter(item => item.id !== id);
+  workspace.connections = (workspace.connections || []).filter(connection => (
+    !(connection.from?.type === entity.type && connection.from?.id === id)
+    && !(connection.to?.type === entity.type && connection.to?.id === id)
+  ));
+  workspace.boards = (workspace.boards || []).map(board => ({
+    ...board,
+    nodes: (board.nodes || []).filter(node => !(node.entityType === entity.type && node.entityId === id)),
+  }));
+  persistActiveCampaign();
+  clearWorkspaceEditor(collection);
+  renderCampaignSearch();
+  if ($('#board-view')?.classList.contains('active')) renderBoard();
+  showToast('Página eliminada.');
+}
+
+function openMentionTarget(type, id) {
+  if (type === 'character') {
+    navigate('characters');
+    return;
+  }
+  if (type === 'session') {
+    navigate('log');
+    const session = state.sessions.find(entry => entry.id === id);
+    if (session) {
+      $('#log-search').value = session.name;
+      renderLog(session.name);
+    }
+    return;
+  }
+  if (type === 'image' || type === 'link') {
+    const owner = findWorkspaceEntityUsingResource(type, id);
+    navigate('notes');
+    if (owner) loadWorkspaceEntity(owner.collection, owner.id);
+    else showToast('Recurso guardado en la campaña, sin página asociada.');
+    return;
+  }
+  if (type === 'dmTool') {
+    navigate('tools');
+    loadDmTool(id);
+    return;
+  }
+  const config = getWorkspaceConfigByType(type);
+  if (findWorkspaceEntityByType(type, id)) {
+    navigate('notes');
+    loadWorkspaceEntity(config.collection, id);
+  }
+}
+
+function compactText(value = '', maxLength = 170) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (text.length <= maxLength) return text;
+  return `${text.slice(0, maxLength - 3)}...`;
+}
+
+function sessionParticipantNames(session = {}) {
+  return (session.allocations || [])
+    .map(item => item.characterName || state.characters.find(character => character.id === item.characterId)?.name || '')
+    .filter(Boolean)
+    .join(' ');
+}
+
+function sessionAwardText(session = {}) {
+  return (session.allocations || [])
+    .flatMap(item => [
+      item.awardCategory,
+      ...((item.awardDetails || []).flatMap(detail => [detail.category, detail.reason, detail.note])),
+    ])
+    .filter(Boolean)
+    .join(' ');
+}
+
+function getCampaignSearchItems() {
+  if (!state) return [];
+  const workspace = ensureWorkspace();
+  const workspaceItems = getWorkspaceEntities().map(entity => {
+    const tags = (entity.tags || []).join(' ');
+    const body = [entity.summary, entity.content?.plainText].filter(Boolean).join(' ');
+    return {
+      id: entity.id,
+      resultType: 'workspace',
+      filterType: entity.collection,
+      collection: entity.collection,
+      label: entity.config.label,
+      title: entity.title,
+      meta: [getCampaignVisibilityLabel(entity.visibility), tags].filter(Boolean).join(' · '),
+      excerpt: compactText(body || 'Sin resumen'),
+      titleText: normalizeSearchText(entity.title),
+      metaText: normalizeSearchText(`${entity.config.label} ${getCampaignVisibilityLabel(entity.visibility)} ${tags}`),
+      bodyText: normalizeSearchText(body),
+      sortDate: Date.parse(entity.updatedAt || entity.createdAt || '') || 0,
+    };
+  });
+
+  const imageItems = (workspace.images || []).map(image => ({
+    id: image.id,
+    resultType: 'image',
+    filterType: 'image',
+    label: 'Imagen',
+    title: image.title,
+    meta: [getCampaignVisibilityLabel(image.visibility), image.mimeType].filter(Boolean).join(' · '),
+    excerpt: compactText(image.caption || image.alt || 'Imagen de campaña'),
+    titleText: normalizeSearchText(image.title),
+    metaText: normalizeSearchText(`${getCampaignVisibilityLabel(image.visibility)} ${image.mimeType || ''}`),
+    bodyText: normalizeSearchText(`${image.caption || ''} ${image.alt || ''}`),
+    sortDate: Date.parse(image.updatedAt || image.createdAt || '') || 0,
+  }));
+
+  const linkItems = (workspace.links || []).map(link => ({
+    id: link.id,
+    resultType: 'link',
+    filterType: 'link',
+    label: 'Link',
+    title: link.label || link.title,
+    meta: link.url,
+    excerpt: compactText(link.summary || link.source || link.url),
+    titleText: normalizeSearchText(`${link.label || ''} ${link.title || ''}`),
+    metaText: normalizeSearchText(link.url),
+    bodyText: normalizeSearchText(`${link.summary || ''} ${link.source || ''}`),
+    sortDate: Date.parse(link.updatedAt || link.createdAt || '') || 0,
+  }));
+
+  const dmToolItems = getDmTools().map(tool => ({
+    id: tool.id,
+    resultType: 'dmTool',
+    filterType: 'dmTool',
+    label: tool.config.label,
+    title: tool.title,
+    meta: [getDmToolStatusLabel(tool.status), getCampaignVisibilityLabel(tool.visibility)].filter(Boolean).join(' · '),
+    excerpt: compactText(tool.summary || tool.content?.plainText || Object.values(tool.data || {}).join(' ') || 'Sin resumen'),
+    titleText: normalizeSearchText(tool.title),
+    metaText: normalizeSearchText(`${tool.config.label} ${getDmToolStatusLabel(tool.status)} ${(tool.tags || []).join(' ')}`),
+    bodyText: normalizeSearchText(`${tool.summary || ''} ${tool.content?.plainText || ''} ${Object.values(tool.data || {}).join(' ')}`),
+    sortDate: Date.parse(tool.updatedAt || tool.createdAt || '') || 0,
+  }));
+
+  const sessionItems = (state.sessions || []).map(session => {
+    const participants = sessionParticipantNames(session);
+    const awards = sessionAwardText(session);
+    const notes = [session.notes?.combat, session.notes?.roleplay].filter(Boolean).join(' ');
+    return {
+      id: session.id,
+      resultType: 'session',
+      filterType: 'session',
+      label: 'Sesión',
+      title: `Sesión ${session.number}: ${session.name}`,
+      meta: `${formatDate(session.date)} · ${session.allocations?.length || 0} participante${session.allocations?.length === 1 ? '' : 's'}`,
+      excerpt: compactText(notes || participants || 'Sin notas'),
+      titleText: normalizeSearchText(`${session.name} ${session.number}`),
+      metaText: normalizeSearchText(`${formatDate(session.date)} ${participants}`),
+      bodyText: normalizeSearchText(`${notes} ${awards}`),
+      sortDate: Date.parse(session.date || session.createdAt || '') || 0,
+    };
+  });
+
+  const characterItems = (state.characters || []).map(character => {
+    const notes = character.notes?.plainText || '';
+    return {
+      id: character.id,
+      resultType: 'character',
+      filterType: 'character',
+      collection: '',
+      label: character.kind === 'npc' ? 'PNJ' : 'Personaje',
+      title: character.name,
+      meta: [character.className, character.player].filter(Boolean).join(' · ') || 'Sin detalle',
+      excerpt: compactText(notes || `Progreso actual: ${formatResource(character.xp)}`),
+      titleText: normalizeSearchText(character.name),
+      metaText: normalizeSearchText(`${character.className || ''} ${character.player || ''} ${character.kind || ''}`),
+      bodyText: normalizeSearchText(notes),
+      sortDate: Date.parse(character.updatedAt || character.createdAt || '') || 0,
+    };
+  });
+
+  return [...workspaceItems, ...imageItems, ...linkItems, ...dmToolItems, ...sessionItems, ...characterItems];
+}
+
+function scoreCampaignSearchItem(item, terms = []) {
+  if (!terms.length) return 1;
+  return terms.reduce((score, term) => {
+    if (item.titleText.includes(term)) return score + 45;
+    if (item.metaText.includes(term)) return score + 24;
+    if (item.bodyText.includes(term)) return score + 12;
+    return Number.NEGATIVE_INFINITY;
+  }, 0);
+}
+
+function renderCampaignSearch() {
+  const results = $('#campaign-search-results');
+  if (!results || !state) return;
+  const meta = $('#campaign-search-meta');
+  if (isSummaryOnlyMode()) {
+    if (meta) meta.textContent = 'Campaña protegida';
+    results.innerHTML = emptyState('Campaña protegida', 'Desbloquea la campaña para buscar en su archivo.', '', '');
+    return;
+  }
+
+  const query = normalizeSearchText($('#campaign-global-search')?.value || '');
+  const terms = query.split(/\s+/).filter(Boolean);
+  const filter = $('#campaign-global-filter')?.value || 'all';
+  const allItems = getCampaignSearchItems()
+    .filter(item => filter === 'all' || item.filterType === filter || (filter === 'workspace' && item.resultType === 'workspace'));
+  const matchedItems = allItems
+    .map(item => ({ ...item, score: scoreCampaignSearchItem(item, terms) }))
+    .filter(item => !terms.length || item.score > 0)
+    .sort((a, b) => (terms.length ? b.score - a.score : b.sortDate - a.sortDate) || b.sortDate - a.sortDate);
+  const visibleItems = matchedItems.slice(0, 12);
+
+  if (meta) {
+    const label = matchedItems.length === 1 ? 'resultado' : 'resultados';
+    meta.textContent = terms.length ? `${matchedItems.length} ${label}` : `${visibleItems.length} recientes`;
+  }
+
+  if (!visibleItems.length) {
+    results.innerHTML = emptyState(query ? 'Sin resultados' : 'Sin contenido', query ? 'No encontramos coincidencias en esta campaña.' : 'La campaña todavía no tiene contenido para listar.', '', '');
+    return;
+  }
+
+  results.innerHTML = visibleItems.map(item => `
+    <button type="button" class="campaign-search-result" data-result-type="${escapeHTML(item.resultType)}" data-result-id="${escapeHTML(item.id)}" data-result-collection="${escapeHTML(item.collection || '')}">
+      <span class="campaign-search-type">${escapeHTML(item.label)}</span>
+      <strong>${escapeHTML(item.title)}</strong>
+      <small>${escapeHTML(item.meta)}</small>
+      <p>${escapeHTML(item.excerpt)}</p>
+    </button>
+  `).join('');
+}
+
+function openCampaignSearchResult(resultType, id, collection = '') {
+  if (resultType === 'workspace') {
+    const targetCollection = collection || WORKSPACE_COLLECTIONS.find(name => getWorkspaceEntity(name, id));
+    if (!targetCollection) return;
+    navigate('notes');
+    loadWorkspaceEntity(targetCollection, id);
+    return;
+  }
+  if (resultType === 'session') {
+    const session = state.sessions.find(entry => entry.id === id);
+    navigate('log');
+    if (session) {
+      $('#log-search').value = session.name;
+      renderLog(session.name);
+    }
+    return;
+  }
+  if (resultType === 'character') navigate('characters');
+  if (resultType === 'image' || resultType === 'link') {
+    const owner = findWorkspaceEntityUsingResource(resultType, id);
+    navigate('notes');
+    if (owner) loadWorkspaceEntity(owner.collection, owner.id);
+    else showToast('Recurso guardado en la campaña, sin página asociada.');
+  }
+  if (resultType === 'dmTool') {
+    navigate('tools');
+    loadDmTool(id);
+  }
+}
+
+function resetBoardRuntimeState() {
+  activeBoardId = 'main';
+  selectedBoardNodeId = '';
+  selectedBoardConnectionId = '';
+  boardConnectMode = false;
+  boardConnectSourceNodeId = '';
+  boardDrag = null;
+  boardUndoStack = [];
+  boardRedoStack = [];
+}
+
+function captureBoardState() {
+  const workspace = ensureWorkspace();
+  return JSON.parse(JSON.stringify({
+    boards: workspace.boards || [],
+    connections: workspace.connections || [],
+  }));
+}
+
+function restoreBoardState(snapshot) {
+  if (!snapshot) return;
+  const workspace = ensureWorkspace();
+  workspace.boards = JSON.parse(JSON.stringify(snapshot.boards || []));
+  workspace.connections = JSON.parse(JSON.stringify(snapshot.connections || []));
+  selectedBoardNodeId = '';
+  selectedBoardConnectionId = '';
+  boardConnectSourceNodeId = '';
+  persistActiveCampaign();
+  renderBoard();
+}
+
+function pushBoardHistory(snapshot = captureBoardState()) {
+  boardUndoStack.push(snapshot);
+  if (boardUndoStack.length > 30) boardUndoStack.shift();
+  boardRedoStack = [];
+}
+
+function canMutateBoard() {
+  if (!USE_REMOTE_STORAGE) return true;
+  showToast('El tablero todavía guarda solo en modo local.');
+  return false;
+}
+
+function getActiveBoard() {
+  const workspace = ensureWorkspace();
+  let board = (workspace.boards || []).find(entry => entry.id === activeBoardId);
+  if (!board) {
+    board = { id: activeBoardId, title: 'Tablero principal', nodes: [], viewport: { x: 0, y: 0, zoom: 1 }, updatedAt: '' };
+    workspace.boards = [...(workspace.boards || []), board];
+  }
+  return board;
+}
+
+function getBoardConnections() {
+  const workspace = ensureWorkspace();
+  return (workspace.connections || [])
+    .filter(connection => (connection.boardId || 'main') === activeBoardId)
+    .sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
+}
+
+function boardNodeKey(node = {}) {
+  return `${node.entityType}:${node.entityId}`;
+}
+
+function boardEndpointKey(endpoint = {}) {
+  return `${endpoint.type}:${endpoint.id}`;
+}
+
+function boardEntityColor(type = '') {
+  return ({
+    note: '#9b4e35',
+    place: '#4f7a68',
+    city: '#426a91',
+    faction: '#7a4a83',
+    mission: '#9a6d2f',
+    secret: '#7a2f42',
+    image: '#8a6f2d',
+    link: '#3f728a',
+    dmTool: '#80613a',
+    character: '#b97a45',
+    session: '#5e667a',
+  })[type] || '#735f43';
+}
+
+function getBoardCandidates() {
+  const workspace = ensureWorkspace();
+  const workspaceEntities = getWorkspaceEntities().map(entity => ({
+    id: entity.id,
+    type: entity.type,
+    collection: entity.collection,
+    label: entity.config.label,
+    title: entity.title,
+    meta: [getCampaignVisibilityLabel(entity.visibility), (entity.tags || []).join(', ')].filter(Boolean).join(' · '),
+    excerpt: compactText(entity.summary || entity.content?.plainText || 'Sin resumen', 130),
+    visibility: entity.visibility,
+    color: boardEntityColor(entity.type),
+  }));
+  const characters = (state?.characters || []).map(character => ({
+    id: character.id,
+    type: 'character',
+    collection: '',
+    label: character.kind === 'npc' ? 'PNJ' : 'Personaje',
+    title: character.name,
+    meta: [character.className, character.player].filter(Boolean).join(' · ') || 'Sin detalle',
+    excerpt: compactText(character.notes?.plainText || `Progreso actual: ${formatResource(character.xp)}`, 130),
+    visibility: character.visibility,
+    color: character.color || boardEntityColor('character'),
+  }));
+  const sessions = (state?.sessions || []).map(session => ({
+    id: session.id,
+    type: 'session',
+    collection: '',
+    label: 'Sesión',
+    title: `Sesión ${session.number}: ${session.name}`,
+    meta: formatDate(session.date),
+    excerpt: compactText([session.notes?.combat, session.notes?.roleplay, sessionParticipantNames(session)].filter(Boolean).join(' '), 130) || 'Sin notas',
+    visibility: session.visibility,
+    color: boardEntityColor('session'),
+  }));
+  const images = (workspace.images || []).map(image => ({
+    id: image.id,
+    type: 'image',
+    collection: '',
+    label: 'Imagen',
+    title: image.title,
+    meta: [getCampaignVisibilityLabel(image.visibility), image.mimeType].filter(Boolean).join(' · '),
+    excerpt: compactText(image.caption || image.alt || 'Imagen de campaña', 130),
+    visibility: image.visibility,
+    color: boardEntityColor('image'),
+    src: image.src,
+  }));
+  const links = (workspace.links || []).map(link => ({
+    id: link.id,
+    type: 'link',
+    collection: '',
+    label: 'Link',
+    title: link.label || link.title,
+    meta: link.url,
+    excerpt: compactText(link.summary || link.source || link.url, 130),
+    visibility: link.visibility,
+    color: boardEntityColor('link'),
+    url: link.url,
+  }));
+  const dmTools = getDmTools().map(tool => ({
+    id: tool.id,
+    type: 'dmTool',
+    collection: '',
+    label: tool.config.label,
+    title: tool.title,
+    meta: getDmToolStatusLabel(tool.status),
+    excerpt: compactText(tool.summary || tool.content?.plainText || Object.values(tool.data || {}).join(' ') || 'Herramienta DM', 130),
+    visibility: tool.visibility,
+    color: boardEntityColor('dmTool'),
+  }));
+  return [...workspaceEntities, ...images, ...links, ...dmTools, ...characters, ...sessions].filter(item => item.id && item.title);
+}
+
+function getBoardEntity(type, id) {
+  return getBoardCandidates().find(item => item.type === type && item.id === id) || null;
+}
+
+function renderBoardLibrary() {
+  const list = $('#board-library-list');
+  if (!list) return;
+  const query = normalizeSearchText($('#board-library-search')?.value || '');
+  const board = getActiveBoard();
+  const added = new Set((board.nodes || []).map(boardNodeKey));
+  const candidates = getBoardCandidates()
+    .filter(item => {
+      if (!query) return true;
+      return normalizeSearchText(`${item.title} ${item.label} ${item.meta} ${item.excerpt}`).includes(query);
+    })
+    .slice(0, 40);
+
+  if (!candidates.length) {
+    list.innerHTML = emptyState(query ? 'Sin resultados' : 'Sin elementos', query ? 'No encontramos contenido para añadir al tablero.' : 'Crea páginas, personajes o sesiones para llenar el tablero.', '', '');
+    return;
+  }
+
+  list.innerHTML = candidates.map(item => {
+    const inBoard = added.has(`${item.type}:${item.id}`);
+    return `<button type="button" class="board-library-card${inBoard ? ' in-board' : ''}" data-board-add-type="${escapeHTML(item.type)}" data-board-add-id="${escapeHTML(item.id)}">
+      <span class="workspace-entry-type">${escapeHTML(item.label)}${inBoard ? ' · En tablero' : ''}</span>
+      <strong>${escapeHTML(item.title)}</strong>
+      <small>${escapeHTML(item.excerpt)}</small>
+    </button>`;
+  }).join('');
+}
+
+function renderBoardToolbar() {
+  const board = getActiveBoard();
+  const connections = getBoardConnections();
+  const selected = selectedBoardNodeId || selectedBoardConnectionId;
+  const sourceNode = board.nodes.find(node => node.id === boardConnectSourceNodeId);
+  const sourceEntity = sourceNode ? getBoardEntity(sourceNode.entityType, sourceNode.entityId) : null;
+  $('#board-status').textContent = sourceEntity
+    ? `Conectando: ${sourceEntity.title}`
+    : `${board.nodes.length} nodo${board.nodes.length === 1 ? '' : 's'} · ${connections.length} conexión${connections.length === 1 ? '' : 'es'}`;
+  $('#board-connect-mode')?.classList.toggle('is-active', boardConnectMode);
+  $('#board-connect-mode').textContent = boardConnectMode ? 'Conectando' : 'Conectar';
+  $('#board-delete-selection').disabled = !selected;
+  $('#board-undo').disabled = !boardUndoStack.length;
+  $('#board-redo').disabled = !boardRedoStack.length;
+}
+
+function renderBoardNodes() {
+  const layer = $('#board-nodes-layer');
+  if (!layer) return;
+  const board = getActiveBoard();
+  if (!board.nodes.length) {
+    layer.innerHTML = '<div class="board-empty"><h3>Sin nodos</h3><p>El tablero está listo para recibir contenido de campaña.</p></div>';
+    return;
+  }
+
+  layer.innerHTML = board.nodes.map(node => {
+    const entity = getBoardEntity(node.entityType, node.entityId);
+    const selected = node.id === selectedBoardNodeId;
+    const connecting = node.id === boardConnectSourceNodeId;
+    const title = entity?.title || 'Elemento eliminado';
+    const label = entity?.label || node.entityType || 'Elemento';
+    const excerpt = entity?.excerpt || 'Este contenido ya no existe en la campaña.';
+    const color = node.color || entity?.color || boardEntityColor(node.entityType);
+    return `<button type="button" class="board-node${selected ? ' selected' : ''}${connecting ? ' connecting' : ''}" data-board-node-id="${escapeHTML(node.id)}" style="left:${Number(node.x) || 0}px;top:${Number(node.y) || 0}px;width:${Number(node.width) || 220}px;--node-color:${escapeHTML(color)}">
+      <span>${escapeHTML(label)}</span>
+      ${entity?.type === 'image' && entity.src ? `<img src="${escapeHTML(entity.src)}" alt="${escapeHTML(title)}">` : ''}
+      <strong>${escapeHTML(title)}</strong>
+      <small>${escapeHTML(excerpt)}</small>
+    </button>`;
+  }).join('');
+}
+
+function renderBoardConnections() {
+  const svg = $('#board-connections');
+  const boardElement = $('#connection-board');
+  if (!svg || !boardElement) return;
+  const board = getActiveBoard();
+  const nodeByKey = new Map((board.nodes || []).map(node => [boardNodeKey(node), node]));
+  const width = Math.max(boardElement.scrollWidth, boardElement.clientWidth, 920);
+  const height = Math.max(boardElement.scrollHeight, boardElement.clientHeight, 640);
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  svg.setAttribute('width', width);
+  svg.setAttribute('height', height);
+  svg.innerHTML = getBoardConnections().map(connection => {
+    const fromNode = nodeByKey.get(boardEndpointKey(connection.from));
+    const toNode = nodeByKey.get(boardEndpointKey(connection.to));
+    if (!fromNode || !toNode) return '';
+    const fromEl = $(`.board-node[data-board-node-id="${CSS.escape(fromNode.id)}"]`);
+    const toEl = $(`.board-node[data-board-node-id="${CSS.escape(toNode.id)}"]`);
+    if (!fromEl || !toEl) return '';
+    const x1 = fromEl.offsetLeft + fromEl.offsetWidth / 2;
+    const y1 = fromEl.offsetTop + fromEl.offsetHeight / 2;
+    const x2 = toEl.offsetLeft + toEl.offsetWidth / 2;
+    const y2 = toEl.offsetTop + toEl.offsetHeight / 2;
+    const dx = Math.max(80, Math.abs(x2 - x1) * .45);
+    const c1 = x1 <= x2 ? x1 + dx : x1 - dx;
+    const c2 = x1 <= x2 ? x2 - dx : x2 + dx;
+    const path = `M ${x1} ${y1} C ${c1} ${y1}, ${c2} ${y2}, ${x2} ${y2}`;
+    const label = connection.label || '';
+    const midX = (x1 + x2) / 2;
+    const midY = (y1 + y2) / 2 - 8;
+    const selected = connection.id === selectedBoardConnectionId;
+    return `<g class="board-edge${selected ? ' selected' : ''}">
+      <path class="board-edge-line" d="${path}"></path>
+      <path class="board-edge-hit board-connection-hit" data-board-connection-id="${escapeHTML(connection.id)}" d="${path}"></path>
+      ${label ? `<text x="${midX}" y="${midY}" text-anchor="middle">${escapeHTML(label)}</text>` : ''}
+    </g>`;
+  }).join('');
+}
+
+function renderBoardInspector() {
+  const detail = $('#board-selection-detail');
+  if (!detail) return;
+  const board = getActiveBoard();
+  const selectedNode = board.nodes.find(node => node.id === selectedBoardNodeId);
+  const selectedConnection = getBoardConnections().find(connection => connection.id === selectedBoardConnectionId);
+
+  if (selectedNode) {
+    const entity = getBoardEntity(selectedNode.entityType, selectedNode.entityId);
+    const media = entity?.type === 'image' && entity.src
+      ? `<img class="board-detail-image" src="${escapeHTML(entity.src)}" alt="${escapeHTML(entity.title)}">`
+      : '';
+    const externalLink = entity?.type === 'link' && entity.url
+      ? `<a class="text-button" href="${safeHref(entity.url)}" target="_blank" rel="noopener noreferrer">Abrir link</a>`
+      : '';
+    detail.innerHTML = `
+      <div class="board-detail-card">
+        <span class="workspace-entry-type">${escapeHTML(entity?.label || selectedNode.entityType || 'Elemento')}</span>
+        ${media}
+        <strong>${escapeHTML(entity?.title || 'Elemento eliminado')}</strong>
+        <small>${escapeHTML(entity?.meta || '')}</small>
+        <p>${escapeHTML(entity?.excerpt || 'Este contenido ya no existe en la campaña.')}</p>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="secondary-button" data-board-action="open-node">Abrir</button>
+        ${externalLink}
+        <button type="button" class="text-button danger-button" data-board-action="remove-node">Quitar</button>
+      </div>`;
+    return;
+  }
+
+  if (selectedConnection) {
+    const from = getBoardEntity(selectedConnection.from.type, selectedConnection.from.id);
+    const to = getBoardEntity(selectedConnection.to.type, selectedConnection.to.id);
+    detail.innerHTML = `
+      <div class="board-detail-card">
+        <span class="workspace-entry-type">Conexión</span>
+        <strong>${escapeHTML(from?.title || 'Origen')} → ${escapeHTML(to?.title || 'Destino')}</strong>
+        <small>${escapeHTML(getCampaignVisibilityLabel(selectedConnection.visibility))}</small>
+      </div>
+      <label>Etiqueta<input id="board-connection-label" value="${escapeHTML(selectedConnection.label || '')}" maxlength="80"></label>
+      <label>Descripción<textarea id="board-connection-description" rows="3" maxlength="260">${escapeHTML(selectedConnection.description || '')}</textarea></label>
+      <div class="form-actions board-connection-actions">
+        <button type="button" class="secondary-button" data-board-action="connection-up">Subir</button>
+        <button type="button" class="secondary-button" data-board-action="connection-down">Bajar</button>
+        <button type="button" class="text-button danger-button" data-board-action="remove-connection">Eliminar</button>
+      </div>`;
+    return;
+  }
+
+  detail.innerHTML = emptyState('Sin selección', 'Selecciona un nodo o una conexión del tablero.', '', '');
+}
+
+function renderBoard() {
+  if (!state) return;
+  ensureWorkspace();
+  $('#board-remote-warning')?.classList.toggle('hidden', !USE_REMOTE_STORAGE);
+  renderBoardLibrary();
+  renderBoardToolbar();
+  renderBoardNodes();
+  renderBoardInspector();
+  requestAnimationFrame(renderBoardConnections);
+}
+
+function addBoardNode(type, id) {
+  if (!canMutateBoard()) return;
+  const board = getActiveBoard();
+  const existing = board.nodes.find(node => node.entityType === type && node.entityId === id);
+  if (existing) {
+    selectedBoardNodeId = existing.id;
+    selectedBoardConnectionId = '';
+    renderBoard();
+    return;
+  }
+  const entity = getBoardEntity(type, id);
+  if (!entity) return;
+  pushBoardHistory();
+  const index = board.nodes.length;
+  board.nodes.push({
+    id: uid(),
+    entityType: type,
+    entityId: id,
+    x: 48 + (index % 3) * 260,
+    y: 54 + Math.floor(index / 3) * 150,
+    color: entity.color || boardEntityColor(type),
+    width: 220,
+    collapsed: false,
+    visibility: normalizeCampaignVisibility(entity.visibility || CAMPAIGN_VISIBILITY_PRESETS.dmDraft.visibility),
+  });
+  board.updatedAt = new Date().toISOString();
+  selectedBoardNodeId = board.nodes[board.nodes.length - 1].id;
+  selectedBoardConnectionId = '';
+  persistActiveCampaign();
+  renderBoard();
+}
+
+function selectBoardNode(nodeId) {
+  selectedBoardNodeId = nodeId;
+  selectedBoardConnectionId = '';
+  renderBoardToolbar();
+  renderBoardNodes();
+  renderBoardInspector();
+  requestAnimationFrame(renderBoardConnections);
+}
+
+function selectBoardConnection(connectionId) {
+  selectedBoardConnectionId = connectionId;
+  selectedBoardNodeId = '';
+  boardConnectSourceNodeId = '';
+  renderBoardToolbar();
+  renderBoardNodes();
+  renderBoardInspector();
+  requestAnimationFrame(renderBoardConnections);
+}
+
+function setBoardConnectMode(enabled) {
+  boardConnectMode = enabled;
+  boardConnectSourceNodeId = '';
+  renderBoard();
+}
+
+function connectBoardNodes(fromNodeId, toNodeId) {
+  if (!canMutateBoard() || fromNodeId === toNodeId) return;
+  const board = getActiveBoard();
+  const fromNode = board.nodes.find(node => node.id === fromNodeId);
+  const toNode = board.nodes.find(node => node.id === toNodeId);
+  if (!fromNode || !toNode) return;
+  const fromKey = boardNodeKey(fromNode);
+  const toKey = boardNodeKey(toNode);
+  const existing = getBoardConnections().find(connection => {
+    const a = boardEndpointKey(connection.from);
+    const b = boardEndpointKey(connection.to);
+    return (a === fromKey && b === toKey) || (a === toKey && b === fromKey);
+  });
+  if (existing) {
+    selectBoardConnection(existing.id);
+    return;
+  }
+
+  pushBoardHistory();
+  const now = new Date().toISOString();
+  const highestOrder = getBoardConnections().reduce((max, connection) => Math.max(max, Number(connection.order) || 0), 0);
+  const label = prompt('Etiqueta de la conexión') || '';
+  const workspace = ensureWorkspace();
+  workspace.connections.push(normalizeCampaignConnection({
+    id: uid(),
+    boardId: activeBoardId,
+    from: { type: fromNode.entityType, id: fromNode.entityId },
+    to: { type: toNode.entityType, id: toNode.entityId },
+    label: label.trim(),
+    visibility: CAMPAIGN_VISIBILITY_PRESETS.dmPrepared.visibility,
+    order: highestOrder + 1,
+    createdAt: now,
+    updatedAt: now,
+  }));
+  selectedBoardConnectionId = workspace.connections[workspace.connections.length - 1].id;
+  selectedBoardNodeId = '';
+  boardConnectSourceNodeId = '';
+  persistActiveCampaign();
+  renderBoard();
+}
+
+function handleBoardNodeAction(nodeId) {
+  if (boardConnectMode) {
+    if (!boardConnectSourceNodeId) {
+      boardConnectSourceNodeId = nodeId;
+      selectedBoardNodeId = nodeId;
+      selectedBoardConnectionId = '';
+      renderBoard();
+      return;
+    }
+    connectBoardNodes(boardConnectSourceNodeId, nodeId);
+    return;
+  }
+  selectBoardNode(nodeId);
+}
+
+function removeBoardSelection() {
+  if (!canMutateBoard()) return;
+  const workspace = ensureWorkspace();
+  const board = getActiveBoard();
+  if (selectedBoardConnectionId) {
+    pushBoardHistory();
+    workspace.connections = (workspace.connections || []).filter(connection => connection.id !== selectedBoardConnectionId);
+    selectedBoardConnectionId = '';
+    persistActiveCampaign();
+    renderBoard();
+    return;
+  }
+  if (!selectedBoardNodeId) return;
+  const node = board.nodes.find(entry => entry.id === selectedBoardNodeId);
+  if (!node) return;
+  pushBoardHistory();
+  board.nodes = board.nodes.filter(entry => entry.id !== selectedBoardNodeId);
+  const key = boardNodeKey(node);
+  workspace.connections = (workspace.connections || []).filter(connection => (
+    boardEndpointKey(connection.from) !== key && boardEndpointKey(connection.to) !== key
+  ));
+  selectedBoardNodeId = '';
+  selectedBoardConnectionId = '';
+  boardConnectSourceNodeId = '';
+  board.updatedAt = new Date().toISOString();
+  persistActiveCampaign();
+  renderBoard();
+}
+
+function openSelectedBoardNode() {
+  const node = getActiveBoard().nodes.find(entry => entry.id === selectedBoardNodeId);
+  if (!node) return;
+  openMentionTarget(node.entityType, node.entityId);
+}
+
+function updateSelectedBoardConnection() {
+  if (!canMutateBoard()) return;
+  const connection = getBoardConnections().find(entry => entry.id === selectedBoardConnectionId);
+  if (!connection) return;
+  pushBoardHistory();
+  connection.label = $('#board-connection-label')?.value.trim() || '';
+  connection.description = $('#board-connection-description')?.value.trim() || '';
+  connection.updatedAt = new Date().toISOString();
+  persistActiveCampaign();
+  renderBoard();
+}
+
+function shiftSelectedBoardConnection(direction) {
+  if (!canMutateBoard()) return;
+  const workspace = ensureWorkspace();
+  const connections = getBoardConnections();
+  const index = connections.findIndex(connection => connection.id === selectedBoardConnectionId);
+  const nextIndex = index + direction;
+  if (index < 0 || nextIndex < 0 || nextIndex >= connections.length) return;
+  pushBoardHistory();
+  const current = connections[index];
+  const next = connections[nextIndex];
+  const currentOrder = Number(current.order) || index + 1;
+  current.order = Number(next.order) || nextIndex + 1;
+  next.order = currentOrder;
+  current.updatedAt = new Date().toISOString();
+  next.updatedAt = current.updatedAt;
+  workspace.connections = (workspace.connections || []).map(connection => {
+    if (connection.id === current.id) return current;
+    if (connection.id === next.id) return next;
+    return connection;
+  });
+  persistActiveCampaign();
+  renderBoard();
+}
+
+function undoBoard() {
+  if (!boardUndoStack.length || !canMutateBoard()) return;
+  const current = captureBoardState();
+  const previous = boardUndoStack.pop();
+  boardRedoStack.push(current);
+  restoreBoardState(previous);
+}
+
+function redoBoard() {
+  if (!boardRedoStack.length || !canMutateBoard()) return;
+  const current = captureBoardState();
+  const next = boardRedoStack.pop();
+  boardUndoStack.push(current);
+  restoreBoardState(next);
+}
+
+function startBoardNodeDrag(event) {
+  const nodeElement = event.target.closest('.board-node[data-board-node-id]');
+  if (!nodeElement || event.button !== 0 || boardConnectMode) return;
+  const board = getActiveBoard();
+  const node = board.nodes.find(entry => entry.id === nodeElement.dataset.boardNodeId);
+  if (!node) return;
+  selectedBoardNodeId = node.id;
+  selectedBoardConnectionId = '';
+  $$('.board-node.selected').forEach(entry => entry.classList.remove('selected'));
+  nodeElement.classList.add('selected');
+  renderBoardToolbar();
+  renderBoardInspector();
+  boardDrag = {
+    nodeId: node.id,
+    pointerId: event.pointerId,
+    startX: event.clientX,
+    startY: event.clientY,
+    originX: Number(node.x) || 0,
+    originY: Number(node.y) || 0,
+    snapshot: captureBoardState(),
+    moved: false,
+  };
+  nodeElement.setPointerCapture(event.pointerId);
+}
+
+function moveBoardNodeDrag(event) {
+  if (!boardDrag || event.pointerId !== boardDrag.pointerId) return;
+  const boardElement = $('#connection-board');
+  const board = getActiveBoard();
+  const node = board.nodes.find(entry => entry.id === boardDrag.nodeId);
+  const nodeElement = $(`.board-node[data-board-node-id="${CSS.escape(boardDrag.nodeId)}"]`);
+  if (!boardElement || !node || !nodeElement) return;
+  const deltaX = event.clientX - boardDrag.startX;
+  const deltaY = event.clientY - boardDrag.startY;
+  if (Math.abs(deltaX) + Math.abs(deltaY) > 3) boardDrag.moved = true;
+  const maxX = Math.max(20, boardElement.scrollWidth - nodeElement.offsetWidth - 20);
+  const maxY = Math.max(20, boardElement.scrollHeight - nodeElement.offsetHeight - 20);
+  node.x = Math.min(maxX, Math.max(20, boardDrag.originX + deltaX));
+  node.y = Math.min(maxY, Math.max(20, boardDrag.originY + deltaY));
+  nodeElement.style.left = `${node.x}px`;
+  nodeElement.style.top = `${node.y}px`;
+  renderBoardConnections();
+}
+
+function endBoardNodeDrag(event) {
+  if (!boardDrag || event.pointerId !== boardDrag.pointerId) return;
+  const nodeElement = $(`.board-node[data-board-node-id="${CSS.escape(boardDrag.nodeId)}"]`);
+  if (nodeElement?.hasPointerCapture(event.pointerId)) nodeElement.releasePointerCapture(event.pointerId);
+  if (boardDrag.moved) {
+    pushBoardHistory(boardDrag.snapshot);
+    getActiveBoard().updatedAt = new Date().toISOString();
+    persistActiveCampaign();
+    renderBoard();
+  }
+  boardDrag = null;
+}
+
 function navigate(view) {
   if (!state) return;
   if (isSummaryOnlyMode() && view !== 'dashboard') {
@@ -854,9 +2736,12 @@ function navigate(view) {
   }
   $$('.view').forEach(section => section.classList.toggle('active', section.id === `${view}-view`));
   $$('.nav-item').forEach(button => button.classList.toggle('active', button.dataset.view === view));
-  const titles = { dashboard: 'Resumen de campaña', characters: 'Personajes', 'new-session': 'Registrar nueva sesión', log: 'Bitácora de campaña' };
+  const titles = { dashboard: 'Resumen de campaña', characters: 'Personajes', 'new-session': 'Registrar nueva sesión', notes: 'Páginas de campaña', board: 'Tablero de conexiones', tools: 'Herramientas DM', log: 'Bitácora de campaña' };
   $('#page-title').textContent = titles[view];
   if (view === 'new-session') renderSessionForm();
+  if (view === 'notes') renderWorkspaceEditor();
+  if (view === 'board') renderBoard();
+  if (view === 'tools') renderDmTools();
   if (view === 'log') renderLog();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -919,6 +2804,7 @@ function renderDashboard() {
       <div><h3>${escapeHTML(session.name)}</h3><p>${formatDate(session.date)} · ${session.allocations.length} participante${session.allocations.length === 1 ? '' : 's'}</p></div>
       <div class="timeline-xp">${formatResource(session.totalAwarded)}</div>
     </article>`).join('') : emptyState('La historia comienza aquí', 'Cuando registres una sesión, aparecerá en esta línea de tiempo.', 'new-session', 'Registrar sesión');
+  renderCampaignSearch();
 }
 
 function emptyState(title, copy, view, action) {
@@ -1196,10 +3082,11 @@ async function saveSession(event) {
     totalAwarded: distribution.reduce((sum, item) => sum + item.total, 0),
     createdAt: new Date().toISOString()
   };
+  const normalizedSession = normalizeCampaignSession(session);
 
   if (USE_REMOTE_STORAGE) {
     try {
-      await remoteStorage.saveSession(activeCampaignId, session);
+      await remoteStorage.saveSession(activeCampaignId, normalizedSession);
       $('#session-form').reset();
       $('#session-date').value = new Date().toISOString().slice(0, 10);
       await reloadActiveCampaign();
@@ -1211,11 +3098,11 @@ async function saveSession(event) {
     return;
   }
 
-  session.allocations.forEach(allocation => {
+  normalizedSession.allocations.forEach(allocation => {
     const character = state.characters.find(entry => entry.id === allocation.characterId);
     if (character) character.xp = Math.round((character.xp + allocation.total) * 100) / 100;
   });
-  state.sessions.push(session);
+  state.sessions.push(normalizedSession);
   saveState();
   $('#session-form').reset();
   $('#session-date').value = new Date().toISOString().slice(0, 10);
@@ -1337,10 +3224,33 @@ function renderAll() {
   if (!state) return;
   renderDashboard();
   renderCharacters();
+  if ($('#board-view')?.classList.contains('active')) renderBoard();
+  if ($('#tools-view')?.classList.contains('active')) renderDmTools();
 }
 
 document.addEventListener('click', async event => {
   if (event.target.closest('[data-action="campaigns-home"]')) showCampaignsHome();
+  if (event.target.closest('#open-campaign-tutorial')) showCampaignOnboarding({ manual: true, step: 0 });
+  if (event.target.id === 'onboarding-modal' || event.target.closest('#close-onboarding') || event.target.closest('#skip-onboarding')) {
+    dismissCampaignOnboarding(false);
+  }
+  const onboardingStepButton = event.target.closest('[data-onboarding-step]');
+  if (onboardingStepButton) {
+    activeOnboardingStep = clampOnboardingStep(onboardingStepButton.dataset.onboardingStep);
+    renderCampaignOnboarding();
+  }
+  if (event.target.closest('#onboarding-prev')) {
+    activeOnboardingStep = clampOnboardingStep(activeOnboardingStep - 1);
+    renderCampaignOnboarding();
+  }
+  if (event.target.closest('#onboarding-next')) {
+    if (activeOnboardingStep >= ONBOARDING_STEPS.length - 1) dismissCampaignOnboarding(true);
+    else {
+      activeOnboardingStep = clampOnboardingStep(activeOnboardingStep + 1);
+      renderCampaignOnboarding();
+    }
+  }
+  if (event.target.closest('#onboarding-open-section')) openCampaignOnboardingSection();
   const openCampaignButton = event.target.closest('.open-campaign');
   if (openCampaignButton) openCampaign(openCampaignButton.dataset.id);
   const shareCampaignButton = event.target.closest('.share-campaign');
@@ -1403,7 +3313,39 @@ document.addEventListener('click', async event => {
   const goButton = event.target.closest('[data-go]');
   if (goButton && goButton.dataset.go) navigate(goButton.dataset.go);
   const navButton = event.target.closest('.nav-item');
-  if (navButton) navigate(navButton.dataset.view);
+  if (navButton?.dataset.view) navigate(navButton.dataset.view);
+  const workspaceEntryCard = event.target.closest('.workspace-entry-card');
+  if (workspaceEntryCard) {
+    loadWorkspaceEntity(workspaceEntryCard.dataset.workspaceCollection, workspaceEntryCard.dataset.workspaceId);
+  }
+  const dmToolCard = event.target.closest('.dm-tool-card[data-dm-tool-id]');
+  if (dmToolCard) {
+    loadDmTool(dmToolCard.dataset.dmToolId);
+  }
+  const workspaceMention = event.target.closest('.workspace-mention[data-entity-type][data-entity-id]');
+  if (workspaceMention) {
+    openMentionTarget(workspaceMention.dataset.entityType, workspaceMention.dataset.entityId);
+  }
+  const campaignSearchResult = event.target.closest('.campaign-search-result[data-result-type][data-result-id]');
+  if (campaignSearchResult) {
+    openCampaignSearchResult(campaignSearchResult.dataset.resultType, campaignSearchResult.dataset.resultId, campaignSearchResult.dataset.resultCollection);
+  }
+  const boardLibraryCard = event.target.closest('.board-library-card[data-board-add-type][data-board-add-id]');
+  if (boardLibraryCard) {
+    addBoardNode(boardLibraryCard.dataset.boardAddType, boardLibraryCard.dataset.boardAddId);
+  }
+  const boardNode = event.target.closest('.board-node[data-board-node-id]');
+  if (boardNode) {
+    handleBoardNodeAction(boardNode.dataset.boardNodeId);
+  }
+  const boardConnection = event.target.closest('.board-connection-hit[data-board-connection-id]');
+  if (boardConnection) {
+    selectBoardConnection(boardConnection.dataset.boardConnectionId);
+  }
+  const resourceRemoveButton = event.target.closest('[data-resource-remove-type][data-resource-remove-id]');
+  if (resourceRemoveButton) {
+    detachWorkspaceResource(resourceRemoveButton.dataset.resourceRemoveType, resourceRemoveButton.dataset.resourceRemoveId);
+  }
 
   const editButton = event.target.closest('.edit-character');
   if (editButton) {
@@ -1474,7 +3416,7 @@ document.addEventListener('click', async event => {
 $('#character-form').addEventListener('submit', async event => {
   event.preventDefault();
   const id = $('#character-id').value;
-  const data = {
+  const data = normalizeCharacter({
     id: id || (USE_REMOTE_STORAGE ? undefined : uid()),
     name: $('#character-name').value.trim(),
     player: $('#player-name').value.trim(),
@@ -1482,7 +3424,7 @@ $('#character-form').addEventListener('submit', async event => {
     xp: Number($('#character-xp').value) || 0,
     color: $('#character-color').value,
     portrait: pendingCharacterPortrait
-  };
+  });
   if (USE_REMOTE_STORAGE) {
     try {
       await remoteStorage.saveCharacter(activeCampaignId, data);
@@ -1528,6 +3470,73 @@ $('#select-all').addEventListener('click', () => {
   updateDistribution();
 });
 $('#log-search').addEventListener('input', event => renderLog(event.target.value));
+$('#campaign-global-search').addEventListener('input', renderCampaignSearch);
+$('#campaign-global-filter').addEventListener('change', renderCampaignSearch);
+$('#board-library-search').addEventListener('input', renderBoardLibrary);
+$('#board-connect-mode').addEventListener('click', () => setBoardConnectMode(!boardConnectMode));
+$('#board-delete-selection').addEventListener('click', removeBoardSelection);
+$('#board-undo').addEventListener('click', undoBoard);
+$('#board-redo').addEventListener('click', redoBoard);
+$('#board-nodes-layer').addEventListener('pointerdown', startBoardNodeDrag);
+document.addEventListener('pointermove', moveBoardNodeDrag);
+document.addEventListener('pointerup', endBoardNodeDrag);
+document.addEventListener('pointercancel', endBoardNodeDrag);
+$('#board-selection-detail').addEventListener('click', event => {
+  const action = event.target.closest('[data-board-action]')?.dataset.boardAction;
+  if (!action) return;
+  if (action === 'open-node') openSelectedBoardNode();
+  if (action === 'remove-node' || action === 'remove-connection') removeBoardSelection();
+  if (action === 'connection-up') shiftSelectedBoardConnection(-1);
+  if (action === 'connection-down') shiftSelectedBoardConnection(1);
+});
+$('#board-selection-detail').addEventListener('change', event => {
+  if (event.target.matches('#board-connection-label, #board-connection-description')) {
+    updateSelectedBoardConnection();
+  }
+});
+$('#new-dm-tool').addEventListener('click', () => clearDmToolForm($('#dm-tool-type-filter').value === 'all' ? activeDmToolType : $('#dm-tool-type-filter').value));
+$('#dm-tool-form').addEventListener('submit', saveDmTool);
+$('#delete-dm-tool').addEventListener('click', deleteDmTool);
+$('#reset-dm-tool').addEventListener('click', () => clearDmToolForm($('#dm-tool-type').value));
+$('#dm-tool-type-filter').addEventListener('change', event => {
+  if (event.target.value !== 'all') activeDmToolType = event.target.value;
+  renderDmToolList();
+});
+$('#dm-tool-search').addEventListener('input', renderDmToolList);
+$('#dm-tool-type').addEventListener('change', event => {
+  activeDmToolType = event.target.value;
+  const config = getDmToolConfig(event.target.value);
+  $('#dm-tool-editor-title').textContent = $('#dm-tool-id').value ? `Editar ${config.label.toLowerCase()}` : `Nueva ${config.label.toLowerCase()}`;
+  renderDmToolFields();
+});
+$('#new-workspace-entry').addEventListener('click', () => clearWorkspaceEditor($('#workspace-type-filter').value === 'all' ? activeWorkspaceCollection : $('#workspace-type-filter').value));
+$('#workspace-editor-form').addEventListener('submit', saveWorkspaceEntity);
+$('#reset-workspace-editor').addEventListener('click', () => clearWorkspaceEditor($('#workspace-entry-type').value));
+$('#delete-workspace-entry').addEventListener('click', deleteWorkspaceEntity);
+$('#workspace-type-filter').addEventListener('change', event => {
+  if (event.target.value !== 'all') activeWorkspaceCollection = event.target.value;
+  renderWorkspaceList();
+});
+$('#workspace-search').addEventListener('input', renderWorkspaceList);
+$('#workspace-entry-type').addEventListener('change', event => {
+  activeWorkspaceCollection = event.target.value;
+  $('#workspace-editor-title').textContent = $('#workspace-entry-id').value ? `Editar ${getWorkspaceConfig(event.target.value).label.toLowerCase()}` : getWorkspaceConfig(event.target.value).emptyTitle;
+});
+$('#workspace-image-upload').addEventListener('change', addWorkspaceImage);
+$('#workspace-add-link').addEventListener('click', addWorkspaceLink);
+['workspace-entry-title', 'workspace-entry-summary', 'workspace-entry-tags', 'workspace-entry-visibility'].forEach(id => {
+  $(`#${id}`).addEventListener('input', updateWorkspacePreview);
+  $(`#${id}`).addEventListener('change', updateWorkspacePreview);
+});
+$('#workspace-entry-body').addEventListener('input', updateWorkspacePreview);
+$('.editor-toolbar').addEventListener('click', event => {
+  const button = event.target.closest('[data-editor-insert]');
+  if (button) handleEditorInsert(button.dataset.editorInsert);
+});
+$('#workspace-mention-suggestions').addEventListener('click', event => {
+  const button = event.target.closest('[data-mention-title]');
+  if (button) insertAtCursor($('#workspace-entry-body'), `[[${button.dataset.mentionTitle}]]`);
+});
 
 $('#open-campaign-form').addEventListener('click', event => openNewCampaignModal(event.currentTarget));
 $('#hero-new-campaign').addEventListener('click', event => openNewCampaignModal(event.currentTarget));
@@ -1648,6 +3657,7 @@ $('#campaign-form').addEventListener('submit', async event => {
     passwordHash,
     characters: existing?.characters || [],
     sessions: existing?.sessions || [],
+    workspace: normalizeCampaignWorkspace(existing || {}),
     createdAt: existing?.createdAt || new Date().toISOString()
   };
   if (USE_REMOTE_STORAGE) {

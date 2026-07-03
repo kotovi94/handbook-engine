@@ -127,11 +127,15 @@
         <button class="nav-item active" data-view="dashboard"><span>⌂</span> Resumen</button>
         <button class="nav-item" data-view="characters"><span>♙</span> Personajes</button>
         <button class="nav-item" data-view="new-session"><span>✦</span> Nueva sesión</button>
+        <button class="nav-item" data-view="notes"><span>✎</span> Páginas</button>
+        <button class="nav-item" data-view="board"><span>⌬</span> Tablero</button>
+        <button class="nav-item" data-view="tools"><span>⚙</span> DM</button>
         <button class="nav-item" data-view="log"><span>☷</span> Bitácora</button>
       </nav>
 
       <div class="sidebar-footer">
         <p>Los datos se guardan en este navegador.</p>
+        <button id="open-campaign-tutorial" class="text-button" type="button">Ver tutorial</button>
         <button id="export-data" class="text-button">Exportar respaldo</button>
         <label class="text-button file-button">Importar respaldo<input id="import-data" type="file" accept="application/json"></label>
       </div>
@@ -148,6 +152,34 @@
 
       <section id="dashboard-view" class="view active">
         <div id="stats-grid" class="stats-grid"></div>
+        <div class="panel campaign-search-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Archivo de campaña</p>
+              <h2>Búsqueda global</h2>
+            </div>
+            <small id="campaign-search-meta" class="campaign-search-meta">Sin búsqueda activa</small>
+          </div>
+          <div class="campaign-search-controls">
+            <label>Buscar<input id="campaign-global-search" type="search" placeholder="Notas, sesiones, personajes..."></label>
+            <label>Tipo<select id="campaign-global-filter">
+              <option value="all">Todo</option>
+              <option value="workspace">Páginas</option>
+              <option value="session">Sesiones</option>
+              <option value="character">Personajes</option>
+              <option value="notes">Notas</option>
+              <option value="places">Lugares</option>
+              <option value="cities">Ciudades</option>
+              <option value="factions">Facciones</option>
+              <option value="missions">Misiones</option>
+              <option value="secrets">Secretos</option>
+              <option value="image">Imágenes</option>
+              <option value="link">Links</option>
+              <option value="dmTool">Herramientas DM</option>
+            </select></label>
+          </div>
+          <div id="campaign-search-results" class="campaign-search-results"></div>
+        </div>
         <div class="section-heading">
           <div>
             <p class="eyebrow">Compañía</p>
@@ -261,6 +293,161 @@
         </form>
       </section>
 
+      <section id="notes-view" class="view">
+        <div class="section-heading no-top">
+          <div><p class="eyebrow">Diario y mesa del DM</p><h2>Páginas de campaña</h2></div>
+          <button id="new-workspace-entry" class="primary-button" type="button">+ Nueva página</button>
+        </div>
+        <div class="two-column workspace-layout">
+          <aside class="panel workspace-library-panel">
+            <div class="panel-heading">
+              <div><p class="eyebrow">Archivo vivo</p><h2>Contenido</h2></div>
+            </div>
+            <div class="workspace-filters">
+              <label>Tipo<select id="workspace-type-filter"></select></label>
+              <label>Buscar<input id="workspace-search" type="search" placeholder="Nombre, etiqueta o texto..."></label>
+            </div>
+            <div id="workspace-remote-warning" class="workspace-warning hidden">El guardado de páginas compartidas se activará cuando migremos el backend remoto.</div>
+            <div id="workspace-entity-list" class="workspace-entity-list"></div>
+          </aside>
+
+          <form id="workspace-editor-form" class="panel workspace-editor-panel">
+            <input id="workspace-entry-id" type="hidden">
+            <input id="workspace-entry-original-collection" type="hidden">
+            <input id="workspace-entry-image-ids" type="hidden">
+            <input id="workspace-entry-link-ids" type="hidden">
+            <div class="panel-heading">
+              <div><p class="eyebrow">Editor</p><h2 id="workspace-editor-title">Nueva página</h2></div>
+              <button id="delete-workspace-entry" class="text-button danger-button hidden" type="button">Eliminar</button>
+            </div>
+            <div class="form-row">
+              <label>Tipo<select id="workspace-entry-type"></select></label>
+              <label>Visibilidad<select id="workspace-entry-visibility"></select></label>
+            </div>
+            <label>Título<input id="workspace-entry-title" required maxlength="90" placeholder="Ej. La Ciudad de Bruma"></label>
+            <label>Resumen<textarea id="workspace-entry-summary" rows="2" maxlength="320" placeholder="Una frase clara para encontrar esta página rápido."></textarea></label>
+            <label>Etiquetas<input id="workspace-entry-tags" maxlength="180" placeholder="ciudad, pista, facción"></label>
+
+            <div class="editor-toolbar" aria-label="Herramientas de escritura">
+              <button type="button" data-editor-insert="heading">Título</button>
+              <button type="button" data-editor-insert="bullet">Lista</button>
+              <button type="button" data-editor-insert="check">Tarea</button>
+              <button type="button" data-editor-insert="quote">Cita</button>
+              <button type="button" data-editor-insert="link">Link</button>
+              <button type="button" data-editor-insert="mention">[[Vínculo]]</button>
+            </div>
+            <label>Contenido<textarea id="workspace-entry-body" rows="16" placeholder="Escribe notas, escenas, secretos, pistas o diario. Usa [[Nombre]] para enlazar a otra página, personaje o sesión."></textarea></label>
+            <div class="workspace-mention-box">
+              <b>Vínculos rápidos</b>
+              <div id="workspace-mention-suggestions" class="workspace-mention-suggestions"></div>
+            </div>
+            <div class="workspace-preview-shell">
+              <div class="workspace-preview-heading"><span>Vista previa</span><small id="workspace-preview-meta"></small></div>
+              <div id="workspace-entry-preview" class="workspace-entry-preview"></div>
+            </div>
+            <div class="workspace-resource-panel">
+              <div class="panel-heading">
+                <div><p class="eyebrow">Recursos</p><h2>Imágenes y links</h2></div>
+              </div>
+              <div class="resource-actions">
+                <label>Subir imagen<input id="workspace-image-upload" type="file" accept="image/png,image/jpeg,image/webp"></label>
+                <div class="resource-link-row">
+                  <label>Nombre del link<input id="workspace-link-label" maxlength="90" placeholder="Mapa de la ciudad"></label>
+                  <label>URL<input id="workspace-link-url" type="url" maxlength="500" placeholder="https://..."></label>
+                  <button id="workspace-add-link" class="secondary-button" type="button">Agregar link</button>
+                </div>
+              </div>
+              <div id="workspace-resource-list" class="workspace-resource-list"></div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="primary-button">Guardar página</button>
+              <button id="reset-workspace-editor" type="button" class="secondary-button">Limpiar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="board-view" class="view">
+        <div class="section-heading no-top">
+          <div><p class="eyebrow">Mapa de pistas</p><h2>Tablero de conexiones</h2></div>
+          <div class="board-heading-actions">
+            <button id="board-undo" class="secondary-button" type="button">Deshacer</button>
+            <button id="board-redo" class="secondary-button" type="button">Rehacer</button>
+            <button id="board-connect-mode" class="primary-button" type="button">Conectar</button>
+          </div>
+        </div>
+        <div class="board-layout">
+          <aside class="panel board-toolbox">
+            <div class="panel-heading">
+              <div><p class="eyebrow">Archivo</p><h2>Elementos</h2></div>
+            </div>
+            <label>Buscar<input id="board-library-search" type="search" placeholder="Nombre, etiqueta o sesión..."></label>
+            <div id="board-remote-warning" class="workspace-warning hidden">El guardado de tableros compartidos se activará cuando migremos el backend remoto.</div>
+            <div id="board-library-list" class="board-library-list"></div>
+          </aside>
+
+          <div class="panel board-panel">
+            <div class="board-toolbar">
+              <span id="board-status" class="board-status">0 nodos</span>
+              <button id="board-delete-selection" class="text-button danger-button" type="button">Quitar selección</button>
+            </div>
+            <div id="connection-board" class="connection-board">
+              <svg id="board-connections" class="board-connections" aria-hidden="true"></svg>
+              <div id="board-nodes-layer" class="board-nodes-layer"></div>
+            </div>
+          </div>
+
+          <aside class="panel board-inspector">
+            <div class="panel-heading">
+              <div><p class="eyebrow">Detalle</p><h2>Selección</h2></div>
+            </div>
+            <div id="board-selection-detail" class="board-selection-detail"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="tools-view" class="view">
+        <div class="section-heading no-top">
+          <div><p class="eyebrow">Mesa del DM</p><h2>Herramientas DM</h2></div>
+          <button id="new-dm-tool" class="primary-button" type="button">+ Nueva herramienta</button>
+        </div>
+        <div class="two-column dm-tools-layout">
+          <aside class="panel dm-tool-library-panel">
+            <div class="panel-heading">
+              <div><p class="eyebrow">Preparación</p><h2>Archivo</h2></div>
+            </div>
+            <div class="dm-tool-filters">
+              <label>Tipo<select id="dm-tool-type-filter"></select></label>
+              <label>Buscar<input id="dm-tool-search" type="search" placeholder="Nombre, etiqueta o detalle..."></label>
+            </div>
+            <div id="dm-tool-remote-warning" class="workspace-warning hidden">El guardado de herramientas compartidas se activará cuando migremos el backend remoto.</div>
+            <div id="dm-tool-list" class="dm-tool-list"></div>
+          </aside>
+
+          <form id="dm-tool-form" class="panel dm-tool-editor-panel">
+            <input id="dm-tool-id" type="hidden">
+            <div class="panel-heading">
+              <div><p class="eyebrow">Herramienta</p><h2 id="dm-tool-editor-title">Nueva herramienta</h2></div>
+              <button id="delete-dm-tool" class="text-button danger-button hidden" type="button">Eliminar</button>
+            </div>
+            <div class="form-row">
+              <label>Tipo<select id="dm-tool-type"></select></label>
+              <label>Estado<select id="dm-tool-status"></select></label>
+            </div>
+            <label>Visibilidad<select id="dm-tool-visibility"></select></label>
+            <label>Título<input id="dm-tool-title" required maxlength="90" placeholder="Ej. Emboscada en el puente"></label>
+            <label>Resumen<textarea id="dm-tool-summary" rows="2" maxlength="320" placeholder="Una frase clara para encontrarlo después."></textarea></label>
+            <label>Etiquetas<input id="dm-tool-tags" maxlength="180" placeholder="sesión 4, bosque, pista"></label>
+            <div id="dm-tool-dynamic-fields" class="dm-tool-dynamic-fields"></div>
+            <label>Notas<textarea id="dm-tool-notes" rows="8" maxlength="2200" placeholder="Detalles para dirigirlo en mesa."></textarea></label>
+            <div class="form-actions">
+              <button type="submit" class="primary-button">Guardar herramienta</button>
+              <button id="reset-dm-tool" type="button" class="secondary-button">Limpiar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
       <section id="log-view" class="view">
         <div class="section-heading no-top">
           <div><p class="eyebrow">Archivo de campaña</p><h2>Bitácora de sesiones</h2></div>
@@ -269,6 +456,31 @@
         <div id="session-log" class="session-log"></div>
       </section>
     </main>
+  </div>
+
+  <div id="onboarding-modal" class="modal hidden onboarding-modal" role="dialog" aria-modal="true" aria-labelledby="onboarding-title">
+    <div class="modal-card onboarding-card">
+      <div class="modal-heading">
+        <div>
+          <p id="onboarding-progress" class="eyebrow">Paso 1 de 5</p>
+          <h2 id="onboarding-title">Guía rápida</h2>
+        </div>
+        <button id="close-onboarding" type="button" class="icon-button" aria-label="Cerrar">×</button>
+      </div>
+      <div id="onboarding-stepper" class="onboarding-stepper" aria-label="Progreso del tutorial"></div>
+      <div class="onboarding-body">
+        <span id="onboarding-kicker" class="workspace-entry-type">Inicio</span>
+        <h3 id="onboarding-step-title">Prepara tu campaña</h3>
+        <p id="onboarding-copy"></p>
+        <ul id="onboarding-points" class="onboarding-points"></ul>
+      </div>
+      <div class="onboarding-actions">
+        <button id="skip-onboarding" type="button" class="text-button">Ahora no</button>
+        <button id="onboarding-prev" type="button" class="secondary-button">Atrás</button>
+        <button id="onboarding-open-section" type="button" class="secondary-button">Abrir sección</button>
+        <button id="onboarding-next" type="button" class="primary-button">Siguiente</button>
+      </div>
+    </div>
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>

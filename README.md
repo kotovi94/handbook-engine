@@ -66,6 +66,8 @@ Sirve para:
 
 En local usa `localStorage`. En despliegue puede usar Supabase mediante funciones serverless dentro de `api/`.
 
+El modelo extendido de campana para notas, lugares, ciudades, facciones, misiones, secretos, imagenes, links, conexiones, herramientas del DM, tablero visual y tutorial de primera visita esta documentado en `docs/campaign-model.md`.
+
 ### Dungeon Generator
 
 Generador procedural de mazmorras para DMs de mesa presencial. No pretende escribir una aventura completa; crea una base jugable que el DM puede editar.
