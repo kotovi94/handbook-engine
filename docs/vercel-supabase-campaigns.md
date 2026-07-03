@@ -36,6 +36,7 @@ Despues de agregar o cambiar variables en Vercel, hay que hacer Redeploy.
 - Si la campana tiene contrasena, se abre en modo resumen.
 - Con la contrasena se desbloquean personajes, sesiones, edicion y borrado.
 - Las sesiones guardadas aplican PX o PP en Supabase para que todos vean el mismo avance.
+- La Bitácora avanzada guarda páginas, imágenes pequeñas, links, herramientas DM, conexiones, tablero y tutorial por campaña.
 
 ## 4. Endpoints disponibles
 
@@ -51,6 +52,8 @@ PATCH  /api/campaigns/:id/characters
 DELETE /api/campaigns/:id/characters
 POST   /api/campaigns/:id/sessions
 DELETE /api/campaigns/:id/sessions
+GET    /api/campaigns/:id/workspace
+PATCH  /api/campaigns/:id/workspace
 ```
 
 ## 5. Prueba rapida

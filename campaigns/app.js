@@ -314,6 +314,8 @@ let boardConnectSourceNodeId = '';
 let boardDrag = null;
 let boardUndoStack = [];
 let boardRedoStack = [];
+let remoteWorkspaceSaveTimer = null;
+let remoteWorkspaceSaveInFlight = null;
 const unlockedCampaigns = new Set();
 const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 let globalAppearance = loadGlobalAppearance();
@@ -401,6 +403,7 @@ async function reloadCampaigns() {
 
 async function reloadActiveCampaign() {
   if (!USE_REMOTE_STORAGE || !activeCampaignId) return;
+  await flushRemoteWorkspaceSave();
   const data = await remoteStorage.getCampaign(activeCampaignId);
   const campaign = normalizeCampaign(data.campaign);
   portfolio.campaigns = portfolio.campaigns.map(entry => entry.id === campaign.id ? campaign : entry);
@@ -413,6 +416,38 @@ async function reloadActiveCampaign() {
 function saveState() {
   if (USE_REMOTE_STORAGE) return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
+}
+
+function queueRemoteWorkspaceSave() {
+  if (!USE_REMOTE_STORAGE || !activeCampaignId || !state) return;
+  clearTimeout(remoteWorkspaceSaveTimer);
+  remoteWorkspaceSaveTimer = setTimeout(saveRemoteWorkspace, 350);
+}
+
+async function saveRemoteWorkspace() {
+  if (!USE_REMOTE_STORAGE || !activeCampaignId || !state) return;
+  clearTimeout(remoteWorkspaceSaveTimer);
+  remoteWorkspaceSaveTimer = null;
+  if (remoteWorkspaceSaveInFlight) {
+    await remoteWorkspaceSaveInFlight;
+    return saveRemoteWorkspace();
+  }
+
+  const workspace = normalizeCampaignWorkspace(state);
+  remoteWorkspaceSaveInFlight = remoteStorage.saveWorkspace(activeCampaignId, workspace)
+    .catch(error => {
+      console.warn('No se pudo guardar el workspace remoto.', error);
+      showToast('No se pudo guardar la Bitácora remota.');
+    })
+    .finally(() => {
+      remoteWorkspaceSaveInFlight = null;
+    });
+  await remoteWorkspaceSaveInFlight;
+}
+
+async function flushRemoteWorkspaceSave() {
+  if (!USE_REMOTE_STORAGE || (!remoteWorkspaceSaveTimer && !remoteWorkspaceSaveInFlight)) return;
+  await saveRemoteWorkspace();
 }
 
 function activeCampaign() {
@@ -1119,7 +1154,8 @@ function persistActiveCampaign() {
   if (!state) return;
   state = normalizeCampaign(state);
   portfolio.campaigns = portfolio.campaigns.map(campaign => campaign.id === state.id ? state : campaign);
-  saveState();
+  if (USE_REMOTE_STORAGE) queueRemoteWorkspaceSave();
+  else saveState();
 }
 
 function workspaceTypeOptions(selected = activeWorkspaceCollection, includeAll = false) {
@@ -1379,7 +1415,6 @@ async function addWorkspaceImage(event) {
   const file = input.files?.[0];
   input.value = '';
   if (!file) return;
-  if (USE_REMOTE_STORAGE) return showToast('Los recursos de campaña todavía guardan solo en modo local.');
   if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) {
     showToast('Usa una imagen PNG, JPG o WebP.');
     return;
@@ -1423,7 +1458,6 @@ async function addWorkspaceImage(event) {
 }
 
 function addWorkspaceLink() {
-  if (USE_REMOTE_STORAGE) return showToast('Los recursos de campaña todavía guardan solo en modo local.');
   const url = normalizeExternalUrl($('#workspace-link-url').value);
   if (!url) {
     $('#workspace-link-url').focus();
@@ -1619,7 +1653,7 @@ function renderDmTools() {
   if (!state) return;
   ensureWorkspace();
   renderDmToolTypeControls();
-  $('#dm-tool-remote-warning')?.classList.toggle('hidden', !USE_REMOTE_STORAGE);
+  $('#dm-tool-remote-warning')?.classList.add('hidden');
   const activeExists = activeDmToolId && getDmTool(activeDmToolId);
   if (activeExists) loadDmTool(activeDmToolId);
   else clearDmToolForm(activeDmToolType);
@@ -1627,7 +1661,6 @@ function renderDmTools() {
 
 function saveDmTool(event) {
   event.preventDefault();
-  if (USE_REMOTE_STORAGE) return showToast('Las herramientas DM todavía guardan solo en modo local.');
   const title = $('#dm-tool-title').value.trim();
   if (!title) {
     $('#dm-tool-title').focus();
@@ -1665,7 +1698,6 @@ function saveDmTool(event) {
 }
 
 function deleteDmTool() {
-  if (USE_REMOTE_STORAGE) return showToast('Las herramientas DM todavía guardan solo en modo local.');
   const id = $('#dm-tool-id').value;
   const tool = getDmTool(id);
   if (!tool || !confirm(`¿Eliminar "${tool.title}"?`)) return;
@@ -1785,7 +1817,7 @@ function renderWorkspaceEditor() {
   if (!state) return;
   ensureWorkspace();
   renderWorkspaceTypeControls();
-  $('#workspace-remote-warning')?.classList.toggle('hidden', !USE_REMOTE_STORAGE);
+  $('#workspace-remote-warning')?.classList.add('hidden');
   const activeExists = activeWorkspaceEntityId && getWorkspaceEntity(activeWorkspaceCollection, activeWorkspaceEntityId);
   if (activeExists) loadWorkspaceEntity(activeWorkspaceCollection, activeWorkspaceEntityId);
   else clearWorkspaceEditor(activeWorkspaceCollection);
@@ -1824,10 +1856,6 @@ function handleEditorInsert(kind) {
 
 function saveWorkspaceEntity(event) {
   event.preventDefault();
-  if (USE_REMOTE_STORAGE) {
-    showToast('El editor de páginas todavía guarda solo en modo local.');
-    return;
-  }
   const collection = $('#workspace-entry-type').value;
   const config = getWorkspaceConfig(collection);
   const title = $('#workspace-entry-title').value.trim();
@@ -1872,10 +1900,6 @@ function saveWorkspaceEntity(event) {
 }
 
 function deleteWorkspaceEntity() {
-  if (USE_REMOTE_STORAGE) {
-    showToast('El editor de páginas todavía guarda solo en modo local.');
-    return;
-  }
   const id = $('#workspace-entry-id').value;
   const collection = $('#workspace-entry-original-collection').value || activeWorkspaceCollection;
   const entity = getWorkspaceEntity(collection, id);
@@ -2176,9 +2200,7 @@ function pushBoardHistory(snapshot = captureBoardState()) {
 }
 
 function canMutateBoard() {
-  if (!USE_REMOTE_STORAGE) return true;
-  showToast('El tablero todavía guarda solo en modo local.');
-  return false;
+  return true;
 }
 
 function getActiveBoard() {
@@ -2463,7 +2485,7 @@ function renderBoardInspector() {
 function renderBoard() {
   if (!state) return;
   ensureWorkspace();
-  $('#board-remote-warning')?.classList.toggle('hidden', !USE_REMOTE_STORAGE);
+  $('#board-remote-warning')?.classList.add('hidden');
   renderBoardLibrary();
   renderBoardToolbar();
   renderBoardNodes();

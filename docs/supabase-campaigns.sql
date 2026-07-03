@@ -33,6 +33,12 @@ create table if not exists public.characters (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.campaign_workspaces (
+  campaign_id uuid primary key references public.campaigns(id) on delete cascade,
+  workspace jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
 alter table public.characters
   add column if not exists portrait text not null default '';
 
@@ -54,7 +60,10 @@ create index if not exists characters_campaign_id_idx on public.characters(campa
 create index if not exists sessions_campaign_id_idx on public.sessions(campaign_id);
 create index if not exists sessions_campaign_date_idx on public.sessions(campaign_id, date desc);
 
-create or replace view public.campaign_summaries as
+drop view if exists public.campaign_summaries;
+
+create view public.campaign_summaries
+with (security_invoker = true) as
 select
   c.id,
   c.name,
@@ -86,5 +95,29 @@ left join (
   group by campaign_id
 ) session_counts on session_counts.campaign_id = c.id;
 
+alter table public.campaigns enable row level security;
+alter table public.characters enable row level security;
+alter table public.sessions enable row level security;
+alter table public.campaign_workspaces enable row level security;
+
+revoke all on table public.campaigns from anon, authenticated;
+revoke all on table public.characters from anon, authenticated;
+revoke all on table public.sessions from anon, authenticated;
+revoke all on table public.campaign_workspaces from anon, authenticated;
+revoke all on table public.campaign_summaries from anon, authenticated;
+
+grant select, insert, update, delete on table public.campaigns to service_role;
+grant select, insert, update, delete on table public.characters to service_role;
+grant select, insert, update, delete on table public.sessions to service_role;
+grant select, insert, update, delete on table public.campaign_workspaces to service_role;
+grant select on table public.campaign_summaries to service_role;
+
+do $$
+begin
+  if to_regprocedure('public.rls_auto_enable()') is not null then
+    execute 'revoke execute on function public.rls_auto_enable() from public, anon, authenticated';
+  end if;
+end $$;
+
 -- This project uses Vercel API routes with the Supabase service role key.
--- Keep Row Level Security enabled later if you add direct browser access.
+-- Do not expose SUPABASE_SERVICE_ROLE_KEY in browser code.

@@ -138,7 +138,7 @@ La primera implementación de recursos vive dentro del editor de `Páginas`.
 - El buscador global indexa imágenes y links.
 - El tablero puede usar imágenes y links como nodos conectables.
 
-En modo local, las imágenes se guardan como data URL dentro del respaldo del navegador con un límite de 2 MB por archivo. En modo remoto quedan bloqueadas hasta migrar almacenamiento.
+En modo local, las imágenes se guardan como data URL dentro del respaldo del navegador con un límite de 2 MB por archivo. En modo remoto se guardan dentro del `workspace` JSONB de la campaña; si la biblioteca visual crece mucho, el siguiente paso profesional es mover binarios a Supabase Storage y dejar aquí solo metadatos.
 
 ## Herramientas DM
 
@@ -151,7 +151,7 @@ Cada herramienta usa el contrato de entidad común, más:
 - `data`: campos cortos propios de la plantilla.
 - `content.plainText`: notas libres para dirigir en mesa.
 
-Las herramientas se indexan en la búsqueda global, pueden enlazarse con `[[Nombre]]` desde el editor y pueden añadirse al tablero como nodos. En modo remoto quedan bloqueadas hasta migrar persistencia.
+Las herramientas se indexan en la búsqueda global, pueden enlazarse con `[[Nombre]]` desde el editor, pueden añadirse al tablero como nodos y se guardan en modo local o remoto junto al `workspace` de la campaña.
 
 ## Tutorial de primera visita
 
@@ -302,7 +302,7 @@ La primera implementación vive en la vista `Tablero` de la Bitácora. Permite:
 - quitar nodos o conexiones sin borrar la entidad original;
 - deshacer y rehacer cambios de tablero durante la sesión abierta.
 
-En modo local se guarda dentro de `workspace.boards` y `workspace.connections`. En modo remoto queda bloqueado hasta migrar Supabase.
+En modo local se guarda dentro de `workspace.boards` y `workspace.connections`. En modo remoto se persiste en `campaign_workspaces.workspace` mediante la API de Vercel.
 
 ## Índice derivado
 
@@ -318,7 +318,15 @@ El buscador por campaña deriva su índice al vuelo. No se guarda como fuente de
 
 En local, `workspace` se guarda dentro del JSON de campaña existente.
 
-En Supabase, la siguiente migración recomendada es agregar una tabla genérica para entidades de campaña, además de tablas o campos JSONB para conexiones y tablero:
+En Supabase, la primera implementación remota usa una fila por campaña:
+
+```sql
+campaign_workspaces(campaign_id, workspace, updated_at)
+```
+
+`workspace` contiene páginas, recursos, herramientas DM, conexiones, tableros y tutorial. La app lo normaliza antes de guardar y lo carga al abrir la campaña desbloqueada.
+
+Cuando haga falta colaboración simultánea, auditoría por entidad o búsqueda SQL avanzada, el siguiente paso recomendado es dividir ese JSON en tablas especializadas:
 
 ```sql
 campaign_entities(id, campaign_id, type, title, slug, summary, content, visibility, tags, metadata, created_at, updated_at)

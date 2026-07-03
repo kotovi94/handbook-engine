@@ -93,4 +93,13 @@ export const remoteStorage = {
       body: JSON.stringify({ id: sessionId }),
     });
   },
+
+  async saveWorkspace(campaignId, workspace) {
+    const token = localStorage.getItem(tokenKey(campaignId));
+    return requestJson(`/api/campaigns/${campaignId}/workspace`, {
+      method: "PATCH",
+      headers: token ? { authorization: `Bearer ${token}` } : {},
+      body: JSON.stringify({ workspace }),
+    });
+  },
 };

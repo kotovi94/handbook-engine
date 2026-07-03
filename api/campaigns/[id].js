@@ -57,6 +57,21 @@ function mapSession(row) {
   };
 }
 
+function isMissingWorkspaceTable(error) {
+  return String(error?.message || "").includes("campaign_workspaces")
+    || String(error?.details?.message || "").includes("campaign_workspaces");
+}
+
+async function getCampaignWorkspace(campaignId) {
+  try {
+    const [row] = await supabaseFetch(`/campaign_workspaces?campaign_id=eq.${encodeURIComponent(campaignId)}&select=workspace`);
+    return row?.workspace && typeof row.workspace === "object" ? row.workspace : {};
+  } catch (error) {
+    if (isMissingWorkspaceTable(error)) return {};
+    throw error;
+  }
+}
+
 module.exports = async function handler(req, res) {
   try {
     const { id } = req.query;
@@ -108,6 +123,7 @@ module.exports = async function handler(req, res) {
 
     const sessions = await supabaseFetch(`/sessions?campaign_id=eq.${encodeURIComponent(id)}&select=*&order=date.desc`);
     campaign.sessions = unlocked ? sessions.map(mapSession) : sessions.slice(0, 4).map(mapSession);
+    campaign.workspace = unlocked ? await getCampaignWorkspace(id) : {};
     campaign.summaryOnly = !unlocked;
 
     return sendJson(res, 200, { campaign });
