@@ -34,7 +34,7 @@ const SYSTEMS = {
     progressName: 'Nivel',
     maxProgressText: 'Nivel maximo',
     totalAwardedLabel: 'Experiencia total otorgada',
-    poolsTitle: 'Fondos de la sesion',
+    poolsTitle: 'Fondos de la sesión',
     poolsHelp: 'Cada cantidad se divide en partes iguales entre quienes asistieron.',
     poolLabels: ['Combate', 'Roleo', 'Otros logros'],
     poolHelps: ['Enemigos y encuentros superados', 'Interpretacion y decisiones narrativas', 'Exploracion, objetivos o ajustes manuales'],
@@ -144,7 +144,7 @@ const DND_XP_REWARDS = [
   { id: 'combat-low', bullet: 1, action: 'Combate (desempeno bajo)', xp: 20, note: 'Si los jugadores lucharon de manera torpe o sin estrategia.' },
   { id: 'combat-standard', bullet: 2, action: 'Combate (desempeno aceptable)', xp: 30, note: 'Si usaron tacticas basicas y tuvieron un combate estandar.' },
   { id: 'combat-excellent', bullet: 3, action: 'Combate (desempeno sobresaliente)', xp: 40, note: 'Si usaron estrategias avanzadas, combos o tacticas creativas.' },
-  { id: 'valuable-information', bullet: 4, action: 'Adquirir informacion valiosa', xp: 15, note: 'Descubrir pistas, aprender sobre la trama o revelar secretos importantes.' },
+  { id: 'valuable-information', bullet: 4, action: 'Adquirir información valiosa', xp: 15, note: 'Descubrir pistas, aprender sobre la trama o revelar secretos importantes.' },
   { id: 'accept-mission', bullet: 5, action: 'Aceptar una mision', xp: 10, note: 'Cuando el grupo se compromete con un objetivo importante.' },
   { id: 'complete-mission', bullet: 6, action: 'Cumplir una mision', xp: 40, note: 'Dependiendo de la dificultad de la mision.' },
   { id: 'noncombat-solution', bullet: 7, action: 'Resolver un problema sin combate', xp: 20, note: 'Diplomacia, sigilo, negociacion o engano para evitar un enfrentamiento.' },
@@ -157,7 +157,7 @@ const DND_XP_REWARDS = [
   { id: 'heroic-inspiration', bullet: 14, action: 'Inspiracion Heroica', xp: 30, note: 'Recompensa extra por hazanas epicas.' },
   { id: 'crisis-improvisation', bullet: 15, action: 'Improvisacion exitosa en crisis', xp: 25, note: 'Cuando un jugador resuelve algo sin recursos convencionales.' },
   { id: 'sacrifice-for-ally', bullet: 16, action: 'Sacrificio por otro miembro del grupo', xp: 30, note: 'Incluye poner su vida en riesgo o perder un recurso valioso.' },
-  { id: 'deep-lore', bullet: 17, action: 'Descubrimiento de lore profundo o historia oculta', xp: 20, note: 'Cuando un jugador busca e interpreta informacion antigua o criptica.' },
+  { id: 'deep-lore', bullet: 17, action: 'Descubrimiento de lore profundo o historia oculta', xp: 20, note: 'Cuando un jugador busca e interpreta información antigua o críptica.' },
   { id: 'emotional-roleplay', bullet: 18, action: 'Escena de roleo emocional poderosa', xp: 30, note: 'Llantos, traiciones, confesiones o algo que afecte a todos.' },
   { id: 'creative-feat', bullet: 19, action: 'Proeza ridiculamente creativa (y funcional)', xp: 27, note: 'Inventar una locura que funcione. Premia la locura logica.' },
   { id: 'history-changing-diplomacy', bullet: 20, action: 'Diplomacia que cambia el curso de la historia', xp: 35, note: 'Convencer a un enemigo, evitar una guerra o unir facciones.' },
@@ -549,21 +549,21 @@ function getCyberpunkLedgerEntry(characterId, campaign = state) {
 
 function formatCyberpunkLedgerLine(entry = {}) {
   const count = Number(entry.sessionCount || 0);
-  return `Asignado en bitacora: ${formatResource(entry.assigned || 0)} en ${formatNumber(count)} sesion${count === 1 ? '' : 'es'}`;
+  return `Asignado en bitácora: ${formatResource(entry.assigned || 0)} en ${formatNumber(count)} sesión${count === 1 ? '' : 'es'}`;
 }
 
 function formatCyberpunkLastSessionLine(entry = {}) {
   const sessionNumber = Number(entry.campaignLatestSessionNumber || 0);
-  const sessionLabel = sessionNumber ? `Sesion ${formatNumber(sessionNumber)}` : 'Sin sesiones';
-  return `Ultima sesion: ${formatResource(entry.lastSessionAssigned || 0)} (${sessionLabel})`;
+  const sessionLabel = sessionNumber ? `Sesión ${formatNumber(sessionNumber)}` : 'Sin sesiones';
+  return `Última sesión: ${formatResource(entry.lastSessionAssigned || 0)} (${sessionLabel})`;
 }
 
 function renderCyberpunkCharacterPpSummary(entry = {}) {
   const sessionNumber = Number(entry.campaignLatestSessionNumber || 0);
-  const sessionLabel = sessionNumber ? `Sesion ${formatNumber(sessionNumber)}` : 'Sin sesiones';
+  const sessionLabel = sessionNumber ? `Sesión ${formatNumber(sessionNumber)}` : 'Sin sesiones';
   return `<div class="character-pp-summary">
     <div><span>PP asignados a este personaje</span><b>${formatResource(entry.assigned || 0)}</b></div>
-    <div><span>PP asignados en ultima sesion</span><b>${formatResource(entry.lastSessionAssigned || 0)}</b><small>${escapeHTML(sessionLabel)}</small></div>
+    <div><span>PP asignados en última sesión</span><b>${formatResource(entry.lastSessionAssigned || 0)}</b><small>${escapeHTML(sessionLabel)}</small></div>
   </div>`;
 }
 
@@ -580,7 +580,7 @@ function getSessionStats(campaign = state) {
 }
 
 function formatSessionRegistrationLabel(count) {
-  return `${formatNumber(count)} registro${count === 1 ? '' : 's'} en bitacora`;
+  return `${formatNumber(count)} registro${count === 1 ? '' : 's'} en bitácora`;
 }
 
 function formatCharacterCountLabel(count) {
@@ -588,7 +588,7 @@ function formatCharacterCountLabel(count) {
 }
 
 function formatSessionCurrentLabel(number) {
-  return number > 0 ? `Sesion actual ${formatNumber(number)}` : 'Sin sesiones';
+  return number > 0 ? `Sesión actual ${formatNumber(number)}` : 'Sin sesiones';
 }
 
 function campaignSessionMeta(campaign) {
@@ -788,10 +788,10 @@ function renderCampaigns() {
     const nextStep = characterCount === 0
       ? "Siguiente paso: agrega los personajes de la mesa."
       : (sessionStats.registered === 0
-        ? "Siguiente paso: registra la primera sesion."
+        ? "Siguiente paso: registra la primera sesión."
         : (sessionStats.hasExternalHistory
-          ? `Bitacora iniciada en sesion ${formatNumber(sessionStats.latest)}; continua con la ${formatNumber(sessionStats.latest + 1)}.`
-          : "Lista para continuar la bitacora."));
+          ? `Bitácora iniciada en sesión ${formatNumber(sessionStats.latest)}; continúa con la ${formatNumber(sessionStats.latest + 1)}.`
+          : "Lista para continuar la bitácora."));
     const bannerStyle = campaign.banner ? `background-image:url('${campaign.banner}')` : "";
     const fontFamilies = { classic: "Cinzel,serif", medieval: "MedievalSharp,cursive", chronicle: "IM Fell English,serif", arcane: "Uncial Antiqua,serif", modern: "Inter,sans-serif" };
     return `<article class="campaign-card" style="--campaign-color:${campaign.color || "#9b4e35"};--card-display-font:${fontFamilies[campaign.font || "classic"]}">
@@ -808,7 +808,7 @@ function renderCampaigns() {
         <div class="campaign-card-tools"><button class="text-button share-campaign" data-id="${campaign.id}">Compartir</button><button class="text-button edit-campaign" data-id="${campaign.id}">Editar</button><button class="text-button danger-button delete-campaign" data-id="${campaign.id}">Eliminar</button></div>
       </div>
     </article>`;
-  }).join("") : `<div class="empty-state" style="grid-column:1/-1"><h3>Tu primera travesia te espera</h3><p>Crea una campaña para comenzar a reunir personajes, sesiones y experiencia.</p><button class="primary-button new-campaign-button" id="empty-new-campaign">Crear primera campaña</button></div>`;
+  }).join("") : `<div class="empty-state" style="grid-column:1/-1"><h3>Tu primera travesía te espera</h3><p>Crea una campaña para comenzar a reunir personajes, sesiones y experiencia.</p><button class="primary-button new-campaign-button" id="empty-new-campaign">Crear primera campaña</button></div>`;
 }
 
 function openNewCampaignModal(trigger) {
@@ -846,7 +846,7 @@ async function copyText(value) {
 
 async function shareCampaign(campaign) {
   const url = getCampaignShareUrl(campaign);
-  const text = campaign.description || 'Bitacora compartida de D20 Travesias.';
+  const text = campaign.description || 'Bitácora compartida de D20 Travesías.';
   try {
     if (navigator.share) {
       await navigator.share({ title: campaign.name, text, url });
@@ -2787,7 +2787,7 @@ function renderDashboard() {
     : '—';
   $('#stats-grid').innerHTML = [
     ['Personajes', state.characters.length],
-    ['Sesion actual', sessionStats.latest || 0],
+    ['Sesión actual', sessionStats.latest || 0],
     ['Registros', sessionStats.registered],
     [`${system.unit} otorgados`, formatNumber(totalAwarded)],
     [system.averageStatLabel, averageProgress]
@@ -3153,7 +3153,7 @@ function renderCyberpunkAwardLedger(sessions, filtered = false) {
     const current = entry.current === null ? '-' : formatResource(entry.current);
     return `<tr>
       <td>${escapeHTML(player)}</td>
-      <td>${escapeHTML(entry.characterName)}${entry.latestSession ? `<small>Ultima asistencia: ${formatNumber(entry.latestSession)}</small>` : ''}</td>
+      <td>${escapeHTML(entry.characterName)}${entry.latestSession ? `<small>Última asistencia: ${formatNumber(entry.latestSession)}</small>` : ''}</td>
       <td>${current}</td>
       <td><b>${formatResource(entry.assigned)}</b></td>
       <td>${formatResource(entry.lastSessionAssigned || 0)}</td>
@@ -3170,7 +3170,7 @@ function renderCyberpunkAwardLedger(sessions, filtered = false) {
     </header>
     <div class="log-body">
       <table class="allocation-table cyberpunk-ledger-table">
-        <thead><tr><th>Jugador</th><th>Personaje</th><th>PP actual</th><th>PP asignados</th><th>Ultima sesion</th><th>Sesiones</th><th>Detalle</th></tr></thead>
+        <thead><tr><th>Jugador</th><th>Personaje</th><th>PP actual</th><th>PP asignados</th><th>Última sesión</th><th>Sesiones</th><th>Detalle</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>

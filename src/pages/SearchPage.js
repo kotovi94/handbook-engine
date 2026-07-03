@@ -6,7 +6,7 @@ import { compareDisplayValue, compareSpellLevelThenName, compareVisibleName } fr
 
 const tabs = [
   { id: "all", label: "Todo" },
-  { id: "equipment", label: "Items" },
+  { id: "equipment", label: "Ítems" },
   { id: "spell", label: "Hechizos" },
 ];
 
@@ -27,15 +27,15 @@ export function SearchPage({ initialTab = "all" } = {}) {
 
   page.innerHTML = `
     <div>
-      <p class="page-kicker">Referencia rapida</p>
-      <h2 class="page-title">Busqueda de mesa</h2>
+      <p class="page-kicker">Referencia rápida</p>
+      <h2 class="page-title">Búsqueda de mesa</h2>
     </div>
     <div class="panel">
-      <p>Busca por nombre, letras sueltas, clase, escuela, dano, precio, tirada o palabra clave. Pensado para encontrar rapido que copiar o revisar en sesion.</p>
+      <p>Busca por nombre, letras sueltas, clase, escuela, daño, precio, tirada o palabra clave. Pensado para encontrar rápido qué copiar o revisar en sesión.</p>
     </div>
   `;
 
-  page.append(renderTabs(filters, render), renderSearchControls(filters, render), resultsSlot);
+  page.append(renderTabs(filters, render), renderSearchControls(filters, render), renderActiveFilterChips(filters, render), resultsSlot);
   render();
 
   function render() {
@@ -64,6 +64,16 @@ function renderTabs(filters, onChange) {
 }
 
 function renderSearchControls(filters, onChange) {
+  const details = document.createElement("details");
+  details.className = "reference-filter-shell";
+  details.open = window.innerWidth > 760;
+
+  const summary = document.createElement("summary");
+  summary.innerHTML = `
+    <span>Filtros de búsqueda</span>
+    <small>Nombre, tipo, nivel, clase, escuela y marca</small>
+  `;
+
   const form = document.createElement("form");
   form.className = "filter-bar reference-filter";
   form.setAttribute("role", "search");
@@ -73,7 +83,7 @@ function renderSearchControls(filters, onChange) {
       <input name="query" type="search" placeholder="Ej: espada, fire, 2d8, ritual..." />
     </label>
     <label class="field">
-      <span>Tipo item</span>
+      <span>Tipo ítem</span>
       <select name="equipmentCategory">
         <option value="all">Todos</option>
         <option value="weapon">Armas</option>
@@ -117,10 +127,10 @@ function renderSearchControls(filters, onChange) {
       <span>Marca</span>
       <select name="spellTag">
         <option value="all">Todas</option>
-        <option value="concentration">Concentracion</option>
+        <option value="concentration">Concentración</option>
         <option value="ritual">Ritual</option>
-        <option value="damage">Hace dano</option>
-        <option value="save">Tiene salvacion</option>
+        <option value="damage">Hace daño</option>
+        <option value="save">Tiene salvación</option>
         <option value="attack">Ataque de conjuro</option>
       </select>
     </label>
@@ -153,14 +163,118 @@ function renderSearchControls(filters, onChange) {
   form.addEventListener("input", () => {
     Object.assign(filters, readReferenceFilters(form));
     onChange();
+    replaceActiveFilterChips(form, filters, onChange);
   });
   form.addEventListener("change", () => {
     Object.assign(filters, readReferenceFilters(form));
     onChange();
+    replaceActiveFilterChips(form, filters, onChange);
   });
   form.addEventListener("submit", (event) => event.preventDefault());
 
-  return form;
+  details.append(summary, form);
+  return details;
+}
+
+function renderActiveFilterChips(filters, onChange) {
+  const chips = document.createElement("div");
+  chips.className = "active-filter-chips";
+  const activeFilters = getActiveFilterLabels(filters);
+
+  if (!activeFilters.length) {
+    chips.classList.add("is-empty");
+    chips.textContent = "Sin filtros activos";
+    return chips;
+  }
+
+  activeFilters.forEach((filter) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "filter-chip";
+    button.innerHTML = `<span>${filter.label}</span><strong>${filter.value}</strong>`;
+    button.addEventListener("click", () => {
+      filters[filter.key] = filter.resetValue;
+      syncReferenceForm(button.closest(".section-stack")?.querySelector(".reference-filter"), filters);
+      onChange();
+      chips.replaceWith(renderActiveFilterChips(filters, onChange));
+    });
+    chips.append(button);
+  });
+
+  const clearButton = document.createElement("button");
+  clearButton.type = "button";
+  clearButton.className = "filter-chip clear-filter-chip";
+  clearButton.textContent = "Limpiar filtros";
+  clearButton.addEventListener("click", () => {
+    Object.assign(filters, {
+      query: "",
+      equipmentCategory: "all",
+      spellLevel: "all",
+      spellClass: "all",
+      spellSchool: "all",
+      spellTag: "all",
+    });
+    syncReferenceForm(clearButton.closest(".section-stack")?.querySelector(".reference-filter"), filters);
+    onChange();
+    chips.replaceWith(renderActiveFilterChips(filters, onChange));
+  });
+  chips.append(clearButton);
+
+  return chips;
+}
+
+function getActiveFilterLabels(filters) {
+  const labels = [];
+
+  if (filters.query) {
+    labels.push({ key: "query", label: "Buscar", value: filters.query, resetValue: "" });
+  }
+  if (filters.equipmentCategory !== "all") {
+    labels.push({ key: "equipmentCategory", label: "Ítem", value: displayValue(filters.equipmentCategory), resetValue: "all" });
+  }
+  if (filters.spellLevel !== "all") {
+    labels.push({ key: "spellLevel", label: "Nivel", value: filters.spellLevel === "0" ? "Truco" : `Nivel ${filters.spellLevel}`, resetValue: "all" });
+  }
+  if (filters.spellClass !== "all") {
+    labels.push({ key: "spellClass", label: "Clase", value: displayValue(filters.spellClass), resetValue: "all" });
+  }
+  if (filters.spellSchool !== "all") {
+    labels.push({ key: "spellSchool", label: "Escuela", value: displayValue(filters.spellSchool), resetValue: "all" });
+  }
+  if (filters.spellTag !== "all") {
+    labels.push({ key: "spellTag", label: "Marca", value: spellTagLabel(filters.spellTag), resetValue: "all" });
+  }
+
+  return labels;
+}
+
+function spellTagLabel(tag) {
+  const labels = {
+    concentration: "Concentración",
+    ritual: "Ritual",
+    damage: "Hace daño",
+    save: "Tiene salvación",
+    attack: "Ataque de conjuro",
+  };
+  return labels[tag] || displayValue(tag);
+}
+
+function replaceActiveFilterChips(form, filters, onChange) {
+  const currentChips = form.closest(".section-stack")?.querySelector(".active-filter-chips");
+  currentChips?.replaceWith(renderActiveFilterChips(filters, onChange));
+}
+
+function syncReferenceForm(form, filters) {
+  if (!form) {
+    return;
+  }
+
+  form.elements.query.value = filters.query;
+  form.elements.equipmentCategory.value = filters.equipmentCategory;
+  form.elements.spellLevel.value = filters.spellLevel;
+  form.elements.spellClass.value = filters.spellClass;
+  form.elements.spellSchool.value = filters.spellSchool;
+  form.elements.spellTag.value = filters.spellTag;
 }
 
 function renderResults(filters, resultsSlot) {
@@ -174,7 +288,7 @@ function renderResults(filters, resultsSlot) {
   if (!results.length) {
     const empty = document.createElement("div");
     empty.className = "panel";
-    empty.innerHTML = "<p>No hay coincidencias. Prueba con parte del nombre, tipo de dano, clase, nivel o precio.</p>";
+    empty.innerHTML = "<p>No hay coincidencias. Prueba con parte del nombre, tipo de daño, clase, nivel o precio.</p>";
     resultsSlot.append(empty);
     return;
   }
@@ -274,7 +388,7 @@ function renderSpellCard(spell) {
       <div><dt>Lanzamiento</dt><dd>${cleanText(spell.castingTime)}</dd></div>
       <div><dt>Alcance</dt><dd>${cleanText(spell.range)}</dd></div>
       <div><dt>Duracion</dt><dd>${cleanText(spell.duration)}</dd></div>
-      ${spell.damage ? `<div><dt>Dano</dt><dd>${cleanText(spell.damage)}${spell.damageType ? ` ${displayValue(spell.damageType)}` : ""}</dd></div>` : ""}
+      ${spell.damage ? `<div><dt>Daño</dt><dd>${cleanText(spell.damage)}${spell.damageType ? ` ${displayValue(spell.damageType)}` : ""}</dd></div>` : ""}
       ${spell.save ? `<div><dt>Salvacion</dt><dd>${displayValue(spell.save)}</dd></div>` : ""}
       ${spell.attack ? `<div><dt>Ataque</dt><dd>${cleanText(spell.attack)}</dd></div>` : ""}
     </dl>
@@ -322,7 +436,7 @@ function renderEquipmentCard(item) {
     </div>
     <p>${item.sheetText || item.description || item.summary}</p>
     <dl class="meta-list">
-      ${item.damageLabel ? `<div><dt>Dano</dt><dd>${item.damageLabel}</dd></div>` : ""}
+      ${item.damageLabel ? `<div><dt>Daño</dt><dd>${item.damageLabel}</dd></div>` : ""}
       ${item.range ? `<div><dt>Alcance</dt><dd>${item.range}</dd></div>` : ""}
       ${item.ac ? `<div><dt>CA</dt><dd>${item.ac}</dd></div>` : ""}
       ${item.acBase ? `<div><dt>CA</dt><dd>${item.acBase}${dexterityText(item.dexterity)}</dd></div>` : ""}

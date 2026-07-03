@@ -70,7 +70,7 @@ function showStartupError(error) {
   panel.innerHTML = `
     <section>
       <p class="page-kicker">Error de arranque</p>
-      <h1>Compendio D20 Travesias no pudo pintar la interfaz</h1>
+      <h1>Compendio D20 Travesías no pudo pintar la interfaz</h1>
       <p>${message}</p>
       <pre>${stack}</pre>
     </section>
@@ -134,8 +134,8 @@ function showThemeIntroNotice() {
   notice.innerHTML = `
     <div>
       <span>Antes de empezar</span>
-      <h2>Elige como quieres ver la app</h2>
-      <p>El modo claro u oscuro cambia la lectura general. El color del tema se ajusta automaticamente a la clase elegida; si aun no hay clase, se usa el tema Default.</p>
+      <h2>Elige cómo quieres ver la app</h2>
+      <p>El modo claro u oscuro cambia la lectura general. El color del tema se ajusta automáticamente a la clase elegida; si aún no hay clase, se usa el tema Default.</p>
     </div>
     <div class="theme-intro-actions">
       <button type="button" class="button" data-mode="light">Modo claro</button>

@@ -11,7 +11,7 @@ export function PrintSheetPage() {
       <h2 class="page-title">Instrucciones para la hoja</h2>
     </div>
     <div class="panel print-help-panel">
-      <p>Usa el boton PDF del encabezado o la opcion de imprimir del navegador para guardar estas instrucciones.</p>
+      <p>Usa el botón Imprimir del encabezado o la opción de imprimir del navegador para guardar estas instrucciones.</p>
     </div>
   `;
   page.append(SheetSectionList(mapCharacterToSheetSections(getCharacter())));

@@ -44,7 +44,7 @@ export const navigationSections = [
         theme: "theme-default",
       },
       {
-        label: "Campanas y bitacora",
+        label: "Campañas y bitácora",
         href: "./campaigns/",
         icon: "map",
         theme: "theme-default",
@@ -67,7 +67,7 @@ export const navigationSections = [
         theme: "theme-default",
       },
       {
-        label: "Busqueda",
+        label: "Búsqueda",
         route: "search",
         icon: "search",
         theme: "theme-default",

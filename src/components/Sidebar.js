@@ -8,10 +8,10 @@ export function Sidebar({ activeRoute, onNavigate }) {
 
   sidebar.innerHTML = `
     <div class="sidebar-header">
-      <h1 class="sidebar-title">Compendio D20 Travesias</h1>
+      <h1 class="sidebar-title">Compendio D20 Travesías</h1>
       <span class="sidebar-subtitle">D&D 5e 2024</span>
     </div>
-    <nav class="sidebar-body" aria-label="Navegacion principal"></nav>
+    <nav class="sidebar-body" aria-label="Navegación principal"></nav>
     <div class="sidebar-footer" data-sidebar-footer></div>
   `;
 

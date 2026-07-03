@@ -10,7 +10,7 @@ export function Layout({ activeRoute, activeTheme, isDarkMode, onNavigate, onDar
   const overlay = document.createElement("button");
   overlay.className = "sidebar-overlay";
   overlay.type = "button";
-  overlay.setAttribute("aria-label", "Cerrar menu");
+  overlay.setAttribute("aria-label", "Cerrar menú");
 
   const sidebar = Sidebar({ activeRoute, onNavigate });
   const themeSlot = sidebar.querySelector("[data-sidebar-footer]");
@@ -23,14 +23,14 @@ export function Layout({ activeRoute, activeTheme, isDarkMode, onNavigate, onDar
   mainHeader.className = "main-header";
 
   const menuButton = IconButton({
-    label: "Abrir menu",
+    label: "Abrir menú",
     icon: "",
     className: "mobile-menu-button",
     onClick: () => setSidebarState(true),
   });
 
   const headerTitle = document.createElement("strong");
-  headerTitle.textContent = "Compendio D20 Travesias";
+  headerTitle.textContent = "Compendio D20 Travesías";
 
   mainHeader.append(
     menuButton,

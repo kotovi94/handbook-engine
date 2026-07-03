@@ -3,38 +3,36 @@ import { Icon } from "../components/Icon.js";
 const homeActions = [
   {
     title: "Crear personaje",
-    description: "Construye tu personaje paso a paso y prepara una hoja lista para jugar.",
+    description: "Construye una ficha de nivel 5 con pendientes claros y salida lista para hoja física.",
     route: "creator",
     icon: "person",
-    eyebrow: "Asistente",
+    eyebrow: "Jugador",
+    intent: "Empieza aquí",
+    featured: true,
   },
   {
-    title: "Buscar items",
-    description: "Consulta armas, armaduras, herramientas, equipo y sus datos de juego.",
-    route: "search:items",
-    icon: "sword",
-    eyebrow: "Equipo",
-  },
-  {
-    title: "Buscar hechizos",
-    description: "Filtra conjuros por nivel, clase, escuela y otras propiedades utiles.",
-    route: "search:spells",
-    icon: "spark",
-    eyebrow: "Magia",
-  },
-  {
-    title: "Dungeon Generator",
-    description: "Genera mapas estructurales, salas, encuentros, peligros y tesoro para mesa.",
+    title: "Preparar sesión DM",
+    description: "Genera una mazmorra editable con mapa, salas, encuentros, tesoro y exportación.",
     route: "dungeon-generator",
     icon: "map",
     eyebrow: "DM",
+    intent: "Antes de dirigir",
   },
   {
-    title: "Campanas y bitacora",
-    description: "Administra tus campanas, registra sesiones y consulta la bitacora de aventuras.",
+    title: "Buscar en mesa",
+    description: "Encuentra ítems, hechizos y datos de reglas sin abrir todo el compendio.",
+    route: "search",
+    icon: "spark",
+    eyebrow: "Consulta",
+    intent: "Durante la sesión",
+  },
+  {
+    title: "Campañas",
+    description: "Administra personajes, sesiones, notas, recompensas y bitácora de aventuras.",
     href: "./campaigns/",
     icon: "map",
     eyebrow: "Archivo",
+    intent: "Mesa persistente",
     actionLabel: "Abrir",
   },
 ];
@@ -44,9 +42,9 @@ export function HomePage() {
   page.className = "home-page";
   page.innerHTML = `
     <header class="home-hero">
-      <p class="page-kicker">D20 Travesias</p>
-      <h2 class="home-title">Que quieres preparar?</h2>
-      <p class="home-intro">Crea un personaje o encuentra rapidamente la informacion que necesitas para tu proxima sesion.</p>
+      <p class="page-kicker">D20 Travesías</p>
+      <h2 class="home-title">¿Qué quieres preparar?</h2>
+      <p class="home-intro">Elige el momento de mesa: crear un personaje, preparar como DM, consultar reglas o continuar una campaña.</p>
     </header>
   `;
 
@@ -55,11 +53,12 @@ export function HomePage() {
 
   homeActions.forEach((action) => {
     const link = document.createElement("a");
-    link.className = "home-action-card";
+    link.className = action.featured ? "home-action-card is-featured" : "home-action-card";
     link.href = action.href || `#/${action.route}`;
     link.innerHTML = `
       <span class="home-action-eyebrow">${action.eyebrow}</span>
       <span class="home-action-icon"></span>
+      <span class="home-action-intent">${action.intent}</span>
       <strong>${action.title}</strong>
       <span class="home-action-description">${action.description}</span>
       <span class="home-action-link">${action.actionLabel || "Empezar"} <span aria-hidden="true">&rarr;</span></span>
