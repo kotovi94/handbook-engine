@@ -109,17 +109,17 @@ export function CreatorPage({ stepId = "class" } = {}) {
     wrapper.append(
       choiceSection({
         title: "Base automatica",
-        helper: "La app mezcla clase, especie, trasfondo y subclase para dar una direccion visual inicial.",
+        helper: "La app mezcla clase, especie, trasfondo y subclase para dar una dirección visual inicial.",
         content: appearanceBasePanel(character, derived),
       }),
       choiceSection({
         title: "Detalles visuales",
-        helper: "Ajusta solo lo que te interese. Puedes dejar campos en blanco y la descripcion seguira funcionando.",
+        helper: "Ajusta solo lo que te interese. Puedes dejar campos en blanco y la descripción seguira funcionando.",
         content: appearanceControls(appearance, render),
       }),
       choiceSection({
         title: "Texto generado",
-        helper: "Copia una version narrativa para la hoja o un prompt visual para usar fuera de la app.",
+        helper: "Copia una versión narrativa para la hoja o un prompt visual para usar fuera de la app.",
         content: appearanceOutput(generated, render),
       }),
     );
@@ -150,7 +150,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
     wrapper.append(
       choiceSection({
         title: "Trasfondo",
-        helper: "Aporta aumentos de caracteristica, habilidades, dote inicial, equipo y monedas.",
+        helper: "Aporta aumentos de característica, habilidades, dote inicial, equipo y monedas.",
         content: originChoiceGrid({
           type: "background",
           items: creationEngine.getChoices("background"),
@@ -163,7 +163,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
       }),
       choiceSection({
         title: "Especie",
-        helper: "Aporta tamano, velocidad, idiomas y rasgos que se copian a la hoja.",
+        helper: "Aporta tamaño, velocidad, idiomas y rasgos que se copian a la hoja.",
         content: originChoiceGrid({
           type: "species",
           items: creationEngine.getChoices("species"),
@@ -207,12 +207,12 @@ export function CreatorPage({ stepId = "class" } = {}) {
     wrapper.append(
       choiceSection({
         title: "Subclase",
-        helper: "A nivel 5 la subclase ya esta activa. Elige una para sumar sus rasgos.",
+        helper: "A nivel 5 la subclase ya está activa. Elige una para sumar sus rasgos.",
         content: renderSubclassChoice(),
       }),
       choiceSection({
         title: "Mejora de nivel 4",
-        helper: "Elige si el nivel 4 sube caracteristicas o agrega una dote. Esto se refleja en la hoja y en pendientes.",
+        helper: "Elige si el nivel 4 sube características o agrega una dote. Esto se refleja en la hoja y en pendientes.",
         content: renderLevel4Improvement(),
       }),
       ProgressionList({ title: "Rasgos de clase hasta nivel 5", entries: derived.classFeaturesByLevel }),
@@ -222,7 +222,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
         {
           title: "Nivel",
           value: derived.level,
-          formula: "La mesa presencial esta fijada en nivel 5.",
+          formula: "La mesa presencial está fijada en nivel 5.",
         },
         {
           title: "Proficiency Bonus",
@@ -237,7 +237,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
         {
           title: "Nivel 4",
           value: level4Summary(character),
-          formula: "Mejora de caracteristica: aumento de atributos o una dote elegida.",
+          formula: "Mejora de característica: aumento de atributos o una dote elegida.",
         },
       ]),
     );
@@ -254,15 +254,15 @@ export function CreatorPage({ stepId = "class" } = {}) {
     [
       {
         id: "abilities",
-        label: "Subir caracteristicas",
+        label: "Subir características",
         value: "+2",
-        summary: "Suma +2 a un atributo o +1 a dos atributos, hasta maximo 20.",
+        summary: "Suma +2 a un atributo o +1 a dos atributos, hasta máximo 20.",
       },
       {
         id: "feat",
         label: "Elegir dote",
         value: "Dote",
-        summary: "Elige una dote disponible; si tiene elecciones, apareceran en Pendientes.",
+        summary: "Elige una dote disponible; si tiene elecciónes, apareceran en Pendientes.",
       },
     ].forEach((mode) => {
       const button = document.createElement("button");
@@ -321,7 +321,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
           <b>+${ability.level4Increase}</b>
           <button type="button" class="step-button" data-action="level4-up" aria-label="Subir aumento nivel 4 de ${displayValue(ability.label)}">+</button>
         </div>
-        <small>Antes de nivel 4: ${beforeLevel4}. Maximo final 20.</small>
+        <small>Antes de nivel 4: ${beforeLevel4}. Máximo final 20.</small>
       `;
       card.querySelector('[data-action="level4-down"]').addEventListener("click", () => {
         updateLevel4Increase(ability.id, -1);
@@ -357,17 +357,17 @@ export function CreatorPage({ stepId = "class" } = {}) {
     wrapper.append(
       choiceSection({
         title: "Equipo avanzado nivel 5",
-        helper: "PHB 2024 recomienda sumar dinero y posibles objetos magicos al equipo inicial normal cuando la mesa empieza en nivel 5.",
+        helper: "PHB 2024 recomienda sumar dinero y posibles objetos mágicos al equipo inicial normal cuando la mesa empieza en nivel 5.",
         content: renderHigherLevelEquipment(),
       }),
       choiceSection({
-        title: "Objetos magicos de nivel 5",
-        helper: "Elige 1 comun y 1 poco comun si el DM usa la sugerencia de equipo avanzado.",
+        title: "Objetos mágicos de nivel 5",
+        helper: "Elige 1 común y 1 poco común si el DM usa la sugerencia de equipo avanzado.",
         content: renderMagicItemChoices(),
       }),
       choiceSection({
         title: "Equipo de clase",
-        helper: "Elige el paquete inicial indicado por la clase. Puede ser A, B o una opcion de monedas.",
+        helper: "Elige el paquete inicial indicado por la clase. Puede ser A, B o una opción de monedas.",
         content: classOptions.length
           ? equipmentOptionGrid({
               options: classOptions,
@@ -429,7 +429,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
     panel.innerHTML = `
       <div>
         <p><strong>${status.rule?.equipmentText || "No aplica"}</strong></p>
-        <p>Objetos magicos sugeridos: ${status.rule?.magicItems?.join(", ") || "ninguno"}. Confirma disponibilidad con el DM.</p>
+        <p>Objetos mágicos sugeridos: ${status.rule?.magicItems?.join(", ") || "ninguno"}. Confirma disponibilidad con el DM.</p>
       </div>
       <label class="field">
         <span>Resultado de 1d10 para oro avanzado</span>
@@ -456,7 +456,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
     panel.className = "sheet-adjustments";
     panel.append(
       magicItemSelect({
-        label: "Objeto comun",
+        label: "Objeto común",
         value: character.commonMagicItemId,
         rarity: "Common",
         onChange(value) {
@@ -465,7 +465,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
         },
       }),
       magicItemSelect({
-        label: "Objeto poco comun",
+        label: "Objeto poco común",
         value: character.uncommonMagicItemId,
         rarity: "Uncommon",
         onChange(value) {
@@ -535,14 +535,14 @@ export function CreatorPage({ stepId = "class" } = {}) {
           formula: coinCalculationText(derived),
         },
         {
-          title: "Objetos magicos",
+          title: "Objetos mágicos",
           value: derived.magicItems.length ? derived.magicItems.map(displayName).join(" / ") : "Pendiente",
-          formula: "Nivel 5 sugiere 1 comun y 1 poco comun; el DM decide cuales estan disponibles.",
+          formula: "Nivel 5 sugiere 1 común y 1 poco común; el DM decide cuales están disponibles.",
         },
         {
           title: "Percepcion pasiva",
           value: derived.passivePerception,
-          formula: "10 + modificador de Sabiduria, antes de otros bonos.",
+          formula: "10 + modificador de Sabiduría, antes de otros bonos.",
         },
       ]),
     );
@@ -620,7 +620,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
     const methodLine = character.abilityMethod === "point-buy"
       ? `Compra por puntos: ${pointBuyStatus.spent}/27 usados, ${Math.max(0, pointBuyStatus.remaining)} restantes.`
       : character.abilityMethod === "manual"
-        ? "Manual: ajusta con - y + segun lo que permita la mesa."
+        ? "Manual: ajusta con - y + según lo que permita la mesa."
         : "Standard array: parte de 15, 14, 13, 12, 10 y 8; ajusta si quieres reasignar.";
     const backgroundLine = character.backgroundId
       ? `Aumentos de trasfondo: ${status.total}/3. Usa +2/+1 o +1/+1/+1.`
@@ -751,7 +751,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
     if (!choices.length) {
       const panel = document.createElement("div");
       panel.className = "panel";
-      panel.innerHTML = "<p>No hay elecciones pendientes para las opciones actuales.</p>";
+      panel.innerHTML = "<p>No hay elecciónes pendientes para las opciónes actuales.</p>";
       return panel;
     }
 
@@ -771,7 +771,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
       const options = sortChoiceOptions(choice);
 
       if (!options.length) {
-        section.append(emptyPanel(`Completa primero: ${choice.requiresChoiceLabel || "la eleccion anterior"}.`));
+        section.append(emptyPanel(`Completa primero: ${choice.requiresChoiceLabel || "la elección anterior"}.`));
         wrapper.append(section);
         return;
       }
@@ -960,7 +960,7 @@ const appearanceFields = [
   {
     id: "clothing",
     label: "Ropa",
-    options: ["", "ropa de viaje", "armadura gastada", "tunica ritual", "cuero oscuro", "ropas finas", "atuendo practico"],
+    options: ["", "ropa de viaje", "armadura gastada", "túnica ritual", "cuero oscuro", "ropas finas", "atuendo práctico"],
   },
   {
     id: "palette",
@@ -970,7 +970,7 @@ const appearanceFields = [
   {
     id: "style",
     label: "Estilo general",
-    options: ["", "fantasia heroica", "retrato realista", "ilustracion de manual", "concept art", "pintura digital"],
+    options: ["", "fantasía heroica", "retrato realista", "ilustración de manual", "concept art", "pintura digital"],
   },
 ];
 
@@ -1033,15 +1033,15 @@ function appearanceControls(appearance, onChange) {
     <textarea rows="3" placeholder="Ej: lleva un relicario familiar, una capa quemada o una mirada siempre cansada."></textarea>
   `;
   const textarea = customField.querySelector("textarea");
-  textarea.value = appearance.notes || "";
-  textarea.addEventListener("input", () => {
+  textárea.value = appearance.notes || "";
+  textárea.addEventListener("input", () => {
     updateCharacter({
       appearance: {
-        notes: textarea.value,
+        notes: textárea.value,
       },
     });
   });
-  textarea.addEventListener("change", () => {
+  textárea.addEventListener("change", () => {
     onChange();
   });
   form.append(customField);
@@ -1055,9 +1055,9 @@ function appearanceOutput({ description, prompt }, onChange) {
 
   panel.append(
     appearanceTextCard({
-      label: "Descripcion narrativa",
+      label: "Descripción narrativa",
       text: description,
-      buttonLabel: "Copiar descripcion",
+      buttonLabel: "Copiar descripción",
     }),
     appearanceTextCard({
       label: "Prompt visual",
@@ -1209,11 +1209,11 @@ function formatNaturalList(values) {
 
 function classVisualCue(classId) {
   const cues = {
-    artificer: "presencia tecnica y mirada analitica",
+    artificer: "presencia técnica y mirada analitica",
     barbarian: "presencia intensa y postura feroz",
-    bard: "porte expresivo y energia escenica",
-    cleric: "aura devota y simbolos sagrados",
-    druid: "vinculo natural y detalles organicos",
+    bard: "porte expresivo y energía escénica",
+    cleric: "aura devota y símbolos sagrados",
+    druid: "vínculo natural y detalles organicos",
     fighter: "postura marcial y equipo preparado",
     monk: "calma disciplinada y movimiento preciso",
     paladin: "porte luminoso y conviccion solemne",
@@ -1232,62 +1232,62 @@ function subclassVisualCue(subclassId) {
     abjurer: "protecciones arcanas visibles como sigilos o barreras sutiles",
     "aberrant-sorcery": "presencia mental inquietante y rasgos sutilmente anormales",
     "alchemist": "frascos, reactivos y manchas de laboratorio como detalles visibles",
-    "ancients-oath": "motivos verdes, luz antigua y simbolos de juramento natural",
-    "arcane-archer": "flechas grabadas con runas y precision sobrenatural",
+    "ancients-oath": "motivos verdes, luz antigua y símbolos de juramento natural",
+    "arcane-archer": "flechas grabadas con runas y precisión sobrenatural",
     "arcane-trickster": "detalles ilusorios y herramientas escondidas",
-    "archfey-patron": "encanto feerico, colores vivos y mirada extrana",
+    "archfey-patrón": "encanto feérico, colores vivos y mirada extrana",
     armorer: "armadura convertida en foco arcano y pieza central del diseno",
     artillerist: "artefactos belicos y componentes arcanos expuestos",
     assassin: "silueta discreta y equipo preparado para infiltracion",
-    "battle-master": "postura tactica y equipo marcado por entrenamiento marcial",
-    "battle-smith": "ingenieria marcial y companion mecanico como motivo visual",
-    "beast-master": "vinculo primal con una bestia companera",
-    berserker: "furia fisica, cicatrices y movimiento brutal",
+    "battle-master": "postura táctica y equipo marcado por entrenamiento marcial",
+    "battle-smith": "ingenieria marcial y companion mecánico como motivo visual",
+    "beast-master": "vínculo primal con una bestia companera",
+    berserker: "furia física, cicatrices y movimiento brutal",
     bladesinging: "elegancia marcial mezclada con magia de danza",
     cavalier: "porte de jinete entrenado y equipo pensado para defender aliados",
-    "celestial-patron": "calidez sobrenatural y senales de luz sanadora",
+    "celestial-patrón": "calidez sobrenatural y señales de luz sanadora",
     champion: "porte atletico y seguridad de combatiente experto",
-    "clockwork-sorcery": "simetria precisa y pequenos motivos mecanicos o inevitables",
+    "clockwork-sorcery": "simetría precisa y pequeños motivos mecánicos o inevitables",
     "dance-college": "movimiento escenico y vestimenta flexible",
-    diviner: "simbolos de presagio y mirada que parece adelantarse al momento",
-    "devotion-oath": "simbolos sagrados limpios y luz de juramento honorable",
+    diviner: "símbolos de presagio y mirada que parece adelantarse al momento",
+    "devotion-oath": "símbolos sagrados limpios y luz de juramento honorable",
     "draconic-sorcery": "rasgos draconicos sutiles en piel, ojos o postura",
     "eldritch-knight": "armamento marcado por magia arcana",
-    "elements-warrior": "gestos fluidos y senales de fuerza elemental contenida",
-    evoker: "energia elemental contenida alrededor de manos o foco",
-    "fey-wanderer": "encanto feerico de viajero y detalles extranos de camino",
-    "fiend-patron": "senal infernal, sombras calidas o detalles amenazantes",
-    "glory-oath": "brillo heroico y simbolos de grandeza publica",
+    "elements-warrior": "gestos fluidos y señales de fuerza elemental contenida",
+    evoker: "energía elemental contenida alrededor de manos o foco",
+    "fey-wanderer": "encanto feérico de viajero y detalles extranos de camino",
+    "fiend-patrón": "señal infernal, sombras calidas o detalles amenazantes",
+    "glory-oath": "brillo heroico y símbolos de grandeza pública",
     "gloom-stalker": "capas oscuras, mirada alerta y presencia de emboscada",
-    "glamour-college": "belleza feerica y presencia magnetica",
-    "great-old-one-patron": "presencia inquietante y motivos cosmicos o incomprensibles",
+    "glamour-college": "belleza feérica y presencia magnetica",
+    "great-old-one-patrón": "presencia inquietante y motivos cosmicos o incomprensibles",
     hunter: "trofeos discretos y equipo de rastreador experto",
-    illusionist: "contornos cambiantes y pequenos efectos ilusorios",
-    "land-circle": "marca natural del circulo elegido",
-    "life-domain": "simbolos de curacion y luz protectora",
+    illusionist: "contornos cambiantes y pequeños efectos ilusorios",
+    "land-circle": "marca natural del círculo elegido",
+    "life-domain": "símbolos de curación y luz protectora",
     "light-domain": "resplandor solar y motivos radiantes",
     "lore-college": "libros, relatos y detalles de erudicion viajera",
-    "mercy-warrior": "mascara o simbolos de sanacion y juicio",
-    "moon-circle": "rasgos salvajes y simbolos lunares",
-    "open-hand-warrior": "postura limpia, manos libres y disciplina fisica",
+    "mercy-warrior": "máscara o símbolos de sanación y juicio",
+    "moon-circle": "rasgos salvajes y símbolos lunares",
+    "open-hand-warrior": "postura limpia, manos libres y disciplina física",
     "order-of-scribes": "pluma arcana, grimorio activo y escritura viva",
-    "psi-warrior": "tension psiquica visible en gestos o arma",
+    "psi-warrior": "tensión psíquica visible en gestos o arma",
     "rune-knight": "runas grabadas en equipo, piel o metal",
     samurai: "porte sereno, disciplina ceremonial y equipo cuidado",
     "sea-circle": "motivos marinos, salitre y movimiento de marea",
     "stars-circle": "constelaciones, mapas celestes y brillo astral",
-    "soulknife": "destellos psiquicos alrededor de las manos",
+    "soulknife": "destellos psíquicos alrededor de las manos",
     "shadow-warrior": "sombras cenidas al cuerpo y movimiento silencioso",
-    thief: "bolsillos, herramientas y equipo practico de saqueo",
-    "trickery-domain": "simbolos ambiguos, duplicidad y gracia enganosa",
+    thief: "bolsillos, herramientas y equipo práctico de saqueo",
+    "trickery-domain": "símbolos ambiguos, duplicidad y gracia enganosa",
     "valor-college": "ornamentos de batalla y presencia de heraldo",
-    "vengeance-oath": "porte severo y simbolos de juramento implacable",
+    "vengeance-oath": "porte severo y símbolos de juramento implacable",
     "war-domain": "iconografia belica y equipo consagrado para combate",
-    "war-magic": "disciplina tactica y defensas arcanas tensas",
+    "war-magic": "disciplina táctica y defensas arcanas tensas",
     "wild-heart": "rasgos animales o espirituales ligados a la furia",
     "wild-magic-sorcery": "chispas caoticas y detalles imposibles",
-    "world-tree": "motivos de raices, ramas y vitalidad cosmica",
-    zealot: "fervor divino y marcas de poder radiante o necrotico",
+    "world-tree": "motivos de raíces, ramas y vitalidad cosmica",
+    zealot: "fervor divino y marcas de poder radiante o necrótico",
   };
 
   return cues[subclassId] || "";
@@ -1483,7 +1483,7 @@ function originGuideRows(type, item) {
   }
 
   return [
-    ["Tamano", displayValue(item.size)],
+    ["Tamaño", displayValue(item.size)],
     ["Velocidad", `${item.speed} pies`],
     ["Idiomas", formatValueList(item.languages)],
     ["Rasgos", formatTraitList(item.grants?.traits)],
@@ -1515,7 +1515,7 @@ function formatBackgroundTool(background) {
   const choice = background.choices?.find((item) => item.type?.toLowerCase().includes("tool")
     || item.type === "gamingSet"
     || item.type === "musicalInstrument");
-  return choice?.label || "Herramienta a eleccion";
+  return choice?.label || "Herramienta a elección";
 }
 
 function formatEquipmentList(itemIds) {
@@ -1651,8 +1651,8 @@ function spellSchoolLabel(school) {
     Conjuration: "Conjuracion",
     Divination: "Adivinacion",
     Enchantment: "Encantamiento",
-    Evocation: "Evocacion",
-    Illusion: "Ilusion",
+    Evocation: "Evocación",
+    Illusion: "Ilusión",
     Necromancy: "Nigromancia",
     Transmutation: "Transmutacion",
   };
@@ -1662,9 +1662,9 @@ function spellSchoolLabel(school) {
 
 function formatSpellTiming(value) {
   return String(value || "")
-    .replace(/1 bonus action|bonus action/gi, "accion adicional")
-    .replace(/1 reaction|reaction/gi, "reaccion")
-    .replace(/1 action|action/gi, "accion")
+    .replace(/1 bonus action|bonus action/gi, "acción adicional")
+    .replace(/1 reaction|reaction/gi, "reacción")
+    .replace(/1 action|action/gi, "acción")
     .replace(/self/gi, "personal")
     .replace(/touch/gi, "toque")
     .replace(/feet/gi, "pies")
@@ -1723,14 +1723,14 @@ function magicItemSelect({ label, value, rarity, onChange }) {
     <select>
       <option value="">Confirmar con DM</option>
     </select>
-    <small>Rareza: ${rarity === "Common" ? "comun" : "poco comun"}.</small>
+    <small>Rareza: ${rarity === "Common" ? "común" : "poco común"}.</small>
   `;
 
   const select = field.querySelector("select");
   creationEngine.getMagicItemsByRarity(rarity).forEach((item) => {
     const option = document.createElement("option");
     option.value = item.id;
-    option.textContent = `${displayName(item)}${item.requiresAttunement ? " (sintonia)" : ""}`;
+    option.textContent = `${displayName(item)}${item.requiresAttunement ? " (sintonía)" : ""}`;
     select.append(option);
   });
   select.value = value;

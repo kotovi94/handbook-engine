@@ -1,4 +1,5 @@
 import { AppIntro } from "../components/AppIntro.js";
+import { FirstVisitTour, shouldShowFirstVisitTour } from "../components/FirstVisitTour.js";
 import { Layout } from "../components/Layout.js";
 import { classRegistry } from "../data/classes.js";
 import { themes } from "../data/themes.js";
@@ -10,6 +11,8 @@ import { getInitialRoute, getRouteTheme, parseHashRoute, renderRoute } from "./r
 const appRoot = document.querySelector("#app");
 const displayModeStorageKey = "handbook-engine-display-mode";
 const themeIntroStorageKey = "handbook-engine-theme-intro-seen";
+let firstVisitTourTimer = 0;
+let pendingManualTour = false;
 
 const state = {
   route: getInitialRoute(),
@@ -55,6 +58,12 @@ function renderApp() {
 
     layout.pageRoot.replaceChildren(renderRoute(state.route));
     appRoot.append(layout.element);
+    if (pendingManualTour && state.route === "home") {
+      pendingManualTour = false;
+      startFirstVisitTour({ force: true, delay: 120 });
+    } else {
+      startFirstVisitTour({ delay: 900 });
+    }
     showThemeIntroNotice();
   } catch (error) {
     showStartupError(error);
@@ -95,6 +104,18 @@ window.addEventListener("handbook-character-class-change", () => {
   updateThemeIndicator(state.theme);
 });
 
+window.addEventListener("handbook-start-tour", () => {
+  pendingManualTour = true;
+
+  if (state.route !== "home") {
+    navigate("home");
+    return;
+  }
+
+  pendingManualTour = false;
+  startFirstVisitTour({ force: true, delay: 80 });
+});
+
 function getActiveTheme(route) {
   return usesCharacterTheme(route) ? getCharacterTheme() : getRouteTheme(route);
 }
@@ -120,7 +141,36 @@ function saveDisplayMode(isDarkMode) {
   window.localStorage.setItem(displayModeStorageKey, isDarkMode ? "dark" : "light");
 }
 
+function startFirstVisitTour({ force = false, delay = 0 } = {}) {
+  window.clearTimeout(firstVisitTourTimer);
+
+  if (state.route !== "home" || document.querySelector(".first-visit-tour")) {
+    return;
+  }
+
+  if (!force && !shouldShowFirstVisitTour()) {
+    return;
+  }
+
+  firstVisitTourTimer = window.setTimeout(() => {
+    if (state.route !== "home" || document.querySelector(".first-visit-tour")) {
+      return;
+    }
+
+    if (!force && !shouldShowFirstVisitTour()) {
+      return;
+    }
+
+    document.querySelectorAll(".theme-intro-notice").forEach((notice) => notice.remove());
+    document.body.append(FirstVisitTour({ onFinish: showThemeIntroNotice }));
+  }, delay);
+}
+
 function showThemeIntroNotice() {
+  if ((state.route === "home" && shouldShowFirstVisitTour()) || document.querySelector(".first-visit-tour")) {
+    return;
+  }
+
   if (window.localStorage.getItem(themeIntroStorageKey)) {
     return;
   }

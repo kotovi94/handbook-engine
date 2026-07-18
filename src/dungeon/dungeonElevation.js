@@ -23,7 +23,7 @@ export function assignRoomElevations(rooms, config, rng) {
 
 export function getElevationHint({ room, shape, floorLevel, config }) {
   if (shape === "doble-altura") {
-    return "Doble altura: balcones, cuerdas o lineas de vision vertical dentro de la sala.";
+    return "Doble altura: balcones, cuerdas o líneas de visión vertical dentro de la sala.";
   }
 
   if (shape === "balcon") {
@@ -35,7 +35,7 @@ export function getElevationHint({ room, shape, floorLevel, config }) {
   }
 
   if (shape === "foso-central") {
-    return "Foso central: caer, empujar o cruzar cambia la tactica.";
+    return "Foso central: caer, empujar o cruzar cambia la táctica.";
   }
 
   if (floorLevel > 0) {

@@ -184,11 +184,11 @@ function getZoneOwner(role, inhabitantMix) {
 function buildZoneName(role, type, theme, narrative, rng) {
   const namesByRole = {
     approach: ["Umbral", "Acceso", "Boca", "Primer Anillo"],
-    original: ["Territorio Viejo", "Zona Antigua", "Galerias Originales", "Camara Madre"],
+    original: ["Territorio Viejo", "Zona Antigua", "Galerias Originales", "Cámara Madre"],
     border: ["Frontera Rota", "Paso Disputado", "Zona de Contacto", "Borde Inestable"],
-    inner: ["Nucleo Alterado", "Camino Interno", "Anillo Profundo", "Zona Sellada"],
-    final: ["Corazon", "Foco Final", "Centro", "Camara Raiz"],
-    secret: ["Ruta Oculta", "Atajo Sellado", "Camara Lateral", "Paso Viejo"],
+    inner: ["Núcleo Alterado", "Camino Interno", "Anillo Profundo", "Zona Sellada"],
+    final: ["Corazón", "Foco Final", "Centro", "Cámara Raiz"],
+    secret: ["Ruta Oculta", "Atajo Sellado", "Cámara Lateral", "Paso Viejo"],
   };
   const base = pickOne(rng, namesByRole[role] || namesByRole.original);
   const anchor = pickOne(rng, type.anchors, "piedra vieja");
@@ -199,14 +199,14 @@ function buildZoneName(role, type, theme, narrative, rng) {
 function buildZoneIdentity(role, type, theme, narrative, owner) {
   const causeText = narrative?.cause?.label?.toLowerCase() || "la causa interna";
   const roleText = {
-    approach: "entrada legible y rastros de ocupacion exterior",
-    original: `uso original de ${type.label.toLowerCase()} todavia reconocible`,
+    approach: "entrada legible y rastros de ocupación exterior",
+    original: `uso original de ${type.label.toLowerCase()} todavía reconocible`,
     border: "frontera donde las facciones y la causa interna se mezclan",
     inner: `zona transformada por ${causeText}`,
-    final: `foco de ${causeText} y decision final de la mazmorra`,
-    secret: "ruta opcional con informacion, atajo o recompensa",
+    final: `foco de ${causeText} y decisión final de la mazmorra`,
+    secret: "ruta opciónal con información, atajo o recompensa",
   }[role] || "zona reconocible";
-  const ownerText = owner === "mixed" ? "dos presencias en tension" : owner ? `presencia de ${owner}` : "presencia incierta";
+  const ownerText = owner === "mixed" ? "dos presencias en tensión" : owner ? `presencia de ${owner}` : "presencia incierta";
   return `${roleText}; ${ownerText}; ${theme.moods?.[0] || "tono definido"}`;
 }
 
@@ -216,15 +216,15 @@ function buildZoneClues(role, narrative, owner) {
   ];
 
   if (role === "border") {
-    clues.unshift("los rastros cambian de direccion como si dos grupos evitaran cruzarse");
+    clues.unshift("los rastros cambian de dirección como si dos grupos evitaran cruzarse");
   }
 
   if (role === "final") {
-    clues.unshift(narrative?.finalHooks?.[0] || "la causa interna se vuelve visible aqui");
+    clues.unshift(narrative?.finalHooks?.[0] || "la causa interna se vuelve visible aquí");
   }
 
   if (role === "secret") {
-    clues.unshift("el polvo, el aire o una reparacion delatan una ruta que no aparece a simple vista");
+    clues.unshift("el polvo, el aire o una reparación delatan una ruta que no aparece a simple vista");
   }
 
   if (owner === "mixed") {
@@ -243,14 +243,14 @@ function getTrapBias(role, narrative) {
 
 function getTreasureBias(role) {
   if (role === "final") return "foco";
-  if (role === "secret") return "opcional";
+  if (role === "secret") return "opciónal";
   if (role === "border") return "abandonado";
   return "local";
 }
 
 function getDoorTone(role, narrative) {
   if (role === "final") return narrative?.doorHooks?.[0] || "puerta de umbral importante";
-  if (role === "border") return "puerta usada como frontera o contencion";
+  if (role === "border") return "puerta usada como frontera o contención";
   if (role === "secret") return "acceso oculto, atajo o ruta de servicio olvidada";
   return "acceso funcional de la zona";
 }

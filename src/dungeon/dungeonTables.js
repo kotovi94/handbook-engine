@@ -3,13 +3,13 @@ export const dungeonTypeTables = {
     label: "Cueva",
     sites: ["Cueva", "Grieta", "Sima", "Red de tuneles"],
     anchors: ["estalactitas quebradas", "lagunas negras", "pasos estrechos", "ecos profundos"],
-    finalRooms: ["caverna mayor", "pozo central", "nido de piedra", "camara bajo la roca"],
+    finalRooms: ["caverna mayor", "pozo central", "nido de piedra", "cámara bajo la roca"],
   },
   cripta: {
     label: "Cripta",
     sites: ["Cripta", "Sepulcro", "Mausoleo", "Osario"],
-    anchors: ["nichos sellados", "lapidas caidas", "velas sin llama", "urnas marcadas"],
-    finalRooms: ["camara funeraria", "sala del sarcofago", "capilla hundida", "osario mayor"],
+    anchors: ["nichos sellados", "lapidas caídas", "velas sin llama", "urnas marcadas"],
+    finalRooms: ["cámara funeraria", "sala del sarcofago", "capilla hundida", "osario mayor"],
   },
   mina: {
     label: "Mina",
@@ -20,44 +20,44 @@ export const dungeonTypeTables = {
   templo: {
     label: "Templo",
     sites: ["Templo", "Santuario", "Monasterio", "Capilla"],
-    anchors: ["altares agrietados", "murales borrados", "incienso rancio", "campanas mudas"],
+    anchors: ["altares agrietados", "murales borrados", "incienso rancio", "campañas mudas"],
     finalRooms: ["sala del altar", "sanctum interior", "oratorio sellado", "coro hundido"],
   },
   fortaleza: {
     label: "Fortaleza",
     sites: ["Fortaleza", "Bastion", "Puesto fortificado", "Fuerte"],
-    anchors: ["rastrillos trabados", "barracas vacias", "murallas partidas", "armerias saqueadas"],
+    anchors: ["rastrillos trabados", "barracas vacías", "murallas partidas", "armerías saqueadas"],
     finalRooms: ["sala de mando", "torreon interior", "patio cerrado", "boveda de guerra"],
   },
   alcantarilla: {
     label: "Alcantarilla",
     sites: ["Alcantarilla", "Colector", "Canal subterraneo", "Cisterna"],
     anchors: ["canales turbios", "compuertas atascadas", "pasarelas mojadas", "rejillas vencidas"],
-    finalRooms: ["deposito central", "camara de compuertas", "cisterna profunda", "nudo de drenaje"],
+    finalRooms: ["deposito central", "cámara de compuertas", "cisterna profunda", "nudo de drenaje"],
   },
   ruina: {
     label: "Ruina",
-    sites: ["Ruina", "Ciudad caida", "Palacio roto", "Recinto antiguo"],
+    sites: ["Ruina", "Ciudad caída", "Palacio roto", "Recinto antiguo"],
     anchors: ["columnas partidas", "mosaicos cubiertos", "arcadas abiertas", "jardines secos"],
     finalRooms: ["sala del trono", "foro sepultado", "patio ceremonial", "boveda partida"],
   },
   torre: {
     label: "Torre",
     sites: ["Torre", "Aguja", "Atalaya", "Observatorio"],
-    anchors: ["escaleras en espiral", "ventanas altas", "pisos crujientes", "campanas lejanas"],
+    anchors: ["escaleras en espiral", "ventanas altas", "pisos crujientes", "campañas lejanas"],
     finalRooms: ["cima de la torre", "observatorio superior", "estudio cerrado", "plataforma del faro"],
   },
   guarida: {
     label: "Guarida",
     sites: ["Guarida", "Refugio", "Nido", "Antro"],
     anchors: ["marcas de garras", "huesos viejos", "pieles colgadas", "pasos vigilados"],
-    finalRooms: ["nido principal", "camara de trofeos", "foso de descanso", "sala del alfa"],
+    finalRooms: ["nido principal", "cámara de trofeos", "foso de descanso", "sala del alfa"],
   },
   laboratorio: {
     label: "Laboratorio",
     sites: ["Laboratorio", "Taller arcano", "Sala de pruebas", "Archivo experimental"],
     anchors: ["frascos rotos", "mesas de diseccion", "bobinas apagadas", "diagramas incompletos"],
-    finalRooms: ["sala de contencion", "camara de pruebas", "observatorio cerrado", "reactor menor"],
+    finalRooms: ["sala de contención", "cámara de pruebas", "observatorio cerrado", "reactor menor"],
   },
 };
 
@@ -80,10 +80,10 @@ export const visualThemeTables = {
     details: ["grietas calientes", "ceniza flotando", "piedra negra y porosa"],
     moods: ["sofocante", "inestable", "amenazante"],
   },
-  feerico: {
-    label: "Feerico",
-    adjectives: ["Feerica", "Lunar", "Espejada", "Caprichosa"],
-    details: ["luces pequenas sin fuente", "plantas imposibles", "risas lejanas"],
+  feérico: {
+    label: "Feérico",
+    adjectives: ["Feérica", "Lunar", "Espejada", "Caprichosa"],
+    details: ["luces pequeñas sin fuente", "plantas imposibles", "risas lejanas"],
     moods: ["extrana", "cambiante", "bella e inquietante"],
   },
   corrupto: {
@@ -101,7 +101,7 @@ export const visualThemeTables = {
   natural: {
     label: "Natural",
     adjectives: ["Verde", "Raizal", "Silvestre", "Musgosa"],
-    details: ["raices abiertas", "agua limpia", "musgo sobre simbolos antiguos"],
+    details: ["raíces abiertas", "agua limpia", "musgo sobre símbolos antiguos"],
     moods: ["humeda", "viva", "recuperada por la naturaleza"],
   },
   subterraneo: {
@@ -121,7 +121,7 @@ export const visualThemeTables = {
 export const inhabitantTables = {
   goblins: {
     label: "Goblins",
-    signs: ["trampas de cuerda", "pintadas burlonas", "ollas humeantes", "tambores pequenos"],
+    signs: ["trampas de cuerda", "pintadas burlonas", "ollas humeantes", "tambores pequeños"],
     enemiesByTier: {
       novice: ["vigilantes goblin", "hostigadores con hondas", "saqueadores ruidosos"],
       heroic: ["capitanes goblin", "jinetes de alimanas", "tramperos veteranos"],
@@ -139,18 +139,18 @@ export const inhabitantTables = {
       paragon: ["campeones orcos", "devastadores tribales", "guardias de honor"],
       legendary: ["senores de guerra", "campeones juramentados", "ejecutores de clan"],
     },
-    leaders: ["caudillo brutal", "portaestandarte sagrado", "campeon del pozo"],
+    leaders: ["caudillo brutal", "portaestandarte sagrado", "campeón del pozo"],
   },
   kobolds: {
     label: "Kobolds",
-    signs: ["tuneles bajos", "cables tensos", "escamas sueltas", "pequenas ofrendas"],
+    signs: ["tuneles bajos", "cables tensos", "escamas sueltas", "pequeñas ofrendas"],
     enemiesByTier: {
       novice: ["kobolds con lanzas", "lanzadores de frascos", "vigias escondidos"],
-      heroic: ["tramperos kobold", "guardianes escamados", "tecnicos de emboscada"],
+      heroic: ["tramperos kobold", "guardianes escamados", "técnicos de emboscada"],
       paragon: ["maestros de trampas", "hechiceros de escama", "guardias del huevo"],
-      legendary: ["elegidos draconicos", "arquitectos de muerte", "lideres de nido"],
+      legendary: ["elegidos draconicos", "arquitectos de muerte", "líderes de nido"],
     },
-    leaders: ["vocero del nido", "hechicero escamado", "campeon de la garra"],
+    leaders: ["vocero del nido", "hechicero escamado", "campeón de la garra"],
   },
   "no-muertos": {
     label: "No muertos",
@@ -176,31 +176,31 @@ export const inhabitantTables = {
   },
   cultistas: {
     label: "Cultistas",
-    signs: ["simbolos pintados", "cuencos rituales", "mascaras colgadas", "cantos medidos"],
+    signs: ["símbolos pintados", "cuencos rituales", "mascaras colgadas", "cantos medidos"],
     enemiesByTier: {
       novice: ["iniciados armados", "fanaticos con dagas", "aprendices improvisados"],
       heroic: ["oficiantes de rito", "guardias fanatizados", "invocadores menores"],
       paragon: ["sacerdotes oscuros", "verdugos ceremoniales", "oradores profanos"],
       legendary: ["hierofantes ocultos", "elegidos del culto", "maestros del sello"],
     },
-    leaders: ["profeta del rito", "sumo oficiante", "portador de la mascara"],
+    leaders: ["profeta del rito", "sumo oficiante", "portador de la máscara"],
   },
   constructos: {
     label: "Constructos",
     signs: ["engranajes dispersos", "pisadas metalicas", "runas de control", "aceite seco"],
     enemiesByTier: {
       novice: ["automas defectuosos", "centinelas simples", "herramientas animadas"],
-      heroic: ["guardianes mecanicos", "automas de combate", "torretas arcanas"],
+      heroic: ["guardianes mecánicos", "automas de combate", "torretas arcanas"],
       paragon: ["colosos menores", "centinelas perfectos", "mecanismos cazadores"],
       legendary: ["constructos soberanos", "motores de defensa", "guardianes primarios"],
     },
-    leaders: ["nucleo custodio", "maquina directora", "golem incompleto"],
+    leaders: ["núcleo custodio", "maquina directora", "golem incompleto"],
   },
   aberraciones: {
     label: "Aberraciones",
     signs: ["geometria incorrecta", "mucosidad irisada", "pensamientos intrusivos", "ojos en la piedra"],
     enemiesByTier: {
-      novice: ["formas tentaculares", "parasitos psiquicos", "observadores menores"],
+      novice: ["formas tentaculares", "parasitos psíquicos", "observadores menores"],
       heroic: ["cazadores de mente", "engendros mutados", "enjambres del vacio"],
       paragon: ["oraculos deformes", "horrores de pasillo", "nidos pensantes"],
       legendary: ["intelectos abisales", "avatares deformes", "coros de ojos"],
@@ -211,16 +211,16 @@ export const inhabitantTables = {
     label: "Elementales",
     signs: ["piedra flotante", "aire cargado", "agua que sube", "chispas bajo el polvo"],
     enemiesByTier: {
-      novice: ["chispas vivas", "fragmentos de roca", "remolinos pequenos"],
+      novice: ["chispas vivas", "fragmentos de roca", "remolinos pequeños"],
       heroic: ["guardianes de fuego", "oleadas animadas", "duendes de piedra"],
       paragon: ["senores menores del elemento", "tempestades cerradas", "colosos de magma"],
-      legendary: ["avatares elementales", "principes de la grieta", "nucleos primordiales"],
+      legendary: ["avatares elementales", "principes de la grieta", "núcleos primordiales"],
     },
-    leaders: ["nucleo elemental", "voz de la grieta", "custodio primordial"],
+    leaders: ["núcleo elemental", "voz de la grieta", "custodio primordial"],
   },
   demonios: {
     label: "Demonios",
-    signs: ["rasgones en el aire", "sangre seca", "risas guturales", "simbolos quemados"],
+    signs: ["rasgones en el aire", "sangre seca", "risas guturales", "símbolos quemados"],
     enemiesByTier: {
       novice: ["engendros menores", "mordedores caoticos", "acechadores infernales"],
       heroic: ["desgarradores del portal", "verdugos menores", "tentadores violentos"],
@@ -247,61 +247,61 @@ export const roomTypeTables = {
     label: "Entrada",
     names: ["Umbral Vigilado", "Porton Partido", "Boca del Sitio", "Antesala Fria"],
     descriptions: ["El acceso revela de inmediato el tono del lugar y una primera pista de sus habitantes.", "Una entrada estrecha deja ver marcas recientes y una ruta principal hacia el interior."],
-    notes: ["Marca aqui el primer indicio de peligro.", "Buen punto para revelar el objetivo inmediato."],
+    notes: ["Marca aquí el primer indicio de peligro.", "Buen punto para revelar el objetivo inmediato."],
   },
   pasillo: {
     label: "Pasillo",
     names: ["Paso Angosto", "Cruce Desgastado", "Galeria Larga", "Corredor Bajo"],
-    descriptions: ["Un tramo de conexion con cobertura, ruido distante y una decision de ruta.", "El pasillo cambia la orientacion del grupo y muestra rastros de movimiento reciente."],
+    descriptions: ["Un tramo de conexión con cobertura, ruido distante y una decisión de ruta.", "El pasillo cambia la orientación del grupo y muestra rastros de movimiento reciente."],
     notes: ["Usalo para presion de tiempo o escucha previa.", "Puede conectar con un atajo o con una puerta bloqueada."],
   },
   combate: {
     label: "Combate",
-    names: ["Sala de Guardia", "Nido Activo", "Puesto de Choque", "Camara Disputada"],
+    names: ["Sala de Guardia", "Nido Activo", "Puesto de Choque", "Cámara Disputada"],
     descriptions: ["Un espacio ocupado por fuerzas listas para reaccionar si la entrada no es cuidadosa.", "La sala ofrece cobertura, posiciones altas o rutas laterales para un combate dinamico."],
-    notes: ["Define tacticas simples: alarma, retirada o flanqueo.", "Deja una salida para negociar o infiltrarse."],
+    notes: ["Define tácticas simples: alarma, retirada o flanqueo.", "Deja una salida para negociar o infiltrarse."],
   },
   trampa: {
     label: "Trampa",
-    names: ["Tramo Preparado", "Camara de Presion", "Piso Falso", "Puerta Maliciosa"],
-    descriptions: ["El espacio parece util, pero esta preparado para castigar el avance descuidado.", "Una amenaza ambiental protege el camino o consume recursos antes del siguiente encuentro."],
+    names: ["Tramo Preparado", "Cámara de Presion", "Piso Falso", "Puerta Maliciosa"],
+    descriptions: ["El espacio parece Útil, pero está preparado para castigar el avance descuidado.", "Una amenaza ambiental protege el camino o consume recursos antes del siguiente encuentro."],
     notes: ["Incluye una pista visible antes del disparo.", "Permite desactivar, rodear o activar a distancia."],
   },
   puzzle: {
     label: "Puzzle",
-    names: ["Mecanismo de Sellos", "Sala de Simbolos", "Camara de Ecos", "Panel de Prueba"],
-    descriptions: ["Un obstaculo logico o ritual bloquea una puerta, tesoro o atajo.", "La sala exige observar patrones, mover piezas o interpretar marcas del lugar."],
+    names: ["Mecanismo de Sellos", "Sala de Simbolos", "Cámara de Ecos", "Panel de Prueba"],
+    descriptions: ["Un obstaculo lógico o ritual bloquea una puerta, tesoro o atajo.", "La sala exige observar patrónes, mover piezas o interpretar marcas del lugar."],
     notes: ["Prepara tres pistas: obvia, parcial y directa.", "Acepta soluciones creativas que consuman recursos."],
   },
   tesoro: {
     label: "Tesoro",
     names: ["Deposito Oculto", "Boveda Menor", "Almacen Sellado", "Nicho de Ofrendas"],
-    descriptions: ["Una reserva protegida guarda recompensas, herramientas o informacion util.", "El lugar contiene objetos de valor y una pista sobre el conflicto principal."],
+    descriptions: ["Una reserva protegida guarda recompensas, herramientas o información Útil.", "El lugar contiene objetos de valor y una pista sobre el conflicto principal."],
     notes: ["Conecta el tesoro con la historia local.", "Puede contener una llave, mapa o favor pendiente."],
   },
   descanso: {
     label: "Descanso",
-    names: ["Refugio Seco", "Camara Silenciosa", "Cuarto Barricado", "Rincon Seguro"],
+    names: ["Refugio Seco", "Cámara Silenciosa", "Cuarto Barricado", "Rincon Seguro"],
     descriptions: ["Un punto relativamente seguro permite respirar, curar heridas o reorganizar el plan.", "El espacio esta aislado del flujo principal y muestra signos de uso antiguo."],
     notes: ["Decide que puede interrumpir el descanso.", "Incluye un recurso menor: agua, vendas, brasero o cobertura."],
   },
   vacia: {
-    label: "Sala vacia",
-    names: ["Sala Despojada", "Cuarto Sin Uso", "Camara Polvorienta", "Alcoba Olvidada"],
+    label: "Sala vacía",
+    names: ["Sala Despojada", "Cuarto Sin Uso", "Cámara Polvorienta", "Alcoba Olvidada"],
     descriptions: ["No hay amenaza inmediata, pero si detalles que dan contexto y ritmo.", "El cuarto sirve como pausa, pista falsa o lugar para escuchar lo que viene."],
-    notes: ["Una sala vacia debe decir algo del lugar.", "Agrega una huella, olor, ruido o objeto sin valor evidente."],
+    notes: ["Una sala vacía debe decir algo del lugar.", "Agrega una huella, olor, ruido o objeto sin valor evidente."],
   },
   jefe: {
     label: "Jefe",
-    names: ["Camara Final", "Sala del Lider", "Corazon del Sitio", "Trono de Guerra"],
-    descriptions: ["El conflicto principal se concentra aqui con terreno memorable y una salida clara.", "La sala final combina presencia del lider, objetivo visible y peligro ambiental."],
+    names: ["Cámara Final", "Sala del Líder", "Corazón del Sitio", "Trono de Guerra"],
+    descriptions: ["El conflicto principal se concentra aquí con terreno memorable y una salida clara.", "La sala final combina presencia del líder, objetivo visible y peligro ambiental."],
     notes: ["Haz que el jefe quiera algo durante la escena.", "Incluye terreno: cobertura, altura, fuego, agua, cadenas o ritual."],
   },
   secreto: {
     label: "Secreto",
-    names: ["Puerta Oculta", "Nicho Sellado", "Ruta Trasera", "Camara Escondida"],
-    descriptions: ["Una seccion opcional recompensa exploracion, sospecha o buen uso de herramientas.", "El acceso no es obvio y revela tesoro, informacion o un atajo importante."],
-    notes: ["Ofrece al menos dos formas de descubrirlo.", "No bloquees progreso critico detras del secreto."],
+    names: ["Puerta Oculta", "Nicho Sellado", "Ruta Trasera", "Cámara Escondida"],
+    descriptions: ["Una sección opciónal recompensa exploración, sospecha o buen uso de herramientas.", "El acceso no es obvio y revela tesoro, información o un atajo importante."],
+    notes: ["Ofrece al menos dos formas de descubrirlo.", "No bloquees progreso crítico detras del secreto."],
   },
 };
 
@@ -309,10 +309,10 @@ export const eventTable = [
   "ruido de pasos que se alejan",
   "puerta que se cierra sola",
   "olor fresco que contradice la antiguedad del sitio",
-  "rastro de sangre que cruza el area",
+  "rastro de sangre que cruza el área",
   "mensaje incompleto en una pared",
   "corriente de aire desde una grieta",
-  "objeto comun colocado con demasiado cuidado",
+  "objeto común colocado con demasiado cuidado",
   "eco de una voz conocida por nadie",
   "huellas que aparecen y desaparecen",
   "marca reciente de campamento",
@@ -329,25 +329,25 @@ export const trapTable = {
     "placas de presion conectadas a cuchillas laterales",
     "nube irritante liberada desde ranuras ocultas",
     "puente falso sobre una zanja de estacas",
-    "sello magico que empuja hacia atras al intruso",
+    "sello mágico que empuja hacia atras al intruso",
   ],
   paragon: [
     "mecanismo de gravedad que invierte el piso por un instante",
     "runa que separa al grupo con muros de fuerza menor",
-    "estatuas que disparan rayos de energia inestable",
+    "estatuas que disparan rayos de energía inestable",
     "pozo con cierre automatico y agua ascendente",
   ],
   legendary: [
     "secuencia de sellos que roba acciones si se ignora",
     "coro de runas que invoca guardianes si falla la desactivacion",
-    "camara que cambia de forma cada ronda",
-    "trampa ritual que consume luz, sonido y orientacion",
+    "cámara que cambia de forma cada ronda",
+    "trampa ritual que consume luz, sonido y orientación",
   ],
 };
 
 export const treasureTable = {
   mundane: [
-    "herramientas utiles para explorar",
+    "herramientas Útiles para explorar",
     "provisiones secas en buen estado",
     "mapa parcial con marcas dudosas",
     "llave sin etiqueta",
@@ -356,19 +356,19 @@ export const treasureTable = {
   ],
   low: [
     "bolsa de monedas mezcladas",
-    "joya pequena con simbolo local",
+    "joya pequeña con símbolo local",
     "arma bien cuidada sin propiedades especiales",
     "pergamino con instrucciones rituales",
   ],
   normal: [
     "reliquia menor vendible",
-    "consumible magico de un solo uso",
+    "consumible mágico de un solo uso",
     "cofre con monedas y una pista",
-    "objeto util con rareza local",
+    "objeto Útil con rareza local",
   ],
   high: [
     "pieza de arte protegida",
-    "objeto magico menor para revisar despues",
+    "objeto mágico menor para revisar después",
     "tesoro marcado por un antiguo propietario",
     "reserva principal de monedas y gemas",
   ],
@@ -379,8 +379,8 @@ export const descriptionTable = {
     "el aire sabe a polvo viejo",
     "gotas caen con ritmo irregular",
     "hay marcas de manos a media altura",
-    "un frio raro queda pegado a la ropa",
-    "la luz se refleja en pequenas particulas",
+    "un frío raro queda pegado a la ropa",
+    "la luz se refleja en pequeñas particulas",
     "algo raspa piedra muy lejos",
     "el piso no esta tan quieto como parece",
   ],
@@ -388,7 +388,7 @@ export const descriptionTable = {
     "una ruta secundaria esta parcialmente tapada",
     "hay signos de una pelea reciente",
     "las marcas del suelo muestran patrullas regulares",
-    "un simbolo se repite en objetos distintos",
+    "un símbolo se repite en objetos distintos",
     "una puerta fue reparada desde dentro",
     "alguien borro nombres de una placa",
   ],
@@ -404,13 +404,13 @@ export const nameTable = {
     "Juramentos",
     "Llaves",
     "Sombras",
-    "Campanas",
+    "Campañas",
     "Cristales",
     "Huesos",
     "Mareas",
   ],
   epithets: [
-    "de la Ultima Guardia",
+    "de la Última Guardia",
     "bajo la Colina",
     "sin Amanecer",
     "del Pacto Roto",
@@ -426,9 +426,9 @@ export const nameTable = {
 export const dungeonQuirkTable = [
   "la meta principal queda lejos de la entrada y obliga a elegir ruta",
   "hay al menos una entrada secundaria o salida de emergencia",
-  "la ruta mas corta cruza una zona peligrosa, pero hay un rodeo mas lento",
-  "una seccion vertical conecta pisos, balcones, fosos o escaleras",
-  "una ruta opcional recompensa exploracion sin bloquear el avance principal",
+  "la ruta más corta cruza una zona peligrosa, pero hay un rodeo más lento",
+  "una sección vertical conecta pisos, balcones, fosos o escaleras",
+  "una ruta opciónal recompensa exploración sin bloquear el avance principal",
   "un derrumbe, grieta o zona inundada cambia la forma normal de moverse",
   "varias salas muestran uso anterior distinto al uso actual",
   "las patrullas o habitantes conocen atajos que el grupo puede descubrir",
@@ -453,7 +453,7 @@ export const dungeonDecayTable = [
   {
     id: "abandonada",
     label: "Abandonada",
-    effect: "El lugar conserva rastros antiguos y pocas reparaciones recientes.",
+    effect: "El lugar conserva rastros antiguos y pocas reparaciónes recientes.",
   },
   {
     id: "segura",
@@ -469,11 +469,11 @@ export const dungeonDecayTable = [
 
 export const dungeonLayoutPrincipleTable = [
   "Usa cuadricula de 5 pies para que el mapa funcione en mesa.",
-  "Evita simetria perfecta: rota salas, desplaza corredores y mezcla tamanos.",
+  "Evita simetría perfecta: rota salas, desplaza corredores y mezcla tamaños.",
   "Incluye decisiones de ruta: cruce, atajo, rodeo o puerta bloqueada.",
-  "Reserva secretos para recompensas, informacion o rutas opcionales.",
+  "Reserva secretos para recompensas, información o rutas opciónales.",
   "Agrega altura, escaleras, fosos, balcones o plataformas cuando encaje.",
-  "Muestra desgaste con derrumbes, grietas, reparaciones o pasajes cerrados.",
+  "Muestra desgaste con derrumbes, grietas, reparaciónes o pasajes cerrados.",
   "Incluye agua, puentes, canales o drenajes si el tipo de mazmorra lo sugiere.",
   "Haz que la sala final tenga terreno visible antes de empezar el conflicto.",
   "Varia formas de sala: ovalos, cruces, L, anillos, fosos, balcones y niveles cuando ayuden a la escena.",
@@ -517,7 +517,7 @@ export const doorStateTable = [
     id: "abierta",
     label: "Abierta",
     weight: 2,
-    note: "Cruce libre; util para ritmo rapido o emboscadas.",
+    note: "Cruce libre; Útil para ritmo rápido o emboscadas.",
   },
   {
     id: "cerrada",
@@ -554,7 +554,7 @@ export const lockQualityTable = [
 
 export const secretDoorTable = [
   { id: "apenas-oculta", label: "Apenas oculta", detectionDc: 10, weight: 2 },
-  { id: "estandar", label: "Estandar", detectionDc: 15, weight: 5 },
+  { id: "estándar", label: "Estándar", detectionDc: 15, weight: 5 },
   { id: "muy-oculta", label: "Muy oculta", detectionDc: 20, weight: 2 },
 ];
 
@@ -575,7 +575,7 @@ export const enemyLevelRanges = [
   { id: "novice", min: 1, max: 4, label: "Nivel bajo" },
   { id: "heroic", min: 5, max: 10, label: "Nivel medio" },
   { id: "paragon", min: 11, max: 16, label: "Nivel alto" },
-  { id: "legendary", min: 17, max: 20, label: "Nivel epico" },
+  { id: "legendary", min: 17, max: 20, label: "Nivel épico" },
 ];
 
 export function getLevelRange(level) {

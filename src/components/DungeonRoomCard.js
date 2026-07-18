@@ -38,7 +38,7 @@ export function DungeonRoomCard({ room, onChange, onRegenerate }) {
   const body = document.createElement("div");
   body.className = "dungeon-room-body";
   body.append(
-    renderTextAreaField("Descripcion corta", room.description || "", (value) => onChange?.(room.id, { description: value })),
+    renderTextAreaField("Descripción corta", room.description || "", (value) => onChange?.(room.id, { description: value })),
     renderInputField("Zona", room.zoneName || "", (value) => onChange?.(room.id, { zoneName: value })),
     renderTextAreaField("Identidad de zona", room.zoneIdentity || "", (value) => onChange?.(room.id, { zoneIdentity: value })),
     renderInputField("Conexiones", (room.connections || []).join(", "), (value) => {
@@ -107,8 +107,8 @@ function renderTextAreaField(labelText, value, onInput) {
   span.textContent = labelText;
 
   const textarea = document.createElement("textarea");
-  textarea.value = value;
-  textarea.addEventListener("input", () => onInput(textarea.value));
+  textárea.value = value;
+  textárea.addEventListener("input", () => onInput(textárea.value));
 
   label.append(span, textarea);
   return label;

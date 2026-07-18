@@ -13,7 +13,7 @@ export const builds = [
     classId: "wizard",
     subclassId: "evoker",
     name: "Arcane Blaster",
-    summary: "Build base para probar seleccion de conjuros, rol de dano y escalado.",
+    summary: "Build base para probar selección de conjuros, rol de daño y escalado.",
     tags: ["ranged", "spells", "starter"],
     source: "Internal",
   },

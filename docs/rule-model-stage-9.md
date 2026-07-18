@@ -1,13 +1,13 @@
 # Etapa 9: Modelo de reglas escalable
 
-Esta etapa bloquea la arquitectura de datos antes de cargar contenido real. La aplicacion debe poder calcular, validar y resolver elecciones sin depender de texto plano.
+Esta etapa bloquea la arquitectura de datos antes de cargar contenido real. La aplicación debe poder calcular, validar y resolver elecciónes sin depender de texto plano.
 
 ## Objetivo
 
 - Redisenar `src/data` para contenido real.
 - Crear un esquema de entidades estable.
 - Crear un sistema de efectos calculables.
-- Crear un resolver de elecciones pendientes.
+- Crear un resolver de elecciónes pendientes.
 - Crear un validador de datos.
 - Migrar los datos de prueba actuales al nuevo formato.
 
@@ -27,7 +27,7 @@ src/data/rules/
   schema/
 ```
 
-Cada dominio exporta entidades con IDs estables en ingles. La UI muestra `label` en espanol y la hoja usa `sheetText` cuando existe.
+Cada dominio exporta entidades con IDs estables en inglés. La UI muestra `label` en espanol y la hoja usa `sheetText` cuando existe.
 
 ## Forma base de entidad
 
@@ -59,7 +59,7 @@ Las progresiones ya no deben usar strings sueltos. Cada rasgo debe ser una entid
   effects: [
     { type: "attack.count", value: 2 }
   ],
-  sheetText: "Ataque adicional: 2 ataques con la accion de Atacar."
+  sheetText: "Ataque adicional: 2 ataques con la acción de Atacar."
 }
 ```
 
@@ -81,7 +81,7 @@ El resolver vive en `src/scripts/effectEngine.js`.
 
 ## Elecciones pendientes
 
-Las reglas que requieren decision del jugador usan `choices`:
+Las reglas que requieren decisión del jugador usan `choices`:
 
 ```js
 {
@@ -98,9 +98,9 @@ Las reglas que requieren decision del jugador usan `choices`:
 }
 ```
 
-`src/scripts/choiceEngine.js` detecta elecciones activas, calcula faltantes y convierte respuestas en efectos. `src/components/PendingPanel.js` muestra lo que falta resolver.
+`src/scripts/choiceEngine.js` detecta elecciónes activas, calcula faltantes y convierte respuestas en efectos. `src/components/PendingPanel.js` muestra lo que falta resolver.
 
-## Validacion
+## Validación
 
 Antes de sumar contenido masivo, ejecutar:
 
@@ -116,10 +116,10 @@ El validador revisa:
 - Campos requeridos.
 - Niveles validos de features.
 - Referencias inexistentes.
-- Categorias de equipo validas.
+- Categorías de equipo válidas.
 - Tipos de efecto soportados.
 - Payload requerido por efecto.
-- Choices con `count` y opciones suficientes.
+- Choices con `count` y opciónes suficientes.
 - Subclases duplicadas por clase y nombre.
 
 ## Prioridad de fuentes
@@ -131,7 +131,7 @@ Prioridad para Guerrero:
 1. `Player's Handbook 2024`
 2. Libros posteriores o complementarios solo si la subclase no existe en PHB 2024.
 
-Ejemplo: si `Psi Warrior` aparece en Tasha y tambien en PHB 2024, la app conserva la version PHB 2024 y no carga la version de Tasha.
+Ejemplo: si `Psi Warrior` aparece en Tasha y también en PHB 2024, la app conserva la versión PHB 2024 y no carga la versión de Tasha.
 
 ## Estado actual
 

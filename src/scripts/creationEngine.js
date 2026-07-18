@@ -13,7 +13,7 @@ const abilityMethodOptions = [
   {
     id: "standard-array",
     label: "Standard array",
-    summary: "Usa 15, 14, 13, 12, 10 y 8 asignados a las caracteristicas.",
+    summary: "Usa 15, 14, 13, 12, 10 y 8 asignados a las características.",
   },
   {
     id: "point-buy",
@@ -306,7 +306,7 @@ function formatCoins(coins) {
 
 function enrichEquipmentChoice(item) {
   const details = [
-    item.damageLabel ? `Dano ${item.damageLabel}` : "",
+    item.damageLabel ? `Daño ${item.damageLabel}` : "",
     item.range ? `Alcance ${item.range}` : "",
     item.ac ? `CA ${item.ac}` : "",
     item.acBase ? `CA ${item.acBase}${item.dexterity === "max2" ? " + DES max 2" : item.dexterity === "full" ? " + DES" : ""}` : "",

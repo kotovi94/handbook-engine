@@ -17,10 +17,10 @@ const choiceLabels = {
   maneuver: ["maniobra", "maniobras"],
   tool: ["herramienta", "herramientas"],
   rune: ["runa", "runas"],
-  speciesSize: ["tamano", "tamanos"],
+  speciesSize: ["tamaño", "tamaños"],
   beastCompanion: ["bestia primal", "bestias primales"],
   hunterPrey: ["presa del cazador", "presas del cazador"],
-  draconicAncestry: ["ascendencia draconica", "ascendencias draconicas"],
+  draconicAncestry: ["ascendencia dracónica", "ascendencias draconicas"],
   elvenLineage: ["linaje elfico", "linajes elficos"],
   gnomeLineage: ["linaje gnomo", "linajes gnomos"],
   giantAncestry: ["ascendencia gigante", "ascendencias gigantes"],
@@ -33,8 +33,8 @@ const choiceLabels = {
   expertise: ["pericia", "pericias"],
   invocation: ["invocacion", "invocaciones"],
   metamagic: ["metamagia", "metamagias"],
-  damageType: ["tipo de dano", "tipos de dano"],
-  magicItemPlan: ["plan de objeto magico", "planes de objeto magico"],
+  damageType: ["tipo de daño", "tipos de daño"],
+  magicItemPlan: ["plan de objeto mágico", "planes de objeto mágico"],
   magicItemCreated: ["objeto replicado", "objetos replicados"],
   armorModel: ["modelo de armadura", "modelos de armadura"],
   divineOrder: ["orden divina", "ordenes divinas"],
@@ -51,7 +51,7 @@ export function PendingPanel({ character, compact = false } = {}) {
   if (!pending.length && !notices.length) {
     panel.innerHTML = `
       <h3>Elecciones pendientes</h3>
-      <p class="pending-ok">Sin elecciones obligatorias pendientes.</p>
+      <p class="pending-ok">Sin elecciónes obligatorias pendientes.</p>
     `;
     return panel;
   }
@@ -60,7 +60,7 @@ export function PendingPanel({ character, compact = false } = {}) {
     <h3>Elecciones pendientes</h3>
     ${pending.length
       ? `<ul class="pending-list">${pending.map((item) => `<li>${item}</li>`).join("")}</ul>`
-      : `<p class="pending-ok">Sin elecciones obligatorias pendientes.</p>`}
+      : `<p class="pending-ok">Sin elecciónes obligatorias pendientes.</p>`}
     ${notices.length
       ? `
         <h3>Avisos de mesa</h3>
@@ -87,7 +87,7 @@ function formatPendingChoice(choice) {
     return `Completa primero ${choice.requiresChoiceLabel} para elegir ${choice.label || choice.id}.`;
   }
 
-  const labels = choiceLabels[choice.type] || ["opcion", "opciones"];
+  const labels = choiceLabels[choice.type] || ["opción", "opciónes"];
   const plural = choice.remaining === 1 ? labels[0] : labels[1];
   const name = choice.label || choice.id;
   return `Falta elegir ${choice.remaining} ${plural}: ${name}.`;
@@ -118,11 +118,11 @@ function getTableNoticeItems(character, derived) {
 
   if (higherLevelEquipment?.magicItems?.length) {
     if (!character.commonMagicItemId) {
-      notices.push("DM: objeto magico comun opcional sin confirmar.");
+      notices.push("DM: objeto mágico común opciónal sin confirmar.");
     }
 
     if (!character.uncommonMagicItemId) {
-      notices.push("DM: objeto magico poco comun opcional sin confirmar.");
+      notices.push("DM: objeto mágico poco común opciónal sin confirmar.");
     }
   }
 

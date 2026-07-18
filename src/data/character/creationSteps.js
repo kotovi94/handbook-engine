@@ -3,19 +3,19 @@ export const creationSteps = [
     id: "class",
     label: "Clase",
     title: "Clase y nivel",
-    helper: "La creacion esta fijada a nivel 5. Elige la clase base que define PG, competencias y progresion.",
+    helper: "La creación está fijada a nivel 5. Elige la clase base que define PG, competencias y progresion.",
   },
   {
     id: "origin",
     label: "Origen",
     title: "Define el origen",
-    helper: "El origen combina trasfondo, especie e idiomas. Estas elecciones preparan dotes, habilidades, rasgos y equipo.",
+    helper: "El origen combina trasfondo, especie e idiomas. Estas elecciónes preparan dotes, habilidades, rasgos y equipo.",
   },
   {
     id: "abilities",
     label: "Atributos",
     title: "Atributos y aumentos",
-    helper: "Elige metodo, asigna puntuaciones y aplica los aumentos otorgados por el trasfondo.",
+    helper: "Elige método, asigna puntuaciones y aplica los aumentos otorgados por el trasfondo.",
   },
   {
     id: "progression",
@@ -39,12 +39,12 @@ export const creationSteps = [
     id: "choices",
     label: "Pendientes",
     title: "Pendientes finales",
-    helper: "Completa elecciones que dependen de reglas: habilidades, idiomas, equipo, conjuros o dotes.",
+    helper: "Completa elecciónes que dependen de reglas: habilidades, idiomas, equipo, conjuros o dotes.",
   },
   {
     id: "review",
     label: "Hoja",
     title: "Hoja lista para copiar",
-    helper: "Aqui aparecen instrucciones concretas para completar la hoja fisica.",
+    helper: "Aqué aparecen instrucciones concretas para completar la hoja física.",
   },
 ];

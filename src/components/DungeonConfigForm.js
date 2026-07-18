@@ -33,7 +33,7 @@ export function DungeonConfigForm({
     renderNumberField("averageLevel", "Nivel promedio", config.averageLevel, 1, 20),
     renderNumberField("playerCount", "Jugadores", config.playerCount, 1, 8),
     renderSelectField("difficulty", "Dificultad", DIFFICULTY_OPTIONS, config.difficulty),
-    renderSelectField("size", "Tamano", SIZE_OPTIONS, config.size),
+    renderSelectField("size", "Tamaño", SIZE_OPTIONS, config.size),
     renderSelectField("dungeonType", "Tipo de mazmorra", DUNGEON_TYPE_OPTIONS, config.dungeonType),
     renderSelectField("theme", "Tema visual", THEME_OPTIONS, config.theme),
     renderSelectField("inhabitants", "Habitantes principales", INHABITANT_OPTIONS, config.inhabitants),

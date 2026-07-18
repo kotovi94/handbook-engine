@@ -64,7 +64,7 @@ export function DungeonResultView({
   const summaryEditor = document.createElement("details");
   summaryEditor.className = "dungeon-summary-editor";
   const summaryEditorTitle = document.createElement("summary");
-  summaryEditorTitle.textContent = "Editar resumen y configuracion";
+  summaryEditorTitle.textContent = "Editar resumen y configuración";
   summaryEditor.append(summaryEditorTitle, renderEditableSummary(dungeon, onDungeonChange));
 
   const mapInspectorLayout = document.createElement("div");
@@ -198,7 +198,7 @@ function renderEditableSummary(dungeon, onDungeonChange) {
         config: { ...dungeon.config, averageLevel: value },
       });
     }),
-    renderNumberField("Numero de salas", dungeon.roomCount || dungeon.rooms?.length || 0, 1, 99, (value) => {
+    renderNumberField("Número de salas", dungeon.roomCount || dungeon.rooms?.length || 0, 1, 99, (value) => {
       onDungeonChange?.({ roomCount: value });
     }),
     renderSelectField("Tipo", DUNGEON_TYPE_OPTIONS, dungeon.type, (value) => {
@@ -285,8 +285,8 @@ function renderTextAreaField(labelText, value, onInput) {
   const label = renderFieldShell(labelText);
   label.classList.add("dungeon-summary-wide");
   const textarea = document.createElement("textarea");
-  textarea.value = value;
-  textarea.addEventListener("input", () => onInput(textarea.value));
+  textárea.value = value;
+  textárea.addEventListener("input", () => onInput(textárea.value));
   label.append(textarea);
   return label;
 }

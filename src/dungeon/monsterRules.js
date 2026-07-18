@@ -5,11 +5,11 @@ import { formatEncounterPlanSummary } from "./encounterBudget.js";
 export const monsterTreasureModes = {
   variado: {
     label: "Botin variado",
-    note: "Puede mezclar monedas, objetos utiles y un hallazgo especial.",
+    note: "Puede mezclar monedas, objetos Útiles y un hallazgo especial.",
   },
   personal: {
     label: "Botin personal",
-    note: "Pequenos valores llevados encima o guardados en un puesto cercano.",
+    note: "Pequeños valores llevados encima o guardados en un puesto cercano.",
   },
   arcano: {
     label: "Tema arcano",
@@ -17,7 +17,7 @@ export const monsterTreasureModes = {
   },
   armas: {
     label: "Tema marcial",
-    note: "Armas, armaduras, municion, estandartes o equipo de guerra.",
+    note: "Armas, armaduras, munición, estandartes o equipo de guerra.",
   },
   ritual: {
     label: "Tema ritual",
@@ -80,19 +80,19 @@ const inhabitantMonsterProfiles = {
     creatureType: "Fey o humanoide",
     habitats: ["ruinas ocupadas", "cuevas bajas", "fortines improvisados", "tuneles secundarios"],
     treasureModes: ["personal", "armas", "variado"],
-    motives: ["proteger un escondite", "robar recursos", "ganar estatus ante su lider"],
-    instincts: ["huir si pierden ventaja", "usar trampas antes del choque directo", "pedir refuerzos rapido"],
+    motives: ["proteger un escondite", "robar recursos", "ganar estatus ante su líder"],
+    instincts: ["huir si pierden ventaja", "usar trampas antes del choque directo", "pedir refuerzos rápido"],
   },
   orcos: {
     creatureType: "Humanoide",
     habitats: ["fortalezas tomadas", "campamentos de guerra", "minas disputadas", "salas de entrenamiento"],
     treasureModes: ["armas", "personal", "variado"],
-    motives: ["mantener dominio territorial", "probar fuerza", "defender botin de guerra"],
-    instincts: ["cerrar distancia", "romper la linea frontal", "retirarse solo si el lider cae"],
+    motives: ["mantener dominio territorial", "probar fuerza", "defender botín de guerra"],
+    instincts: ["cerrar distancia", "romper la línea frontal", "retirarse solo si el líder cae"],
   },
   kobolds: {
-    creatureType: "Humanoide draconico",
-    habitats: ["tuneles estrechos", "minas abandonadas", "guaridas bajo tierra", "salas con mecanismos pequenos"],
+    creatureType: "Humanoide dracónico",
+    habitats: ["tuneles estrechos", "minas abandonadas", "guaridas bajo tierra", "salas con mecanismos pequeños"],
     treasureModes: ["personal", "arcano", "armas"],
     motives: ["proteger el nido", "servir a una presencia mayor", "probar trampas nuevas"],
     instincts: ["pelear desde cobertura", "separar al grupo", "atraer intrusos a terreno preparado"],
@@ -115,18 +115,18 @@ const inhabitantMonsterProfiles = {
     creatureType: "Humanoide",
     habitats: ["templos ocultos", "laboratorios rituales", "salas de culto", "criptas profanadas"],
     treasureModes: ["ritual", "arcano", "personal"],
-    motives: ["completar una ceremonia", "proteger un secreto", "ganar favor de su patron"],
-    instincts: ["ganar tiempo", "sacrificar peones", "usar simbolos y promesas para intimidar"],
+    motives: ["completar una ceremonia", "proteger un secreto", "ganar favor de su patrón"],
+    instincts: ["ganar tiempo", "sacrificar peones", "usar símbolos y promesas para intimidar"],
   },
   constructos: {
     creatureType: "Constructo",
     habitats: ["laboratorios", "bovedas", "pasillos de defensa", "salas de maquinaria"],
     treasureModes: ["arcano", "ninguno", "reliquia"],
-    motives: ["cumplir una directiva", "proteger un area", "reparar o activar un mecanismo"],
+    motives: ["cumplir una directiva", "proteger un área", "reparar o activar un mecanismo"],
     instincts: ["seguir prioridad programada", "ignorar distracciones menores", "bloquear rutas"],
   },
   aberraciones: {
-    creatureType: "Aberracion",
+    creatureType: "Aberración",
     habitats: ["laboratorios fallidos", "cuevas profundas", "ruinas deformadas", "salas con geometria rara"],
     treasureModes: ["arcano", "ninguno", "reliquia"],
     motives: ["estudiar intrusos", "alimentarse de mente o miedo", "expandir influencia"],
@@ -134,7 +134,7 @@ const inhabitantMonsterProfiles = {
   },
   elementales: {
     creatureType: "Elemental",
-    habitats: ["fisuras naturales", "salas volcanicas", "cisternas", "camaras de energia"],
+    habitats: ["fisuras naturales", "salas volcánicas", "cisternas", "cámaras de energía"],
     treasureModes: ["arcano", "ninguno"],
     motives: ["defender un nodo", "responder a una invocacion", "volver a su fuente"],
     instincts: ["aprovechar terreno afin", "castigar intrusos agrupados", "cambiar el campo de batalla"],
@@ -143,7 +143,7 @@ const inhabitantMonsterProfiles = {
     creatureType: "Fiend",
     habitats: ["templos profanados", "grietas planares", "salas de sacrificio", "fortalezas corruptas"],
     treasureModes: ["ritual", "variado", "ninguno"],
-    motives: ["romper sellos", "corromper pactos", "causar dano desmedido"],
+    motives: ["romper sellos", "corromper pactos", "causar daño desmedido"],
     instincts: ["atacar al vulnerable", "desordenar prioridades", "usar miedo y caos"],
   },
   "dragones-menores": {
@@ -159,21 +159,21 @@ const roomEncounterRoles = {
   entrada: ["vigia", "primer filtro", "alarma viviente"],
   pasillo: ["patrulla", "emboscada corta", "bloqueo movil"],
   combate: ["fuerza principal", "puesto de choque", "defensa activa"],
-  trampa: ["cebo", "observador de trampa", "remate despues del mecanismo"],
+  trampa: ["cebo", "observador de trampa", "remate después del mecanismo"],
   puzzle: ["guardian condicionado", "interrupcion", "testigo del ritual"],
-  tesoro: ["custodio", "ladron rival", "defensa del botin"],
+  tesoro: ["custodio", "ladrón rival", "defensa del botín"],
   descanso: ["presencia distante", "huella reciente", "amenaza que puede volver"],
-  vacia: ["rastro", "senal de paso", "encuentro opcional"],
-  jefe: ["lider", "campeon", "amenaza central"],
+  vacia: ["rastro", "señal de paso", "encuentro opciónal"],
+  jefe: ["líder", "campeón", "amenaza central"],
   secreto: ["guardian oculto", "pista viviente", "habitante extraviado"],
 };
 
 const combatUseGuides = [
-  "Si tiene una opcion limitada fuerte, usala temprano para mostrar peligro.",
-  "Si no usa una opcion especial, que mantenga su rutina de ataque principal.",
-  "Si tiene reaccion, accion adicional o accion legendaria, dale un disparador visible.",
+  "Si tiene una opción limitada fuerte, usala temprano para mostrar peligro.",
+  "Si no usa una opción especial, que mantenga su rutina de ataque principal.",
+  "Si tiene reacción, acción adicional o acción legendaria, dale un disparador visible.",
   "Separa lo que el grupo puede recuperar como equipo de lo que es poder propio del monstruo.",
-  "Anota sentidos, idiomas y percepcion pasiva si pueden cambiar exploracion o sorpresa.",
+  "Anota sentidos, idiomas y percepcion pasiva si pueden cambiar exploración o sorpresa.",
   "Si hay resistencia, inmunidad o vulnerabilidad, senalalo con una pista del entorno.",
 ];
 
@@ -181,15 +181,15 @@ const statBlockUseChecklist = [
   "CA, PG, velocidad e iniciativa listos",
   "sentidos e idiomas relevantes",
   "resistencias, inmunidades o vulnerabilidades visibles",
-  "accion principal y opcion limitada marcadas",
+  "acción principal y opción limitada marcadas",
   "equipo recuperable separado de rasgos especiales",
 ];
 
 const crHintsByTier = {
-  novice: ["CR bajo o grupos pequenos", "amenaza simple con una complicacion", "enemigos faciles de leer"],
+  novice: ["CR bajo o grupos pequeños", "amenaza simple con una complicacion", "enemigos fáciles de leer"],
   heroic: ["CR medio o escuadra mixta", "enemigo principal con apoyo", "una habilidad especial por encuentro"],
-  paragon: ["CR alto con terreno importante", "amenaza elite con defensa o movilidad", "varias fases tacticas"],
-  legendary: ["CR muy alto o amenaza unica", "acciones fuera de turno si corresponde", "terreno y objetivos secundarios"],
+  paragon: ["CR alto con terreno importante", "amenaza elite con defensa o movilidad", "varias fases tácticas"],
+  legendary: ["CR muy alto o amenaza única", "acciones fuera de turno si corresponde", "terreno y objetivos secundarios"],
 };
 
 export function generateMonsterNotes(config, roomType, enemies, rng, encounterPlan = null, creatures = []) {
@@ -205,7 +205,7 @@ export function generateMonsterNotes(config, roomType, enemies, rng, encounterPl
   const guide = pickMany(rng, combatUseGuides, roomType === "jefe" ? 3 : 2).join(" ");
   const role = pickOne(rng, roomEncounterRoles[roomType] || roomEncounterRoles.vacia, "encuentro");
   const motive = pickOne(rng, profile.motives, "defender su zona");
-  const instinct = pickOne(rng, profile.instincts, "buscar ventaja tactica");
+  const instinct = pickOne(rng, profile.instincts, "buscar ventaja táctica");
   const habitat = pickOne(rng, profile.habitats, "zona apropiada");
   const crHint = pickOne(rng, crHintsByTier[levelRange.id], "CR apropiado al grupo");
   const budgetHint = encounterPlan ? `Presupuesto: ${formatEncounterPlanSummary(encounterPlan)}` : "";

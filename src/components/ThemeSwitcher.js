@@ -8,6 +8,7 @@ export function ThemeSwitcher({ activeTheme }) {
   const currentTheme = themes.find((theme) => theme.className === activeTheme) || themes[0];
   const indicator = document.createElement("div");
   indicator.className = "theme-indicator";
+  indicator.dataset.tour = "theme-indicator";
   indicator.innerHTML = `
     <span data-theme-indicator-label>${currentTheme.label}</span>
     <small>Sigue la clase elegida.</small>

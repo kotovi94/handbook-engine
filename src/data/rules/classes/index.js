@@ -66,7 +66,7 @@ export const classes = [
     name: "Wizard",
     label: "Mago",
     theme: "theme-wizard",
-    summary: "Clase arcana preparada para escuelas, grimorios y progresion magica.",
+    summary: "Clase arcana preparada para escuelas, grimorios y progresion mágica.",
     primaryAbility: "Intelligence",
     role: "Arcane Caster",
     source: "Player's Handbook 2024",
@@ -117,7 +117,7 @@ export const classes = [
   {
     id: "cleric",
     name: "Cleric",
-    label: "Clerigo",
+    label: "Clérigo",
     theme: "theme-cleric",
     summary: "Sacerdote milagroso que prepara magia divina y canaliza poder sagrado.",
     primaryAbility: "Wisdom",
@@ -146,7 +146,7 @@ export const classes = [
     choices: [
       {
         id: "cleric-skill-choice",
-        label: "Habilidades de Clerigo",
+        label: "Habilidades de Clérigo",
         type: "skill",
         count: 2,
         from: ["History", "Insight", "Medicine", "Persuasion", "Religion"],
@@ -169,7 +169,7 @@ export const classes = [
   {
     id: "barbarian",
     name: "Barbarian",
-    label: "Barbaro",
+    label: "Bárbaro",
     theme: "theme-barbarian",
     summary: "Guerrero feroz impulsado por furia primal, resistencia y fuerza bruta.",
     primaryAbility: "Strength",
@@ -198,7 +198,7 @@ export const classes = [
     choices: [
       {
         id: "barbarian-skill-choice",
-        label: "Habilidades de Barbaro",
+        label: "Habilidades de Bárbaro",
         type: "skill",
         count: 2,
         from: ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
@@ -371,7 +371,7 @@ export const classes = [
   {
     id: "paladin",
     name: "Paladin",
-    label: "Paladin",
+    label: "Paladín",
     theme: "theme-paladin",
     summary: "Guerrero devoto que combina armadura, armas, juramentos sagrados y magia divina.",
     primaryAbility: "Strength and Charisma",
@@ -400,7 +400,7 @@ export const classes = [
     choices: [
       {
         id: "paladin-skill-choice",
-        label: "Habilidades de Paladin",
+        label: "Habilidades de Paladín",
         type: "skill",
         count: 2,
         from: ["Athletics", "Insight", "Intimidation", "Medicine", "Persuasion", "Religion"],
@@ -418,7 +418,7 @@ export const classes = [
     name: "Ranger",
     label: "Ranger",
     theme: "theme-ranger",
-    summary: "Guerrero errante con magia primal, rastreo, armas y exploracion experta.",
+    summary: "Guerrero errante con magia primal, rastreo, armas y exploración experta.",
     primaryAbility: "Dexterity and Wisdom",
     role: "Primal Martial",
     source: "Player's Handbook 2024",
@@ -461,7 +461,7 @@ export const classes = [
   {
     id: "rogue",
     name: "Rogue",
-    label: "Picaro",
+    label: "Pícaro",
     theme: "theme-rogue",
     summary: "Experto agil de sigilo, subterfugio, pericias y golpes precisos.",
     primaryAbility: "Dexterity",
@@ -490,7 +490,7 @@ export const classes = [
     choices: [
       {
         id: "rogue-skill-choice",
-        label: "Habilidades de Picaro",
+        label: "Habilidades de Pícaro",
         type: "skill",
         count: 4,
         from: ["Acrobatics", "Athletics", "Deception", "Insight", "Intimidation", "Investigation", "Perception", "Persuasion", "Sleight of Hand", "Stealth"],
@@ -509,7 +509,7 @@ export const classes = [
     name: "Sorcerer",
     label: "Hechicero",
     theme: "theme-sorcerer",
-    summary: "Mago innato que moldea su propia magia con puntos de hechiceria y Metamagia.",
+    summary: "Mago innato que moldea su propia magia con puntos de hechicería y Metamagia.",
     primaryAbility: "Charisma",
     role: "Arcane Caster",
     source: "Player's Handbook 2024",
@@ -553,7 +553,7 @@ export const classes = [
     name: "Warlock",
     label: "Brujo",
     theme: "theme-warlock",
-    summary: "Ocultista que usa Magia de pacto, invocaciones sobrenaturales y un patron de otro mundo.",
+    summary: "Ocultista que usa Magia de pacto, invocaciones sobrenaturales y un patrón de otro mundo.",
     primaryAbility: "Charisma",
     role: "Pact Caster",
     source: "Player's Handbook 2024",
@@ -596,9 +596,9 @@ export const classes = [
   {
     id: "artificer",
     name: "Artificer",
-    label: "Artifice",
+    label: "Artífice",
     theme: "theme-artificer",
-    summary: "Inventor arcano que usa herramientas, conjuros preparados y objetos magicos replicados.",
+    summary: "Inventor arcano que usa herramientas, conjuros preparados y objetos mágicos replicados.",
     primaryAbility: "Intelligence",
     role: "Arcane Half Caster",
     source: "Unearthed Arcana 2024",
@@ -625,7 +625,7 @@ export const classes = [
     choices: [
       {
         id: "artificer-skill-choice",
-        label: "Habilidades de Artifice",
+        label: "Habilidades de Artífice",
         type: "skill",
         count: 2,
         from: ["Arcana", "History", "Investigation", "Medicine", "Nature", "Perception", "Sleight of Hand"],

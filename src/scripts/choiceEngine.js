@@ -110,7 +110,7 @@ export function choiceSelectionsToEffects(character) {
     }
 
     if (choice.type === "beastCompanion") {
-      return [{ type: "trait.grant", items: choice.selected.map((option) => `Companero primal: ${option}`) }];
+      return [{ type: "trait.grant", items: choice.selected.map((option) => `Compañero primal: ${option}`) }];
     }
 
     if (choice.type === "metamagic") {
@@ -118,7 +118,7 @@ export function choiceSelectionsToEffects(character) {
     }
 
     if (choice.type === "magicItemPlan") {
-      return [{ type: "trait.grant", items: choice.selected.map((option) => `Plan de objeto magico: ${choice.optionLabels?.[option] || option}`) }];
+      return [{ type: "trait.grant", items: choice.selected.map((option) => `Plan de objeto mágico: ${choice.optionLabels?.[option] || option}`) }];
     }
 
     if (choice.type === "magicItemCreated") {
@@ -159,7 +159,7 @@ export function choiceSelectionsToEffects(character) {
       }
 
       if (choice.selected[0] === "thaumaturge") {
-        return [{ type: "trait.grant", items: ["Taumaturgo: bono a Arcanos o Religion igual a Sabiduria, minimo +1."] }];
+        return [{ type: "trait.grant", items: ["Taumaturgo: bono a Arcanos o Religion igual a Sabiduría, mínimo +1."] }];
       }
     }
 
@@ -172,7 +172,7 @@ export function choiceSelectionsToEffects(character) {
       }
 
       if (choice.selected[0] === "magician") {
-        return [{ type: "trait.grant", items: ["Magico: bono a Arcanos o Naturaleza igual a Sabiduria, minimo +1."] }];
+        return [{ type: "trait.grant", items: ["Mágico: bono a Arcanos o Naturaleza igual a Sabiduría, mínimo +1."] }];
       }
     }
 
@@ -439,7 +439,7 @@ function artificerArmorModelEffects(model) {
   if (model === "infiltrator") {
     return [
       { type: "equipment.grant", items: ["lightning-launcher"] },
-      { type: "trait.grant", items: ["Modelo Infiltrador: lanzador relampago, +5 pies velocidad y ventaja en Sigilo; cancela desventaja de armadura."] },
+      { type: "trait.grant", items: ["Modelo Infiltrador: lanzador relámpago, +5 pies velocidad y ventaja en Sigilo; cancela desventaja de armadura."] },
     ];
   }
 
@@ -452,11 +452,11 @@ function warlockInvocationEffects(selected, optionLabels) {
 
   if (selected.includes("pact-of-the-chain")) {
     effects.push({ type: "spell.choice", spellKind: "alwaysPrepared", spells: ["find-familiar"] });
-    traits.push("Pacto de la cadena: Encontrar familiar sin espacio como accion de Magia; familiar puede usar formas especiales.");
+    traits.push("Pacto de la cadena: Encontrar familiar sin espacio como acción de Magia; familiar puede usar formas especiales.");
   }
 
   if (selected.includes("pact-of-the-blade")) {
-    traits.push("Pacto de la hoja: accion adicional para conjurar o vincular arma; eres competente, sirve como foco y puedes atacar/danar con Carisma.");
+    traits.push("Pacto de la hoja: acción adicional para conjurar o vincular arma; eres competente, sirve como foco y puedes atacar/dañar con Carisma.");
   }
 
   if (selected.includes("pact-of-the-tome")) {

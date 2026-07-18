@@ -2,11 +2,11 @@
 
 Archivo de referencia: `D:\Hojas del jugador en 2024.pdf`
 
-## Observacion tecnica
+## Observacion técnica
 
-El PDF tiene 2 paginas y no contiene campos rellenables detectables. Compendio D20 Travesias debe generar instrucciones para completar la hoja fisica, no intentar escribir sobre campos PDF internos.
+El PDF tiene 2 páginas y no contiene campos rellenables detectables. Compendio D20 Travesías debe generar instrucciones para completar la hoja física, no intentar escribir sobre campos PDF internos.
 
-## Pagina 1
+## Página 1
 
 Campos principales detectados:
 
@@ -18,43 +18,43 @@ Campos principales detectados:
 - Clase de Armadura
 - Iniciativa
 - Velocidad
-- Tamano
+- Tamaño
 - Percepcion pasiva
-- Inspiracion heroica
+- Inspiración heroica
 - Bonificador por competencia
 - Puntos de golpe actuales, maximos y temporales
 - Dados de golpe
 - Salvaciones contra muerte
-- Fuerza, Destreza, Constitucion, Inteligencia, Sabiduria y Carisma
-- Tiradas de salvacion
+- Fuerza, Destreza, Constitucion, Inteligencia, Sabiduría y Carisma
+- Tiradas de salvación
 - Habilidades
 - Entrenamiento y competencias con equipo
 - Dotes
 - Rasgos de clase
 - Atributos de especie
-- Armas y trucos de dano
+- Armas y trucos de daño
 
-## Pagina 2
+## Página 2
 
 Campos principales detectados:
 
 - Trucos y conjuros preparados
 - Espacios de conjuro por nivel
-- Aptitud magica
-- Modificador por aptitud magica
-- CD de salvacion de conjuros
+- Aptitud mágica
+- Modificador por aptitud mágica
+- CD de salvación de conjuros
 - Bonificador de ataque de conjuros
 - Equipo
 - Monedas
 - Idiomas
 - Historia y personalidad
 - Aspecto
-- Sintonizacion con objetos magicos
-- Alineamiento
+- Sintonización con objetos mágicos
+- Alíneamiento
 
 ## Implicacion para `sheetMapper`
 
-El mapeo debe dividir la salida por seccion real de la hoja:
+El mapeo debe dividir la salida por sección real de la hoja:
 
 - Identidad
 - Atributos
@@ -64,7 +64,7 @@ El mapeo debe dividir la salida por seccion real de la hoja:
 - Dotes
 - Rasgos de clase
 - Atributos de especie
-- Armas y trucos de dano
+- Armas y trucos de daño
 - Magia
 - Equipo, monedas e idiomas
 - Historia y apariencia

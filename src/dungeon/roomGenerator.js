@@ -15,21 +15,21 @@ import { generateTreasureBundle } from "./treasureGenerator.js";
 import { chance, pickOne } from "./dungeonTypes.js";
 
 const puzzlePrompts = [
-  "tres simbolos deben alinearse con pistas de salas anteriores",
+  "tres símbolos deben alínearse con pistas de salas anteriores",
   "un mecanismo responde a sonido, peso o luz",
-  "cuatro piezas moviles muestran el orden correcto si se observan sus danos",
+  "cuatro piezas móviles muestran el orden correcto si se observan sus daños",
   "una frase incompleta debe completarse con una palabra vista en otra sala",
   "dos palancas abren rutas distintas y una activa una alarma",
-  "un patron de colores o materiales marca el camino seguro",
+  "un patrón de colores o materiales marca el camino seguro",
 ];
 
 const environmentalHazards = [
-  "terreno dificil por escombros, agua o raices",
+  "terreno difícil por escombros, agua o raíces",
   "cobertura parcial que cambia al moverse por la sala",
-  "zona inestable que se derrumba si recibe dano fuerte",
-  "niebla, humo o polvo que limita vision a distancia",
+  "zona inestable que se derrumba si recibe daño fuerte",
+  "niebla, humo o polvo que limita visión a distancia",
   "ruido constante que dificulta escuchar patrullas",
-  "pasarela estrecha con caida lateral",
+  "pasarela estrecha con caída lateral",
 ];
 
 export function formatRoomId(index) {
@@ -164,8 +164,8 @@ export function generateHazardDetails(roomType, config, rng) {
       type: "trampa",
       summary,
       trigger: "Cruzar, tocar o manipular el punto marcado.",
-      countermeasure: "Detectar la pista, desactivar con herramientas o rodear el area.",
-      visibility: "Debe tener una senal perceptible antes de activarse.",
+      countermeasure: "Detectar la pista, desactivar con herramientas o rodear el área.",
+      visibility: "Debe tener una señal perceptible antes de activarse.",
     });
   }
 
@@ -186,7 +186,7 @@ export function generateHazardDetails(roomType, config, rng) {
       type: "terreno",
       summary,
       trigger: "Moverse sin considerar el terreno o empujar la pelea hacia esa zona.",
-      countermeasure: "Usar posicionamiento, cobertura o acciones para estabilizar el area.",
+      countermeasure: "Usar posicionamiento, cobertura o acciones para estabilizar el área.",
       visibility: "Se aprecia al entrar en la sala.",
     });
   }
@@ -196,7 +196,7 @@ export function generateHazardDetails(roomType, config, rng) {
     return createHazardDetails({
       type: "ambiental",
       summary,
-      trigger: "Movimiento rapido, empujones o combate sin cuidado.",
+      trigger: "Movimiento rápido, empujones o combate sin cuidado.",
       countermeasure: "Avanzar con cautela o usar el terreno como ventaja.",
       visibility: "Se nota con una mirada atenta.",
     });
@@ -205,10 +205,10 @@ export function generateHazardDetails(roomType, config, rng) {
   if (roomType === "secreto" && chance(rng, 0.3)) {
     return createHazardDetails({
       type: "secreto",
-      summary: "entrada oculta dificil de notar si el grupo avanza rapido",
+      summary: "entrada oculta difícil de notar si el grupo avanza rápido",
       trigger: "Pasar sin investigar.",
-      countermeasure: "Buscar senales, corrientes de aire o marcas repetidas.",
-      visibility: "Solo se insinua con detalles pequenos.",
+      countermeasure: "Buscar señales, corrientes de aire o marcas repetidas.",
+      visibility: "Solo se insinúa con detalles pequeños.",
     });
   }
 
@@ -227,7 +227,7 @@ function generateRoomScene(roomType, config, rng, context = {}) {
     : pickOne(rng, dungeonType.anchors);
   const detail = context.zone?.identity || pickOne(rng, theme.details);
   const sign = context.roomInhabitant?.role === "mixed"
-    ? `${pickOne(rng, inhabitants.signs)} mezcladas con senales ajenas`
+    ? `${pickOne(rng, inhabitants.signs)} mezcladas con señales ajenas`
     : pickOne(rng, inhabitants.signs);
   const clue = context.narrativeText?.clue || pickOne(rng, descriptionTable.clues);
   const sensory = pickOne(rng, descriptionTable.sensory);
@@ -241,12 +241,12 @@ function generateRoomScene(roomType, config, rng, context = {}) {
     clue,
     sensory,
     event,
-    eventText: event ? `Tambien hay ${event}.` : "",
+    eventText: event ? `También hay ${event}.` : "",
   };
 }
 
 function formatRoomDescription(scene, narrativeText = {}) {
-  const event = scene.event ? ` Tambien hay ${scene.event}.` : "";
+  const event = scene.event ? ` También hay ${scene.event}.` : "";
   const bridge = narrativeText.bridge ? ` ${narrativeText.bridge}.` : "";
   const finalHook = narrativeText.finalHook ? ` ${narrativeText.finalHook}.` : "";
   return `${scene.base} Se ven ${scene.anchor}, ${scene.detail} y ${scene.sign}; ${scene.sensory}. ${scene.clue}.${bridge}${finalHook}${event}`;
@@ -270,8 +270,8 @@ function enrichHazardDetails(details, roomType, zone, narrativeText, rng) {
       type: "zona",
       summary: `Peligro de zona: ${hook || "el terreno reacciona al avance descuidado"}`,
       trigger: "Cruzar deprisa, hacer ruido o ignorar las marcas de frontera.",
-      countermeasure: "Reconocer el patron de la zona y avanzar por una ruta alternativa.",
-      visibility: "Las senales se repiten en puertas, suelo o paredes cercanas.",
+      countermeasure: "Reconocer el patrón de la zona y avanzar por una ruta alternativa.",
+      visibility: "Las señales se repiten en puertas, suelo o paredes cercanas.",
     });
   }
 
@@ -307,7 +307,7 @@ function enrichTreasureWithNarrative(treasureBundle, roomType, zone, narrativeTe
       items: [],
       clues: [hook || `pista sobre ${zone?.name || "la causa interna"}`],
       keys: [],
-      valueHint: "Informacion",
+      valueHint: "Información",
     };
 
   return {
@@ -367,17 +367,17 @@ function inferGeneratedRiskLevel(roomType, encounter, hazardDetails) {
 
 function inferGeneratedRoomFunction(roomType) {
   const functionsByType = {
-    entrada: "Presentar tono, primer rastro y una decision de ruta.",
-    pasillo: "Conectar zonas y controlar ritmo de exploracion.",
-    combate: "Probar tacticas, recursos y reaccion de los habitantes.",
+    entrada: "Presentar tono, primer rastro y una decisión de ruta.",
+    pasillo: "Conectar zonas y controlar ritmo de exploración.",
+    combate: "Probar tácticas, recursos y reacción de los habitantes.",
     trampa: "Premiar observacion y cobrar descuido.",
-    puzzle: "Crear una pausa de deduccion o manipulacion.",
-    tesoro: "Entregar recompensa, pista o llave util.",
-    descanso: "Bajar tension y permitir recuperacion breve.",
-    vacia: "Dar aire y sembrar informacion sin combate inmediato.",
+    puzzle: "Crear una pausa de deducción o manipulación.",
+    tesoro: "Entregar recompensa, pista o llave Útil.",
+    descanso: "Bajar tensión y permitir recuperación breve.",
+    vacia: "Dar aire y sembrar información sin combate inmediato.",
     jefe: "Cerrar la mazmorra con amenaza, objetivo o revelacion.",
-    secreto: "Premiar curiosidad con informacion, atajo o botin.",
+    secreto: "Premiar curiosidad con información, atajo o botín.",
   };
 
-  return functionsByType[roomType] || "Resolver una escena breve de exploracion.";
+  return functionsByType[roomType] || "Resolver una escena breve de exploración.";
 }

@@ -298,7 +298,7 @@ La primera implementación vive en la vista `Tablero` de la Bitácora. Permite:
 - mover nodos con posición persistente;
 - crear conexiones entre dos nodos;
 - editar etiqueta y descripción de una conexión;
-- cambiar el orden visual de conexiones seleccionadas;
+- cambiar el orden visual de conexiones selecciónadas;
 - quitar nodos o conexiones sin borrar la entidad original;
 - deshacer y rehacer cambios de tablero durante la sesión abierta.
 

@@ -23,13 +23,13 @@ function getSheetFieldClass(field, values) {
     "ATRIBUTOS DE ESPECIE",
     "RASGOS DE CLASE",
     "Rasgos de subclase",
-    "ARMAS Y TRUCOS DE DANO",
+    "ARMAS Y TRUCOS DE DAÑO",
     "EQUIPO",
     "TRUCOS Y MAGIA PREPARADA",
     "TRUCOS Y CONJUROS PREPARADOS",
     "GRIMORIO",
     "REGLAS DE LANZAMIENTO",
-    "OBJETOS MAGICOS",
+    "OBJETOS MÁGICOS",
   ]);
   const textLength = values.join(" ").length;
   const isList = values.length > 1;

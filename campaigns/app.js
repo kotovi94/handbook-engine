@@ -28,18 +28,18 @@ const SYSTEMS = {
     unit: 'PX',
     resourceName: 'experiencia',
     characterValueLabel: 'Experiencia actual o previa',
-    characterValueHelp: 'Si ya jugaba antes de usar la app, escribe aqui toda la experiencia que ya tenia.',
+    characterValueHelp: 'Si ya jugaba antes de usar la app, escribe aquí toda la experiencia que ya tenia.',
     roleLabel: 'Clase',
     rolePlaceholder: 'Ej. Bardo',
     progressName: 'Nivel',
-    maxProgressText: 'Nivel maximo',
+    maxProgressText: 'Nivel máximo',
     totalAwardedLabel: 'Experiencia total otorgada',
     poolsTitle: 'Fondos de la sesión',
     poolsHelp: 'Cada cantidad se divide en partes iguales entre quienes asistieron.',
     poolLabels: ['Combate', 'Roleo', 'Otros logros'],
-    poolHelps: ['Enemigos y encuentros superados', 'Interpretacion y decisiones narrativas', 'Exploracion, objetivos o ajustes manuales'],
+    poolHelps: ['Enemigos y encuentros superados', 'Interpretación y decisiones narrativas', 'Exploración, objetivos o ajustes manuales'],
     bonusTitle: 'Bonos por personaje',
-    bonusHelp: 'Anade experiencia particular a quienes destacaron. Solo se aplica a asistentes.',
+    bonusHelp: 'Añade experiencia particular a quienes destacaron. Solo se aplica a asistentes.',
     averageStatLabel: 'Nivel promedio',
   },
   cyberpunkRed: {
@@ -55,15 +55,15 @@ const SYSTEMS = {
     maxProgressText: 'Lista para gastar',
     totalAwardedLabel: 'PP totales otorgados',
     poolsTitle: 'Puntos de perfeccionamiento',
-    poolsHelp: 'Otorga PP segun exito de grupo, estilo de juego o ajustes manuales del DJ.',
+    poolsHelp: 'Otorga PP según éxito de grupo, estilo de juego o ajustes manuales del DJ.',
     poolLabels: ['Grupo', 'Estilo', 'Manual'],
     poolHelps: ['Resultado de la mision', 'Guerrero, sociable, explorador o actor', 'Ajustes o recompensas especiales'],
     bonusTitle: 'PP por personaje',
-    bonusHelp: 'Anade PP particulares a quienes destacaron. Solo se aplica a asistentes.',
+    bonusHelp: 'Añade PP particulares a quienes destacaron. Solo se aplica a asistentes.',
     averageStatLabel: 'PP promedio',
     costTables: {
       typical: { label: 'Habilidad tipica', multiplier: 20 },
-      difficult: { label: 'Habilidad dificil (x2)', multiplier: 40 },
+      difficult: { label: 'Habilidad difícil (x2)', multiplier: 40 },
       role: { label: 'Aptitud de rol', multiplier: 60 },
     },
   },
@@ -94,18 +94,18 @@ const CYBERPUNK_PP_REASONS = {
     [30, 'Cumplieron la mayoria de objetivos'],
     [40, 'Buena mision y cooperacion'],
     [50, 'Muy buena mision con momentos estelares'],
-    [60, 'Gran exito, todos los objetivos cumplidos'],
-    [70, 'Exito rotundo y objetivos secundarios'],
+    [60, 'Gran Éxito, todos los objetivos cumplidos'],
+    [70, 'Éxito rotundo y objetivos secundarios'],
     [80, 'Mision legendaria y cooperacion excepcional'],
   ],
   guerrero: [
     [10, 'Uso combate con frecuencia'],
     [20, 'Combatio con eficacia'],
     [30, 'Derroto enemigos peligrosos'],
-    [40, 'Logro de combate fuera de lo comun'],
+    [40, 'Logro de combate fuera de lo común'],
     [50, 'Combate muy eficaz o inteligente'],
-    [60, 'Combate critico para su personaje'],
-    [70, 'Combate critico para todo el grupo'],
+    [60, 'Combate crítico para su personaje'],
+    [70, 'Combate crítico para todo el grupo'],
     [80, 'Algo increible en combate'],
   ],
   sociable: [
@@ -122,7 +122,7 @@ const CYBERPUNK_PP_REASONS = {
     [10, 'Intento investigar o explorar'],
     [20, 'Exploro o investigo con eficacia'],
     [30, 'Investigo para avanzar objetivos'],
-    [40, 'Descubrimiento fuera de lo comun'],
+    [40, 'Descubrimiento fuera de lo común'],
     [50, 'Descubre persona, lugar, pista o cosa importante'],
     [60, 'Investigacion clave para su personaje'],
     [70, 'Investigacion fundamental para todo el grupo'],
@@ -133,44 +133,44 @@ const CYBERPUNK_PP_REASONS = {
     [20, 'Interpreto constantemente'],
     [30, 'Interpreto para lograr objetivos'],
     [40, 'Momento fuerte de interpretacion'],
-    [50, 'Interpretacion muy eficaz o inteligente'],
-    [60, 'Interpretacion decisiva para su personaje'],
-    [70, 'Interpretacion cambia el resultado de la partida'],
+    [50, 'Interpretación muy eficaz o inteligente'],
+    [60, 'Interpretación decisiva para su personaje'],
+    [70, 'Interpretación cambia el resultado de la partida'],
     [80, 'Actuacion realmente increible'],
   ],
 };
 const DND_XP_REWARD_TIERS = buildDndRewardTiers();
 const DND_XP_REWARDS = [
-  { id: 'combat-low', bullet: 1, action: 'Combate (desempeno bajo)', xp: 20, note: 'Si los jugadores lucharon de manera torpe o sin estrategia.' },
-  { id: 'combat-standard', bullet: 2, action: 'Combate (desempeno aceptable)', xp: 30, note: 'Si usaron tacticas basicas y tuvieron un combate estandar.' },
-  { id: 'combat-excellent', bullet: 3, action: 'Combate (desempeno sobresaliente)', xp: 40, note: 'Si usaron estrategias avanzadas, combos o tacticas creativas.' },
+  { id: 'combat-low', bullet: 1, action: 'Combate (desempeño bajo)', xp: 20, note: 'Si los jugadores lucharon de manera torpe o sin estrategia.' },
+  { id: 'combat-standard', bullet: 2, action: 'Combate (desempeño aceptable)', xp: 30, note: 'Si usaron tácticas básicas y tuvieron un combate estándar.' },
+  { id: 'combat-excellent', bullet: 3, action: 'Combate (desempeño sobresaliente)', xp: 40, note: 'Si usaron estrategias avanzadas, combos o tácticas creativas.' },
   { id: 'valuable-information', bullet: 4, action: 'Adquirir información valiosa', xp: 15, note: 'Descubrir pistas, aprender sobre la trama o revelar secretos importantes.' },
   { id: 'accept-mission', bullet: 5, action: 'Aceptar una mision', xp: 10, note: 'Cuando el grupo se compromete con un objetivo importante.' },
   { id: 'complete-mission', bullet: 6, action: 'Cumplir una mision', xp: 40, note: 'Dependiendo de la dificultad de la mision.' },
-  { id: 'noncombat-solution', bullet: 7, action: 'Resolver un problema sin combate', xp: 20, note: 'Diplomacia, sigilo, negociacion o engano para evitar un enfrentamiento.' },
-  { id: 'notable-exploration', bullet: 8, action: 'Exploracion destacada', xp: 25, note: 'Descubrir lugares ocultos, mapas secretos, pasadizos o tesoros escondidos.' },
-  { id: 'clever-skill-spell', bullet: 9, action: 'Uso ingenioso de habilidades o hechizos', xp: 25, note: 'Resolver una situacion de forma creativa usando mecanicas del juego.' },
+  { id: 'noncombat-solution', bullet: 7, action: 'Resolver un problema sin combate', xp: 20, note: 'Diplomacia, sigilo, negociación o engaño para evitar un enfrentamiento.' },
+  { id: 'notable-exploration', bullet: 8, action: 'Exploración destacada', xp: 25, note: 'Descubrir lugares ocultos, mapas secretos, pasadizos o tesoros escondidos.' },
+  { id: 'clever-skill-spell', bullet: 9, action: 'Uso ingenioso de habilidades o hechizos', xp: 25, note: 'Resolver una situación de forma creativa usando mecánicas del juego.' },
   { id: 'teamwork', bullet: 10, action: 'Trabajo en equipo destacado', xp: 20, note: 'Si los jugadores colaboraron excepcionalmente bien en una tarea.' },
   { id: 'character-development', bullet: 11, action: 'Desarrollo de personaje (roleo significativo)', xp: 25, note: 'Si un jugador profundiza en su historia, relaciones o personalidad.' },
-  { id: 'story-impact', bullet: 12, action: 'Impacto en la historia', xp: 30, note: 'Si una decision del grupo cambia el rumbo de la narrativa de manera importante.' },
+  { id: 'story-impact', bullet: 12, action: 'Impacto en la historia', xp: 30, note: 'Si una decisión del grupo cambia el rumbo de la narrativa de manera importante.' },
   { id: 'heroic-act', bullet: 13, action: 'Sacrificio o acto heroico', xp: 30, note: 'Si un personaje pone en riesgo su seguridad por el grupo o la historia.' },
-  { id: 'heroic-inspiration', bullet: 14, action: 'Inspiracion Heroica', xp: 30, note: 'Recompensa extra por hazanas epicas.' },
+  { id: 'heroic-inspiration', bullet: 14, action: 'Inspiración Heroica', xp: 30, note: 'Recompensa extra por hazañas épicas.' },
   { id: 'crisis-improvisation', bullet: 15, action: 'Improvisacion exitosa en crisis', xp: 25, note: 'Cuando un jugador resuelve algo sin recursos convencionales.' },
   { id: 'sacrifice-for-ally', bullet: 16, action: 'Sacrificio por otro miembro del grupo', xp: 30, note: 'Incluye poner su vida en riesgo o perder un recurso valioso.' },
   { id: 'deep-lore', bullet: 17, action: 'Descubrimiento de lore profundo o historia oculta', xp: 20, note: 'Cuando un jugador busca e interpreta información antigua o críptica.' },
   { id: 'emotional-roleplay', bullet: 18, action: 'Escena de roleo emocional poderosa', xp: 30, note: 'Llantos, traiciones, confesiones o algo que afecte a todos.' },
-  { id: 'creative-feat', bullet: 19, action: 'Proeza ridiculamente creativa (y funcional)', xp: 27, note: 'Inventar una locura que funcione. Premia la locura logica.' },
+  { id: 'creative-feat', bullet: 19, action: 'Proeza ridiculamente creativa (y funcional)', xp: 27, note: 'Inventar una locura que funcione. Premia la locura lógica.' },
   { id: 'history-changing-diplomacy', bullet: 20, action: 'Diplomacia que cambia el curso de la historia', xp: 35, note: 'Convencer a un enemigo, evitar una guerra o unir facciones.' },
-  { id: 'nonviolent-defeat', bullet: 21, action: 'Derrotar a un enemigo de forma no violenta', xp: 30, note: 'Puede implicar engano, redencion, soborno o chantaje.' },
+  { id: 'nonviolent-defeat', bullet: 21, action: 'Derrotar a un enemigo de forma no violenta', xp: 30, note: 'Puede implicar engaño, redención, soborno o chantaje.' },
   { id: 'npc-growth', bullet: 22, action: 'Inspirar a un NPC a cambiar o crecer', xp: 25, note: 'Cuando un jugador deja huella en otro personaje.' },
-  { id: 'mystic-event', bullet: 23, action: 'Desbloquear un destino, profecia o evento mistico', xp: 30, note: 'Usualmente relacionado a un arco narrativo.' },
+  { id: 'mystic-event', bullet: 23, action: 'Desbloquear un destino, profecía o evento mistico', xp: 30, note: 'Usualmente relacionado a un arco narrativo.' },
   { id: 'perfect-master-plan', bullet: 24, action: 'Plan maestro ejecutado a la perfeccion', xp: 35, note: 'Cuando el grupo actua coordinado y todo sale bien.' },
-  { id: 'combat-critical', bullet: 25, action: 'Critico en combate (natural 20)', xp: 10, note: 'Si el golpe tuvo impacto narrativo, fue creativo o decisivo.' },
-  { id: 'noncombat-critical', bullet: 26, action: 'Critico fuera de combate (habilidad/hechizo)', xp: 15, note: 'Acciones epicas como convencer a una multitud, resolver un acertijo o salvar una vida.' },
-  { id: 'plot-critical', bullet: 27, action: 'Critico en momento clave de trama', xp: 20, note: 'Ejemplo: activar un artefacto, evitar un desastre o cumplir una profecia.' },
-  { id: 'combat-fumble', bullet: 28, action: 'Pifia en combate (natural 1)', xp: -5, note: 'Solo si perjudica al grupo o causa dano serio. Se puede ignorar si se rolea bien.' },
-  { id: 'noncombat-fumble', bullet: 29, action: 'Pifia fuera de combate (habilidad)', xp: -5, note: 'Cuando genera consecuencias graves o muy costosas. Opcional segun el tono del juego.' },
-  { id: 'memorable-fumble', bullet: 30, action: 'Pifia epica bien roleada', xp: 5, note: 'Recompensa si el jugador convierte el fallo en un momento memorable y divertido.' },
+  { id: 'combat-critical', bullet: 25, action: 'Crítico en combate (natural 20)', xp: 10, note: 'Si el golpe tuvo impacto narrativo, fue creativo o decisivo.' },
+  { id: 'noncombat-critical', bullet: 26, action: 'Crítico fuera de combate (habilidad/hechizo)', xp: 15, note: 'Acciones Épicas como convencer a una multitud, resolver un acertijo o salvar una vida.' },
+  { id: 'plot-critical', bullet: 27, action: 'Crítico en momento clave de trama', xp: 20, note: 'Ejemplo: activar un artefacto, evitar un desastre o cumplir una profecía.' },
+  { id: 'combat-fumble', bullet: 28, action: 'Pifia en combate (natural 1)', xp: -5, note: 'Solo si perjudica al grupo o causa daño serio. Se puede ignorar si se rolea bien.' },
+  { id: 'noncombat-fumble', bullet: 29, action: 'Pifia fuera de combate (habilidad)', xp: -5, note: 'Cuando genera consecuencias graves o muy costosas. Opcional según el tono del juego.' },
+  { id: 'memorable-fumble', bullet: 30, action: 'Pifia Épica bien roleada', xp: 5, note: 'Recompensa si el jugador convierte el fallo en un momento memorable y divertido.' },
 ];
 const WORKSPACE_ENTITY_CONFIGS = [
   { collection: 'notes', type: 'note', label: 'Nota', plural: 'Notas', emptyTitle: 'Nueva nota' },
@@ -924,7 +924,7 @@ function renderCampaigns() {
       <div class="campaign-card-content">
         <p class="eyebrow">${escapeHTML(getCampaignSystem(campaign).name)}</p>
         <h3>${escapeHTML(campaign.name)}</h3>
-        <p>${escapeHTML(campaign.description || "Una nueva travesia esta a punto de comenzar.")}</p>
+        <p>${escapeHTML(campaign.description || "Una nueva travesía esta a punto de comenzar.")}</p>
         <div class="campaign-meta"><span>${formatCharacterCountLabel(characterCount)}</span>${sessionMeta}<span>${formatResource(totalXP, campaign)}</span>${campaign.dm ? `<span>DM: ${escapeHTML(campaign.dm)}</span>` : ""}${campaign.passwordHash ? '<span class="lock-label">Protegida</span>' : ""}</div>
         <div class="campaign-next-step">${nextStep}</div>
       </div>
@@ -975,9 +975,9 @@ async function shareCampaign(campaign) {
       return;
     }
     await copyText(url);
-    showToast('Enlace de campana copiado.');
+    showToast('Enlace de campaña copiado.');
   } catch (error) {
-    if (error.name !== 'AbortError') showToast('No se pudo compartir la campana.');
+    if (error.name !== 'AbortError') showToast('No se pudo compartir la campaña.');
   }
 }
 
@@ -1078,7 +1078,7 @@ function getCyberpunkUpgradeSummary(points) {
     const nextRank = Math.min(10, maxRank + 1);
     const nextCost = nextRank <= 10 ? nextRank * table.multiplier : null;
     const status = maxRank > 0 ? `cubre coste hasta valor ${maxRank}` : 'sin mejora disponible';
-    return `${table.label}: ${status}${nextCost ? `; siguiente ${nextCost} PP` : '; coste maximo cubierto'}`;
+    return `${table.label}: ${status}${nextCost ? `; siguiente ${nextCost} PP` : '; coste máximo cubierto'}`;
   }).join(' | ');
 }
 
@@ -3222,11 +3222,11 @@ async function saveSession(event) {
 
 function renderLog(query = '') {
   const system = getCampaignSystem();
-  const normalized = query.trim().toLowerCase();
+  const normalized = normalizeSearchText(query);
   const sessions = [...state.sessions].sort((a, b) => new Date(b.date) - new Date(a.date)).filter(session => {
     const participantNames = session.allocations.map(item => item.characterName || state.characters.find(character => character.id === item.characterId)?.name || '').join(' ');
     const awardText = session.allocations.flatMap(item => item.awardDetails?.map(detail => `${detail.reason || ''} ${detail.note || ''}`) || []).join(' ');
-    return `${session.name} ${session.number} ${session.notes.combat} ${session.notes.roleplay} ${participantNames} ${awardText}`.toLowerCase().includes(normalized);
+    return normalizeSearchText(`${session.name} ${session.number} ${session.notes.combat} ${session.notes.roleplay} ${participantNames} ${awardText}`).includes(normalized);
   });
   const cyberpunkLedger = system.id === 'cyberpunkRed' && sessions.length ? renderCyberpunkAwardLedger(sessions, Boolean(normalized)) : '';
   $('#session-log').innerHTML = sessions.length ? cyberpunkLedger + sessions.map(session => `
@@ -3307,7 +3307,7 @@ function renderDndAllocationSummary(item) {
   const detailText = details.slice(0, 3).map(detail => escapeHTML(detail.reason || 'Logro')).join('<br>');
   const hiddenCount = details.length - 3;
   const tierText = guided.tierLabel ? `<small>${escapeHTML(guided.tierLabel)} x${formatMultiplier(guided.multiplier || 1)}</small>` : '';
-  return `<b>${formatResource(guided.total || 0)}</b>${tierText}<small>${detailText}${hiddenCount > 0 ? `<br>+${hiddenCount} mas` : ''}</small>`;
+  return `<b>${formatResource(guided.total || 0)}</b>${tierText}<small>${detailText}${hiddenCount > 0 ? `<br>+${hiddenCount} más` : ''}</small>`;
 }
 
 function renderCyberpunkLogTable(session) {

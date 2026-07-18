@@ -1,14 +1,14 @@
 export const DUNGEON_VERSION = 3;
 
 export const DIFFICULTY_OPTIONS = [
-  { id: "facil", label: "Facil" },
+  { id: "facil", label: "Fácil" },
   { id: "normal", label: "Normal" },
-  { id: "dificil", label: "Dificil" },
+  { id: "dificil", label: "Difícil" },
   { id: "mortal", label: "Mortal" },
 ];
 
 export const SIZE_OPTIONS = [
-  { id: "pequena", label: "Pequena" },
+  { id: "pequena", label: "Pequeña" },
   { id: "mediana", label: "Mediana" },
   { id: "grande", label: "Grande" },
   { id: "megamazmorra", label: "Megamazmorra" },
@@ -31,7 +31,7 @@ export const THEME_OPTIONS = [
   { id: "oscuro", label: "Oscuro" },
   { id: "helado", label: "Helado" },
   { id: "volcanico", label: "Volcanico" },
-  { id: "feerico", label: "Feerico" },
+  { id: "feerico", label: "Feérico" },
   { id: "corrupto", label: "Corrupto" },
   { id: "infernal", label: "Infernal" },
   { id: "natural", label: "Natural" },
@@ -54,7 +54,7 @@ export const INHABITANT_OPTIONS = [
 ];
 
 export const SECONDARY_INHABITANT_OPTIONS = [
-  { id: "automatico", label: "Automatico" },
+  { id: "automatico", label: "Automático" },
   { id: "ninguno", label: "Sin secundarios" },
   ...INHABITANT_OPTIONS,
 ];
@@ -79,7 +79,7 @@ export const ROOM_TYPE_OPTIONS = [
   { id: "puzzle", label: "Puzzle" },
   { id: "tesoro", label: "Tesoro" },
   { id: "descanso", label: "Descanso" },
-  { id: "vacia", label: "Sala vacia" },
+  { id: "vacia", label: "Sala vacía" },
   { id: "jefe", label: "Jefe" },
   { id: "secreto", label: "Secreto" },
 ];

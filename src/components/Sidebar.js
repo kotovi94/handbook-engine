@@ -7,7 +7,7 @@ export function Sidebar({ activeRoute, onNavigate }) {
   sidebar.id = "app-sidebar";
 
   sidebar.innerHTML = `
-    <div class="sidebar-header">
+    <div class="sidebar-header" data-tour="app-brand">
       <h1 class="sidebar-title">Compendio D20 Travesías</h1>
       <span class="sidebar-subtitle">D&D 5e 2024</span>
     </div>
@@ -16,6 +16,7 @@ export function Sidebar({ activeRoute, onNavigate }) {
   `;
 
   const nav = sidebar.querySelector("nav");
+  nav.dataset.tour = "main-navigation";
 
   navigationSections.forEach((section) => {
     const sectionNode = document.createElement("section");
@@ -37,6 +38,9 @@ export function Sidebar({ activeRoute, onNavigate }) {
       link.className = isActive ? "nav-link is-active" : "nav-link";
       if (item.route) {
         link.dataset.route = item.route;
+        link.dataset.tour = `nav-${item.route}`;
+      } else if (item.href) {
+        link.dataset.tour = "nav-campaigns";
       }
       const label = document.createElement("span");
       label.textContent = item.label;

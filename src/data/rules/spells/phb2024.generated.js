@@ -22,7 +22,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Acid Splash: Action; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Acid Splash: Action; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "aid",
@@ -50,7 +50,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Aid: Action; alcance 30 feet; duracion 8 hours; componentes V, S, M."
+    "sheetText": "Aid: Action; alcance 30 feet; duración 8 hours; componentes V, S, M."
   },
   {
     "id": "alarm",
@@ -75,7 +75,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Alarm: 1 minute or Ritual; alcance 30 feet; duracion 8 hours; componentes V, S, M."
+    "sheetText": "Alarm: 1 minute or Ritual; alcance 30 feet; duración 8 hours; componentes V, S, M."
   },
   {
     "id": "alter-self",
@@ -99,7 +99,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Alter Self: Action; alcance Self; duracion Concentration, up to 1 hour; componentes V, S."
+    "sheetText": "Alter Self: Action; alcance Self; duración Concentration, up to 1 hour; componentes V, S."
   },
   {
     "id": "animal-friendship",
@@ -125,7 +125,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Animal Friendship: Action; alcance 30 feet; duracion 24 hours; componentes V, S, M."
+    "sheetText": "Animal Friendship: Action; alcance 30 feet; duración 24 hours; componentes V, S, M."
   },
   {
     "id": "animal-messenger",
@@ -151,7 +151,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Animal Messenger: Action or Ritual; alcance 30 feet; duracion 24 hours; componentes V, S, M."
+    "sheetText": "Animal Messenger: Action or Ritual; alcance 30 feet; duración 24 hours; componentes V, S, M."
   },
   {
     "id": "animal-shapes",
@@ -174,7 +174,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Animal Shapes: Action; alcance 30 feet; duracion 24 hours; componentes V, S."
+    "sheetText": "Animal Shapes: Action; alcance 30 feet; duración 24 hours; componentes V, S."
   },
   {
     "id": "animate-dead",
@@ -199,7 +199,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Animate Dead: 1 minute; alcance 10 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Animate Dead: 1 minute; alcance 10 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "animate-objects",
@@ -224,7 +224,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Animate Objects: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Animate Objects: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "antilife-shell",
@@ -247,7 +247,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Antilife Shell: Action; alcance Self; duracion Concentration, up to 1 hour; componentes V, S."
+    "sheetText": "Antilife Shell: Action; alcance Self; duración Concentration, up to 1 hour; componentes V, S."
   },
   {
     "id": "antimagic-field",
@@ -272,7 +272,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Antimagic Field: Action; alcance Self; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Antimagic Field: Action; alcance Self; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "antipathy-sympathy",
@@ -298,7 +298,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Antipathy/Sympathy: 1 hour; alcance 60 feet; duracion 10 days; componentes V, S, M."
+    "sheetText": "Antipathy/Sympathy: 1 hour; alcance 60 feet; duración 10 days; componentes V, S, M."
   },
   {
     "id": "arcane-eye",
@@ -322,7 +322,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Arcane Eye: Action; alcance 30 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Arcane Eye: Action; alcance 30 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "arcane-gate",
@@ -347,7 +347,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Arcane Gate: Action; alcance 500 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Arcane Gate: Action; alcance 500 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "arcane-lock",
@@ -371,7 +371,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Arcane Lock: Action; alcance Touch; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Arcane Lock: Action; alcance Touch; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "arcane-vigor",
@@ -395,7 +395,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Arcane Vigor: Bonus Action; alcance Self; duracion Instantaneous; componentes V, S."
+    "sheetText": "Arcane Vigor: Bonus Action; alcance Self; duración Instantaneous; componentes V, S."
   },
   {
     "id": "armor-of-agathys",
@@ -419,7 +419,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Armor of Agathys: Bonus Action; alcance Self; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Armor of Agathys: Bonus Action; alcance Self; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "arms-of-hadar",
@@ -442,7 +442,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Arms of Hadar: Action; alcance Self; duracion Instantaneous; componentes V, S."
+    "sheetText": "Arms of Hadar: Action; alcance Self; duración Instantaneous; componentes V, S."
   },
   {
     "id": "astral-projection",
@@ -468,7 +468,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Astral Projection: 1 hour; alcance 10 feet; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Astral Projection: 1 hour; alcance 10 feet; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "augury",
@@ -494,7 +494,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Augury: 1 minute or Ritual; alcance Self; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Augury: 1 minute or Ritual; alcance Self; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "aura-of-life",
@@ -517,7 +517,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Aura of Life: Action; alcance Self; duracion Concentration, up to 10 minutes; componentes V."
+    "sheetText": "Aura of Life: Action; alcance Self; duración Concentration, up to 10 minutes; componentes V."
   },
   {
     "id": "aura-of-purity",
@@ -540,7 +540,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Aura of Purity: Action; alcance Self; duracion Concentration, up to 10 minutes; componentes V."
+    "sheetText": "Aura of Purity: Action; alcance Self; duración Concentration, up to 10 minutes; componentes V."
   },
   {
     "id": "aura-of-vitality",
@@ -564,7 +564,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Aura of Vitality: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V."
+    "sheetText": "Aura of Vitality: Action; alcance Self; duración Concentration, up to 1 minute; componentes V."
   },
   {
     "id": "awaken",
@@ -589,7 +589,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Awaken: 8 hours; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Awaken: 8 hours; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "bane",
@@ -615,7 +615,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Bane: Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Bane: Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "banishing-smite",
@@ -637,7 +637,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Banishing Smite: Bonus Action, which you take immediately after hitting a creature with a Melee weapon or an Unarmed Strike; alcance Self; duracion Concentration, up to 1 minute; componentes V."
+    "sheetText": "Banishing Smite: Bonus Action, which you take immediately after hitting a creature with a Melee weapon or an Unarmed Strike; alcance Self; duración Concentration, up to 1 minute; componentes V."
   },
   {
     "id": "banishment",
@@ -665,7 +665,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Banishment: Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Banishment: Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "barkskin",
@@ -690,7 +690,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Barkskin: Bonus Action; alcance Touch; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Barkskin: Bonus Action; alcance Touch; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "beacon-of-hope",
@@ -713,7 +713,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Beacon of Hope: Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Beacon of Hope: Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "beast-sense",
@@ -736,7 +736,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": true,
     "effects": [],
-    "sheetText": "Beast Sense: Action or Ritual; alcance Touch; duracion Concentration, up to 1 hour; componentes S."
+    "sheetText": "Beast Sense: Action or Ritual; alcance Touch; duración Concentration, up to 1 hour; componentes S."
   },
   {
     "id": "befuddlement",
@@ -763,7 +763,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Befuddlement: Action; alcance 150 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Befuddlement: Action; alcance 150 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "bestow-curse",
@@ -788,7 +788,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Bestow Curse: Action; alcance Touch; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Bestow Curse: Action; alcance Touch; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "bigbys-hand",
@@ -813,7 +813,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Bigby's Hand: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Bigby's Hand: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "blade-barrier",
@@ -836,7 +836,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Blade Barrier: Action; alcance 90 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Blade Barrier: Action; alcance 90 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "blade-ward",
@@ -862,7 +862,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Blade Ward: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Blade Ward: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "bless",
@@ -887,7 +887,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Bless: Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Bless: Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "blight",
@@ -913,7 +913,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Blight: Action; alcance 30 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Blight: Action; alcance 30 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "blinding-smite",
@@ -935,7 +935,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Blinding Smite: Bonus Action, which you take immediately after hitting a creature with a Melee weapon or an Unarmed Strike; alcance Self; duracion 1 minute; componentes V."
+    "sheetText": "Blinding Smite: Bonus Action, which you take immediately after hitting a creature with a Melee weapon or an Unarmed Strike; alcance Self; duración 1 minute; componentes V."
   },
   {
     "id": "blindness-deafness",
@@ -960,7 +960,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Blindness/Deafness: Action; alcance 120 feet; duracion 1 minute; componentes V."
+    "sheetText": "Blindness/Deafness: Action; alcance 120 feet; duración 1 minute; componentes V."
   },
   {
     "id": "blink",
@@ -984,7 +984,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Blink: Action; alcance Self; duracion 1 minute; componentes V, S."
+    "sheetText": "Blink: Action; alcance Self; duración 1 minute; componentes V, S."
   },
   {
     "id": "blur",
@@ -1007,7 +1007,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Blur: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V."
+    "sheetText": "Blur: Action; alcance Self; duración Concentration, up to 1 minute; componentes V."
   },
   {
     "id": "burning-hands",
@@ -1031,7 +1031,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Burning Hands: Action; alcance Self; duracion Instantaneous; componentes V, S."
+    "sheetText": "Burning Hands: Action; alcance Self; duración Instantaneous; componentes V, S."
   },
   {
     "id": "call-lightning",
@@ -1054,7 +1054,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Call Lightning: Action; alcance 120 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Call Lightning: Action; alcance 120 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "calm-emotions",
@@ -1078,7 +1078,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Calm Emotions: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Calm Emotions: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "chain-lightning",
@@ -1103,7 +1103,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Chain Lightning: Action; alcance 150 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Chain Lightning: Action; alcance 150 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "charm-monster",
@@ -1130,7 +1130,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Charm Monster: Action; alcance 30 feet; duracion 1 hour; componentes V, S."
+    "sheetText": "Charm Monster: Action; alcance 30 feet; duración 1 hour; componentes V, S."
   },
   {
     "id": "charm-person",
@@ -1157,7 +1157,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Charm Person: Action; alcance 30 feet; duracion 1 hour; componentes V, S."
+    "sheetText": "Charm Person: Action; alcance 30 feet; duración 1 hour; componentes V, S."
   },
   {
     "id": "chill-touch",
@@ -1182,7 +1182,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Chill Touch: Action; alcance Touch; duracion Instantaneous; componentes V, S."
+    "sheetText": "Chill Touch: Action; alcance Touch; duración Instantaneous; componentes V, S."
   },
   {
     "id": "chromatic-orb",
@@ -1207,7 +1207,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Chromatic Orb: Action; alcance 90 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Chromatic Orb: Action; alcance 90 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "circle-of-death",
@@ -1233,7 +1233,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Circle of Death: Action; alcance 150 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Circle of Death: Action; alcance 150 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "circle-of-power",
@@ -1257,7 +1257,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Circle of Power: Action; alcance Self; duracion Concentration, up to 10 minutes; componentes V."
+    "sheetText": "Circle of Power: Action; alcance Self; duración Concentration, up to 10 minutes; componentes V."
   },
   {
     "id": "clairvoyance",
@@ -1284,7 +1284,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Clairvoyance: 10 minutes; alcance 1 mile; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Clairvoyance: 10 minutes; alcance 1 mile; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "clone",
@@ -1308,7 +1308,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Clone: 1 hour; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Clone: 1 hour; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "cloudkill",
@@ -1332,7 +1332,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Cloudkill: Action; alcance 120 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Cloudkill: Action; alcance 120 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "cloud-of-daggers",
@@ -1359,7 +1359,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Cloud of Daggers: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Cloud of Daggers: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "color-spray",
@@ -1385,7 +1385,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Color Spray: Action; alcance Self; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Color Spray: Action; alcance Self; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "command",
@@ -1409,7 +1409,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Command: Action; alcance 60 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Command: Action; alcance 60 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "commune",
@@ -1433,7 +1433,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Commune: 1 minute or Ritual; alcance Self; duracion 1 minute; componentes V, S, M."
+    "sheetText": "Commune: 1 minute or Ritual; alcance Self; duración 1 minute; componentes V, S, M."
   },
   {
     "id": "commune-with-nature",
@@ -1457,7 +1457,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Commune with Nature: 1 minute or Ritual; alcance Self; duracion Instantaneous; componentes V, S."
+    "sheetText": "Commune with Nature: 1 minute or Ritual; alcance Self; duración Instantaneous; componentes V, S."
   },
   {
     "id": "compelled-duel",
@@ -1479,7 +1479,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Compelled Duel: Bonus Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V."
+    "sheetText": "Compelled Duel: Bonus Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V."
   },
   {
     "id": "comprehend-languages",
@@ -1506,7 +1506,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Comprehend Languages: Action or Ritual; alcance Self; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Comprehend Languages: Action or Ritual; alcance Self; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "compulsion",
@@ -1529,7 +1529,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Compulsion: Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Compulsion: Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "cone-of-cold",
@@ -1555,7 +1555,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Cone of Cold: Action; alcance Self; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Cone of Cold: Action; alcance Self; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "confusion",
@@ -1582,7 +1582,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Confusion: Action; alcance 90 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Confusion: Action; alcance 90 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "conjure-animals",
@@ -1606,7 +1606,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Conjure Animals: Action; alcance 60 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Conjure Animals: Action; alcance 60 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "conjure-barrage",
@@ -1630,7 +1630,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Conjure Barrage: Action; alcance Self; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Conjure Barrage: Action; alcance Self; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "conjure-celestial",
@@ -1653,7 +1653,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Conjure Celestial: Action; alcance 90 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Conjure Celestial: Action; alcance 90 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "conjure-elemental",
@@ -1677,7 +1677,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Conjure Elemental: Action; alcance 60 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Conjure Elemental: Action; alcance 60 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "conjure-fey",
@@ -1700,7 +1700,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Conjure Fey: Action; alcance 60 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Conjure Fey: Action; alcance 60 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "conjure-minor-elementals",
@@ -1724,7 +1724,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Conjure Minor Elementals: Action; alcance Self; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Conjure Minor Elementals: Action; alcance Self; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "conjure-volley",
@@ -1748,7 +1748,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Conjure Volley: Action; alcance 150 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Conjure Volley: Action; alcance 150 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "conjure-woodland-beings",
@@ -1772,7 +1772,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Conjure Woodland Beings: Action; alcance Self; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Conjure Woodland Beings: Action; alcance Self; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "contact-other-plane",
@@ -1795,7 +1795,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Contact Other Plane: 1 minute or Ritual; alcance Self; duracion 1 minute; componentes V."
+    "sheetText": "Contact Other Plane: 1 minute or Ritual; alcance Self; duración 1 minute; componentes V."
   },
   {
     "id": "contagion",
@@ -1819,7 +1819,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Contagion: Action; alcance Touch; duracion 7 days; componentes V, S."
+    "sheetText": "Contagion: Action; alcance Touch; duración 7 days; componentes V, S."
   },
   {
     "id": "contingency",
@@ -1843,7 +1843,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Contingency: 10 minutes; alcance Self; duracion 10 days; componentes V, S, M."
+    "sheetText": "Contingency: 10 minutes; alcance Self; duración 10 days; componentes V, S, M."
   },
   {
     "id": "continual-flame",
@@ -1869,7 +1869,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Continual Flame: Action; alcance Touch; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Continual Flame: Action; alcance Touch; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "control-water",
@@ -1895,7 +1895,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Control Water: Action; alcance 300 feet; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Control Water: Action; alcance 300 feet; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "control-weather",
@@ -1921,7 +1921,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Control Weather: 10 minutes; alcance Self; duracion Concentration, up to 8 hours; componentes V, S, M."
+    "sheetText": "Control Weather: 10 minutes; alcance Self; duración Concentration, up to 8 hours; componentes V, S, M."
   },
   {
     "id": "cordon-of-arrows",
@@ -1945,7 +1945,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Cordon of Arrows: Action; alcance Touch; duracion 8 hours; componentes V, S, M."
+    "sheetText": "Cordon of Arrows: Action; alcance Touch; duración 8 hours; componentes V, S, M."
   },
   {
     "id": "counterspell",
@@ -1969,7 +1969,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Counterspell: Reaction, which you take when you see a creature within 60 feet of yourself casting a spell with Verbal, Somatic, or Material components; alcance 60 feet; duracion Instantaneous; componentes S."
+    "sheetText": "Counterspell: Reaction, which you take when you see a creature within 60 feet of yourself casting a spell with Verbal, Somatic, or Material components; alcance 60 feet; duración Instantaneous; componentes S."
   },
   {
     "id": "create-food-and-water",
@@ -1993,7 +1993,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Create Food and Water: Action; alcance 30 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Create Food and Water: Action; alcance 30 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "create-or-destroy-water",
@@ -2018,7 +2018,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Create or Destroy Water: Action; alcance 30 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Create or Destroy Water: Action; alcance 30 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "create-undead",
@@ -2044,7 +2044,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Create Undead: 1 minute; alcance 10 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Create Undead: 1 minute; alcance 10 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "creation",
@@ -2069,7 +2069,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Creation: 1 minute; alcance 30 feet; duracion Special; componentes V, S, M."
+    "sheetText": "Creation: 1 minute; alcance 30 feet; duración Special; componentes V, S, M."
   },
   {
     "id": "crown-of-madness",
@@ -2095,7 +2095,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Crown of Madness: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Crown of Madness: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "crusaders-mantle",
@@ -2117,7 +2117,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Crusader's Mantle: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V."
+    "sheetText": "Crusader's Mantle: Action; alcance Self; duración Concentration, up to 1 minute; componentes V."
   },
   {
     "id": "cure-wounds",
@@ -2144,7 +2144,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Cure Wounds: Action; alcance Touch; duracion Instantaneous; componentes V, S."
+    "sheetText": "Cure Wounds: Action; alcance Touch; duración Instantaneous; componentes V, S."
   },
   {
     "id": "dancing-lights",
@@ -2170,7 +2170,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Dancing Lights: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Dancing Lights: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "darkness",
@@ -2195,7 +2195,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Darkness: Action; alcance 60 feet; duracion Concentration, up to 10 minutes; componentes V, M."
+    "sheetText": "Darkness: Action; alcance 60 feet; duración Concentration, up to 10 minutes; componentes V, M."
   },
   {
     "id": "darkvision",
@@ -2222,7 +2222,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Darkvision: Action; alcance Touch; duracion 8 hours; componentes V, S, M."
+    "sheetText": "Darkvision: Action; alcance Touch; duración 8 hours; componentes V, S, M."
   },
   {
     "id": "daylight",
@@ -2249,7 +2249,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Daylight: Action; alcance 60 feet; duracion 1 hour; componentes V, S."
+    "sheetText": "Daylight: Action; alcance 60 feet; duración 1 hour; componentes V, S."
   },
   {
     "id": "death-ward",
@@ -2273,7 +2273,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Death Ward: Action; alcance Touch; duracion 8 hours; componentes V, S."
+    "sheetText": "Death Ward: Action; alcance Touch; duración 8 hours; componentes V, S."
   },
   {
     "id": "delayed-blast-fireball",
@@ -2298,7 +2298,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Delayed Blast Fireball: Action; alcance 150 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Delayed Blast Fireball: Action; alcance 150 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "demiplane",
@@ -2322,7 +2322,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Demiplane: Action; alcance 60 feet; duracion 1 hour; componentes S."
+    "sheetText": "Demiplane: Action; alcance 60 feet; duración 1 hour; componentes S."
   },
   {
     "id": "destructive-wave",
@@ -2344,7 +2344,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Destructive Wave: Action; alcance Self; duracion Instantaneous; componentes V."
+    "sheetText": "Destructive Wave: Action; alcance Self; duración Instantaneous; componentes V."
   },
   {
     "id": "detect-evil-and-good",
@@ -2368,7 +2368,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Detect Evil and Good: Action; alcance Self; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Detect Evil and Good: Action; alcance Self; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "detect-magic",
@@ -2398,7 +2398,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": true,
     "effects": [],
-    "sheetText": "Detect Magic: Action or Ritual; alcance Self; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Detect Magic: Action or Ritual; alcance Self; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "detect-poison-and-disease",
@@ -2425,7 +2425,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": true,
     "effects": [],
-    "sheetText": "Detect Poison and Disease: Action or Ritual; alcance Self; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Detect Poison and Disease: Action or Ritual; alcance Self; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "detect-thoughts",
@@ -2451,7 +2451,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Detect Thoughts: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Detect Thoughts: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "dimension-door",
@@ -2476,7 +2476,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Dimension Door: Action; alcance 500 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Dimension Door: Action; alcance 500 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "disguise-self",
@@ -2501,7 +2501,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Disguise Self: Action; alcance Self; duracion 1 hour; componentes V, S."
+    "sheetText": "Disguise Self: Action; alcance Self; duración 1 hour; componentes V, S."
   },
   {
     "id": "disintegrate",
@@ -2526,7 +2526,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Disintegrate: Action; alcance 60 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Disintegrate: Action; alcance 60 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "dispel-evil-and-good",
@@ -2551,7 +2551,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Dispel Evil and Good: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Dispel Evil and Good: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "dispel-magic",
@@ -2581,7 +2581,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Dispel Magic: Action; alcance 120 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Dispel Magic: Action; alcance 120 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "dissonant-whispers",
@@ -2603,7 +2603,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Dissonant Whispers: Action; alcance 60 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Dissonant Whispers: Action; alcance 60 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "divination",
@@ -2629,7 +2629,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Divination: Action or Ritual; alcance Self; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Divination: Action or Ritual; alcance Self; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "divine-favor",
@@ -2652,7 +2652,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Divine Favor: Bonus Action; alcance Self; duracion 1 minute; componentes V, S."
+    "sheetText": "Divine Favor: Bonus Action; alcance Self; duración 1 minute; componentes V, S."
   },
   {
     "id": "divine-smite",
@@ -2674,7 +2674,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Divine Smite: Bonus Action, which you take immediately after hitting a target with a Melee weapon or an Unarmed Strike; alcance Self; duracion Instantaneous; componentes V."
+    "sheetText": "Divine Smite: Bonus Action, which you take immediately after hitting a target with a Melee weapon or an Unarmed Strike; alcance Self; duración Instantaneous; componentes V."
   },
   {
     "id": "divine-word",
@@ -2696,7 +2696,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Divine Word: Bonus Action; alcance 30 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Divine Word: Bonus Action; alcance 30 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "dominate-beast",
@@ -2721,7 +2721,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Dominate Beast: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Dominate Beast: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "dominate-monster",
@@ -2747,7 +2747,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Dominate Monster: Action; alcance 60 feet; duracion Concentration, up to 1 hour; componentes V, S."
+    "sheetText": "Dominate Monster: Action; alcance 60 feet; duración Concentration, up to 1 hour; componentes V, S."
   },
   {
     "id": "dominate-person",
@@ -2772,7 +2772,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Dominate Person: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Dominate Person: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "dragons-breath",
@@ -2797,7 +2797,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Dragon's Breath: Bonus Action; alcance Touch; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Dragon's Breath: Bonus Action; alcance Touch; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "drawmijs-instant-summons",
@@ -2821,7 +2821,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Drawmij's Instant Summons: 1 minute or Ritual; alcance Touch; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Drawmij's Instant Summons: 1 minute or Ritual; alcance Touch; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "dream",
@@ -2847,7 +2847,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Dream: 1 minute; alcance Special; duracion 8 hours; componentes V, S, M."
+    "sheetText": "Dream: 1 minute; alcance Special; duración 8 hours; componentes V, S, M."
   },
   {
     "id": "druidcraft",
@@ -2870,7 +2870,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Druidcraft: Action; alcance 30 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Druidcraft: Action; alcance 30 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "earthquake",
@@ -2896,7 +2896,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Earthquake: Action; alcance 500 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Earthquake: Action; alcance 500 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "eldritch-blast",
@@ -2919,7 +2919,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Eldritch Blast: Action; alcance 120 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Eldritch Blast: Action; alcance 120 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "elementalism",
@@ -2944,7 +2944,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Elementalism: Action; alcance 30 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Elementalism: Action; alcance 30 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "elemental-weapon",
@@ -2969,7 +2969,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Elemental Weapon: Action; alcance Touch; duracion Concentration, up to 1 hour; componentes V, S."
+    "sheetText": "Elemental Weapon: Action; alcance Touch; duración Concentration, up to 1 hour; componentes V, S."
   },
   {
     "id": "enhance-ability",
@@ -2998,7 +2998,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Enhance Ability: Action; alcance Touch; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Enhance Ability: Action; alcance Touch; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "enlarge-reduce",
@@ -3025,7 +3025,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Enlarge/Reduce: Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Enlarge/Reduce: Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "ensnaring-strike",
@@ -3047,7 +3047,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Ensnaring Strike: Bonus Action, which you take immediately after hitting a creature with a weapon; alcance Self; duracion Concentration, up to 1 minute; componentes V."
+    "sheetText": "Ensnaring Strike: Bonus Action, which you take immediately after hitting a creature with a weapon; alcance Self; duración Concentration, up to 1 minute; componentes V."
   },
   {
     "id": "entangle",
@@ -3071,7 +3071,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Entangle: Action; alcance 90 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Entangle: Action; alcance 90 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "enthrall",
@@ -3095,7 +3095,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Enthrall: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Enthrall: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "etherealness",
@@ -3122,7 +3122,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Etherealness: Action; alcance Self; duracion Up to 8 hours; componentes V, S."
+    "sheetText": "Etherealness: Action; alcance Self; duración Up to 8 hours; componentes V, S."
   },
   {
     "id": "evards-black-tentacles",
@@ -3146,7 +3146,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Evard's Black Tentacles: Action; alcance 90 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Evard's Black Tentacles: Action; alcance 90 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "expeditious-retreat",
@@ -3171,7 +3171,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Expeditious Retreat: Bonus Action; alcance Self; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Expeditious Retreat: Bonus Action; alcance Self; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "eyebite",
@@ -3197,7 +3197,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Eyebite: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Eyebite: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "fabricate",
@@ -3220,7 +3220,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Fabricate: 10 minutes; alcance 120 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Fabricate: 10 minutes; alcance 120 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "faerie-fire",
@@ -3243,7 +3243,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Faerie Fire: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V."
+    "sheetText": "Faerie Fire: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V."
   },
   {
     "id": "false-life",
@@ -3268,7 +3268,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "False Life: Action; alcance Self; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "False Life: Action; alcance Self; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "fear",
@@ -3295,7 +3295,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Fear: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Fear: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "feather-fall",
@@ -3320,7 +3320,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Feather Fall: Reaction, which you take when you or a creature you can see within 60 feet of you falls; alcance 60 feet; duracion 1 minute; componentes V, M."
+    "sheetText": "Feather Fall: Reaction, which you take when you or a creature you can see within 60 feet of you falls; alcance 60 feet; duración 1 minute; componentes V, M."
   },
   {
     "id": "feign-death",
@@ -3347,7 +3347,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Feign Death: Action or Ritual; alcance Touch; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Feign Death: Action or Ritual; alcance Touch; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "find-familiar",
@@ -3371,7 +3371,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Find Familiar: 1 hour or Ritual; alcance 10 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Find Familiar: 1 hour or Ritual; alcance 10 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "find-steed",
@@ -3394,7 +3394,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Find Steed: Action; alcance 30 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Find Steed: Action; alcance 30 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "find-the-path",
@@ -3420,7 +3420,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Find the Path: 1 minute; alcance Self; duracion Concentration, up to 1 day; componentes V, S, M."
+    "sheetText": "Find the Path: 1 minute; alcance Self; duración Concentration, up to 1 day; componentes V, S, M."
   },
   {
     "id": "find-traps",
@@ -3445,7 +3445,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Find Traps: Action; alcance 120 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Find Traps: Action; alcance 120 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "finger-of-death",
@@ -3470,7 +3470,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Finger of Death: Action; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Finger of Death: Action; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "fireball",
@@ -3495,7 +3495,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Fireball: Action; alcance 150 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Fireball: Action; alcance 150 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "fire-bolt",
@@ -3519,7 +3519,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Fire Bolt: Action; alcance 120 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Fire Bolt: Action; alcance 120 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "fire-shield",
@@ -3545,7 +3545,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Fire Shield: Action; alcance Self; duracion 10 minutes; componentes V, S, M."
+    "sheetText": "Fire Shield: Action; alcance Self; duración 10 minutes; componentes V, S, M."
   },
   {
     "id": "fire-storm",
@@ -3570,7 +3570,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Fire Storm: Action; alcance 150 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Fire Storm: Action; alcance 150 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "flame-blade",
@@ -3595,7 +3595,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Flame Blade: Bonus Action; alcance Self; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Flame Blade: Bonus Action; alcance Self; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "flame-strike",
@@ -3619,7 +3619,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Flame Strike: Action; alcance 60 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Flame Strike: Action; alcance 60 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "flaming-sphere",
@@ -3645,7 +3645,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Flaming Sphere: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Flaming Sphere: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "flesh-to-stone",
@@ -3671,7 +3671,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Flesh to Stone: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Flesh to Stone: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "fly",
@@ -3697,7 +3697,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Fly: Action; alcance Touch; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Fly: Action; alcance Touch; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "fog-cloud",
@@ -3723,7 +3723,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Fog Cloud: Action; alcance 120 feet; duracion Concentration, up to 1 hour; componentes V, S."
+    "sheetText": "Fog Cloud: Action; alcance 120 feet; duración Concentration, up to 1 hour; componentes V, S."
   },
   {
     "id": "forbiddance",
@@ -3747,7 +3747,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Forbiddance: 10 minutes or Ritual; alcance Touch; duracion 1 day; componentes V, S, M."
+    "sheetText": "Forbiddance: 10 minutes or Ritual; alcance Touch; duración 1 day; componentes V, S, M."
   },
   {
     "id": "forcecage",
@@ -3773,7 +3773,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Forcecage: Action; alcance 100 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Forcecage: Action; alcance 100 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "foresight",
@@ -3800,7 +3800,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Foresight: 1 minute; alcance Touch; duracion 8 hours; componentes V, S, M."
+    "sheetText": "Foresight: 1 minute; alcance Touch; duración 8 hours; componentes V, S, M."
   },
   {
     "id": "fount-of-moonlight",
@@ -3824,7 +3824,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Fount of Moonlight: Action; alcance Self; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Fount of Moonlight: Action; alcance Self; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "freedom-of-movement",
@@ -3851,7 +3851,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Freedom of Movement: Action; alcance Touch; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Freedom of Movement: Action; alcance Touch; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "friends",
@@ -3877,7 +3877,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Friends: Action; alcance 10 feet; duracion Concentration, up to 1 minute; componentes S, M."
+    "sheetText": "Friends: Action; alcance 10 feet; duración Concentration, up to 1 minute; componentes S, M."
   },
   {
     "id": "gaseous-form",
@@ -3903,7 +3903,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Gaseous Form: Action; alcance Touch; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Gaseous Form: Action; alcance Touch; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "gate",
@@ -3930,7 +3930,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Gate: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Gate: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "geas",
@@ -3956,7 +3956,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Geas: 1 minute; alcance 60 feet; duracion 30 days; componentes V."
+    "sheetText": "Geas: 1 minute; alcance 60 feet; duración 30 days; componentes V."
   },
   {
     "id": "gentle-repose",
@@ -3982,7 +3982,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Gentle Repose: Action or Ritual; alcance Touch; duracion 10 days; componentes V, S, M."
+    "sheetText": "Gentle Repose: Action or Ritual; alcance Touch; duración 10 days; componentes V, S, M."
   },
   {
     "id": "giant-insect",
@@ -4005,7 +4005,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Giant Insect: Action; alcance 60 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Giant Insect: Action; alcance 60 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "glibness",
@@ -4028,7 +4028,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Glibness: Action; alcance Self; duracion 1 hour; componentes V."
+    "sheetText": "Glibness: Action; alcance Self; duración 1 hour; componentes V."
   },
   {
     "id": "globe-of-invulnerability",
@@ -4053,7 +4053,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Globe of Invulnerability: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Globe of Invulnerability: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "glyph-of-warding",
@@ -4079,7 +4079,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Glyph of Warding: 1 hour; alcance Touch; duracion Until dispelled or triggered; componentes V, S, M."
+    "sheetText": "Glyph of Warding: 1 hour; alcance Touch; duración Until dispelled or triggered; componentes V, S, M."
   },
   {
     "id": "goodberry",
@@ -4104,7 +4104,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Goodberry: Action; alcance Self; duracion 24 hours; componentes V, S, M."
+    "sheetText": "Goodberry: Action; alcance Self; duración 24 hours; componentes V, S, M."
   },
   {
     "id": "grasping-vine",
@@ -4128,7 +4128,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Grasping Vine: Bonus Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Grasping Vine: Bonus Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "grease",
@@ -4153,7 +4153,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Grease: Action; alcance 60 feet; duracion 1 minute; componentes V, S, M."
+    "sheetText": "Grease: Action; alcance 60 feet; duración 1 minute; componentes V, S, M."
   },
   {
     "id": "greater-invisibility",
@@ -4178,7 +4178,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Greater Invisibility: Action; alcance Touch; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Greater Invisibility: Action; alcance Touch; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "greater-restoration",
@@ -4206,7 +4206,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Greater Restoration: Action; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Greater Restoration: Action; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "guardian-of-faith",
@@ -4228,7 +4228,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Guardian of Faith: Action; alcance 30 feet; duracion 8 hours; componentes V."
+    "sheetText": "Guardian of Faith: Action; alcance 30 feet; duración 8 hours; componentes V."
   },
   {
     "id": "guards-and-wards",
@@ -4253,7 +4253,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Guards and Wards: 1 hour; alcance Touch; duracion 24 hours; componentes V, S, M."
+    "sheetText": "Guards and Wards: 1 hour; alcance Touch; duración 24 hours; componentes V, S, M."
   },
   {
     "id": "guidance",
@@ -4277,7 +4277,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Guidance: Action; alcance Touch; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Guidance: Action; alcance Touch; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "guiding-bolt",
@@ -4300,7 +4300,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Guiding Bolt: Action; alcance 120 feet; duracion 1 round; componentes V, S."
+    "sheetText": "Guiding Bolt: Action; alcance 120 feet; duración 1 round; componentes V, S."
   },
   {
     "id": "gust-of-wind",
@@ -4327,7 +4327,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Gust of Wind: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Gust of Wind: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "hail-of-thorns",
@@ -4349,7 +4349,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Hail of Thorns: Bonus Action, which you take immediately after hitting a creature with a Ranged weapon; alcance Self; duracion Instantaneous; componentes V."
+    "sheetText": "Hail of Thorns: Bonus Action, which you take immediately after hitting a creature with a Ranged weapon; alcance Self; duración Instantaneous; componentes V."
   },
   {
     "id": "hallow",
@@ -4373,7 +4373,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Hallow: 24 hours; alcance Touch; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Hallow: 24 hours; alcance Touch; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "hallucinatory-terrain",
@@ -4400,7 +4400,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Hallucinatory Terrain: 10 minutes; alcance 300 feet; duracion 24 hours; componentes V, S, M."
+    "sheetText": "Hallucinatory Terrain: 10 minutes; alcance 300 feet; duración 24 hours; componentes V, S, M."
   },
   {
     "id": "harm",
@@ -4423,7 +4423,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Harm: Action; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Harm: Action; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "haste",
@@ -4448,7 +4448,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Haste: Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Haste: Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "heal",
@@ -4472,7 +4472,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Heal: Action; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Heal: Action; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "healing-word",
@@ -4496,7 +4496,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Healing Word: Bonus Action; alcance 60 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Healing Word: Bonus Action; alcance 60 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "heat-metal",
@@ -4521,7 +4521,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Heat Metal: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Heat Metal: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "hellish-rebuke",
@@ -4544,7 +4544,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Hellish Rebuke: Reaction, which you take in response to taking damage from a creature that you can see within 60 feet of yourself; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Hellish Rebuke: Reaction, which you take in response to taking damage from a creature that you can see within 60 feet of yourself; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "heroes-feast",
@@ -4570,7 +4570,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Heroes' Feast: 10 minutes; alcance Self; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Heroes' Feast: 10 minutes; alcance Self; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "heroism",
@@ -4594,7 +4594,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Heroism: Action; alcance Touch; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Heroism: Action; alcance Touch; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "hex",
@@ -4618,7 +4618,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Hex: Bonus Action; alcance 90 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Hex: Bonus Action; alcance 90 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "hold-monster",
@@ -4645,7 +4645,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Hold Monster: Action; alcance 90 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Hold Monster: Action; alcance 90 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "hold-person",
@@ -4674,7 +4674,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Hold Person: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Hold Person: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "holy-aura",
@@ -4698,7 +4698,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Holy Aura: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Holy Aura: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "hunger-of-hadar",
@@ -4722,7 +4722,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Hunger of Hadar: Action; alcance 150 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Hunger of Hadar: Action; alcance 150 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "hunters-mark",
@@ -4744,7 +4744,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Hunter's Mark: Bonus Action; alcance 90 feet; duracion Concentration, up to 1 hour; componentes V."
+    "sheetText": "Hunter's Mark: Bonus Action; alcance 90 feet; duración Concentration, up to 1 hour; componentes V."
   },
   {
     "id": "hypnotic-pattern",
@@ -4770,7 +4770,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Hypnotic Pattern: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes S, M."
+    "sheetText": "Hypnotic Pattern: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes S, M."
   },
   {
     "id": "ice-knife",
@@ -4795,7 +4795,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Ice Knife: Action; alcance 60 feet; duracion Instantaneous; componentes S, M."
+    "sheetText": "Ice Knife: Action; alcance 60 feet; duración Instantaneous; componentes S, M."
   },
   {
     "id": "ice-storm",
@@ -4821,7 +4821,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Ice Storm: Action; alcance 300 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Ice Storm: Action; alcance 300 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "identify",
@@ -4846,7 +4846,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Identify: 1 minute or Ritual; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Identify: 1 minute or Ritual; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "illusory-script",
@@ -4871,7 +4871,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Illusory Script: 1 minute or Ritual; alcance Touch; duracion 10 days; componentes S, M."
+    "sheetText": "Illusory Script: 1 minute or Ritual; alcance Touch; duración 10 days; componentes S, M."
   },
   {
     "id": "imprisonment",
@@ -4896,7 +4896,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Imprisonment: 1 minute; alcance 30 feet; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Imprisonment: 1 minute; alcance 30 feet; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "incendiary-cloud",
@@ -4921,7 +4921,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Incendiary Cloud: Action; alcance 150 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Incendiary Cloud: Action; alcance 150 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "inflict-wounds",
@@ -4944,7 +4944,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Inflict Wounds: Action; alcance Touch; duracion Instantaneous; componentes V, S."
+    "sheetText": "Inflict Wounds: Action; alcance Touch; duración Instantaneous; componentes V, S."
   },
   {
     "id": "insect-plague",
@@ -4970,7 +4970,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Insect Plague: Action; alcance 300 feet; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Insect Plague: Action; alcance 300 feet; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "invisibility",
@@ -4997,7 +4997,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Invisibility: Action; alcance Touch; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Invisibility: Action; alcance Touch; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "jallarzis-storm-of-radiance",
@@ -5022,7 +5022,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Jallarzi's Storm of Radiance: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Jallarzi's Storm of Radiance: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "jump",
@@ -5049,7 +5049,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Jump: Bonus Action; alcance Touch; duracion 1 minute; componentes V, S, M."
+    "sheetText": "Jump: Bonus Action; alcance Touch; duración 1 minute; componentes V, S, M."
   },
   {
     "id": "knock",
@@ -5073,7 +5073,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Knock: Action; alcance 60 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Knock: Action; alcance 60 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "legend-lore",
@@ -5099,7 +5099,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Legend Lore: 10 minutes; alcance Self; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Legend Lore: 10 minutes; alcance Self; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "leomunds-secret-chest",
@@ -5123,7 +5123,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Leomund's Secret Chest: Action; alcance Touch; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Leomund's Secret Chest: Action; alcance Touch; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "leomunds-tiny-hut",
@@ -5148,7 +5148,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Leomund's Tiny Hut: 1 minute or Ritual; alcance Self; duracion 8 hours; componentes V, S, M."
+    "sheetText": "Leomund's Tiny Hut: 1 minute or Ritual; alcance Self; duración 8 hours; componentes V, S, M."
   },
   {
     "id": "lesser-restoration",
@@ -5175,7 +5175,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Lesser Restoration: Bonus Action; alcance Touch; duracion Instantaneous; componentes V, S."
+    "sheetText": "Lesser Restoration: Bonus Action; alcance Touch; duración Instantaneous; componentes V, S."
   },
   {
     "id": "levitate",
@@ -5200,7 +5200,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Levitate: Action; alcance 60 feet; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Levitate: Action; alcance 60 feet; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "light",
@@ -5226,7 +5226,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Light: Action; alcance Touch; duracion 1 hour; componentes V, M."
+    "sheetText": "Light: Action; alcance Touch; duración 1 hour; componentes V, M."
   },
   {
     "id": "lightning-arrow",
@@ -5249,7 +5249,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Lightning Arrow: Bonus Action, which you take immediately after hitting or missing a target with a ranged attack using a weapon; alcance Self; duracion Instantaneous; componentes V, S."
+    "sheetText": "Lightning Arrow: Bonus Action, which you take immediately after hitting or missing a target with a ranged attack using a weapon; alcance Self; duración Instantaneous; componentes V, S."
   },
   {
     "id": "lightning-bolt",
@@ -5274,7 +5274,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Lightning Bolt: Action; alcance Self; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Lightning Bolt: Action; alcance Self; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "locate-animals-or-plants",
@@ -5300,7 +5300,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Locate Animals or Plants: Action or Ritual; alcance Self; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Locate Animals or Plants: Action or Ritual; alcance Self; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "locate-creature",
@@ -5329,7 +5329,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Locate Creature: Action; alcance Self; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Locate Creature: Action; alcance Self; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "locate-object",
@@ -5358,7 +5358,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Locate Object: Action; alcance Self; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Locate Object: Action; alcance Self; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "longstrider",
@@ -5385,7 +5385,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Longstrider: Action; alcance Touch; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Longstrider: Action; alcance Touch; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "mage-armor",
@@ -5410,7 +5410,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mage Armor: Action; alcance Touch; duracion 8 hours; componentes V, S, M."
+    "sheetText": "Mage Armor: Action; alcance Touch; duración 8 hours; componentes V, S, M."
   },
   {
     "id": "mage-hand",
@@ -5436,7 +5436,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mage Hand: Action; alcance 30 feet; duracion 1 minute; componentes V, S."
+    "sheetText": "Mage Hand: Action; alcance 30 feet; duración 1 minute; componentes V, S."
   },
   {
     "id": "magic-circle",
@@ -5463,7 +5463,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Magic Circle: 1 minute; alcance 10 feet; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Magic Circle: 1 minute; alcance 10 feet; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "magic-jar",
@@ -5487,7 +5487,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Magic Jar: 1 minute; alcance Self; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Magic Jar: 1 minute; alcance Self; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "magic-missile",
@@ -5511,7 +5511,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Magic Missile: Action; alcance 120 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Magic Missile: Action; alcance 120 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "magic-mouth",
@@ -5536,7 +5536,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Magic Mouth: 1 minute or Ritual; alcance 30 feet; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Magic Mouth: 1 minute or Ritual; alcance 30 feet; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "magic-weapon",
@@ -5562,7 +5562,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Magic Weapon: Bonus Action; alcance Touch; duracion 1 hour; componentes V, S."
+    "sheetText": "Magic Weapon: Bonus Action; alcance Touch; duración 1 hour; componentes V, S."
   },
   {
     "id": "major-image",
@@ -5589,7 +5589,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Major Image: Action; alcance 120 feet; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Major Image: Action; alcance 120 feet; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "mass-cure-wounds",
@@ -5614,7 +5614,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mass Cure Wounds: Action; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Mass Cure Wounds: Action; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "mass-heal",
@@ -5637,7 +5637,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mass Heal: Action; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Mass Heal: Action; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "mass-healing-word",
@@ -5660,7 +5660,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mass Healing Word: Bonus Action; alcance 60 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Mass Healing Word: Bonus Action; alcance 60 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "mass-suggestion",
@@ -5685,7 +5685,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mass Suggestion: Action; alcance 60 feet; duracion 24 hours; componentes V, M."
+    "sheetText": "Mass Suggestion: Action; alcance 60 feet; duración 24 hours; componentes V, M."
   },
   {
     "id": "maze",
@@ -5708,7 +5708,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Maze: Action; alcance 60 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Maze: Action; alcance 60 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "meld-into-stone",
@@ -5733,7 +5733,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Meld into Stone: Action or Ritual; alcance Touch; duracion 8 hours; componentes V, S."
+    "sheetText": "Meld into Stone: Action or Ritual; alcance Touch; duración 8 hours; componentes V, S."
   },
   {
     "id": "melfs-acid-arrow",
@@ -5757,7 +5757,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Melf's Acid Arrow: Action; alcance 90 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Melf's Acid Arrow: Action; alcance 90 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "mending",
@@ -5785,7 +5785,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mending: 1 minute; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Mending: 1 minute; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "message",
@@ -5811,7 +5811,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Message: Action; alcance 120 feet; duracion 1 round; componentes S, M."
+    "sheetText": "Message: Action; alcance 120 feet; duración 1 round; componentes S, M."
   },
   {
     "id": "meteor-swarm",
@@ -5835,7 +5835,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Meteor Swarm: Action; alcance 1 mile; duracion Instantaneous; componentes V, S."
+    "sheetText": "Meteor Swarm: Action; alcance 1 mile; duración Instantaneous; componentes V, S."
   },
   {
     "id": "mind-blank",
@@ -5859,7 +5859,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mind Blank: Action; alcance Touch; duracion 24 hours; componentes V, S."
+    "sheetText": "Mind Blank: Action; alcance Touch; duración 24 hours; componentes V, S."
   },
   {
     "id": "mind-sliver",
@@ -5883,7 +5883,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mind Sliver: Action; alcance 60 feet; duracion 1 round; componentes V."
+    "sheetText": "Mind Sliver: Action; alcance 60 feet; duración 1 round; componentes V."
   },
   {
     "id": "mind-spike",
@@ -5907,7 +5907,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mind Spike: Action; alcance 120 feet; duracion Concentration, up to 1 hour; componentes S."
+    "sheetText": "Mind Spike: Action; alcance 120 feet; duración Concentration, up to 1 hour; componentes S."
   },
   {
     "id": "minor-illusion",
@@ -5933,7 +5933,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Minor Illusion: Action; alcance 30 feet; duracion 1 minute; componentes S, M."
+    "sheetText": "Minor Illusion: Action; alcance 30 feet; duración 1 minute; componentes S, M."
   },
   {
     "id": "mirage-arcane",
@@ -5958,7 +5958,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mirage Arcane: 10 minutes; alcance Sight; duracion 10 days; componentes V, S."
+    "sheetText": "Mirage Arcane: 10 minutes; alcance Sight; duración 10 days; componentes V, S."
   },
   {
     "id": "mirror-image",
@@ -5984,7 +5984,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mirror Image: Action; alcance Self; duracion 1 minute; componentes V, S."
+    "sheetText": "Mirror Image: Action; alcance Self; duración 1 minute; componentes V, S."
   },
   {
     "id": "mislead",
@@ -6008,7 +6008,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mislead: Action; alcance Self; duracion Concentration, up to 1 hour; componentes S."
+    "sheetText": "Mislead: Action; alcance Self; duración Concentration, up to 1 hour; componentes S."
   },
   {
     "id": "misty-step",
@@ -6032,7 +6032,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Misty Step: Bonus Action; alcance Self; duracion Instantaneous; componentes V."
+    "sheetText": "Misty Step: Bonus Action; alcance Self; duración Instantaneous; componentes V."
   },
   {
     "id": "modify-memory",
@@ -6056,7 +6056,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Modify Memory: Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Modify Memory: Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "moonbeam",
@@ -6080,7 +6080,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Moonbeam: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Moonbeam: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "mordenkainens-faithful-hound",
@@ -6104,7 +6104,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mordenkainen's Faithful Hound: Action; alcance 30 feet; duracion 8 hours; componentes V, S, M."
+    "sheetText": "Mordenkainen's Faithful Hound: Action; alcance 30 feet; duración 8 hours; componentes V, S, M."
   },
   {
     "id": "mordenkainens-magnificent-mansion",
@@ -6129,7 +6129,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mordenkainen's Magnificent Mansion: 1 minute; alcance 300 feet; duracion 24 hours; componentes V, S, M."
+    "sheetText": "Mordenkainen's Magnificent Mansion: 1 minute; alcance 300 feet; duración 24 hours; componentes V, S, M."
   },
   {
     "id": "mordenkainens-private-sanctum",
@@ -6153,7 +6153,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mordenkainen's Private Sanctum: 10 minutes; alcance 120 feet; duracion 24 hours; componentes V, S, M."
+    "sheetText": "Mordenkainen's Private Sanctum: 10 minutes; alcance 120 feet; duración 24 hours; componentes V, S, M."
   },
   {
     "id": "mordenkainens-sword",
@@ -6178,7 +6178,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Mordenkainen's Sword: Action; alcance 90 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Mordenkainen's Sword: Action; alcance 90 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "move-earth",
@@ -6204,7 +6204,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Move Earth: Action; alcance 120 feet; duracion Concentration, up to 2 hours; componentes V, S, M."
+    "sheetText": "Move Earth: Action; alcance 120 feet; duración Concentration, up to 2 hours; componentes V, S, M."
   },
   {
     "id": "nondetection",
@@ -6230,7 +6230,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Nondetection: Action; alcance Touch; duracion 8 hours; componentes V, S, M."
+    "sheetText": "Nondetection: Action; alcance Touch; duración 8 hours; componentes V, S, M."
   },
   {
     "id": "nystuls-magic-aura",
@@ -6254,7 +6254,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Nystul's Magic Aura: Action; alcance Touch; duracion 24 hours; componentes V, S, M."
+    "sheetText": "Nystul's Magic Aura: Action; alcance Touch; duración 24 hours; componentes V, S, M."
   },
   {
     "id": "otilukes-freezing-sphere",
@@ -6279,7 +6279,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Otiluke's Freezing Sphere: Action; alcance 300 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Otiluke's Freezing Sphere: Action; alcance 300 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "otilukes-resilient-sphere",
@@ -6303,7 +6303,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Otiluke's Resilient Sphere: Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Otiluke's Resilient Sphere: Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "ottos-irresistible-dance",
@@ -6326,7 +6326,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Otto's Irresistible Dance: Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V."
+    "sheetText": "Otto's Irresistible Dance: Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V."
   },
   {
     "id": "passwall",
@@ -6350,7 +6350,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Passwall: Action; alcance 30 feet; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Passwall: Action; alcance 30 feet; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "pass-without-trace",
@@ -6375,7 +6375,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Pass without Trace: Action; alcance Self; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Pass without Trace: Action; alcance Self; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "phantasmal-force",
@@ -6401,7 +6401,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Phantasmal Force: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Phantasmal Force: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "phantasmal-killer",
@@ -6425,7 +6425,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Phantasmal Killer: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Phantasmal Killer: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "phantom-steed",
@@ -6448,7 +6448,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Phantom Steed: 1 minute or Ritual; alcance 30 feet; duracion 1 hour; componentes V, S."
+    "sheetText": "Phantom Steed: 1 minute or Ritual; alcance 30 feet; duración 1 hour; componentes V, S."
   },
   {
     "id": "planar-ally",
@@ -6471,7 +6471,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Planar Ally: 10 minutes; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Planar Ally: 10 minutes; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "planar-binding",
@@ -6499,7 +6499,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Planar Binding: 1 hour; alcance 60 feet; duracion 24 hours; componentes V, S, M."
+    "sheetText": "Planar Binding: 1 hour; alcance 60 feet; duración 24 hours; componentes V, S, M."
   },
   {
     "id": "plane-shift",
@@ -6527,7 +6527,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Plane Shift: Action; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Plane Shift: Action; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "plant-growth",
@@ -6552,7 +6552,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Plant Growth: Action (Overgrowth) or 8 hours (Enrichment); alcance 150 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Plant Growth: Action (Overgrowth) or 8 hours (Enrichment); alcance 150 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "poison-spray",
@@ -6578,7 +6578,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Poison Spray: Action; alcance 30 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Poison Spray: Action; alcance 30 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "polymorph",
@@ -6605,7 +6605,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Polymorph: Action; alcance 60 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Polymorph: Action; alcance 60 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "power-word-fortify",
@@ -6628,7 +6628,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Power Word Fortify: Action; alcance 60 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Power Word Fortify: Action; alcance 60 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "power-word-heal",
@@ -6651,7 +6651,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Power Word Heal: Action; alcance 60 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Power Word Heal: Action; alcance 60 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "power-word-kill",
@@ -6676,7 +6676,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Power Word Kill: Action; alcance 60 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Power Word Kill: Action; alcance 60 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "power-word-stun",
@@ -6701,7 +6701,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Power Word Stun: Action; alcance 60 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Power Word Stun: Action; alcance 60 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "prayer-of-healing",
@@ -6724,7 +6724,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Prayer of Healing: 10 minutes; alcance 30 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Prayer of Healing: 10 minutes; alcance 30 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "prestidigitation",
@@ -6750,7 +6750,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Prestidigitation: Action; alcance 10 feet; duracion Up to 1 hour; componentes V, S."
+    "sheetText": "Prestidigitation: Action; alcance 10 feet; duración Up to 1 hour; componentes V, S."
   },
   {
     "id": "prismatic-spray",
@@ -6775,7 +6775,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Prismatic Spray: Action; alcance Self; duracion Instantaneous; componentes V, S."
+    "sheetText": "Prismatic Spray: Action; alcance Self; duración Instantaneous; componentes V, S."
   },
   {
     "id": "prismatic-wall",
@@ -6799,7 +6799,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Prismatic Wall: Action; alcance 60 feet; duracion 10 minutes; componentes V, S."
+    "sheetText": "Prismatic Wall: Action; alcance 60 feet; duración 10 minutes; componentes V, S."
   },
   {
     "id": "produce-flame",
@@ -6822,7 +6822,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Produce Flame: Bonus Action; alcance Self; duracion 10 minutes; componentes V, S."
+    "sheetText": "Produce Flame: Bonus Action; alcance Self; duración 10 minutes; componentes V, S."
   },
   {
     "id": "programmed-illusion",
@@ -6847,7 +6847,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Programmed Illusion: Action; alcance 120 feet; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Programmed Illusion: Action; alcance 120 feet; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "project-image",
@@ -6872,7 +6872,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Project Image: Action; alcance 500 miles; duracion Concentration, up to 1 day; componentes V, S, M."
+    "sheetText": "Project Image: Action; alcance 500 miles; duración Concentration, up to 1 day; componentes V, S, M."
   },
   {
     "id": "protection-from-energy",
@@ -6899,7 +6899,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Protection from Energy: Action; alcance Touch; duracion Concentration, up to 1 hour; componentes V, S."
+    "sheetText": "Protection from Energy: Action; alcance Touch; duración Concentration, up to 1 hour; componentes V, S."
   },
   {
     "id": "protection-from-evil-and-good",
@@ -6927,7 +6927,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Protection from Evil and Good: Action; alcance Touch; duracion Concentration up to 10 minutes; componentes V, S, M."
+    "sheetText": "Protection from Evil and Good: Action; alcance Touch; duración Concentration up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "protection-from-poison",
@@ -6953,7 +6953,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Protection from Poison: Action; alcance Touch; duracion 1 hour; componentes V, S."
+    "sheetText": "Protection from Poison: Action; alcance Touch; duración 1 hour; componentes V, S."
   },
   {
     "id": "purify-food-and-drink",
@@ -6978,7 +6978,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Purify Food and Drink: Action or Ritual; alcance 10 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Purify Food and Drink: Action or Ritual; alcance 10 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "raise-dead",
@@ -7004,7 +7004,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Raise Dead: 1 hour; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Raise Dead: 1 hour; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "rarys-telepathic-bond",
@@ -7029,7 +7029,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Rary's Telepathic Bond: Action or Ritual; alcance 30 feet; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Rary's Telepathic Bond: Action or Ritual; alcance 30 feet; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "ray-of-enfeeblement",
@@ -7053,7 +7053,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Ray of Enfeeblement: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Ray of Enfeeblement: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "ray-of-frost",
@@ -7077,7 +7077,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Ray of Frost: Action; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Ray of Frost: Action; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "ray-of-sickness",
@@ -7101,7 +7101,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Ray of Sickness: Action; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Ray of Sickness: Action; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "regenerate",
@@ -7127,7 +7127,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Regenerate: 1 minute; alcance Touch; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Regenerate: 1 minute; alcance Touch; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "reincarnate",
@@ -7151,7 +7151,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Reincarnate: 1 hour; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Reincarnate: 1 hour; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "remove-curse",
@@ -7177,7 +7177,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Remove Curse: Action; alcance Touch; duracion Instantaneous; componentes V, S."
+    "sheetText": "Remove Curse: Action; alcance Touch; duración Instantaneous; componentes V, S."
   },
   {
     "id": "resistance",
@@ -7201,7 +7201,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Resistance: Action; alcance Touch; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Resistance: Action; alcance Touch; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "resurrection",
@@ -7226,7 +7226,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Resurrection: 1 hour; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Resurrection: 1 hour; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "reverse-gravity",
@@ -7252,7 +7252,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Reverse Gravity: Action; alcance 100 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Reverse Gravity: Action; alcance 100 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "revivify",
@@ -7279,7 +7279,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Revivify: Action; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Revivify: Action; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "rope-trick",
@@ -7303,7 +7303,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Rope Trick: Action; alcance Touch; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Rope Trick: Action; alcance Touch; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "sacred-flame",
@@ -7326,7 +7326,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Sacred Flame: Action; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Sacred Flame: Action; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "sanctuary",
@@ -7350,7 +7350,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Sanctuary: Bonus Action; alcance 30 feet; duracion 1 minute; componentes V, S, M."
+    "sheetText": "Sanctuary: Bonus Action; alcance 30 feet; duración 1 minute; componentes V, S, M."
   },
   {
     "id": "scorching-ray",
@@ -7374,7 +7374,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Scorching Ray: Action; alcance 120 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Scorching Ray: Action; alcance 120 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "scrying",
@@ -7402,7 +7402,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Scrying: 10 minutes; alcance Self; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Scrying: 10 minutes; alcance Self; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "searing-smite",
@@ -7424,7 +7424,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Searing Smite: Bonus Action, which you take immediately after hitting a target with a Melee weapon or an Unarmed Strike; alcance Self; duracion 1 minute; componentes V."
+    "sheetText": "Searing Smite: Bonus Action, which you take immediately after hitting a target with a Melee weapon or an Unarmed Strike; alcance Self; duración 1 minute; componentes V."
   },
   {
     "id": "see-invisibility",
@@ -7450,7 +7450,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "See Invisibility: Action; alcance Self; duracion 1 hour; componentes V, S, M."
+    "sheetText": "See Invisibility: Action; alcance Self; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "seeming",
@@ -7475,7 +7475,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Seeming: Action; alcance 30 feet; duracion 8 hours; componentes V, S."
+    "sheetText": "Seeming: Action; alcance 30 feet; duración 8 hours; componentes V, S."
   },
   {
     "id": "sending",
@@ -7501,7 +7501,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Sending: Action; alcance Unlimited; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Sending: Action; alcance Unlimited; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "sequester",
@@ -7525,7 +7525,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Sequester: Action; alcance Touch; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Sequester: Action; alcance Touch; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "shapechange",
@@ -7550,7 +7550,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Shapechange: Action; alcance Self; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Shapechange: Action; alcance Self; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "shatter",
@@ -7576,7 +7576,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Shatter: Action; alcance 60 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Shatter: Action; alcance 60 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "shield-spell",
@@ -7600,7 +7600,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Shield: Reaction, which you take when you are hit by an attack roll or targeted by the Magic Missile spell; alcance Self; duracion 1 round; componentes V, S."
+    "sheetText": "Shield: Reaction, which you take when you are hit by an attack roll or targeted by the Magic Missile spell; alcance Self; duración 1 round; componentes V, S."
   },
   {
     "id": "shield-of-faith",
@@ -7625,7 +7625,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Shield of Faith: Bonus Action; alcance 60 feet; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Shield of Faith: Bonus Action; alcance 60 feet; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "shillelagh",
@@ -7649,7 +7649,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Shillelagh: Bonus Action; alcance Self; duracion 1 minute; componentes V, S, M."
+    "sheetText": "Shillelagh: Bonus Action; alcance Self; duración 1 minute; componentes V, S, M."
   },
   {
     "id": "shining-smite",
@@ -7671,7 +7671,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Shining Smite: Bonus Action, which you take immediately after hitting a creature with a Melee weapon or an Unarmed Strike; alcance Self; duracion Concentration, up to 1 minute; componentes V."
+    "sheetText": "Shining Smite: Bonus Action, which you take immediately after hitting a creature with a Melee weapon or an Unarmed Strike; alcance Self; duración Concentration, up to 1 minute; componentes V."
   },
   {
     "id": "shocking-grasp",
@@ -7695,7 +7695,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Shocking Grasp: Action; alcance Touch; duracion Instantaneous; componentes V, S."
+    "sheetText": "Shocking Grasp: Action; alcance Touch; duración Instantaneous; componentes V, S."
   },
   {
     "id": "silence",
@@ -7720,7 +7720,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": true,
     "effects": [],
-    "sheetText": "Silence: Action or Ritual; alcance 120 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Silence: Action or Ritual; alcance 120 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "silent-image",
@@ -7746,7 +7746,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Silent Image: Action; alcance 60 feet; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Silent Image: Action; alcance 60 feet; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "simulacrum",
@@ -7770,7 +7770,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Simulacrum: 12 hours; alcance Touch; duracion Until dispelled; componentes V, S, M."
+    "sheetText": "Simulacrum: 12 hours; alcance Touch; duración Until dispelled; componentes V, S, M."
   },
   {
     "id": "sleep",
@@ -7796,7 +7796,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Sleep: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Sleep: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "sleet-storm",
@@ -7822,7 +7822,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Sleet Storm: Action; alcance 150 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Sleet Storm: Action; alcance 150 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "slow",
@@ -7848,7 +7848,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Slow: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Slow: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "sorcerous-burst",
@@ -7871,7 +7871,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Sorcerous Burst: Action; alcance 120 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Sorcerous Burst: Action; alcance 120 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "spare-the-dying",
@@ -7895,7 +7895,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Spare the Dying: Action; alcance 15 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Spare the Dying: Action; alcance 15 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "speak-with-animals",
@@ -7921,7 +7921,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Speak with Animals: Action or Ritual; alcance Self; duracion 10 minutes; componentes V, S."
+    "sheetText": "Speak with Animals: Action or Ritual; alcance Self; duración 10 minutes; componentes V, S."
   },
   {
     "id": "speak-with-dead",
@@ -7947,7 +7947,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Speak with Dead: Action; alcance 10 feet; duracion 10 minutes; componentes V, S, M."
+    "sheetText": "Speak with Dead: Action; alcance 10 feet; duración 10 minutes; componentes V, S, M."
   },
   {
     "id": "speak-with-plants",
@@ -7972,7 +7972,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Speak with Plants: Action; alcance Self; duracion 10 minutes; componentes V, S."
+    "sheetText": "Speak with Plants: Action; alcance Self; duración 10 minutes; componentes V, S."
   },
   {
     "id": "spider-climb",
@@ -7998,7 +7998,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Spider Climb: Action; alcance Touch; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Spider Climb: Action; alcance Touch; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "spike-growth",
@@ -8023,7 +8023,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Spike Growth: Action; alcance 150 feet; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Spike Growth: Action; alcance 150 feet; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "spirit-guardians",
@@ -8047,7 +8047,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Spirit Guardians: Action; alcance Self; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Spirit Guardians: Action; alcance Self; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "spiritual-weapon",
@@ -8070,7 +8070,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Spiritual Weapon: Bonus Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Spiritual Weapon: Bonus Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "staggering-smite",
@@ -8092,7 +8092,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Staggering Smite: Bonus Action, which you take immediately after hitting a creature with a Melee weapon or an Unarmed Strike; alcance Self; duracion Instantaneous; componentes V."
+    "sheetText": "Staggering Smite: Bonus Action, which you take immediately after hitting a creature with a Melee weapon or an Unarmed Strike; alcance Self; duración Instantaneous; componentes V."
   },
   {
     "id": "starry-wisp",
@@ -8116,7 +8116,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Starry Wisp: Action; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Starry Wisp: Action; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "steel-wind-strike",
@@ -8140,7 +8140,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Steel Wind Strike: Action; alcance 30 feet; duracion Instantaneous; componentes S, M."
+    "sheetText": "Steel Wind Strike: Action; alcance 30 feet; duración Instantaneous; componentes S, M."
   },
   {
     "id": "stinking-cloud",
@@ -8166,7 +8166,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Stinking Cloud: Action; alcance 90 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Stinking Cloud: Action; alcance 90 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "stone-shape",
@@ -8192,7 +8192,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Stone Shape: Action; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Stone Shape: Action; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "stoneskin",
@@ -8219,7 +8219,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Stoneskin: Action; alcance Touch; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Stoneskin: Action; alcance Touch; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "storm-of-vengeance",
@@ -8242,7 +8242,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Storm of Vengeance: Action; alcance 1 mile; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Storm of Vengeance: Action; alcance 1 mile; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "suggestion",
@@ -8268,7 +8268,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Suggestion: Action; alcance 30 feet; duracion Concentration, up to 8 hours; componentes V, M."
+    "sheetText": "Suggestion: Action; alcance 30 feet; duración Concentration, up to 8 hours; componentes V, M."
   },
   {
     "id": "summon-aberration",
@@ -8293,7 +8293,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Summon Aberration: Action; alcance 90 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Summon Aberration: Action; alcance 90 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "summon-beast",
@@ -8318,7 +8318,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Summon Beast: Action; alcance 90 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Summon Beast: Action; alcance 90 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "summon-celestial",
@@ -8343,7 +8343,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Summon Celestial: Action; alcance 90 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Summon Celestial: Action; alcance 90 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "summon-construct",
@@ -8367,7 +8367,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Summon Construct: Action; alcance 90 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Summon Construct: Action; alcance 90 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "summon-dragon",
@@ -8391,7 +8391,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Summon Dragon: Action; alcance 60 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Summon Dragon: Action; alcance 60 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "summon-elemental",
@@ -8417,7 +8417,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Summon Elemental: Action; alcance 90 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Summon Elemental: Action; alcance 90 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "summon-fey",
@@ -8444,7 +8444,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Summon Fey: Action; alcance 90 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Summon Fey: Action; alcance 90 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "summon-fiend",
@@ -8469,7 +8469,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Summon Fiend: Action; alcance 90 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Summon Fiend: Action; alcance 90 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "summon-undead",
@@ -8494,7 +8494,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Summon Undead: Action; alcance 90 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Summon Undead: Action; alcance 90 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "sunbeam",
@@ -8521,7 +8521,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Sunbeam: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Sunbeam: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "sunburst",
@@ -8548,7 +8548,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Sunburst: Action; alcance 150 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Sunburst: Action; alcance 150 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "swift-quiver",
@@ -8572,7 +8572,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Swift Quiver: Bonus Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Swift Quiver: Bonus Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "symbol",
@@ -8599,7 +8599,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Symbol: 1 minute; alcance Touch; duracion Until dispelled or triggered; componentes V, S, M."
+    "sheetText": "Symbol: 1 minute; alcance Touch; duración Until dispelled or triggered; componentes V, S, M."
   },
   {
     "id": "synaptic-static",
@@ -8625,7 +8625,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Synaptic Static: Action; alcance 120 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Synaptic Static: Action; alcance 120 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "tashas-bubbling-cauldron",
@@ -8650,7 +8650,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Tasha's Bubbling Cauldron: Action; alcance 5 feet; duracion 10 minutes; componentes V, S, M."
+    "sheetText": "Tasha's Bubbling Cauldron: Action; alcance 5 feet; duración 10 minutes; componentes V, S, M."
   },
   {
     "id": "tashas-hideous-laughter",
@@ -8676,7 +8676,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Tasha's Hideous Laughter: Action; alcance 30 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Tasha's Hideous Laughter: Action; alcance 30 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "telekinesis",
@@ -8700,7 +8700,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Telekinesis: Action; alcance 60 feet; duracion Concentration, up to 10 minutes; componentes V, S."
+    "sheetText": "Telekinesis: Action; alcance 60 feet; duración Concentration, up to 10 minutes; componentes V, S."
   },
   {
     "id": "telepathy",
@@ -8724,7 +8724,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Telepathy: Action; alcance Unlimited; duracion 24 hours; componentes V, S, M."
+    "sheetText": "Telepathy: Action; alcance Unlimited; duración 24 hours; componentes V, S, M."
   },
   {
     "id": "teleport",
@@ -8748,7 +8748,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Teleport: Action; alcance 10 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Teleport: Action; alcance 10 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "teleportation-circle",
@@ -8774,7 +8774,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Teleportation Circle: 1 minute; alcance 10 feet; duracion 1 round; componentes V, M."
+    "sheetText": "Teleportation Circle: 1 minute; alcance 10 feet; duración 1 round; componentes V, M."
   },
   {
     "id": "tensers-floating-disk",
@@ -8798,7 +8798,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Tenser's Floating Disk: Action or Ritual; alcance 30 feet; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Tenser's Floating Disk: Action or Ritual; alcance 30 feet; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "thaumaturgy",
@@ -8820,7 +8820,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Thaumaturgy: Action; alcance 30 feet; duracion Up to 1 minute; componentes V."
+    "sheetText": "Thaumaturgy: Action; alcance 30 feet; duración Up to 1 minute; componentes V."
   },
   {
     "id": "thorn-whip",
@@ -8844,7 +8844,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Thorn Whip: Action; alcance 30 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Thorn Whip: Action; alcance 30 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "thunderclap",
@@ -8870,7 +8870,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Thunderclap: Action; alcance Self; duracion Instantaneous; componentes S."
+    "sheetText": "Thunderclap: Action; alcance Self; duración Instantaneous; componentes S."
   },
   {
     "id": "thunderous-smite",
@@ -8892,7 +8892,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Thunderous Smite: Bonus Action, which you take immediately after hitting a target with a Melee weapon or an Unarmed Strike; alcance Self; duracion Instantaneous; componentes V."
+    "sheetText": "Thunderous Smite: Bonus Action, which you take immediately after hitting a target with a Melee weapon or an Unarmed Strike; alcance Self; duración Instantaneous; componentes V."
   },
   {
     "id": "thunderwave",
@@ -8918,7 +8918,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Thunderwave: Action; alcance Self; duracion Instantaneous; componentes V, S."
+    "sheetText": "Thunderwave: Action; alcance Self; duración Instantaneous; componentes V, S."
   },
   {
     "id": "time-stop",
@@ -8941,7 +8941,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Time Stop: Action; alcance Self; duracion Instantaneous; componentes V."
+    "sheetText": "Time Stop: Action; alcance Self; duración Instantaneous; componentes V."
   },
   {
     "id": "toll-the-dead",
@@ -8966,7 +8966,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Toll the Dead: Action; alcance 60 feet; duracion Instantaneous; componentes V, S."
+    "sheetText": "Toll the Dead: Action; alcance 60 feet; duración Instantaneous; componentes V, S."
   },
   {
     "id": "tongues",
@@ -8993,7 +8993,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Tongues: Action; alcance Touch; duracion 1 hour; componentes V, M."
+    "sheetText": "Tongues: Action; alcance Touch; duración 1 hour; componentes V, M."
   },
   {
     "id": "transport-via-plants",
@@ -9016,7 +9016,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Transport via Plants: Action; alcance 10 feet; duracion 1 minute; componentes V, S."
+    "sheetText": "Transport via Plants: Action; alcance 10 feet; duración 1 minute; componentes V, S."
   },
   {
     "id": "tree-stride",
@@ -9040,7 +9040,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Tree Stride: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Tree Stride: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "true-polymorph",
@@ -9066,7 +9066,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "True Polymorph: Action; alcance 30 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "True Polymorph: Action; alcance 30 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "true-resurrection",
@@ -9091,7 +9091,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "True Resurrection: 1 hour; alcance Touch; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "True Resurrection: 1 hour; alcance Touch; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "true-seeing",
@@ -9119,7 +9119,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "True Seeing: Action; alcance Touch; duracion 1 hour; componentes V, S, M."
+    "sheetText": "True Seeing: Action; alcance Touch; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "true-strike",
@@ -9145,7 +9145,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "True Strike: Action; alcance Self; duracion Instantaneous; componentes S, M."
+    "sheetText": "True Strike: Action; alcance Self; duración Instantaneous; componentes S, M."
   },
   {
     "id": "tsunami",
@@ -9168,7 +9168,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Tsunami: 1 minute; alcance 1 mile; duracion Concentration, up to 6 rounds; componentes V, S."
+    "sheetText": "Tsunami: 1 minute; alcance 1 mile; duración Concentration, up to 6 rounds; componentes V, S."
   },
   {
     "id": "unseen-servant",
@@ -9194,7 +9194,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Unseen Servant: Action or Ritual; alcance 60 feet; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Unseen Servant: Action or Ritual; alcance 60 feet; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "vampiric-touch",
@@ -9219,7 +9219,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Vampiric Touch: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Vampiric Touch: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "vicious-mockery",
@@ -9241,7 +9241,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Vicious Mockery: Action; alcance 60 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Vicious Mockery: Action; alcance 60 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "vitriolic-sphere",
@@ -9266,7 +9266,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Vitriolic Sphere: Action; alcance 150 feet; duracion Instantaneous; componentes V, S, M."
+    "sheetText": "Vitriolic Sphere: Action; alcance 150 feet; duración Instantaneous; componentes V, S, M."
   },
   {
     "id": "wall-of-fire",
@@ -9292,7 +9292,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Wall of Fire: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Wall of Fire: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "wall-of-force",
@@ -9316,7 +9316,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Wall of Force: Action; alcance 120 feet; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Wall of Force: Action; alcance 120 feet; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "wall-of-ice",
@@ -9340,7 +9340,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Wall of Ice: Action; alcance 120 feet; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Wall of Ice: Action; alcance 120 feet; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "wall-of-stone",
@@ -9366,7 +9366,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Wall of Stone: Action; alcance 120 feet; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Wall of Stone: Action; alcance 120 feet; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "wall-of-thorns",
@@ -9390,7 +9390,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Wall of Thorns: Action; alcance 120 feet; duracion Concentration, up to 10 minutes; componentes V, S, M."
+    "sheetText": "Wall of Thorns: Action; alcance 120 feet; duración Concentration, up to 10 minutes; componentes V, S, M."
   },
   {
     "id": "warding-bond",
@@ -9415,7 +9415,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Warding Bond: Action; alcance Touch; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Warding Bond: Action; alcance Touch; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "water-breathing",
@@ -9442,7 +9442,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Water Breathing: Action or Ritual; alcance 30 feet; duracion 24 hours; componentes V, S, M."
+    "sheetText": "Water Breathing: Action or Ritual; alcance 30 feet; duración 24 hours; componentes V, S, M."
   },
   {
     "id": "water-walk",
@@ -9469,7 +9469,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": true,
     "effects": [],
-    "sheetText": "Water Walk: Action or Ritual; alcance 30 feet; duracion 1 hour; componentes V, S, M."
+    "sheetText": "Water Walk: Action or Ritual; alcance 30 feet; duración 1 hour; componentes V, S, M."
   },
   {
     "id": "web",
@@ -9494,7 +9494,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Web: Action; alcance 60 feet; duracion Concentration, up to 1 hour; componentes V, S, M."
+    "sheetText": "Web: Action; alcance 60 feet; duración Concentration, up to 1 hour; componentes V, S, M."
   },
   {
     "id": "weird",
@@ -9518,7 +9518,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Weird: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes V, S."
+    "sheetText": "Weird: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes V, S."
   },
   {
     "id": "wind-walk",
@@ -9542,7 +9542,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Wind Walk: 1 minute; alcance 30 feet; duracion 8 hours; componentes V, S, M."
+    "sheetText": "Wind Walk: 1 minute; alcance 30 feet; duración 8 hours; componentes V, S, M."
   },
   {
     "id": "wind-wall",
@@ -9567,7 +9567,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Wind Wall: Action; alcance 120 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Wind Wall: Action; alcance 120 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "wish",
@@ -9590,7 +9590,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Wish: Action; alcance Self; duracion Instantaneous; componentes V."
+    "sheetText": "Wish: Action; alcance Self; duración Instantaneous; componentes V."
   },
   {
     "id": "witch-bolt",
@@ -9616,7 +9616,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Witch Bolt: Action; alcance 60 feet; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Witch Bolt: Action; alcance 60 feet; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "word-of-radiance",
@@ -9639,7 +9639,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Word of Radiance: Action; alcance Self; duracion Instantaneous; componentes V, M."
+    "sheetText": "Word of Radiance: Action; alcance Self; duración Instantaneous; componentes V, M."
   },
   {
     "id": "word-of-recall",
@@ -9661,7 +9661,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Word of Recall: Action; alcance 5 feet; duracion Instantaneous; componentes V."
+    "sheetText": "Word of Recall: Action; alcance 5 feet; duración Instantaneous; componentes V."
   },
   {
     "id": "wrathful-smite",
@@ -9683,7 +9683,7 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Wrathful Smite: Bonus Action, which you take immediately after hitting a creature with a Melee weapon or an Unarmed Strike; alcance Self; duracion 1 minute; componentes V."
+    "sheetText": "Wrathful Smite: Bonus Action, which you take immediately after hitting a creature with a Melee weapon or an Unarmed Strike; alcance Self; duración 1 minute; componentes V."
   },
   {
     "id": "yolandes-regal-presence",
@@ -9708,7 +9708,7 @@ export const phb2024Spells = [
     "concentration": true,
     "ritual": false,
     "effects": [],
-    "sheetText": "Yolande's Regal Presence: Action; alcance Self; duracion Concentration, up to 1 minute; componentes V, S, M."
+    "sheetText": "Yolande's Regal Presence: Action; alcance Self; duración Concentration, up to 1 minute; componentes V, S, M."
   },
   {
     "id": "zone-of-truth",
@@ -9733,6 +9733,6 @@ export const phb2024Spells = [
     "concentration": false,
     "ritual": false,
     "effects": [],
-    "sheetText": "Zone of Truth: Action; alcance 60 feet; duracion 10 minutes; componentes V, S."
+    "sheetText": "Zone of Truth: Action; alcance 60 feet; duración 10 minutes; componentes V, S."
   }
 ];

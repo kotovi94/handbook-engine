@@ -297,7 +297,7 @@ function getSpellSlotEntries(slots) {
 function displaySpellAbility(ability) {
   const labels = {
     intelligence: "Inteligencia",
-    wisdom: "Sabiduria",
+    wisdom: "Sabiduría",
     charisma: "Carisma",
   };
 
@@ -325,7 +325,7 @@ function normalizeFeature(feature, fallbackLevel) {
 
 function getArmorClass({ armor, shield, dexterityModifier, constitutionModifier = 0, wisdomModifier = 0, charismaModifier = 0, bonus = 0, unarmoredDefense = null }) {
   const shieldBonus = shield?.acBonus || 0;
-  const bonusText = bonus ? ` + bono magico ${bonus}` : "";
+  const bonusText = bonus ? ` + bono mágico ${bonus}` : "";
 
   if (!armor) {
     if (unarmoredDefense === "barbarian") {
@@ -345,14 +345,14 @@ function getArmorClass({ armor, shield, dexterityModifier, constitutionModifier 
     if (unarmoredDefense === "draconic") {
       return {
         value: 10 + dexterityModifier + charismaModifier + shieldBonus + bonus,
-        formula: `Resiliencia draconica: 10 + Destreza ${signed(dexterityModifier)} + Carisma ${signed(charismaModifier)}${shieldBonus ? ` + escudo ${shieldBonus}` : ""}${bonusText}. No aplica con armadura.`,
+        formula: `Resiliencia dracónica: 10 + Destreza ${signed(dexterityModifier)} + Carisma ${signed(charismaModifier)}${shieldBonus ? ` + escudo ${shieldBonus}` : ""}${bonusText}. No aplica con armadura.`,
       };
     }
 
     if (unarmoredDefense === "monk") {
       return {
         value: 10 + dexterityModifier + wisdomModifier + bonus,
-        formula: `Defensa sin armadura: 10 + Destreza ${signed(dexterityModifier)} + Sabiduria ${signed(wisdomModifier)}${bonusText}. No aplica con armadura o escudo.`,
+        formula: `Defensa sin armadura: 10 + Destreza ${signed(dexterityModifier)} + Sabiduría ${signed(wisdomModifier)}${bonusText}. No aplica con armadura o escudo.`,
       };
     }
 

@@ -96,7 +96,7 @@ export function DungeonAlertList(warnings = []) {
   if (!warnings.length) {
     const item = document.createElement("p");
     item.className = "dungeon-alert-item tone-ok";
-    item.textContent = "Sin alertas de validacion.";
+    item.textContent = "Sin alertas de validación.";
     wrap.append(item);
     return wrap;
   }
@@ -132,7 +132,7 @@ export function DungeonRoomIndex({ rooms, selectedRoomId, onSelect }) {
   });
 
   return DungeonSectionCard({
-    kicker: "Indice",
+    kicker: "Índice",
     title: `${rooms.length} salas`,
     className: "dungeon-room-index",
     children: [list],
@@ -143,8 +143,8 @@ export function DungeonRoomDetail({ room, onChange, onRegenerate }) {
   if (!room) {
     return DungeonSectionCard({
       kicker: "Detalle",
-      title: "Sin sala seleccionada",
-      children: [renderMutedText("Selecciona una sala del indice.")],
+      title: "Sin sala selecciónada",
+      children: [renderMutedText("Selecciona una sala del índice.")],
     });
   }
 
@@ -173,7 +173,7 @@ export function DungeonRoomDetail({ room, onChange, onRegenerate }) {
   const detailGrid = document.createElement("div");
   detailGrid.className = "dungeon-room-detail-grid";
   detailGrid.append(
-    renderInfoBlock("Senales visibles", room.visibleSigns),
+    renderInfoBlock("Señales visibles", room.visibleSigns),
     renderInfoBlock("Pistas", room.investigationClues),
     renderInfoBlock("Zona", [room.zoneIdentity, room.inhabitantRole ? `Faccion local: ${room.inhabitantRole}` : ""].filter(Boolean)),
     renderInfoBlock("Criaturas", room.encounterUi.creatureBlocks.map((block) => block.label)),
@@ -243,7 +243,7 @@ export function DungeonDoorTable(rows = []) {
     title: "Puertas y accesos",
     className: "dungeon-table-card",
     children: [rows.length ? renderTable({
-      columns: ["Conexion", "Tipo", "Piezas", "Resumen"],
+      columns: ["Conexión", "Tipo", "Piezas", "Resumen"],
       rows: rows.map((row) => [
         row.roomsText || row.connectionLabel,
         row.kindText || row.kindLabel,
@@ -306,8 +306,8 @@ export function DungeonNarrativePanel(narrative) {
   grid.className = "dungeon-flow-grid";
   [
     ["Causa", `${narrative.cause}: ${narrative.causeSummary}`],
-    ["Situacion", narrative.situation],
-    ["Relacion", `${narrative.relationship}: ${narrative.relationshipSummary}`],
+    ["Situación", narrative.situation],
+    ["Relación", `${narrative.relationship}: ${narrative.relationshipSummary}`],
     ["Mezcla", narrative.mixSummary],
     ["Pistas", narrative.clues.join("; ")],
     ["Final", narrative.finalHooks.join("; ")],

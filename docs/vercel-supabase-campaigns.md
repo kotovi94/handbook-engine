@@ -1,11 +1,11 @@
-# Campanas compartidas con Vercel + Supabase
+# Campañas compartidas con Vercel + Supabase
 
-La bitacora ya esta preparada para usar dos modos:
+La bitácora ya está preparada para usar dos modos:
 
 - En `localhost` usa el guardado local del navegador.
 - En Vercel usa Supabase mediante las funciones dentro de `api/`.
 
-Tambien puedes forzar el modo local en Vercel agregando `?local=1` a la URL.
+También puedes forzar el modo local en Vercel agregando `?local=1` a la URL.
 
 ## 1. Crear las tablas en Supabase
 
@@ -23,18 +23,18 @@ SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
 CAMPAIGN_UNLOCK_SECRET=una-frase-larga-aleatoria
 ```
 
-`SUPABASE_SERVICE_ROLE_KEY` sale de Supabase > Project Settings > API > service_role. No debe ponerse en codigo del navegador ni compartirse.
+`SUPABASE_SERVICE_ROLE_KEY` sale de Supabase > Project Settings > API > service_role. No debe ponerse en código del navegador ni compartirse.
 
-`CAMPAIGN_UNLOCK_SECRET` puede ser cualquier frase larga aleatoria. Sirve para firmar el acceso temporal despues de poner la contrasena de una campana.
+`CAMPAIGN_UNLOCK_SECRET` puede ser cualquier frase larga aleatoria. Sirve para firmar el acceso temporal después de poner la contrasena de una campaña.
 
-Despues de agregar o cambiar variables en Vercel, hay que hacer Redeploy.
+Después de agregar o cambiar variables en Vercel, hay que hacer Redeploy.
 
 ## 3. Modelo de acceso
 
-- Todos pueden ver la lista de campanas.
-- Todos pueden abrir el resumen de una campana.
-- Si la campana tiene contrasena, se abre en modo resumen.
-- Con la contrasena se desbloquean personajes, sesiones, edicion y borrado.
+- Todos pueden ver la lista de campañas.
+- Todos pueden abrir el resumen de una campaña.
+- Si la campaña tiene contrasena, se abre en modo resumen.
+- Con la contrasena se desbloquean personajes, sesiones, edición y borrado.
 - Las sesiones guardadas aplican PX o PP en Supabase para que todos vean el mismo avance.
 - La Bitácora avanzada guarda páginas, imágenes pequeñas, links, herramientas DM, conexiones, tablero y tutorial por campaña.
 
@@ -56,10 +56,10 @@ GET    /api/campaigns/:id/workspace
 PATCH  /api/campaigns/:id/workspace
 ```
 
-## 5. Prueba rapida
+## 5. Prueba rápida
 
 1. Despliega el proyecto en Vercel.
 2. Abre `/campaigns/`.
-3. Crea una campana.
+3. Crea una campaña.
 4. Entra desde otra ventana o navegador y confirma que aparece en la lista.
-5. Si la campana tiene contrasena, entra sin contrasena para ver resumen y luego desbloquea para editar.
+5. Si la campaña tiene contrasena, entra sin contrasena para ver resumen y luego desbloquea para editar.

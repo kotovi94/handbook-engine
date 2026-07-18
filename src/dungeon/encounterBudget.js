@@ -260,15 +260,15 @@ function getEncounterWarnings(config, roomType, budget, groups) {
   }
 
   if (highestCr > budget.level && roomType !== "jefe") {
-    warnings.push("Hay CR sobre el nivel del grupo; revisa dano explosivo.");
+    warnings.push("Hay CR sobre el nivel del grupo; revisa daño explosivo.");
   }
 
   if (budget.level <= 2 && creatureCount > budget.players) {
-    warnings.push("En niveles 1-2, evita saturar la accion enemiga.");
+    warnings.push("En niveles 1-2, evita saturar la acción enemiga.");
   }
 
   if (groups.reduce((sum, group) => sum + group.totalXp, 0) < budget.adjustedBudgetXp * 0.55) {
-    warnings.push("Queda mucho presupuesto libre; sube CR o anade apoyo si quieres mas presion.");
+    warnings.push("Queda mucho presupuesto libre; sube CR o añade apoyo si quieres más presion.");
   }
 
   return warnings;

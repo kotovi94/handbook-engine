@@ -41,7 +41,7 @@ export function HomePage() {
   const page = document.createElement("section");
   page.className = "home-page";
   page.innerHTML = `
-    <header class="home-hero">
+    <header class="home-hero" data-tour="home-hero">
       <p class="page-kicker">D20 Travesías</p>
       <h2 class="home-title">¿Qué quieres preparar?</h2>
       <p class="home-intro">Elige el momento de mesa: crear un personaje, preparar como DM, consultar reglas o continuar una campaña.</p>
@@ -50,11 +50,13 @@ export function HomePage() {
 
   const actionGrid = document.createElement("div");
   actionGrid.className = "home-action-grid";
+  actionGrid.dataset.tour = "home-modules";
 
   homeActions.forEach((action) => {
     const link = document.createElement("a");
     link.className = action.featured ? "home-action-card is-featured" : "home-action-card";
     link.href = action.href || `#/${action.route}`;
+    link.dataset.tour = action.route ? `module-${action.route}` : "module-campaigns";
     link.innerHTML = `
       <span class="home-action-eyebrow">${action.eyebrow}</span>
       <span class="home-action-icon"></span>

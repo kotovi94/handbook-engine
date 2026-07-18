@@ -78,7 +78,7 @@ const secondaryWeightsByPrimary = {
 const themeSecondaryBias = {
   infernal: "demonios",
   corrupto: "demonios",
-  feerico: "aberraciones",
+  feérico: "aberraciones",
   volcanico: "elementales",
   helado: "elementales",
   abandonado: "no-muertos",
@@ -90,7 +90,7 @@ const relationships = {
   single: {
     id: "single",
     label: "Dominio principal",
-    summary: "Un solo grupo define casi toda la ocupacion actual.",
+    summary: "Un solo grupo define casi toda la ocupación actual.",
     encounterNote: "Los encuentros usan una identidad dominante y variaciones por zona.",
   },
   contamination: {
@@ -102,8 +102,8 @@ const relationships = {
   summoners: {
     id: "summoners",
     label: "Invocadores y convocados",
-    summary: "Un grupo inteligente abrio paso al otro y ahora intenta dirigirlo, contenerlo o sobrevivirlo.",
-    encounterNote: "Combina lideres o ritualistas con amenazas secundarias cerca de sellos y puertas importantes.",
+    summary: "Un grupo inteligente abrió paso al otro y ahora intenta dirigirlo, contenerlo o sobrevivirlo.",
+    encounterNote: "Combina líderes o ritualistas con amenazas secundarias cerca de sellos y puertas importantes.",
   },
   servants: {
     id: "servants",
@@ -175,14 +175,14 @@ export function chooseRoomInhabitant({ roomType, zone, inhabitantMix, rng }) {
   }
 
   if (zone?.role === "border" || roomType === "trampa" || roomType === "puzzle") {
-    return createRoomInhabitantRole("mixed", [primary, secondary], secondary.id, "Aqui se superponen rastros de ambos grupos.");
+    return createRoomInhabitantRole("mixed", [primary, secondary], secondary.id, "Aqué se superponen rastros de ambos grupos.");
   }
 
   if (roomType === "secreto" && rng() < 0.5) {
     return createRoomInhabitantRole("mixed", [primary, secondary], primary.id, "El secreto muestra como se cruzan las facciones.");
   }
 
-  return createRoomInhabitantRole("primary", [primary], primary.id, "La ocupacion original sigue siendo visible.");
+  return createRoomInhabitantRole("primary", [primary], primary.id, "La ocupación original sigue siendo visible.");
 }
 
 export function getInhabitantTable(id) {

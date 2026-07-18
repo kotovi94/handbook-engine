@@ -81,7 +81,7 @@ function renderMapHeader(map, onRegenerateMap, onModeChange) {
   title.textContent = `${map.width} x ${map.height} cuadros`;
   const scale = document.createElement("p");
   scale.className = "dungeon-map-scale";
-  scale.textContent = `1 cuadro = ${map.tileSizeFeet || 5} pies. Area aproximada: ${map.widthFeet} x ${map.heightFeet} pies.`;
+  scale.textContent = `1 cuadro = ${map.tileSizeFeet || 5} pies. Área aproximada: ${map.widthFeet} x ${map.heightFeet} pies.`;
   titleWrap.append(kicker, title, scale);
 
   const actions = document.createElement("div");
@@ -385,7 +385,7 @@ function renderMapRooms(map) {
   const details = document.createElement("details");
   details.className = "dungeon-map-room-index";
   const summary = document.createElement("summary");
-  summary.textContent = "Indice visual de salas";
+  summary.textContent = "Índice visual de salas";
   const list = document.createElement("div");
   list.className = "dungeon-map-room-list";
 

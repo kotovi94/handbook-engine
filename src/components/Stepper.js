@@ -1,7 +1,7 @@
 export function Stepper({ steps, activeStepId, onStepSelect }) {
   const nav = document.createElement("nav");
   nav.className = "stepper";
-  nav.setAttribute("aria-label", "Pasos de creacion");
+  nav.setAttribute("aria-label", "Pasos de creación");
 
   steps.forEach((step, index) => {
     const button = document.createElement("button");

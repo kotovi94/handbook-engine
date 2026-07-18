@@ -85,7 +85,7 @@ function createArchway({ id, x, y, room, targetRoom }) {
     lock: null,
     secret: null,
     portcullis: null,
-    notes: "Marca un acceso claro; puede servir como linea de vision, ruido o emboscada.",
+    notes: "Marca un acceso claro; puede servir como línea de visión, ruido o emboscada.",
   };
 }
 
@@ -137,7 +137,7 @@ function createDoor({ id, x, y, room, targetRoom, config, rng, kind }) {
   const materialStats = doorMaterialTable[material] || doorMaterialTable.madera;
   const size = selectDoorSize(room, targetRoom, config, rng);
   const state = kind === "secreta"
-    ? { id: "oculta", label: "Oculta", note: "No debe ser la unica ruta hacia el progreso principal." }
+    ? { id: "oculta", label: "Oculta", note: "No debe ser la única ruta hacia el progreso principal." }
     : weightedPick(rng, doorStateTable, doorStateTable[1]);
   const lock = state?.usesLock ? generateLock(config, rng) : null;
   const secret = kind === "secreta" ? weightedPick(rng, secretDoorTable, secretDoorTable[1]) : null;
@@ -231,13 +231,13 @@ function generateLock(config, rng) {
   }
 
   const quality = weightedPick(rng, weights, weights[1]);
-  const actionTime = quality.dc >= 20 || config.difficulty === "mortal" ? "1 minuto" : "1 accion";
+  const actionTime = quality.dc >= 20 || config.difficulty === "mortal" ? "1 minuto" : "1 acción";
 
   return {
     id: quality.id,
     label: quality.label,
     dc: quality.dc,
-    tool: "Herramientas de ladron",
+    tool: "Herramientas de ladrón",
     actionTime,
   };
 }
@@ -256,11 +256,11 @@ function getPortcullisSizes(room, targetRoom) {
 
 function buildDoorNotes(kind, state, lock) {
   if (kind === "secreta") {
-    return "Trata este acceso como recompensa, atajo o informacion opcional.";
+    return "Trata este acceso como recompensa, atajo o información opciónal.";
   }
 
   if (state?.id === "barrada") {
-    return "No tiene cerradura util desde el lado bloqueado; la barra puede levantarse desde el lado correcto.";
+    return "No tiene cerradura Útil desde el lado bloqueado; la barra puede levantarse desde el lado correcto.";
   }
 
   if (state?.id === "atascada") {
@@ -271,7 +271,7 @@ function buildDoorNotes(kind, state, lock) {
     return `Abrir con ${lock.tool.toLowerCase()}: ${lock.actionTime}.`;
   }
 
-  return state?.note || "Ajusta posicion, ruido y tiempo segun la mesa.";
+  return state?.note || "Ajusta posicion, ruido y tiempo según la mesa.";
 }
 
 function getConnectionKey(first, second) {

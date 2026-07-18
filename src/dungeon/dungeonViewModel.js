@@ -68,7 +68,7 @@ export function buildDungeonOverview(dungeon) {
       { label: "Nivel", value: dungeon?.recommendedLevel || config.averageLevel || 1 },
       { label: "Jugadores", value: config.playerCount || 4 },
       { label: "Dificultad", value: getOptionLabel(DIFFICULTY_OPTIONS, config.difficulty) },
-      { label: "Tamano", value: labels.size || getOptionLabel(SIZE_OPTIONS, config.size) },
+      { label: "Tamaño", value: labels.size || getOptionLabel(SIZE_OPTIONS, config.size) },
       { label: "Tipo", value: labels.type },
       { label: "Tema", value: labels.theme },
       { label: "Habitantes", value: labels.inhabitants },
@@ -271,8 +271,8 @@ export function buildRoomInspectorModel(dungeon, roomId, focusSection = "overvie
   if (!room) {
     return {
       kind: "empty",
-      title: "Area sin datos",
-      message: roomId ? `No existe una sala con ID ${roomId}.` : "Selecciona un area del mapa.",
+      title: "Área sin datos",
+      message: roomId ? `No existe una sala con ID ${roomId}.` : "Selecciona un área del mapa.",
     };
   }
 
@@ -303,14 +303,14 @@ export function buildRoomInspectorModel(dungeon, roomId, focusSection = "overvie
     },
     {
       id: "mapFeatures",
-      title: "Mapa y elevacion",
+      title: "Mapa y elevación",
       items: [
         room.shapeLabel ? `Forma: ${room.shapeLabel}` : "",
         Number.isFinite(room.floorLevel) ? `Nivel de piso: ${room.floorLevel}` : "",
         room.elevationHint || "",
         room.featureTiles.length ? `Tiles especiales: ${summarizeFeatureTiles(room.featureTiles)}` : "",
         room.entrancePoints.length ? `Entradas: ${room.entrancePoints.length}` : "",
-        room.connectionPoints.length ? `Puntos de conexion: ${room.connectionPoints.length}` : "",
+        room.connectionPoints.length ? `Puntos de conexión: ${room.connectionPoints.length}` : "",
       ].filter(Boolean),
     },
     {
@@ -366,7 +366,7 @@ export function buildRoomInspectorModel(dungeon, roomId, focusSection = "overvie
       title: "Secreto",
       items: room.type === "secreto"
         ? [
-          "Esta sala debe funcionar como recompensa, atajo, pista o opcion extra.",
+          "Esta sala debe funcionar como recompensa, atajo, pista o opción extra.",
           ...room.visibleSigns,
           ...room.dmNotes,
         ].filter(Boolean)
@@ -421,10 +421,10 @@ export function buildDoorInspectorModel(dungeon, doorId) {
     connection,
     roomLinks,
     fields: [
-      ["Conexion", connection.connectionLabel],
+      ["Conexión", connection.connectionLabel],
       ["Tipo", door.kindLabel || connection.kindLabel],
       ["Material", door.materialLabel || connection.materialLabel || "Sin material"],
-      ["Tamano", door.sizeLabel || "Sin tamano"],
+      ["Tamaño", door.sizeLabel || "Sin tamaño"],
       ["Estado", door.stateLabel || connection.stateLabel || "Sin estado"],
       ["CA", numberOrEmpty(door.ac)],
       ["PG", numberOrEmpty(door.hp)],
@@ -696,13 +696,13 @@ export function buildDungeonEcology(dungeon) {
       ? waterRooms.join(", ")
       : inferFallbackWaterSource(dungeon),
     dominantCreature: dominant?.name || encounterRows[0]?.creatureBlocks?.[0]?.name || "Depredador local",
-    fearOrWeakness: "Ruidos fuertes, fuego controlado, alimento facil o una salida abierta pueden cambiar su reaccion.",
+    fearOrWeakness: "Ruidos fuertes, fuego controlado, alimento fácil o una salida abierta pueden cambiar su reacción.",
     noiseReaction: "Si el grupo hace mucho ruido, una sala cercana puede investigar antes de atacar.",
     tracksAndSigns: buildTracksAndSigns(rooms),
     nonCombatSolutions: [
       "Ofrecer comida y retirarse despacio.",
       "Abrir una ruta de escape para que el territorio deje de parecer una jaula.",
-      "Evitar el nido y bordear el area de caza.",
+      "Evitar el nido y bordear el área de caza.",
     ],
   };
 }
@@ -844,19 +844,19 @@ function inferRiskLevel(room, encounterUi, hazard) {
 
 function inferRoomFunction(room) {
   const byType = {
-    entrada: "Presentar el tono, el primer rastro y una decision de ruta.",
-    pasillo: "Conectar salas y crear tension de movimiento.",
-    combate: "Poner presion tactica y mostrar como actuan los habitantes.",
-    trampa: "Cobrar atencion, exploracion y recursos.",
-    puzzle: "Dar una pausa de deduccion o manipulacion del entorno.",
-    tesoro: "Recompensar exploracion y sembrar objetos utiles.",
-    descanso: "Permitir recuperacion breve o negociacion.",
+    entrada: "Presentar el tono, el primer rastro y una decisión de ruta.",
+    pasillo: "Conectar salas y crear tensión de movimiento.",
+    combate: "Poner presion táctica y mostrar como actuan los habitantes.",
+    trampa: "Cobrar atencion, exploración y recursos.",
+    puzzle: "Dar una pausa de deducción o manipulación del entorno.",
+    tesoro: "Recompensar exploración y sembrar objetos Útiles.",
+    descanso: "Permitir recuperación breve o negociación.",
     vacia: "Dar aire, pistas y ritmo sin combate inmediato.",
     jefe: "Cerrar el objetivo de la mazmorra con una amenaza clara.",
-    secreto: "Premiar curiosidad con atajo, informacion o botin opcional.",
+    secreto: "Premiar curiosidad con atajo, información o botín opciónal.",
   };
 
-  return byType[room.type] || "Resolver una escena corta de exploracion.";
+  return byType[room.type] || "Resolver una escena corta de exploración.";
 }
 
 function inferDangerLevel(plan, highestCr) {
@@ -963,13 +963,13 @@ function isNarrativeTemplateLine(line) {
 function inferHazardTrigger(summary) {
   if (!summary) return "";
   if (/puzzle/i.test(summary)) return "Interaccion incorrecta con el mecanismo.";
-  if (/entrada oculta|secreta/i.test(summary)) return "Avanzar rapido sin revisar el entorno.";
-  return "Movimiento descuidado, ruido o manipulacion del area.";
+  if (/entrada oculta|secreta/i.test(summary)) return "Avanzar rápido sin revisar el entorno.";
+  return "Movimiento descuidado, ruido o manipulación del área.";
 }
 
 function inferHazardCountermeasure(summary) {
   if (!summary) return "";
-  if (/vision|niebla|humo|polvo/i.test(summary)) return "Luz, aireacion, espera o movimiento lento.";
+  if (/visión|niebla|humo|polvo/i.test(summary)) return "Luz, aireacion, espera o movimiento lento.";
   if (/derrumba|inestable/i.test(summary)) return "Cruzar de uno en uno o reforzar el paso.";
   if (/puzzle/i.test(summary)) return "Usar pistas de otras salas antes de activar piezas.";
   return "Detectar la pista visible, desactivar con herramientas o rodear el punto peligroso.";
@@ -977,7 +977,7 @@ function inferHazardCountermeasure(summary) {
 
 function inferTreasureValueHint(room) {
   if (room?.type === "jefe" || room?.type === "tesoro") return "Recompensa principal";
-  if (room?.type === "secreto") return "Recompensa opcional";
+  if (room?.type === "secreto") return "Recompensa opciónal";
   return "Recompensa menor";
 }
 
@@ -1021,14 +1021,14 @@ function inferBeastReason(dungeon) {
   const type = dungeon?.type || dungeon?.config?.dungeonType;
   if (type === "guarida" || type === "cueva") return "El lugar funciona como territorio, refugio o nido.";
   if (type === "alcantarilla" || type === "ruina") return "Hay comida, sombra y pocos depredadores inteligentes.";
-  return "Las bestias entraron por comida, seguridad o por haber sido encerradas aqui.";
+  return "Las bestias entraron por comida, seguridad o por haber sido encerradas aquí.";
 }
 
 function inferFoodSource(dungeon) {
   const type = dungeon?.type || dungeon?.config?.dungeonType;
   if (type === "alcantarilla") return "Ratas, peces, desperdicios y restos arrastrados por el agua.";
   if (type === "cueva" || type === "natural") return "Hongos, animales menores y presas que cruzan la zona.";
-  return "Restos de ocupantes anteriores, alijos abandonados y criaturas pequenas.";
+  return "Restos de ocupantes anteriores, alijos abandonados y criaturas pequeñas.";
 }
 
 function inferFallbackWaterSource(dungeon) {
@@ -1047,7 +1047,7 @@ function buildTracksAndSigns(rooms) {
     return signs.join(" ");
   }
 
-  return "Huellas, pelo, huesos pequenos, marcas de garras y olor territorial.";
+  return "Huellas, pelo, huesos pequeños, marcas de garras y olor territorial.";
 }
 
 function cloneCellTarget(cell) {
@@ -1151,7 +1151,7 @@ function buildRoomCopyText(room, roomDoors) {
 function buildDoorCopyText(door, connection) {
   return [
     `Puerta ${door.id || connection.displayId}`,
-    `Conexion: ${connection.connectionLabel}`,
+    `Conexión: ${connection.connectionLabel}`,
     `Tipo: ${door.kindLabel || connection.kindLabel || "Sin tipo"}`,
     `Material: ${door.materialLabel || connection.materialLabel || "Sin material"}`,
     `Estado: ${door.stateLabel || connection.stateLabel || "Sin estado"}`,

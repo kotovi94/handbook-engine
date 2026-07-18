@@ -38,7 +38,7 @@ export function SummaryPanel({ character }) {
     <dl class="summary-detail-grid">
       <div><dt>Monedas</dt><dd>${coinNote}</dd></div>
       <div><dt>Conjuros</dt><dd>${spellSummary}</dd></div>
-      <div><dt>Objetos magicos</dt><dd>${magicItems}</dd></div>
+      <div><dt>Objetos mágicos</dt><dd>${magicItems}</dd></div>
     </dl>
   `;
 

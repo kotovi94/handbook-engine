@@ -2,7 +2,7 @@ export function CalculationBox({ title, value, formula }) {
   const box = document.createElement("article");
   box.className = "calculation-box";
   box.innerHTML = `
-    <span>Calculo</span>
+    <span>Cálculo</span>
     <h3>${title}</h3>
     <strong>${value}</strong>
     <p>${formula}</p>

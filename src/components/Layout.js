@@ -21,6 +21,7 @@ export function Layout({ activeRoute, activeTheme, isDarkMode, onNavigate, onDar
 
   const mainHeader = document.createElement("header");
   mainHeader.className = "main-header";
+  mainHeader.dataset.tour = "top-bar";
 
   const menuButton = IconButton({
     label: "Abrir menú",
@@ -28,6 +29,8 @@ export function Layout({ activeRoute, activeTheme, isDarkMode, onNavigate, onDar
     className: "mobile-menu-button",
     onClick: () => setSidebarState(true),
   });
+
+  menuButton.dataset.tour = "mobile-menu";
 
   const headerTitle = document.createElement("strong");
   headerTitle.textContent = "Compendio D20 Travesías";

@@ -57,7 +57,7 @@ export function generateEncounterBundle(config, roomType, rng, context = {}) {
   const encounterPlan = createEncounterPlan(config, roomType, rng);
 
   if (roomType === "jefe") {
-    const leader = pickOne(rng, inhabitants.leaders, "lider de la mazmorra");
+    const leader = pickOne(rng, inhabitants.leaders, "líder de la mazmorra");
     const primaryGroup = encounterPlan.groups[0];
     const supportGroup = encounterPlan.groups[1];
     const supportFlavor = encounterInhabitants.secondaryId
@@ -132,7 +132,7 @@ export function generateEncounterBundle(config, roomType, rng, context = {}) {
   const missingNotes = buildMissingMonsterNotes([primaryGroup, supportGroup], creatures, [picks[0], picks[1]]);
 
   if (encounterInhabitants.isMixed) {
-    encounterExtras.push(`tension de facciones: ${roomInhabitant?.note || context.inhabitantMix?.relationship?.summary || "dos grupos se cruzan en esta sala"}`);
+    encounterExtras.push(`tensión de facciones: ${roomInhabitant?.note || context.inhabitantMix?.relationship?.summary || "dos grupos se cruzan en esta sala"}`);
   }
 
   if (roomType === "entrada" || roomType === "pasillo") {

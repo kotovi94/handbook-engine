@@ -15,7 +15,7 @@ export function DungeonAreaInspector({
   section.className = "dungeon-area-inspector";
 
   if (!model || model.kind === "empty") {
-    section.append(renderInspectorHeader("Inspector de Area", model?.title || "Selecciona un area"));
+    section.append(renderInspectorHeader("Inspector de Área", model?.title || "Selecciona un área"));
     section.append(renderMutedText(model?.message || "Haz click en una sala, puerta, tesoro, trampa o corredor del mapa."));
     return section;
   }
@@ -43,7 +43,7 @@ export function DungeonAreaInspector({
     return section;
   }
 
-  section.append(renderInspectorHeader("Inspector de Area", model.title || "Tile de mapa"));
+  section.append(renderInspectorHeader("Inspector de Área", model.title || "Tile de mapa"));
   section.append(renderMutedText(model.message || "Este tile no tiene contenido especifico."));
   return section;
 }
@@ -77,12 +77,12 @@ export function DungeonRoomSummaryCard({
 }) {
   const wrap = document.createElement("div");
   wrap.className = "dungeon-inspector-content";
-  wrap.append(renderInspectorHeader("Inspector de Area", model.title, model.badges));
+  wrap.append(renderInspectorHeader("Inspector de Área", model.title, model.badges));
 
   if (model.isPassageRoom) {
     const note = document.createElement("p");
     note.className = "dungeon-inspector-note";
-    note.textContent = "Los pasillos tambien pueden contener encuentros, trampas, ruido o pistas.";
+    note.textContent = "Los pasillos también pueden contener encuentros, trampas, ruido o pistas.";
     wrap.append(note);
   }
 
@@ -119,7 +119,7 @@ export function DungeonRoomSummaryCard({
 export function DungeonDoorDetailCard({ model, onSelectRoom, onCopy }) {
   const wrap = document.createElement("div");
   wrap.className = "dungeon-inspector-content";
-  wrap.append(renderInspectorHeader("Inspector de Area", model.title, [
+  wrap.append(renderInspectorHeader("Inspector de Área", model.title, [
     { label: model.connection.kindLabel || "Puerta", tone: "type" },
     { label: model.connection.connectionLabel, tone: "neutral" },
   ]));
@@ -151,7 +151,7 @@ export function DungeonDoorDetailCard({ model, onSelectRoom, onCopy }) {
 export function DungeonCorridorDetailCard({ model, onSelectRoom }) {
   const wrap = document.createElement("div");
   wrap.className = "dungeon-inspector-content";
-  wrap.append(renderInspectorHeader("Inspector de Area", model.title, [
+  wrap.append(renderInspectorHeader("Inspector de Área", model.title, [
     { label: model.typeLabel, tone: "type" },
     { label: `${model.cell?.x},${model.cell?.y}`, tone: "neutral" },
   ]));

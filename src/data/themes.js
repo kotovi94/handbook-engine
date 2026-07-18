@@ -32,7 +32,7 @@ export const themes = [
     className: "theme-monk",
   },
   {
-    label: "Paladin",
+    label: "Paladín",
     className: "theme-paladin",
   },
   {

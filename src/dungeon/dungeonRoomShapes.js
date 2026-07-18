@@ -319,10 +319,10 @@ function ensureMaskHasFloor(mask) {
 
 function getShapeHint(shape) {
   const hints = {
-    irregular: "Muros naturales o rotos; evita lineas perfectas.",
-    anillo: "Camara con vacio, pilar grande o zona inaccesible al centro.",
-    "doble-altura": "Techo alto, plataformas o lineas de vision vertical.",
-    balcon: "Borde elevado con vision sobre otra parte de la sala.",
+    irregular: "Muros naturales o rotos; evita líneas perfectas.",
+    anillo: "Cámara con vacio, pilar grande o zona inaccesible al centro.",
+    "doble-altura": "Techo alto, plataformas o líneas de visión vertical.",
+    balcon: "Borde elevado con visión sobre otra parte de la sala.",
     "foso-central": "Centro peligroso que altera movimiento y empujones.",
     piramidal: "Gradas o terrazas que concentran la escena hacia el centro.",
   };

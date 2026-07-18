@@ -40,7 +40,7 @@ export function validateDungeon(dungeon) {
       issues.push(createIssue(
         "warning",
         "secret_blocks_progress",
-        "La ruta principal parece depender de una sala secreta. Conviene que los secretos sean atajos, recompensas o informacion opcional.",
+        "La ruta principal parece depender de una sala secreta. Conviene que los secretos sean atajos, recompensas o información opciónal.",
       ));
     }
   }
@@ -51,7 +51,7 @@ export function validateDungeon(dungeon) {
     issues.push(createIssue(
       "info",
       "grouped_doors",
-      `${physicalDoorCount} piezas de puerta fisicas se muestran como ${doorRows.length} conexiones jugables.`,
+      `${physicalDoorCount} piezas de puerta físicas se muestran como ${doorRows.length} conexiones jugables.`,
     ));
   }
 
@@ -86,7 +86,7 @@ function addNarrativeWarnings(issues, dungeon) {
     issues.push(createIssue(
       "warning",
       "missing_current_situation",
-      "Falta una situacion actual para explicar que esta pasando ahora dentro de la mazmorra.",
+      "Falta una situación actual para explicar que esta pasando ahora dentro de la mazmorra.",
     ));
   }
 
@@ -94,7 +94,7 @@ function addNarrativeWarnings(issues, dungeon) {
     issues.push(createIssue(
       "warning",
       "missing_inhabitant_relationship",
-      "Hay habitantes secundarios, pero no hay relacion clara entre facciones.",
+      "Hay habitantes secundarios, pero no hay relación clara entre facciones.",
     ));
   }
 }
@@ -149,7 +149,7 @@ function addRouteWarnings(issues, dungeon, rooms) {
     issues.push(createIssue(
       "info",
       "missing_shortcuts",
-      "No hay atajos o rutas alternativas marcadas. Considera crear un rodeo o una conexion larga.",
+      "No hay atajos o rutas alternativas marcadas. Considera crear un rodeo o una conexión larga.",
     ));
   }
 
@@ -157,7 +157,7 @@ function addRouteWarnings(issues, dungeon, rooms) {
     issues.push(createIssue(
       "warning",
       "secret_without_secret_route",
-      "Hay salas secretas, pero ninguna conexion esta marcada como secreta o atajo secreto.",
+      "Hay salas secretas, pero ninguna conexión esta marcada como secreta o atajo secreto.",
     ));
   }
 
@@ -309,7 +309,7 @@ function addMapV2Warnings(issues, dungeon, rooms) {
   const verticalRooms = mapRooms.filter((room) => Number(room.floorLevel) !== 0);
   const verticalTiles = map.cells.filter((cell) => ["stairs", "ladder", "elevationUp", "elevationDown"].includes(cell.type));
   if (verticalRooms.length && !verticalTiles.length) {
-    issues.push(createIssue("warning", "vertical_without_tiles", "Hay salas en otro nivel, pero no hay escaleras, escalas o marcadores de elevacion en el mapa."));
+    issues.push(createIssue("warning", "vertical_without_tiles", "Hay salas en otro nivel, pero no hay escaleras, escalas o marcadores de elevación en el mapa."));
   }
 }
 
@@ -320,7 +320,7 @@ function addTreasureWarnings(issues, rooms, config) {
     issues.push(createIssue(
       "warning",
       "low_treasure_spread",
-      "El tesoro esta muy concentrado. Puedes repartir pistas, llaves o recompensas menores en mas salas.",
+      "El tesoro esta muy concentrado. Puedes repartir pistas, llaves o recompensas menores en más salas.",
     ));
   }
 
@@ -349,7 +349,7 @@ function addEncounterWarnings(issues, rooms, config) {
     issues.push(createIssue(
       "info",
       "encounter_density_mismatch",
-      "La densidad de encuentros esta en alta, pero el mapa tiene pocas salas de combate.",
+      "La densidad de encuentros está en alta, pero el mapa tiene pocas salas de combate.",
     ));
   }
 }

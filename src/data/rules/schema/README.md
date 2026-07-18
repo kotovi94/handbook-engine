@@ -6,11 +6,11 @@ Estos esquemas definen la forma estable de los datos antes de cargar contenido r
 
 - `class`: clase jugable. Debe incluir dado de golpe, salvaciones, entrenamientos, monedas iniciales, progresion, equipo y magia si aplica.
 - `subclass`: subclase vinculada a una clase mediante `classId`.
-- `species`: especie con tamano, velocidad, idiomas y rasgos.
-- `background`: trasfondo con habilidades, dote, equipo, monedas y futuras elecciones.
+- `species`: especie con tamaño, velocidad, idiomas y rasgos.
+- `background`: trasfondo con habilidades, dote, equipo, monedas y futuras elecciónes.
 - `feat`: dote con prerrequisitos, efectos y texto para hoja.
 - `equipment`: armadura, escudo, armas, herramientas, foco, equipo o paquetes.
-- `spell`: conjuro o truco con nivel, escuela, componentes, duracion y efectos.
+- `spell`: conjuro o truco con nivel, escuela, componentes, duración y efectos.
 - `proficiency`: competencia normalizada.
 - `advancement`: progresion de clase y subclase por nivel.
 
@@ -23,7 +23,7 @@ Cada entidad debe separar:
 - Reglas calculables: `effects`, `choices`, valores numericos.
 - Salida de hoja: `sheetText` o textos especificos para copiar.
 
-Los IDs deben mantenerse en ingles estable. La UI debe usar `label` o helpers de presentacion para mostrar textos visibles en espanol.
+Los IDs deben mantenerse en inglés estable. La UI debe usar `label` o helpers de presentacion para mostrar textos visibles en espanol.
 
 ## Rasgos por nivel
 
@@ -40,7 +40,7 @@ Los rasgos por nivel deben ser objetos estructurados, no strings:
   effects: [
     { type: "attack.count", value: 2 }
   ],
-  sheetText: "Ataque adicional: 2 ataques con la accion de Atacar."
+  sheetText: "Ataque adicional: 2 ataques con la acción de Atacar."
 }
 ```
 
@@ -75,7 +75,7 @@ El motor inicial reconoce estos tipos:
 
 Cada nueva regla calculable debe entrar por `effects` antes de usarse en el motor.
 
-## Validacion
+## Validación
 
 Ejecuta el validador con:
 
@@ -89,7 +89,7 @@ El validador revisa:
 - IDs duplicados globales entre entidades principales.
 - IDs duplicados de features.
 - Campos requeridos por schema.
-- Categorias validas de equipo.
+- Categorías válidas de equipo.
 - Features con niveles entre 1 y 20.
 - Features cuyo `level` coincida con el grupo de progresion.
 - Tipos de efectos soportados por el motor.

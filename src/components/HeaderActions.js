@@ -3,6 +3,14 @@ import { IconButton } from "./Button.js";
 export function HeaderActions({ isDarkMode, onDarkModeChange }) {
   const actions = document.createElement("div");
   actions.className = "header-actions";
+  actions.dataset.tour = "header-actions";
+
+  const guideButton = IconButton({
+    label: "Ver guía de la app",
+    icon: "Guía",
+    className: "tour-button",
+    onClick: () => window.dispatchEvent(new CustomEvent("handbook-start-tour")),
+  });
 
   const printButton = IconButton({
     label: "Imprimir o guardar PDF",
@@ -18,6 +26,6 @@ export function HeaderActions({ isDarkMode, onDarkModeChange }) {
     onClick: () => onDarkModeChange(!isDarkMode),
   });
 
-  actions.append(printButton, darkButton);
+  actions.append(guideButton, printButton, darkButton);
   return actions;
 }

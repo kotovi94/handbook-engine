@@ -50,7 +50,7 @@ export function generateTreasureDetails(config, roomType, rng, context = {}) {
       items: [],
       clues: [narrativeHook],
       keys: [],
-      valueHint: "Informacion",
+      valueHint: "Información",
     };
     return {
       ...details,
@@ -150,13 +150,13 @@ function generateTreasureClues(roomType, rng) {
   if (roomType === "secreto") {
     return [pickOne(rng, [
       "mapa parcial de una ruta secundaria",
-      "simbolo que coincide con una puerta oculta",
+      "símbolo que coincide con una puerta oculta",
       "diario breve de un ocupante anterior",
     ])];
   }
 
   if (roomType === "jefe" && chance(rng, 0.45)) {
-    return ["pista sobre lo que atrae o sostiene al lider de la mazmorra"];
+    return ["pista sobre lo que atrae o sostiene al líder de la mazmorra"];
   }
 
   return [];
@@ -189,7 +189,7 @@ function getZoneForRoom(dungeon, room) {
 
 function getTreasureValueHint(roomType) {
   if (roomType === "jefe" || roomType === "tesoro") return "Recompensa principal";
-  if (roomType === "secreto") return "Recompensa opcional";
+  if (roomType === "secreto") return "Recompensa opciónal";
   return "Recompensa menor";
 }
 

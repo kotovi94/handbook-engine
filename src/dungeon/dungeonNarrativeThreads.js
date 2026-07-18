@@ -8,7 +8,7 @@ const causeTable = [
     themes: ["infernal", "corrupto"],
     inhabitants: ["demonios", "cultistas", "bestias"],
     weight: 4,
-    summary: "una grieta de energia hostil abrio una zona contaminada dentro de un sitio anterior",
+    summary: "una grieta de energía hostil abrió una zona contaminada dentro de un sitio anterior",
     situation: [
       "la grieta avanza por puertas, agua y marcas de calor",
       "los habitantes originales evitan la zona final o la cruzan solo por necesidad",
@@ -17,15 +17,15 @@ const causeTable = [
     clues: [
       "marcas de quemadura aparecen solo en el lado interior de las puertas",
       "huellas normales cambian de forma al acercarse a la zona contaminada",
-      "un olor metalico se vuelve mas fuerte hacia la ruta final",
+      "un olor metalico se vuelve más fuerte hacia la ruta final",
     ],
     trapHooks: [
       "runas calientes reaccionan a sangre, ruido o luz abierta",
       "cadenas tensas cruzan el paso como si sujetaran algo invisible",
     ],
     treasureHooks: [
-      "un sello frio que aun repele la corrupcion",
-      "un mapa marcado con una zona tachada despues del accidente",
+      "un sello frío que aún repele la corrupción",
+      "un mapa marcado con una zona tachada después del accidente",
     ],
     doorHooks: [
       "la puerta tiene bronce caliente solo en el borde inferior",
@@ -44,14 +44,14 @@ const causeTable = [
     weight: 3,
     summary: "un rito incompleto dejo el lugar dividido entre uso antiguo y consecuencias nuevas",
     situation: [
-      "los simbolos incompletos siguen activando defensas por error",
+      "los símbolos incompletos siguen activando defensas por error",
       "alguien esta reuniendo piezas para repetir o terminar el rito",
       "la zona central responde a palabras, llaves o sangre derramada",
     ],
     clues: [
-      "el mismo simbolo aparece incompleto en tres materiales distintos",
-      "una nota advierte que el orden de salas importa mas que la fuerza",
-      "las patrullas evitan pisar ciertos patrones del suelo",
+      "el mismo símbolo aparece incompleto en tres materiales distintos",
+      "una nota advierte que el orden de salas importa más que la fuerza",
+      "las patrullas evitan pisar ciertos patrónes del suelo",
     ],
     trapHooks: [
       "placas rituales castigan a quien rompe el orden correcto",
@@ -59,14 +59,14 @@ const causeTable = [
     ],
     treasureHooks: [
       "componentes valiosos quedaron ordenados para una segunda ceremonia",
-      "una llave ritual abre una puerta, pero tambien revela una alarma",
+      "una llave ritual abre una puerta, pero también revela una alarma",
     ],
     doorHooks: [
-      "la puerta muestra ranuras para piezas que no estan aqui",
+      "la puerta muestra ranuras para piezas que no estan aquí",
       "los cierres siguen una secuencia repetida en murales anteriores",
     ],
     finalHooks: [
-      "el jefe esta junto al circulo incompleto",
+      "el jefe esta junto al círculo incompleto",
       "la sala final permite romper, completar o robar el foco del rito",
     ],
   },
@@ -78,14 +78,14 @@ const causeTable = [
     weight: 3,
     summary: "un territorio antiguo fue ocupado por una presencia nueva que empuja a los habitantes originales",
     situation: [
-      "las zonas externas aun funcionan como nido, campamento o ruta de caza",
+      "las zonas externas aún funcionan como nido, campamento o ruta de caza",
       "el borde entre grupos esta lleno de marcas recientes y rutas cerradas",
       "la zona final contiene la razon por la que nadie abandona el lugar",
     ],
     clues: [
-      "dos tipos de huellas se superponen sin seguir el mismo patron",
+      "dos tipos de huellas se superponen sin seguir el mismo patrón",
       "las barricadas miran hacia dentro, no hacia la entrada",
-      "restos de alimento o botin aparecen lejos de donde deberian estar",
+      "restos de alimento o botín aparecen lejos de donde deberian estar",
     ],
     trapHooks: [
       "trampas improvisadas bloquean el avance de una faccion rival",
@@ -112,13 +112,13 @@ const causeTable = [
     weight: 2,
     summary: "una defensa dormida desperto y reorganizo partes del sitio como si la guerra siguiera activa",
     situation: [
-      "mecanismos antiguos abren rutas utiles y cierran rutas seguras",
+      "mecanismos antiguos abren rutas Útiles y cierran rutas seguras",
       "los ocupantes vivos usan atajos que las defensas no reconocen",
-      "el nucleo final mantiene una orden vieja sin entender el presente",
+      "el núcleo final mantiene una orden vieja sin entender el presente",
     ],
     clues: [
-      "marcas de patrulla perfectas cortan rastros mas recientes",
-      "puertas distintas repiten el mismo patron de desgaste mecanico",
+      "marcas de patrulla perfectas cortan rastros más recientes",
+      "puertas distintas repiten el mismo patrón de desgaste mecánico",
       "una alarma se activa tarde, como si el sitio despertara por partes",
     ],
     trapHooks: [
@@ -127,14 +127,14 @@ const causeTable = [
     ],
     treasureHooks: [
       "un identificador antiguo que reduce la hostilidad de una defensa",
-      "herramientas calibradas para reparar o sabotear el nucleo",
+      "herramientas calibradas para reparar o sabotear el núcleo",
     ],
     doorHooks: [
       "la puerta tiene cierres redundantes y marcas de mantenimiento antiguo",
       "un visor estrecho permite comprobar quien se acerca antes de abrir",
     ],
     finalHooks: [
-      "la sala final contiene el nucleo de mando o su imitacion rota",
+      "la sala final contiene el núcleo de mando o su imitacion rota",
       "el jefe defiende una orden que ya no tiene sentido",
     ],
   },
@@ -147,21 +147,21 @@ const causeTable = [
     summary: "el lugar fue construido para ocultar algo que ahora atrae ocupantes y peligros",
     situation: [
       "la ruta principal rodea el secreto, pero los atajos apuntan hacia el",
-      "quien vive aqui conoce parte de la verdad y protege la version que le conviene",
-      "los tesoros pequenos son senales de algo mas valioso, no la recompensa final",
+      "quien vive aquí conoce parte de la verdad y protege la versión que le conviene",
+      "los tesoros pequeños son señales de algo más valioso, no la recompensa final",
     ],
     clues: [
       "nombres raspados se repiten cerca de accesos importantes",
-      "una medida arquitectonica no coincide con el tamano visible de las salas",
-      "el polvo revela que una pared se abre mas veces de lo esperado",
+      "una medida arquitectonica no coincide con el tamaño visible de las salas",
+      "el polvo revela que una pared se abre más veces de lo esperado",
     ],
     trapHooks: [
-      "una trampa protege informacion, no solo dano",
+      "una trampa protege información, no solo daño",
       "un mecanismo castiga a quien toma tesoro sin leer las marcas",
     ],
     treasureHooks: [
       "una llave sin etiqueta que corresponde a una puerta de otra zona",
-      "un objeto valioso escondido junto a una advertencia util",
+      "un objeto valioso escondido junto a una advertencia Útil",
     ],
     doorHooks: [
       "la puerta encaja demasiado bien para una pared tan vieja",
@@ -169,7 +169,7 @@ const causeTable = [
     ],
     finalHooks: [
       "la sala final revela por que el sitio fue ocultado",
-      "el jefe es guardian, ladron o consecuencia del secreto enterrado",
+      "el jefe es guardian, ladrón o consecuencia del secreto enterrado",
     ],
   },
 ];
@@ -178,10 +178,10 @@ export function generateDungeonNarrative(config, inhabitantMix, rng) {
   const cause = selectCause(config, inhabitantMix, rng);
   const situation = {
     id: `${cause.id}-situation`,
-    label: "Situacion actual",
-    summary: pickOne(rng, cause.situation, "la tension interna sigue cambiando el sitio"),
+    label: "Situación actual",
+    summary: pickOne(rng, cause.situation, "la tensión interna sigue cambiando el sitio"),
   };
-  const relation = inhabitantMix?.relationship || { label: "Relacion simple", summary: "Un grupo domina el lugar." };
+  const relation = inhabitantMix?.relationship || { label: "Relación simple", summary: "Un grupo domina el lugar." };
   const premise = buildPremise(config, cause, situation, relation);
 
   return {
@@ -231,8 +231,8 @@ export function formatNarrativeNotes(narrative, zones = []) {
 
   return [
     `Causa interna: ${narrative.cause.label} - ${narrative.cause.summary}.`,
-    `Situacion actual: ${narrative.situation.summary}.`,
-    `Relacion: ${narrative.relationship.label} - ${narrative.relationship.summary}.`,
+    `Situación actual: ${narrative.situation.summary}.`,
+    `Relación: ${narrative.relationship.label} - ${narrative.relationship.summary}.`,
     zoneText,
   ].filter(Boolean).join(" ");
 }
@@ -267,7 +267,7 @@ function buildRoomDmNote(roomType, zone, narrative, inhabitantRole) {
   }
 
   if (roomType === "secreto") {
-    return "Usa este secreto como atajo, prueba de la causa interna o pista opcional.";
+    return "Usa este secreto como atajo, prueba de la causa interna o pista opciónal.";
   }
 
   if (roomType === "trampa") {
@@ -275,10 +275,10 @@ function buildRoomDmNote(roomType, zone, narrative, inhabitantRole) {
   }
 
   if (inhabitantRole?.role === "mixed") {
-    return "Muestra la tension entre facciones antes de convertirla automaticamente en combate.";
+    return "Muestra la tensión entre facciones antes de convertirla automáticamente en combate.";
   }
 
-  return `Refuerza ${zone?.name || "la zona"} con una pista, olor, objeto o reparacion reconocible.`;
+  return `Refuerza ${zone?.name || "la zona"} con una pista, olor, objeto o reparación reconocible.`;
 }
 
 function pickManyStable(rng, items, count) {

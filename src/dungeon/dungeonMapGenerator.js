@@ -25,8 +25,8 @@ import { createRng, createSeed, pickOne, randomInt } from "./dungeonTypes.js";
 
 export const mapTileTypes = [
   { id: "wall", label: "Muro", symbol: "#", description: "Roca, muro o zona no excavada" },
-  { id: "room", label: "Cuarto", symbol: ".", description: "Piso de sala o camara" },
-  { id: "corridor", label: "Pasillo", symbol: ",", description: "Conexion transitable" },
+  { id: "room", label: "Cuarto", symbol: ".", description: "Piso de sala o cámara" },
+  { id: "corridor", label: "Pasillo", symbol: ",", description: "Conexión transitable" },
   { id: "door", label: "Puerta", symbol: "+", description: "Puerta, arco cerrado o umbral" },
   { id: "window", label: "Ventana", symbol: "=", description: "Ventana, rejilla o abertura estrecha" },
   { id: "water", label: "Agua", symbol: "~", description: "Agua, hielo fino, canal o charco profundo" },
@@ -34,12 +34,12 @@ export const mapTileTypes = [
   { id: "treasure", label: "Tesoro", symbol: "$", description: "Tesoro, cofre, alijo u objeto clave" },
   { id: "secret", label: "Secreto", symbol: "?", description: "Acceso oculto o detalle secreto" },
   { id: "entrance", label: "Entrada", symbol: "E", description: "Entrada principal o punto de inicio" },
-  { id: "boss", label: "Jefe", symbol: "B", description: "Sala final, lider o amenaza central" },
+  { id: "boss", label: "Jefe", symbol: "B", description: "Sala final, líder o amenaza central" },
   { id: "stairs", label: "Escalera", symbol: "^", description: "Escalera o tramo vertical" },
-  { id: "pit", label: "Foso", symbol: "O", description: "Foso, hueco o caida peligrosa" },
+  { id: "pit", label: "Foso", symbol: "O", description: "Foso, hueco o caída peligrosa" },
   { id: "bridge", label: "Puente", symbol: ":", description: "Puente, pasarela o cruce elevado" },
   { id: "column", label: "Columna", symbol: "o", description: "Columna, pilar o soporte" },
-  { id: "rubble", label: "Derrumbe", symbol: "%", description: "Escombros, derrumbe o terreno dificil" },
+  { id: "rubble", label: "Derrumbe", symbol: "%", description: "Escombros, derrumbe o terreno difícil" },
   { id: "altar", label: "Altar", symbol: "A", description: "Altar, mesa ritual o foco de escena" },
   { id: "statue", label: "Estatua", symbol: "S", description: "Estatua, idolo o figura tallada" },
   { id: "throne", label: "Trono", symbol: "T", description: "Trono, silla dominante o puesto de mando" },
@@ -48,8 +48,8 @@ export const mapTileTypes = [
   { id: "exit", label: "Salida", symbol: "X", description: "Salida, escape o cierre externo" },
   { id: "secondaryEntrance", label: "Entrada secundaria", symbol: "e", description: "Entrada secundaria o ruta alternativa de acceso" },
   { id: "blocked", label: "Bloqueado", symbol: "x", description: "Paso bloqueado, derrumbe o barricada" },
-  { id: "elevationUp", label: "Sube", symbol: "<", description: "Cambio de elevacion hacia arriba" },
-  { id: "elevationDown", label: "Baja", symbol: ">", description: "Cambio de elevacion hacia abajo" },
+  { id: "elevationUp", label: "Sube", symbol: "<", description: "Cambio de elevación hacia arriba" },
+  { id: "elevationDown", label: "Baja", symbol: ">", description: "Cambio de elevación hacia abajo" },
 ];
 
 const tileTypeLookup = Object.fromEntries(mapTileTypes.map((tile) => [tile.id, tile]));
@@ -717,7 +717,7 @@ function getRouteLabel(kind) {
     "secret-shortcut": "Atajo secreto",
     "zone-gate": "Puerta entre zonas",
   };
-  return labels[kind] || "Conexion";
+  return labels[kind] || "Conexión";
 }
 
 function getConnectionKey(first, second) {

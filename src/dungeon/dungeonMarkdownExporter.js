@@ -65,7 +65,7 @@ export function renderMarkdownCompact(dungeon) {
     dungeon?.map?.cells?.length ? renderAsciiDungeonMap(dungeon.map) : "Sin mapa visual.",
     "```",
     "",
-    "## Indice de salas",
+    "## Índice de salas",
     "",
     ...viewModel.rooms.map((room) => `- ${room.id} ${room.name} (${room.typeLabel}, riesgo ${room.riskLabel}): ${room.connections.join(", ") || "sin conexiones"}`),
     "",
@@ -90,14 +90,14 @@ export function renderRoomMarkdown(room) {
     room.zoneName ? `- Zona: ${room.zoneName}` : "",
     room.shapeLabel ? `- Forma: ${room.shapeLabel}` : "",
     Number.isFinite(room.floorLevel) ? `- Nivel: ${room.floorLevel}` : "",
-    room.elevationHint ? `- Elevacion: ${room.elevationHint}` : "",
+    room.elevationHint ? `- Elevación: ${room.elevationHint}` : "",
     room.featureTiles?.length ? `- Tiles especiales: ${summarizeFeatureTiles(room.featureTiles)}` : "",
     "",
-    room.readAloud || "Sin descripcion.",
+    room.readAloud || "Sin descripción.",
   ];
 
   if (room.visibleSigns.length) {
-    lines.push("", `**Senales visibles:** ${room.visibleSigns.join("; ")}`);
+    lines.push("", `**Señales visibles:** ${room.visibleSigns.join("; ")}`);
   }
 
   if (room.investigationClues.length) {
@@ -182,7 +182,7 @@ export function renderDoorTableMarkdown(rows) {
   return [
     "## Puertas y accesos",
     "",
-    "| Conexion | Tipo | Piezas | Resumen |",
+    "| Conexión | Tipo | Piezas | Resumen |",
     "| --- | --- | ---: | --- |",
     ...rows.map((row) => [
       row.roomsText || row.connectionLabel,
@@ -200,7 +200,7 @@ function renderMapMarkdown(dungeon, viewModel) {
 
   return [
     `- Escala: 1 cuadro = ${dungeon.map.tileSizeFeet || 5} pies`,
-    `- Tamano: ${dungeon.map.width} x ${dungeon.map.height} cuadros (${dungeon.map.widthFeet} x ${dungeon.map.heightFeet} pies)`,
+    `- Tamaño: ${dungeon.map.width} x ${dungeon.map.height} cuadros (${dungeon.map.widthFeet} x ${dungeon.map.heightFeet} pies)`,
     `- Leyenda: ${viewModel.mapLegend.map((tile) => `${tile.symbol} ${tile.label}`).join(", ")}`,
     `- Pisos: ${summarizeFloors(dungeon.map.rooms || [])}`,
     "",
@@ -237,8 +237,8 @@ function renderNarrativeMarkdown(narrative) {
     "## Hilo interno",
     "",
     `- Causa: ${narrative.cause} - ${narrative.causeSummary}`,
-    `- Situacion actual: ${narrative.situation}`,
-    `- Relacion: ${narrative.relationship} - ${narrative.relationshipSummary}`,
+    `- Situación actual: ${narrative.situation}`,
+    `- Relación: ${narrative.relationship} - ${narrative.relationshipSummary}`,
     `- Mezcla: ${narrative.mixSummary || "Sin mezcla"}`,
     `- Pistas: ${narrative.clues.join("; ") || "Sin pistas"}`,
   ];
@@ -277,7 +277,7 @@ function renderEcologyMarkdown(ecology) {
 
 function renderWarningsMarkdown(warnings) {
   if (!warnings.length) {
-    return ["## Revision", "", "Sin alertas de validacion."];
+    return ["## Revision", "", "Sin alertas de validación."];
   }
 
   return [

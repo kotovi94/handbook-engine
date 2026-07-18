@@ -10,7 +10,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Armor of Gleaming (common).",
     "effects": [],
-    "sheetText": "Armor of Gleaming: common; efecto segun DMG/DM."
+    "sheetText": "Armor of Gleaming: common; efecto según DMG/DM."
   },
   {
     "id": "magic-bead-of-nourishment",
@@ -22,7 +22,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Bead of Nourishment (common).",
     "effects": [],
-    "sheetText": "Bead of Nourishment: common; efecto segun DMG/DM."
+    "sheetText": "Bead of Nourishment: common; efecto según DMG/DM."
   },
   {
     "id": "magic-bead-of-refreshment",
@@ -34,7 +34,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Bead of Refreshment (common).",
     "effects": [],
-    "sheetText": "Bead of Refreshment: common; efecto segun DMG/DM."
+    "sheetText": "Bead of Refreshment: common; efecto según DMG/DM."
   },
   {
     "id": "magic-boots-of-false-tracks",
@@ -44,9 +44,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Common",
     "requiresAttunement": true,
-    "summary": "Boots of False Tracks (common, requiere sintonia).",
+    "summary": "Boots of False Tracks (common, requiere sintonía).",
     "effects": [],
-    "sheetText": "Boots of False Tracks: common, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Boots of False Tracks: common, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-candle-of-the-deep",
@@ -58,7 +58,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Candle of the Deep (common).",
     "effects": [],
-    "sheetText": "Candle of the Deep: common; efecto segun DMG/DM."
+    "sheetText": "Candle of the Deep: common; efecto según DMG/DM."
   },
   {
     "id": "magic-cloak-of-many-fashions",
@@ -70,7 +70,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Capa de muchas modas (common).",
     "effects": [],
-    "sheetText": "Capa de muchas modas: common; efecto segun DMG/DM."
+    "sheetText": "Capa de muchas modas: common; efecto según DMG/DM."
   },
   {
     "id": "magic-cast-off-armor",
@@ -82,7 +82,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Cast-Off Armor (common).",
     "effects": [],
-    "sheetText": "Cast-Off Armor: common; efecto segun DMG/DM."
+    "sheetText": "Cast-Off Armor: common; efecto según DMG/DM."
   },
   {
     "id": "magic-charlatans-die",
@@ -92,9 +92,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Common",
     "requiresAttunement": true,
-    "summary": "Charlatan's Die (common, requiere sintonia).",
+    "summary": "Charlatan's Die (common, requiere sintonía).",
     "effects": [],
-    "sheetText": "Charlatan's Die: common, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Charlatan's Die: common, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-cloak-of-billowing",
@@ -106,7 +106,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Cloak of Billowing (common).",
     "effects": [],
-    "sheetText": "Cloak of Billowing: common; efecto segun DMG/DM."
+    "sheetText": "Cloak of Billowing: common; efecto según DMG/DM."
   },
   {
     "id": "magic-clockwork-amulet",
@@ -118,7 +118,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Clockwork Amulet (common).",
     "effects": [],
-    "sheetText": "Clockwork Amulet: common; efecto segun DMG/DM."
+    "sheetText": "Clockwork Amulet: common; efecto según DMG/DM."
   },
   {
     "id": "magic-clothes-of-mending",
@@ -130,7 +130,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Clothes of Mending (common).",
     "effects": [],
-    "sheetText": "Clothes of Mending: common; efecto segun DMG/DM."
+    "sheetText": "Clothes of Mending: common; efecto según DMG/DM."
   },
   {
     "id": "magic-dark-shard-amulet",
@@ -140,9 +140,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Common",
     "requiresAttunement": true,
-    "summary": "Dark Shard Amulet (common, requiere sintonia).",
+    "summary": "Dark Shard Amulet (common, requiere sintonía).",
     "effects": [],
-    "sheetText": "Dark Shard Amulet: common, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Dark Shard Amulet: common, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-dread-helm",
@@ -154,7 +154,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Dread Helm (common).",
     "effects": [],
-    "sheetText": "Dread Helm: common; efecto segun DMG/DM."
+    "sheetText": "Dread Helm: common; efecto según DMG/DM."
   },
   {
     "id": "magic-ear-horn-of-hearing",
@@ -166,7 +166,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Ear Horn of Hearing (common).",
     "effects": [],
-    "sheetText": "Ear Horn of Hearing: common; efecto segun DMG/DM."
+    "sheetText": "Ear Horn of Hearing: common; efecto según DMG/DM."
   },
   {
     "id": "magic-enduring-spellbook",
@@ -178,7 +178,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Enduring Spellbook (common).",
     "effects": [],
-    "sheetText": "Enduring Spellbook: common; efecto segun DMG/DM."
+    "sheetText": "Enduring Spellbook: common; efecto según DMG/DM."
   },
   {
     "id": "magic-ersatz-eye",
@@ -190,7 +190,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Ersatz Eye (common).",
     "effects": [],
-    "sheetText": "Ersatz Eye: common; efecto segun DMG/DM."
+    "sheetText": "Ersatz Eye: common; efecto según DMG/DM."
   },
   {
     "id": "magic-hat-of-vermin",
@@ -202,7 +202,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Hat of Vermin (common).",
     "effects": [],
-    "sheetText": "Hat of Vermin: common; efecto segun DMG/DM."
+    "sheetText": "Hat of Vermin: common; efecto según DMG/DM."
   },
   {
     "id": "magic-hat-of-wizardry",
@@ -212,9 +212,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Common",
     "requiresAttunement": true,
-    "summary": "Hat of Wizardry (common, requiere sintonia).",
+    "summary": "Hat of Wizardry (common, requiere sintonía).",
     "effects": [],
-    "sheetText": "Hat of Wizardry: common, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Hat of Wizardry: common, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-hewards-handy-spice-pouch",
@@ -226,7 +226,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Heward's Handy Spice Pouch (common).",
     "effects": [],
-    "sheetText": "Heward's Handy Spice Pouch: common; efecto segun DMG/DM."
+    "sheetText": "Heward's Handy Spice Pouch: common; efecto según DMG/DM."
   },
   {
     "id": "magic-horn-of-silent-alarm",
@@ -238,7 +238,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Horn of Silent Alarm (common).",
     "effects": [],
-    "sheetText": "Horn of Silent Alarm: common; efecto segun DMG/DM."
+    "sheetText": "Horn of Silent Alarm: common; efecto según DMG/DM."
   },
   {
     "id": "magic-instrument-of-illusions",
@@ -250,7 +250,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Instrument of Illusions (common).",
     "effects": [],
-    "sheetText": "Instrument of Illusions: common; efecto segun DMG/DM."
+    "sheetText": "Instrument of Illusions: common; efecto según DMG/DM."
   },
   {
     "id": "magic-instrument-of-scribing",
@@ -262,7 +262,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Instrument of Scribing (common).",
     "effects": [],
-    "sheetText": "Instrument of Scribing: common; efecto segun DMG/DM."
+    "sheetText": "Instrument of Scribing: common; efecto según DMG/DM."
   },
   {
     "id": "magic-lock-of-trickery",
@@ -274,7 +274,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Lock of Trickery (common).",
     "effects": [],
-    "sheetText": "Lock of Trickery: common; efecto segun DMG/DM."
+    "sheetText": "Lock of Trickery: common; efecto según DMG/DM."
   },
   {
     "id": "magic-moon-touched-sword",
@@ -286,7 +286,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Moon-Touched Sword (common).",
     "effects": [],
-    "sheetText": "Moon-Touched Sword: common; efecto segun DMG/DM."
+    "sheetText": "Moon-Touched Sword: common; efecto según DMG/DM."
   },
   {
     "id": "magic-mystery-key",
@@ -298,7 +298,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Mystery Key (common).",
     "effects": [],
-    "sheetText": "Mystery Key: common; efecto segun DMG/DM."
+    "sheetText": "Mystery Key: common; efecto según DMG/DM."
   },
   {
     "id": "magic-orb-of-direction",
@@ -310,7 +310,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Orb of Direction (common).",
     "effects": [],
-    "sheetText": "Orb of Direction: common; efecto segun DMG/DM."
+    "sheetText": "Orb of Direction: common; efecto según DMG/DM."
   },
   {
     "id": "magic-orb-of-time",
@@ -322,7 +322,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Orb of Time (common).",
     "effects": [],
-    "sheetText": "Orb of Time: common; efecto segun DMG/DM."
+    "sheetText": "Orb of Time: common; efecto según DMG/DM."
   },
   {
     "id": "magic-perfume-of-bewitching",
@@ -334,7 +334,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Perfume of Bewitching (common).",
     "effects": [],
-    "sheetText": "Perfume of Bewitching: common; efecto segun DMG/DM."
+    "sheetText": "Perfume of Bewitching: common; efecto según DMG/DM."
   },
   {
     "id": "magic-pipe-of-smoke-monsters",
@@ -346,7 +346,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Pipe of Smoke Monsters (common).",
     "effects": [],
-    "sheetText": "Pipe of Smoke Monsters: common; efecto segun DMG/DM."
+    "sheetText": "Pipe of Smoke Monsters: common; efecto según DMG/DM."
   },
   {
     "id": "magic-potion-of-climbing",
@@ -358,7 +358,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Pocion de escalada (common).",
     "effects": [],
-    "sheetText": "Pocion de escalada: common; efecto segun DMG/DM."
+    "sheetText": "Pocion de escalada: common; efecto según DMG/DM."
   },
   {
     "id": "magic-pole-of-angling",
@@ -370,7 +370,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Pole of Angling (common).",
     "effects": [],
-    "sheetText": "Pole of Angling: common; efecto segun DMG/DM."
+    "sheetText": "Pole of Angling: common; efecto según DMG/DM."
   },
   {
     "id": "magic-pole-of-collapsing",
@@ -382,7 +382,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Pole of Collapsing (common).",
     "effects": [],
-    "sheetText": "Pole of Collapsing: common; efecto segun DMG/DM."
+    "sheetText": "Pole of Collapsing: common; efecto según DMG/DM."
   },
   {
     "id": "magic-pot-of-awakening",
@@ -394,7 +394,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Pot of Awakening (common).",
     "effects": [],
-    "sheetText": "Pot of Awakening: common; efecto segun DMG/DM."
+    "sheetText": "Pot of Awakening: common; efecto según DMG/DM."
   },
   {
     "id": "magic-potion-of-comprehension",
@@ -406,7 +406,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Potion of Comprehension (common).",
     "effects": [],
-    "sheetText": "Potion of Comprehension: common; efecto segun DMG/DM."
+    "sheetText": "Potion of Comprehension: common; efecto según DMG/DM."
   },
   {
     "id": "magic-prosthetic-limb",
@@ -418,7 +418,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Prosthetic Limb (common).",
     "effects": [],
-    "sheetText": "Prosthetic Limb: common; efecto segun DMG/DM."
+    "sheetText": "Prosthetic Limb: common; efecto según DMG/DM."
   },
   {
     "id": "magic-rival-coin",
@@ -430,7 +430,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Rival Coin (common).",
     "effects": [],
-    "sheetText": "Rival Coin: common; efecto segun DMG/DM."
+    "sheetText": "Rival Coin: common; efecto según DMG/DM."
   },
   {
     "id": "magic-rope-of-mending",
@@ -442,7 +442,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Rope of Mending (common).",
     "effects": [],
-    "sheetText": "Rope of Mending: common; efecto segun DMG/DM."
+    "sheetText": "Rope of Mending: common; efecto según DMG/DM."
   },
   {
     "id": "magic-ruby-of-the-war-mage",
@@ -452,9 +452,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Common",
     "requiresAttunement": true,
-    "summary": "Ruby of the War Mage (common, requiere sintonia).",
+    "summary": "Ruby of the War Mage (common, requiere sintonía).",
     "effects": [],
-    "sheetText": "Ruby of the War Mage: common, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Ruby of the War Mage: common, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-shield-of-expression",
@@ -466,7 +466,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Shield of Expression (common).",
     "effects": [],
-    "sheetText": "Shield of Expression: common; efecto segun DMG/DM."
+    "sheetText": "Shield of Expression: common; efecto según DMG/DM."
   },
   {
     "id": "magic-silvered-weapon",
@@ -478,7 +478,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Silvered Weapon (common).",
     "effects": [],
-    "sheetText": "Silvered Weapon: common; efecto segun DMG/DM."
+    "sheetText": "Silvered Weapon: common; efecto según DMG/DM."
   },
   {
     "id": "magic-smoldering-armor",
@@ -490,7 +490,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Smoldering Armor (common).",
     "effects": [],
-    "sheetText": "Smoldering Armor: common; efecto segun DMG/DM."
+    "sheetText": "Smoldering Armor: common; efecto según DMG/DM."
   },
   {
     "id": "magic-staff-of-adornment",
@@ -502,7 +502,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Staff of Adornment (common).",
     "effects": [],
-    "sheetText": "Staff of Adornment: common; efecto segun DMG/DM."
+    "sheetText": "Staff of Adornment: common; efecto según DMG/DM."
   },
   {
     "id": "magic-staff-of-birdcalls",
@@ -514,7 +514,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Staff of Birdcalls (common).",
     "effects": [],
-    "sheetText": "Staff of Birdcalls: common; efecto segun DMG/DM."
+    "sheetText": "Staff of Birdcalls: common; efecto según DMG/DM."
   },
   {
     "id": "magic-staff-of-flowers",
@@ -526,7 +526,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Staff of Flowers (common).",
     "effects": [],
-    "sheetText": "Staff of Flowers: common; efecto segun DMG/DM."
+    "sheetText": "Staff of Flowers: common; efecto según DMG/DM."
   },
   {
     "id": "magic-sylvan-talon",
@@ -536,9 +536,9 @@ export const magicItems = [
     "itemType": "Weapon (Dagger, Rapier, Scimitar, Shortsword, Sickle, or Spear)",
     "rarity": "Common",
     "requiresAttunement": true,
-    "summary": "Sylvan Talon (common, requiere sintonia).",
+    "summary": "Sylvan Talon (common, requiere sintonía).",
     "effects": [],
-    "sheetText": "Sylvan Talon: common, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Sylvan Talon: common, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-talking-doll",
@@ -548,9 +548,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Common",
     "requiresAttunement": true,
-    "summary": "Talking Doll (common, requiere sintonia).",
+    "summary": "Talking Doll (common, requiere sintonía).",
     "effects": [],
-    "sheetText": "Talking Doll: common, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Talking Doll: common, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-tankard-of-sobriety",
@@ -562,7 +562,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Tankard of Sobriety (common).",
     "effects": [],
-    "sheetText": "Tankard of Sobriety: common; efecto segun DMG/DM."
+    "sheetText": "Tankard of Sobriety: common; efecto según DMG/DM."
   },
   {
     "id": "magic-veterans-cane",
@@ -574,7 +574,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Veteran's Cane (common).",
     "effects": [],
-    "sheetText": "Veteran's Cane: common; efecto segun DMG/DM."
+    "sheetText": "Veteran's Cane: common; efecto según DMG/DM."
   },
   {
     "id": "magic-walloping-ammunition",
@@ -586,7 +586,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Walloping Ammunition (common).",
     "effects": [],
-    "sheetText": "Walloping Ammunition: common; efecto segun DMG/DM."
+    "sheetText": "Walloping Ammunition: common; efecto según DMG/DM."
   },
   {
     "id": "magic-wand-of-conducting",
@@ -598,7 +598,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Wand of Conducting (common).",
     "effects": [],
-    "sheetText": "Wand of Conducting: common; efecto segun DMG/DM."
+    "sheetText": "Wand of Conducting: common; efecto según DMG/DM."
   },
   {
     "id": "magic-wand-of-pyrotechnics",
@@ -610,7 +610,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Wand of Pyrotechnics (common).",
     "effects": [],
-    "sheetText": "Wand of Pyrotechnics: common; efecto segun DMG/DM."
+    "sheetText": "Wand of Pyrotechnics: common; efecto según DMG/DM."
   },
   {
     "id": "magic-amulet-of-proof-against-detection-and-location",
@@ -620,9 +620,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Amulet of Proof against Detection and Location (uncommon, requiere sintonia).",
+    "summary": "Amulet of Proof against Detection and Location (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Amulet of Proof against Detection and Location: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Amulet of Proof against Detection and Location: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-adamantine-weapon",
@@ -634,7 +634,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Arma adamantina (uncommon).",
     "effects": [],
-    "sheetText": "Arma adamantina: uncommon; efecto segun DMG/DM."
+    "sheetText": "Arma adamantina: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-weapon-of-warning",
@@ -644,9 +644,9 @@ export const magicItems = [
     "itemType": "Weapon (Any Simple or Martial)",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Arma de advertencia (uncommon, requiere sintonia).",
+    "summary": "Arma de advertencia (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Arma de advertencia: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Arma de advertencia: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-adamantine-armor",
@@ -658,7 +658,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Armadura adamantina (uncommon).",
     "effects": [],
-    "sheetText": "Armadura adamantina: uncommon; efecto segun DMG/DM."
+    "sheetText": "Armadura adamantina: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-mithral-armor",
@@ -670,7 +670,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Armadura de mithril (uncommon).",
     "effects": [],
-    "sheetText": "Armadura de mithril: uncommon; efecto segun DMG/DM."
+    "sheetText": "Armadura de mithril: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-baba-yagas-dancing-broom",
@@ -680,9 +680,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Baba Yaga's Dancing Broom (uncommon, requiere sintonia).",
+    "summary": "Baba Yaga's Dancing Broom (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Baba Yaga's Dancing Broom: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Baba Yaga's Dancing Broom: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-bag-of-tricks",
@@ -694,7 +694,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Bag of Tricks (uncommon).",
     "effects": [],
-    "sheetText": "Bag of Tricks: uncommon; efecto segun DMG/DM."
+    "sheetText": "Bag of Tricks: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-deck-of-illusions",
@@ -706,19 +706,19 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Baraja de ilusiones (uncommon).",
     "effects": [],
-    "sheetText": "Baraja de ilusiones: uncommon; efecto segun DMG/DM."
+    "sheetText": "Baraja de ilusiones: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-bag-of-holding",
     "name": "Bag of Holding",
-    "label": "Bolsa de contencion",
+    "label": "Bolsa de contención",
     "source": "Dungeon Master's Guide 2024",
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": false,
-    "summary": "Bolsa de contencion (uncommon).",
+    "summary": "Bolsa de contención (uncommon).",
     "effects": [],
-    "sheetText": "Bolsa de contencion: guarda equipo en un espacio extradimensional; anota capacidad segun DM."
+    "sheetText": "Bolsa de contención: guarda equipo en un espacio extradimensional; anota capacidad según DM."
   },
   {
     "id": "magic-winged-boots",
@@ -728,9 +728,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Botas aladas (uncommon, requiere sintonia).",
+    "summary": "Botas aladas (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Botas aladas: requiere sintonia; obtienes velocidad de vuelo igual a tu velocidad caminando por duracion limitada."
+    "sheetText": "Botas aladas: requiere sintonía; obtienes velocidad de vuelo igual a tu velocidad caminando por duración limitada."
   },
   {
     "id": "magic-boots-of-the-winterlands",
@@ -740,9 +740,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Botas de las tierras invernales (uncommon, requiere sintonia).",
+    "summary": "Botas de las tierras invernales (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Botas de las tierras invernales: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Botas de las tierras invernales: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-boots-of-elvenkind",
@@ -764,9 +764,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Botas de zancadas y saltos (uncommon, requiere sintonia).",
+    "summary": "Botas de zancadas y saltos (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Botas de zancadas y saltos: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Botas de zancadas y saltos: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-bracers-of-archery",
@@ -776,9 +776,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Brazales de arqueria (uncommon, requiere sintonia).",
+    "summary": "Brazales de arqueria (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Brazales de arqueria: requiere sintonia; competencia con arcos y +2 dano con arco largo o corto."
+    "sheetText": "Brazales de arqueria: requiere sintonía; competencia con arcos y +2 daño con arco largo o corto."
   },
   {
     "id": "magic-brooch-of-shielding",
@@ -788,9 +788,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Broche de escudo (uncommon, requiere sintonia).",
+    "summary": "Broche de escudo (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Broche de escudo: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Broche de escudo: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-cloak-of-the-manta-ray",
@@ -800,9 +800,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Capa de la mantarraya (uncommon, requiere sintonia).",
+    "summary": "Capa de la mantarraya (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Capa de la mantarraya: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Capa de la mantarraya: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-cloak-of-elvenkind",
@@ -812,26 +812,26 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Capa de los elfos (uncommon, requiere sintonia).",
+    "summary": "Capa de los elfos (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Capa de los elfos: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Capa de los elfos: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-cloak-of-protection",
     "name": "Cloak of Protection",
-    "label": "Capa de proteccion",
+    "label": "Capa de protección",
     "source": "Dungeon Master's Guide 2024",
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Capa de proteccion (uncommon, requiere sintonia).",
+    "summary": "Capa de protección (uncommon, requiere sintonía).",
     "effects": [
       {
         "type": "armor.acBonus",
         "value": 1
       }
     ],
-    "sheetText": "Capa de proteccion: requiere sintonia; +1 a CA y tiradas de salvacion."
+    "sheetText": "Capa de protección: requiere sintonía; +1 a CA y tiradas de salvación."
   },
   {
     "id": "magic-circlet-of-blasting",
@@ -843,7 +843,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Circlet of Blasting (uncommon).",
     "effects": [],
-    "sheetText": "Circlet of Blasting: uncommon; efecto segun DMG/DM."
+    "sheetText": "Circlet of Blasting: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-decanter-of-endless-water",
@@ -855,7 +855,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Decantador de agua infinita (uncommon).",
     "effects": [],
-    "sheetText": "Decantador de agua infinita: uncommon; efecto segun DMG/DM."
+    "sheetText": "Decantador de agua infinita: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-headband-of-intellect",
@@ -865,9 +865,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Diadema de intelecto (uncommon, requiere sintonia).",
+    "summary": "Diadema de intelecto (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Diadema de intelecto: requiere sintonia; Inteligencia 19 mientras la usas, salvo que ya sea 19 o mas."
+    "sheetText": "Diadema de intelecto: requiere sintonía; Inteligencia 19 mientras la usas, salvo que ya sea 19 o más."
   },
   {
     "id": "magic-broom-of-flying",
@@ -877,9 +877,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Escoba voladora (uncommon, requiere sintonia).",
+    "summary": "Escoba voladora (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Escoba voladora: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Escoba voladora: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-eversmoking-bottle",
@@ -891,7 +891,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Eversmoking Bottle (uncommon).",
     "effects": [],
-    "sheetText": "Eversmoking Bottle: uncommon; efecto segun DMG/DM."
+    "sheetText": "Eversmoking Bottle: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-eyes-of-charming",
@@ -901,21 +901,21 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Eyes of Charming (uncommon, requiere sintonia).",
+    "summary": "Eyes of Charming (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Eyes of Charming: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Eyes of Charming: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-goggles-of-night",
     "name": "Goggles of Night",
-    "label": "Gafas de vision nocturna",
+    "label": "Gafas de visión nocturna",
     "source": "Dungeon Master's Guide 2024",
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": false,
-    "summary": "Gafas de vision nocturna (uncommon).",
+    "summary": "Gafas de visión nocturna (uncommon).",
     "effects": [],
-    "sheetText": "Gafas de vision nocturna: uncommon; efecto segun DMG/DM."
+    "sheetText": "Gafas de visión nocturna: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-gem-of-brightness",
@@ -927,7 +927,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Gem of Brightness (uncommon).",
     "effects": [],
-    "sheetText": "Gem of Brightness: uncommon; efecto segun DMG/DM."
+    "sheetText": "Gem of Brightness: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-elemental-gem",
@@ -939,7 +939,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Gema elemental (uncommon).",
     "effects": [],
-    "sheetText": "Gema elemental: uncommon; efecto segun DMG/DM."
+    "sheetText": "Gema elemental: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-driftglobe",
@@ -951,7 +951,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Globo flotante (uncommon).",
     "effects": [],
-    "sheetText": "Globo flotante: uncommon; efecto segun DMG/DM."
+    "sheetText": "Globo flotante: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-gloves-of-thievery",
@@ -963,7 +963,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Gloves of Thievery (uncommon).",
     "effects": [],
-    "sheetText": "Gloves of Thievery: uncommon; efecto segun DMG/DM."
+    "sheetText": "Gloves of Thievery: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-cap-of-water-breathing",
@@ -975,7 +975,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Gorro de respirar bajo el agua (uncommon).",
     "effects": [],
-    "sheetText": "Gorro de respirar bajo el agua: uncommon; efecto segun DMG/DM."
+    "sheetText": "Gorro de respirar bajo el agua: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-gauntlets-of-ogre-power",
@@ -985,9 +985,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Guanteletes de poder de ogro (uncommon, requiere sintonia).",
+    "summary": "Guanteletes de poder de ogro (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Guanteletes de poder de ogro: requiere sintonia; Fuerza 19 mientras los usas, salvo que ya sea 19 o mas."
+    "sheetText": "Guanteletes de poder de ogro: requiere sintonía; Fuerza 19 mientras los usas, salvo que ya sea 19 o más."
   },
   {
     "id": "magic-gloves-of-missile-snaring",
@@ -997,9 +997,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Guantes atrapamisiles (uncommon, requiere sintonia).",
+    "summary": "Guantes atrapamisiles (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Guantes atrapamisiles: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Guantes atrapamisiles: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-gloves-of-swimming-and-climbing",
@@ -1009,9 +1009,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Guantes de nadar y trepar (uncommon, requiere sintonia).",
+    "summary": "Guantes de nadar y trepar (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Guantes de nadar y trepar: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Guantes de nadar y trepar: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-hag-eye",
@@ -1023,7 +1023,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Hag Eye (uncommon).",
     "effects": [],
-    "sheetText": "Hag Eye: uncommon; efecto segun DMG/DM."
+    "sheetText": "Hag Eye: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-helm-of-comprehending-languages",
@@ -1035,7 +1035,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Helm of Comprehending Languages (uncommon).",
     "effects": [],
-    "sheetText": "Helm of Comprehending Languages: uncommon; efecto segun DMG/DM."
+    "sheetText": "Helm of Comprehending Languages: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-helm-of-telepathy",
@@ -1045,21 +1045,21 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Helm of Telepathy (uncommon, requiere sintonia).",
+    "summary": "Helm of Telepathy (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Helm of Telepathy: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Helm of Telepathy: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-javelin-of-lightning",
     "name": "Javelin of Lightning",
-    "label": "Jabalina de relampago",
+    "label": "Jabalina de relámpago",
     "source": "Dungeon Master's Guide 2024",
     "itemType": "Weapon (Javelin)",
     "rarity": "Uncommon",
     "requiresAttunement": false,
-    "summary": "Jabalina de relampago (uncommon).",
+    "summary": "Jabalina de relámpago (uncommon).",
     "effects": [],
-    "sheetText": "Jabalina de relampago: uncommon; efecto segun DMG/DM."
+    "sheetText": "Jabalina de relámpago: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-alchemy-jug",
@@ -1071,7 +1071,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Jarra alquimica (uncommon).",
     "effects": [],
-    "sheetText": "Jarra alquimica: uncommon; efecto segun DMG/DM."
+    "sheetText": "Jarra alquimica: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-keoghtoms-ointment",
@@ -1083,7 +1083,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Keoghtom's Ointment (uncommon).",
     "effects": [],
-    "sheetText": "Keoghtom's Ointment: uncommon; efecto segun DMG/DM."
+    "sheetText": "Keoghtom's Ointment: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-lantern-of-revealing",
@@ -1095,7 +1095,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Linterna reveladora (uncommon).",
     "effects": [],
-    "sheetText": "Linterna reveladora: uncommon; efecto segun DMG/DM."
+    "sheetText": "Linterna reveladora: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-mariners-armor",
@@ -1107,7 +1107,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Mariner's Armor (uncommon).",
     "effects": [],
-    "sheetText": "Mariner's Armor: uncommon; efecto segun DMG/DM."
+    "sheetText": "Mariner's Armor: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-medallion-of-thoughts",
@@ -1117,9 +1117,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Medallion of Thoughts (uncommon, requiere sintonia).",
+    "summary": "Medallion of Thoughts (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Medallion of Thoughts: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Medallion of Thoughts: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-natures-mantle",
@@ -1129,9 +1129,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Nature's Mantle (uncommon, requiere sintonia).",
+    "summary": "Nature's Mantle (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Nature's Mantle: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Nature's Mantle: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-necklace-of-adaptation",
@@ -1141,9 +1141,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Necklace of Adaptation (uncommon, requiere sintonia).",
+    "summary": "Necklace of Adaptation (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Necklace of Adaptation: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Necklace of Adaptation: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-oil-of-slipperiness",
@@ -1155,7 +1155,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Oil of Slipperiness (uncommon).",
     "effects": [],
-    "sheetText": "Oil of Slipperiness: uncommon; efecto segun DMG/DM."
+    "sheetText": "Oil of Slipperiness: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-eyes-of-the-eagle",
@@ -1167,19 +1167,19 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Ojos de aguila (uncommon).",
     "effects": [],
-    "sheetText": "Ojos de aguila: uncommon; efecto segun DMG/DM."
+    "sheetText": "Ojos de aguila: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-eyes-of-minute-seeing",
     "name": "Eyes of Minute Seeing",
-    "label": "Ojos de vision minuciosa",
+    "label": "Ojos de visión minuciosa",
     "source": "Dungeon Master's Guide 2024",
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": false,
-    "summary": "Ojos de vision minuciosa (uncommon).",
+    "summary": "Ojos de visión minuciosa (uncommon).",
     "effects": [],
-    "sheetText": "Ojos de vision minuciosa: uncommon; efecto segun DMG/DM."
+    "sheetText": "Ojos de visión minuciosa: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-periapt-of-wound-closure",
@@ -1189,9 +1189,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Periapt of Wound Closure (uncommon, requiere sintonia).",
+    "summary": "Periapt of Wound Closure (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Periapt of Wound Closure: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Periapt of Wound Closure: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-periapt-of-health",
@@ -1201,9 +1201,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Periapto de salud (uncommon, requiere sintonia).",
+    "summary": "Periapto de salud (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Periapto de salud: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Periapto de salud: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-pearl-of-power",
@@ -1213,9 +1213,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Perla de poder (uncommon, requiere sintonia).",
+    "summary": "Perla de poder (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Perla de poder: requiere sintonia; recupera 1 espacio gastado de nivel 1-3, 1 vez por amanecer."
+    "sheetText": "Perla de poder: requiere sintonía; recupera 1 espacio gastado de nivel 1-3, 1 vez por amanecer."
   },
   {
     "id": "magic-philter-of-love",
@@ -1227,7 +1227,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Philter of Love (uncommon).",
     "effects": [],
-    "sheetText": "Philter of Love: uncommon; efecto segun DMG/DM."
+    "sheetText": "Philter of Love: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-stone-of-good-luck-luckstone",
@@ -1237,9 +1237,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Piedra de buena suerte (uncommon, requiere sintonia).",
+    "summary": "Piedra de buena suerte (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Piedra de buena suerte: requiere sintonia; +1 a pruebas de caracteristica y tiradas de salvacion."
+    "sheetText": "Piedra de buena suerte: requiere sintonía; +1 a pruebas de característica y tiradas de salvación."
   },
   {
     "id": "magic-pipes-of-haunting",
@@ -1251,7 +1251,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Pipes of Haunting (uncommon).",
     "effects": [],
-    "sheetText": "Pipes of Haunting: uncommon; efecto segun DMG/DM."
+    "sheetText": "Pipes of Haunting: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-pipes-of-the-sewers",
@@ -1261,9 +1261,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Pipes of the Sewers (uncommon, requiere sintonia).",
+    "summary": "Pipes of the Sewers (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Pipes of the Sewers: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Pipes of the Sewers: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-dust-of-disappearance",
@@ -1275,7 +1275,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Polvo de desaparicion (uncommon).",
     "effects": [],
-    "sheetText": "Polvo de desaparicion: uncommon; efecto segun DMG/DM."
+    "sheetText": "Polvo de desaparicion: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-dust-of-sneezing-and-choking",
@@ -1287,7 +1287,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Polvo de estornudos y ahogo (uncommon).",
     "effects": [],
-    "sheetText": "Polvo de estornudos y ahogo: uncommon; efecto segun DMG/DM."
+    "sheetText": "Polvo de estornudos y ahogo: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-dust-of-dryness",
@@ -1299,7 +1299,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Polvo de sequedad (uncommon).",
     "effects": [],
-    "sheetText": "Polvo de sequedad: uncommon; efecto segun DMG/DM."
+    "sheetText": "Polvo de sequedad: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-potion-of-animal-friendship",
@@ -1311,7 +1311,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Potion of Animal Friendship (uncommon).",
     "effects": [],
-    "sheetText": "Potion of Animal Friendship: uncommon; efecto segun DMG/DM."
+    "sheetText": "Potion of Animal Friendship: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-potion-of-fire-breath",
@@ -1323,7 +1323,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Potion of Fire Breath (uncommon).",
     "effects": [],
-    "sheetText": "Potion of Fire Breath: uncommon; efecto segun DMG/DM."
+    "sheetText": "Potion of Fire Breath: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-potion-of-growth",
@@ -1335,7 +1335,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Potion of Growth (uncommon).",
     "effects": [],
-    "sheetText": "Potion of Growth: uncommon; efecto segun DMG/DM."
+    "sheetText": "Potion of Growth: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-potion-of-poison",
@@ -1347,7 +1347,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Potion of Poison (uncommon).",
     "effects": [],
-    "sheetText": "Potion of Poison: uncommon; efecto segun DMG/DM."
+    "sheetText": "Potion of Poison: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-potion-of-pugilism",
@@ -1359,7 +1359,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Potion of Pugilism (uncommon).",
     "effects": [],
-    "sheetText": "Potion of Pugilism: uncommon; efecto segun DMG/DM."
+    "sheetText": "Potion of Pugilism: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-potion-of-resistance",
@@ -1371,7 +1371,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Potion of Resistance (uncommon).",
     "effects": [],
-    "sheetText": "Potion of Resistance: uncommon; efecto segun DMG/DM."
+    "sheetText": "Potion of Resistance: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-potion-of-water-breathing",
@@ -1383,7 +1383,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Potion of Water Breathing (uncommon).",
     "effects": [],
-    "sheetText": "Potion of Water Breathing: uncommon; efecto segun DMG/DM."
+    "sheetText": "Potion of Water Breathing: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-quiver-of-ehlonna",
@@ -1395,7 +1395,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Quiver of Ehlonna (uncommon).",
     "effects": [],
-    "sheetText": "Quiver of Ehlonna: uncommon; efecto segun DMG/DM."
+    "sheetText": "Quiver of Ehlonna: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-ring-of-jumping",
@@ -1405,9 +1405,9 @@ export const magicItems = [
     "itemType": "Ring",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Ring of Jumping (uncommon, requiere sintonia).",
+    "summary": "Ring of Jumping (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Ring of Jumping: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Ring of Jumping: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-ring-of-mind-shielding",
@@ -1417,9 +1417,9 @@ export const magicItems = [
     "itemType": "Ring",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Ring of Mind Shielding (uncommon, requiere sintonia).",
+    "summary": "Ring of Mind Shielding (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Ring of Mind Shielding: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Ring of Mind Shielding: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-ring-of-swimming",
@@ -1431,7 +1431,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Ring of Swimming (uncommon).",
     "effects": [],
-    "sheetText": "Ring of Swimming: uncommon; efecto segun DMG/DM."
+    "sheetText": "Ring of Swimming: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-ring-of-warmth",
@@ -1441,9 +1441,9 @@ export const magicItems = [
     "itemType": "Ring",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Ring of Warmth (uncommon, requiere sintonia).",
+    "summary": "Ring of Warmth (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Ring of Warmth: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Ring of Warmth: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-ring-of-water-walking",
@@ -1455,7 +1455,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Ring of Water Walking (uncommon).",
     "effects": [],
-    "sheetText": "Ring of Water Walking: uncommon; efecto segun DMG/DM."
+    "sheetText": "Ring of Water Walking: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-rope-of-climbing",
@@ -1467,7 +1467,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Rope of Climbing (uncommon).",
     "effects": [],
-    "sheetText": "Rope of Climbing: uncommon; efecto segun DMG/DM."
+    "sheetText": "Rope of Climbing: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-saddle-of-the-cavalier",
@@ -1479,7 +1479,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Saddle of the Cavalier (uncommon).",
     "effects": [],
-    "sheetText": "Saddle of the Cavalier: uncommon; efecto segun DMG/DM."
+    "sheetText": "Saddle of the Cavalier: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-sending-stones",
@@ -1491,7 +1491,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Sending Stones (uncommon).",
     "effects": [],
-    "sheetText": "Sending Stones: uncommon; efecto segun DMG/DM."
+    "sheetText": "Sending Stones: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-sentinel-shield",
@@ -1503,7 +1503,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Sentinel Shield (uncommon).",
     "effects": [],
-    "sheetText": "Sentinel Shield: uncommon; efecto segun DMG/DM."
+    "sheetText": "Sentinel Shield: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-hat-of-disguise",
@@ -1513,9 +1513,9 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Sombrero de disfraz (uncommon, requiere sintonia).",
+    "summary": "Sombrero de disfraz (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Sombrero de disfraz: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Sombrero de disfraz: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-staff-of-the-adder",
@@ -1525,9 +1525,9 @@ export const magicItems = [
     "itemType": "Staff",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Staff of the Adder (uncommon, requiere sintonia).",
+    "summary": "Staff of the Adder (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Staff of the Adder: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Staff of the Adder: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-staff-of-the-python",
@@ -1537,9 +1537,9 @@ export const magicItems = [
     "itemType": "Staff",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Staff of the Python (uncommon, requiere sintonia).",
+    "summary": "Staff of the Python (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Staff of the Python: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Staff of the Python: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-sword-of-vengeance",
@@ -1549,9 +1549,9 @@ export const magicItems = [
     "itemType": "Weapon (Glaive, Greatsword, Longsword, Rapier, Scimitar, or Shortsword)",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Sword of Vengeance (uncommon, requiere sintonia).",
+    "summary": "Sword of Vengeance (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Sword of Vengeance: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Sword of Vengeance: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-trident-of-fish-command",
@@ -1561,21 +1561,21 @@ export const magicItems = [
     "itemType": "Weapon (Trident)",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Trident of Fish Command (uncommon, requiere sintonia).",
+    "summary": "Trident of Fish Command (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Trident of Fish Command: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Trident of Fish Command: uncommon, requiere sintonía; efecto según DMG/DM."
   },
   {
     "id": "magic-robe-of-useful-items",
     "name": "Robe of Useful Items",
-    "label": "Tunica de objetos utiles",
+    "label": "Túnica de objetos Útiles",
     "source": "Dungeon Master's Guide 2024",
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": false,
-    "summary": "Tunica de objetos utiles (uncommon).",
+    "summary": "Túnica de objetos Útiles (uncommon).",
     "effects": [],
-    "sheetText": "Tunica de objetos utiles: uncommon; efecto segun DMG/DM."
+    "sheetText": "Túnica de objetos Útiles: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-immovable-rod",
@@ -1587,31 +1587,31 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Vara inamovible (uncommon).",
     "effects": [],
-    "sheetText": "Vara inamovible: uncommon; efecto segun DMG/DM."
+    "sheetText": "Vara inamovible: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-wand-of-magic-detection",
     "name": "Wand of Magic Detection",
-    "label": "Varita de deteccion magica",
+    "label": "Varita de detección mágica",
     "source": "Dungeon Master's Guide 2024",
     "itemType": "Wand",
     "rarity": "Uncommon",
     "requiresAttunement": false,
-    "summary": "Varita de deteccion magica (uncommon).",
+    "summary": "Varita de detección mágica (uncommon).",
     "effects": [],
-    "sheetText": "Varita de deteccion magica: uncommon; efecto segun DMG/DM."
+    "sheetText": "Varita de detección mágica: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-wand-of-magic-missiles",
     "name": "Wand of Magic Missiles",
-    "label": "Varita de proyectiles magicos",
+    "label": "Varita de proyectiles mágicos",
     "source": "Dungeon Master's Guide 2024",
     "itemType": "Wand",
     "rarity": "Uncommon",
     "requiresAttunement": false,
-    "summary": "Varita de proyectiles magicos (uncommon).",
+    "summary": "Varita de proyectiles mágicos (uncommon).",
     "effects": [],
-    "sheetText": "Varita de proyectiles magicos: permite lanzar Proyectil magico usando cargas."
+    "sheetText": "Varita de proyectiles mágicos: permite lanzar Proyectil mágico usando cargas."
   },
   {
     "id": "magic-wand-of-secrets",
@@ -1623,19 +1623,19 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Varita de secretos (uncommon).",
     "effects": [],
-    "sheetText": "Varita de secretos: uncommon; efecto segun DMG/DM."
+    "sheetText": "Varita de secretos: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-wand-of-web",
     "name": "Wand of Web",
-    "label": "Varita de telarana",
+    "label": "Varita de telaraña",
     "source": "Dungeon Master's Guide 2024",
     "itemType": "Wand",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Varita de telarana (uncommon, requiere sintonia).",
+    "summary": "Varita de telaraña (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Varita de telarana: requiere sintonia; permite lanzar Telarana usando cargas."
+    "sheetText": "Varita de telaraña: requiere sintonía; permite lanzar Telaraña usando cargas."
   },
   {
     "id": "magic-wind-fan",
@@ -1647,7 +1647,7 @@ export const magicItems = [
     "requiresAttunement": false,
     "summary": "Wind Fan (uncommon).",
     "effects": [],
-    "sheetText": "Wind Fan: uncommon; efecto segun DMG/DM."
+    "sheetText": "Wind Fan: uncommon; efecto según DMG/DM."
   },
   {
     "id": "magic-slippers-of-spider-climbing",
@@ -1657,8 +1657,8 @@ export const magicItems = [
     "itemType": "Wondrous Item",
     "rarity": "Uncommon",
     "requiresAttunement": true,
-    "summary": "Zapatillas de trepar como arana (uncommon, requiere sintonia).",
+    "summary": "Zapatillas de trepar como arana (uncommon, requiere sintonía).",
     "effects": [],
-    "sheetText": "Zapatillas de trepar como arana: uncommon, requiere sintonia; efecto segun DMG/DM."
+    "sheetText": "Zapatillas de trepar como arana: uncommon, requiere sintonía; efecto según DMG/DM."
   }
 ];

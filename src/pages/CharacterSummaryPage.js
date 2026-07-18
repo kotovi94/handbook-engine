@@ -15,7 +15,7 @@ export function CharacterSummaryPage() {
   page.innerHTML = `
     <div>
       <p class="page-kicker">Resumen</p>
-      <h2 class="page-title">Hoja fisica</h2>
+      <h2 class="page-title">Hoja física</h2>
     </div>
   `;
 

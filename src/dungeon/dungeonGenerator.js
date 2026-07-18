@@ -275,7 +275,7 @@ function generateConnectionGraph(roomTypes, config, rng) {
     .filter((roomId) => !mainPath.includes(roomId))
     .forEach((roomId) => {
       const anchor = pickPathAnchor(mainPath, roomId, rng);
-      addConnection(connections, edges, anchor, roomId, "branch", "Rama lateral con contenido opcional o rodeo.");
+      addConnection(connections, edges, anchor, roomId, "branch", "Rama lateral con contenido opciónal o rodeo.");
 
       if (rng() < 0.42) {
         const reconnect = pickLaterAnchor(mainPath, anchor, rng);
@@ -360,10 +360,10 @@ function addSecretRoutes(connections, edges, secretIds, publicIds, finalRoomId, 
     const entranceSide = publicIds[Math.max(0, randomInt(rng, 0, Math.max(0, Math.floor(publicIds.length / 2))))] || publicIds[0];
     const lateStart = Math.max(0, Math.floor(publicIds.length * 0.55));
     const lateSide = publicIds[randomInt(rng, lateStart, publicIds.length - 1)] || finalRoomId;
-    addConnection(connections, edges, entranceSide, secretId, "secret", "Entrada oculta hacia recompensa, informacion o atajo.");
+    addConnection(connections, edges, entranceSide, secretId, "secret", "Entrada oculta hacia recompensa, información o atajo.");
 
     if (config.size !== "pequena" || rng() < 0.5) {
-      addConnection(connections, edges, secretId, lateSide, "secret-shortcut", "Atajo secreto opcional que no bloquea el progreso principal.");
+      addConnection(connections, edges, secretId, lateSide, "secret-shortcut", "Atajo secreto opciónal que no bloquea el progreso principal.");
     }
   });
 }
@@ -480,7 +480,7 @@ function generateDungeonSummary(config, roomCount, finalRoomId, rng, narrative, 
   const anchor = pickOne(rng, type.anchors, "rastros antiguos");
   const sign = inhabitantMix?.hasSecondary
     ? inhabitantMix.summary
-    : pickOne(rng, inhabitants.signs, "senales de ocupacion");
+    : pickOne(rng, inhabitants.signs, "señales de ocupación");
 
   return `${type.label} ${mood} con ${roomCount} salas, ${anchor} y ${sign}. ${narrative?.premise || ""} La sala final sugerida es ${finalRoomId}.`.replace(/\s+/g, " ").trim();
 }
@@ -491,9 +491,9 @@ function generateDungeonDesignNotes(config, rng, narrative, zones = []) {
   const principles = pickMany(rng, dungeonLayoutPrincipleTable, 3);
   const densityHint = config.encounterDensity === "alta"
     ? "Las rutas alternativas ayudan a evitar que todo sea una cadena de combates."
-    : "Deja espacios para exploracion, escucha y decisiones sin combate.";
+    : "Deja espacios para exploración, escucha y decisiones sin combate.";
 
-  return `Estado: ${decay.label}. ${decay.effect} Rasgo estructural: ${quirk}. ${formatNarrativeNotes(narrative, zones)} Guia de mapa: ${principles.join(" ")} ${densityHint}`;
+  return `Estado: ${decay.label}. ${decay.effect} Rasgo estructural: ${quirk}. ${formatNarrativeNotes(narrative, zones)} Guía de mapa: ${principles.join(" ")} ${densityHint}`;
 }
 
 function getRoomId(index) {

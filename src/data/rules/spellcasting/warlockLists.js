@@ -70,14 +70,14 @@ export const warlockPreparedSpellsLevel5 = [
 ];
 
 export const warlockPatronSpellsLevel5 = {
-  "archfey-patron": ["calm-emotions", "faerie-fire", "misty-step", "phantasmal-force", "sleep", "blink", "plant-growth"],
-  "celestial-patron": ["aid", "cure-wounds", "guiding-bolt", "lesser-restoration", "daylight", "revivify"],
-  "fiend-patron": ["burning-hands", "command", "scorching-ray", "suggestion", "fireball", "stinking-cloud"],
-  "great-old-one-patron": ["detect-thoughts", "dissonant-whispers", "phantasmal-force", "tashas-hideous-laughter", "clairvoyance", "hunger-of-hadar"],
+  "archfey-patrón": ["calm-emotions", "faerie-fire", "misty-step", "phantasmal-force", "sleep", "blink", "plant-growth"],
+  "celestial-patrón": ["aid", "cure-wounds", "guiding-bolt", "lesser-restoration", "daylight", "revivify"],
+  "fiend-patrón": ["burning-hands", "command", "scorching-ray", "suggestion", "fireball", "stinking-cloud"],
+  "great-old-one-patrón": ["detect-thoughts", "dissonant-whispers", "phantasmal-force", "tashas-hideous-laughter", "clairvoyance", "hunger-of-hadar"],
 };
 
 export const warlockPatronCantripsLevel5 = {
-  "celestial-patron": ["light", "sacred-flame"],
+  "celestial-patrón": ["light", "sacred-flame"],
 };
 
 export const warlockInvocationOptionsLevel5 = [

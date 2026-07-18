@@ -387,14 +387,14 @@ function renderSpellCard(spell) {
       <div><dt>Escuela</dt><dd>${displayValue(spell.school)}</dd></div>
       <div><dt>Lanzamiento</dt><dd>${cleanText(spell.castingTime)}</dd></div>
       <div><dt>Alcance</dt><dd>${cleanText(spell.range)}</dd></div>
-      <div><dt>Duracion</dt><dd>${cleanText(spell.duration)}</dd></div>
+      <div><dt>Duración</dt><dd>${cleanText(spell.duration)}</dd></div>
       ${spell.damage ? `<div><dt>Daño</dt><dd>${cleanText(spell.damage)}${spell.damageType ? ` ${displayValue(spell.damageType)}` : ""}</dd></div>` : ""}
-      ${spell.save ? `<div><dt>Salvacion</dt><dd>${displayValue(spell.save)}</dd></div>` : ""}
+      ${spell.save ? `<div><dt>Salvación</dt><dd>${displayValue(spell.save)}</dd></div>` : ""}
       ${spell.attack ? `<div><dt>Ataque</dt><dd>${cleanText(spell.attack)}</dd></div>` : ""}
     </dl>
     <div class="tag-list">
       ${(spell.classes || []).map((className) => `<span class="tag">${displayValue(className)}</span>`).join("")}
-      ${spell.concentration ? '<span class="tag">Concentracion</span>' : ""}
+      ${spell.concentration ? '<span class="tag">Concentración</span>' : ""}
       ${spell.ritual ? '<span class="tag">Ritual</span>' : ""}
       ${(spell.components || []).map((component) => `<span class="tag">${component}</span>`).join("")}
     </div>
@@ -417,8 +417,8 @@ function spellSchoolLabel(school) {
     Conjuration: "Conjuracion",
     Divination: "Adivinacion",
     Enchantment: "Encantamiento",
-    Evocation: "Evocacion",
-    Illusion: "Ilusion",
+    Evocation: "Evocación",
+    Illusion: "Ilusión",
     Necromancy: "Nigromancia",
     Transmutation: "Transmutacion",
   };
@@ -524,9 +524,9 @@ function formatCoins(coins = {}) {
 
 function cleanText(value) {
   return String(value || "")
-    .replace(/1 bonus action|bonus action/gi, "accion adicional")
-    .replace(/1 reaction|reaction/gi, "reaccion")
-    .replace(/1 action|action/gi, "accion")
+    .replace(/1 bonus action|bonus action/gi, "acción adicional")
+    .replace(/1 reaction|reaction/gi, "reacción")
+    .replace(/1 action|action/gi, "acción")
     .replace(/self/gi, "personal")
     .replace(/touch/gi, "toque")
     .replace(/feet/gi, "pies")
