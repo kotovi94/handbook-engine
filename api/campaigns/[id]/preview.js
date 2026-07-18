@@ -40,9 +40,12 @@ function slugifyCampaignName(value) {
 }
 
 function getPreviewImage(req, campaign) {
+  if (/^data:image\/(?:png|jpeg|webp);base64,/i.test(campaign.banner || "")) {
+    return absoluteUrl(req, `/api/campaigns/${encodeURIComponent(campaign.id)}/cover`);
+  }
+  if (/^https?:\/\//i.test(campaign.banner || "")) return campaign.banner;
   const configured = process.env.SOCIAL_PREVIEW_IMAGE_URL || process.env.DISCORD_ICON_URL || "";
   if (configured) return absoluteUrl(req, configured);
-  if (/^https?:\/\//i.test(campaign.banner || "")) return campaign.banner;
   return absoluteUrl(req, DEFAULT_IMAGE_PATH);
 }
 

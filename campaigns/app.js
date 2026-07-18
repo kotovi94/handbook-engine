@@ -963,7 +963,8 @@ function openNewCampaignModal(trigger) {
 }
 
 function getCampaignShareUrl(campaign) {
-  return getCampaignAppUrl(campaign);
+  if (!USE_REMOTE_STORAGE || !campaign?.id) return getCampaignAppUrl(campaign);
+  return `${window.location.origin}/api/campaigns/${encodeURIComponent(campaign.id)}/preview`;
 }
 
 async function copyText(value) {

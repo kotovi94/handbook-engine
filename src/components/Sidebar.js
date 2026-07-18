@@ -12,7 +12,19 @@ export function Sidebar({ activeRoute, onNavigate }) {
       <span class="sidebar-subtitle">D&D 5e 2024</span>
     </div>
     <nav class="sidebar-body" aria-label="Navegación principal"></nav>
-    <div class="sidebar-footer" data-sidebar-footer></div>
+    <div class="sidebar-footer" data-sidebar-footer>
+      <div class="discord-community" aria-label="Comunidad de Discord D20 Travesías">
+        <img
+          class="discord-community-logo"
+          src="./assets/icons/discord-travesias.png?v=20260718b"
+          alt="Logo del Discord D20 Travesías"
+        >
+        <span class="discord-community-copy">
+          <strong>D20 Travesías</strong>
+          <small>Comunidad de Discord</small>
+        </span>
+      </div>
+    </div>
   `;
 
   const nav = sidebar.querySelector("nav");

@@ -36,8 +36,51 @@
 }
 
 .sidebar-footer {
+  display: grid;
+  gap: var(--space-3);
   border-top: 1px solid var(--color-border);
   padding: var(--space-3);
+}
+
+.discord-community {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  background: color-mix(in srgb, var(--color-surface-muted) 70%, transparent);
+}
+
+.discord-community-logo {
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: 0 0 3.5rem;
+  object-fit: contain;
+}
+
+.discord-community-copy {
+  display: grid;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.discord-community-copy strong,
+.discord-community-copy small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.discord-community-copy strong {
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+.discord-community-copy small {
+  margin-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
 }
 
 .sidebar-overlay {
