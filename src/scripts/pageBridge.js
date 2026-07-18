@@ -32,7 +32,7 @@ export function setupPageBridge(currentPage, getTargetPage) {
   applyBridgeEnter(currentPage);
 
   document.addEventListener("click", (event) => {
-    const link = event.target.closestá.("a[href]");
+    const link = event.target.closest("a[href]");
     if (!link || !shouldAnimateNavigation(event, link)) {
       return;
     }
