@@ -27,6 +27,18 @@ function absoluteUrl(req, value) {
   return `${getOrigin(req)}${value.startsWith("/") ? value : `/${value}`}`;
 }
 
+function slugifyCampaignName(value) {
+  const slug = String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " y ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/-+/g, "-");
+  return slug || "campana";
+}
+
 function getPreviewImage(req, campaign) {
   const configured = process.env.SOCIAL_PREVIEW_IMAGE_URL || process.env.DISCORD_ICON_URL || "";
   if (configured) return absoluteUrl(req, configured);
@@ -67,7 +79,7 @@ module.exports = async function handler(req, res) {
     const title = campaign.name ? `${campaign.name} | D20 Travesias` : DEFAULT_TITLE;
     const description = campaign.description || sessionPreviewText(campaign, latestSession?.number);
     const image = getPreviewImage(req, campaign);
-    const appUrl = `${origin}/campaigns/?campaign=${encodeURIComponent(campaign.id)}`;
+    const appUrl = `${origin}/campaigns/${slugifyCampaignName(campaign.name)}--${encodeURIComponent(campaign.id)}`;
     const system = campaign.system_name || "D20 Travesias";
 
     return sendHtml(res, `<!doctype html>

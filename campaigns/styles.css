@@ -234,7 +234,7 @@ h3 { font-size: 16px; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.primary-button, .secondary-button { padding: 11px 17px; border-radius: 7px; font-weight: 700; font-size: 13px; transition: .2s ease; }
+.primary-button, .secondary-button { display: inline-flex; align-items: center; justify-content: center; padding: 11px 17px; border-radius: 7px; font-weight: 700; font-size: 13px; text-align: center; text-decoration: none; cursor: pointer; transition: .2s ease; }
 .primary-button { border: 1px solid var(--accent); color: white; background: var(--accent); box-shadow: 0 8px 20px rgba(155, 78, 53, .18); }
 .primary-button:hover { background: var(--accent-dark); transform: translateY(-1px); }
 .new-campaign-button { position: relative; overflow: hidden; isolation: isolate; }

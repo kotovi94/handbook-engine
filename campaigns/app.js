@@ -294,6 +294,8 @@ const $$ = (selector) => [...document.querySelectorAll(selector)];
 const formatNumber = (value) => Math.round(Number(value) || 0).toLocaleString('es-CL');
 const escapeHTML = (value = '') => String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
 const uid = () => crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+const CAMPAIGNS_ROUTE_SEGMENT = 'campaigns';
+const CAMPAIGN_ROUTE_SEPARATOR = '--';
 
 let portfolio = { campaigns: [] };
 let activeCampaignId = null;
@@ -362,6 +364,90 @@ function setGlobalAppearance(appearance) {
   globalAppearance = appearance;
   localStorage.setItem(DISPLAY_MODE_STORAGE_KEY, appearance);
   applyGlobalAppearance();
+}
+
+function slugifyCampaignName(value) {
+  const slug = String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/&/g, ' y ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-+/g, '-');
+  return slug || 'campana';
+}
+
+function getCampaignsBasePath(pathname = window.location.pathname) {
+  const parts = pathname.split('/').filter(Boolean);
+  const index = parts.indexOf(CAMPAIGNS_ROUTE_SEGMENT);
+  if (index === -1) return `/${CAMPAIGNS_ROUTE_SEGMENT}`;
+  return `/${parts.slice(0, index + 1).join('/')}`;
+}
+
+function decodeRouteSegment(value = '') {
+  try {
+    return decodeURIComponent(value);
+  } catch (error) {
+    return value;
+  }
+}
+
+function getCampaignRouteSegment(pathname = window.location.pathname) {
+  const parts = pathname.split('/').filter(Boolean);
+  const index = parts.indexOf(CAMPAIGNS_ROUTE_SEGMENT);
+  const segment = index >= 0 ? parts[index + 1] : '';
+  if (!segment || segment === 'index.html') return '';
+  return decodeRouteSegment(segment);
+}
+
+function getPersistentCampaignSearch() {
+  const params = new URLSearchParams(window.location.search);
+  params.delete('campaign');
+  const query = params.toString();
+  return query ? `?${query}` : '';
+}
+
+function getCampaignAppPath(campaign) {
+  return `${getCampaignsBasePath()}/${slugifyCampaignName(campaign?.name)}${CAMPAIGN_ROUTE_SEPARATOR}${encodeURIComponent(campaign?.id || '')}`;
+}
+
+function getCampaignAppUrl(campaign) {
+  return `${window.location.origin}${getCampaignAppPath(campaign)}${getPersistentCampaignSearch()}`;
+}
+
+function updateBrowserUrl(path, { replace = false } = {}) {
+  if (!window.history?.pushState) return;
+  const current = `${window.location.pathname}${window.location.search}`;
+  if (current === path) return;
+  window.history[replace ? 'replaceState' : 'pushState']({}, '', path);
+}
+
+function updateCampaignUrl(campaign, options = {}) {
+  if (!campaign?.id) return;
+  updateBrowserUrl(`${getCampaignAppPath(campaign)}${getPersistentCampaignSearch()}`, options);
+}
+
+function updateCampaignsHomeUrl(options = {}) {
+  updateBrowserUrl(`${getCampaignsBasePath()}/${getPersistentCampaignSearch()}`, options);
+}
+
+function resolveCampaignIdFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const queryCampaignId = params.get('campaign');
+  if (queryCampaignId) return queryCampaignId;
+
+  const segment = getCampaignRouteSegment();
+  if (!segment) return '';
+
+  const separatorIndex = segment.lastIndexOf(CAMPAIGN_ROUTE_SEPARATOR);
+  if (separatorIndex >= 0) return segment.slice(separatorIndex + CAMPAIGN_ROUTE_SEPARATOR.length);
+
+  const exactMatch = portfolio.campaigns.find(campaign => campaign.id === segment);
+  if (exactMatch) return exactMatch.id;
+
+  const slugMatches = portfolio.campaigns.filter(campaign => slugifyCampaignName(campaign.name) === segment);
+  return slugMatches.length === 1 ? slugMatches[0].id : '';
 }
 
 function loadPortfolio() {
@@ -694,7 +780,7 @@ function requestCampaignUnlock(campaign, action = 'open') {
   $('#unlock-password').focus();
 }
 
-function activateCampaign(campaign) {
+function activateCampaign(campaign, options = {}) {
   const theme = campaign.theme || 'parchment';
   const font = campaign.font || 'classic';
   const appearance = campaign.appearance || 'auto';
@@ -719,6 +805,7 @@ function activateCampaign(campaign) {
   renderAll();
   renderSessionForm();
   navigate('dashboard');
+  if (options.updateUrl !== false) updateCampaignUrl(campaign, { replace: Boolean(options.replaceUrl) });
   queueCampaignOnboarding();
 }
 
@@ -754,19 +841,20 @@ function updateAccessMode() {
   }
 }
 
-async function openCampaign(id) {
+async function openCampaign(id, options = {}) {
   let campaign = portfolio.campaigns.find(entry => entry.id === id);
-  if (!campaign) return;
+  if (!campaign) return false;
   if (USE_REMOTE_STORAGE) {
     try {
       const data = await remoteStorage.getCampaign(id);
       campaign = normalizeCampaign(data.campaign);
     } catch (error) {
       showToast('No se pudo abrir la campaña compartida.');
-      return;
+      return false;
     }
   }
-  activateCampaign(campaign);
+  activateCampaign(campaign, options);
+  return true;
 }
 
 async function deleteCampaign(campaign) {
@@ -789,12 +877,13 @@ async function deleteCampaign(campaign) {
   showToast('Campaña eliminada.');
 }
 
-function showCampaignsHome() {
+function showCampaignsHome(options = {}) {
   activeCampaignId = null;
   state = null;
   $('#campaign-app').classList.add('hidden');
   $('#campaigns-home').classList.remove('hidden');
   renderCampaigns();
+  if (options.updateUrl !== false) updateCampaignsHomeUrl({ replace: Boolean(options.replaceUrl) });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -829,6 +918,7 @@ function renderCampaigns() {
           : "Lista para continuar la bitácora."));
     const bannerStyle = campaign.banner ? `background-image:url('${campaign.banner}')` : "";
     const fontFamilies = { classic: "Cinzel,serif", medieval: "MedievalSharp,cursive", chronicle: "IM Fell English,serif", arcane: "Uncial Antiqua,serif", modern: "Inter,sans-serif" };
+    const campaignHref = `${getCampaignAppPath(campaign)}${getPersistentCampaignSearch()}`;
     return `<article class="campaign-card" style="--campaign-color:${campaign.color || "#9b4e35"};--card-display-font:${fontFamilies[campaign.font || "classic"]}">
       <div class="campaign-card-banner" style="${bannerStyle}"></div>
       <div class="campaign-card-content">
@@ -839,7 +929,7 @@ function renderCampaigns() {
         <div class="campaign-next-step">${nextStep}</div>
       </div>
       <div class="campaign-card-actions">
-        <button class="primary-button open-campaign" data-id="${campaign.id}">Entrar a la campaña</button>
+        <a class="primary-button open-campaign" href="${escapeHTML(campaignHref)}" data-id="${campaign.id}">Entrar a la campaña</a>
         <div class="campaign-card-tools"><button class="text-button share-campaign" data-id="${campaign.id}">Compartir</button><button class="text-button edit-campaign" data-id="${campaign.id}">Editar</button><button class="text-button danger-button delete-campaign" data-id="${campaign.id}">Eliminar</button></div>
       </div>
     </article>`;
@@ -857,10 +947,7 @@ function openNewCampaignModal(trigger) {
 }
 
 function getCampaignShareUrl(campaign) {
-  if (USE_REMOTE_STORAGE) return `${window.location.origin}/api/campaigns/${campaign.id}/preview`;
-  const params = new URLSearchParams(window.location.search);
-  params.set('campaign', campaign.id);
-  return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  return getCampaignAppUrl(campaign);
 }
 
 async function copyText(value) {
@@ -3274,7 +3361,10 @@ document.addEventListener('click', async event => {
   }
   if (event.target.closest('#onboarding-open-section')) openCampaignOnboardingSection();
   const openCampaignButton = event.target.closest('.open-campaign');
-  if (openCampaignButton) openCampaign(openCampaignButton.dataset.id);
+  if (openCampaignButton) {
+    event.preventDefault();
+    openCampaign(openCampaignButton.dataset.id);
+  }
   const shareCampaignButton = event.target.closest('.share-campaign');
   if (shareCampaignButton) {
     const campaign = portfolio.campaigns.find(entry => entry.id === shareCampaignButton.dataset.id);
@@ -3748,15 +3838,34 @@ $('#import-data').addEventListener('change', event => {
 
 initializeCampaigns();
 
+async function handleCampaignRouteChange() {
+  const routeCampaignId = resolveCampaignIdFromUrl();
+  if (routeCampaignId) {
+    const opened = await openCampaign(routeCampaignId, { updateUrl: false });
+    if (!opened) showCampaignsHome({ updateUrl: false });
+    return;
+  }
+  showCampaignsHome({ updateUrl: false });
+}
+
 async function initializeCampaigns() {
   applyGlobalAppearance();
   portfolio = await loadInitialPortfolio();
   const storageCopy = $('.sidebar-footer p');
   if (storageCopy) storageCopy.textContent = USE_REMOTE_STORAGE ? 'Los datos se guardan en el archivo compartido.' : 'Los datos se guardan en este navegador.';
   renderCampaigns();
-  const initialCampaignId = new URLSearchParams(window.location.search).get('campaign');
-  if (initialCampaignId) await openCampaign(initialCampaignId);
+  const initialCampaignId = resolveCampaignIdFromUrl();
+  const openedInitialCampaign = initialCampaignId ? await openCampaign(initialCampaignId, { replaceUrl: true }) : false;
+  if (initialCampaignId && !openedInitialCampaign) {
+    showToast('No se encontró esa campaña.');
+    updateCampaignsHomeUrl({ replace: true });
+  } else if (!initialCampaignId && (getCampaignRouteSegment() || new URLSearchParams(window.location.search).has('campaign'))) {
+    showToast('No se encontró esa campaña.');
+    updateCampaignsHomeUrl({ replace: true });
+  }
 }
+
+window.addEventListener('popstate', handleCampaignRouteChange);
 
 darkModeQuery.addEventListener('change', event => {
   if (!hasSavedGlobalAppearance()) {

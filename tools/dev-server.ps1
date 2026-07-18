@@ -32,6 +32,11 @@ try {
     $candidate = Join-Path $root $path
     $resolved = Resolve-Path -LiteralPath $candidate -ErrorAction SilentlyContinue
 
+    if (-not $resolved -and $path -like "campaigns/*" -and -not [System.IO.Path]::HasExtension($path)) {
+      $candidate = Join-Path $root "campaigns/index.html"
+      $resolved = Resolve-Path -LiteralPath $candidate -ErrorAction SilentlyContinue
+    }
+
     if (-not $resolved -or -not $resolved.Path.StartsWith($root.Path)) {
       Write-Response $stream 404 "text/plain; charset=utf-8" ([System.Text.Encoding]::UTF8.GetBytes("Not found"))
       $client.Close()

@@ -3,5 +3,11 @@
   "framework": null,
   "installCommand": "",
   "buildCommand": null,
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/campaigns/:path*",
+      "destination": "/campaigns/index.html"
+    }
+  ]
 }
