@@ -29,6 +29,8 @@ create table if not exists public.characters (
   xp numeric not null default 0,
   color text not null default '#b97a45',
   portrait text not null default '',
+  notes jsonb not null default '{}'::jsonb,
+  metadata jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -40,7 +42,9 @@ create table if not exists public.campaign_workspaces (
 );
 
 alter table public.characters
-  add column if not exists portrait text not null default '';
+  add column if not exists portrait text not null default '',
+  add column if not exists notes jsonb not null default '{}'::jsonb,
+  add column if not exists metadata jsonb not null default '{}'::jsonb;
 
 create table if not exists public.sessions (
   id uuid primary key default gen_random_uuid(),

@@ -7,21 +7,21 @@ export function HeaderActions({ isDarkMode, onDarkModeChange }) {
 
   const guideButton = IconButton({
     label: "Ver guía de la app",
-    icon: "Guía",
+    icon: "book",
     className: "tour-button",
     onClick: () => window.dispatchEvent(new CustomEvent("handbook-start-tour")),
   });
 
   const printButton = IconButton({
     label: "Imprimir o guardar PDF",
-    icon: "Imprimir",
+    icon: "quill",
     className: "print-button",
     onClick: () => window.print(),
   });
 
   const darkButton = IconButton({
     label: isDarkMode ? "Usar modo claro" : "Usar modo oscuro",
-    icon: isDarkMode ? "Claro" : "Oscuro",
+    icon: isDarkMode ? "sun" : "moon",
     className: "mode-button",
     onClick: () => onDarkModeChange(!isDarkMode),
   });

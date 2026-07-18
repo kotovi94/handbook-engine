@@ -264,6 +264,10 @@ export function DungeonExportPanel({ actions = {} }) {
     renderActionButton("Foundry draft", "map", actions.onExportFoundry),
   );
 
+  if (actions.onSendToCampaign) {
+    actionsWrap.append(renderActionButton("Enviar a Campañas", "map", actions.onSendToCampaign));
+  }
+
   return DungeonSectionCard({
     kicker: "Salida",
     title: "Exportar",

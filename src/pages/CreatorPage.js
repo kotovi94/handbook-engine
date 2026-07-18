@@ -1033,15 +1033,15 @@ function appearanceControls(appearance, onChange) {
     <textarea rows="3" placeholder="Ej: lleva un relicario familiar, una capa quemada o una mirada siempre cansada."></textarea>
   `;
   const textarea = customField.querySelector("textarea");
-  textárea.value = appearance.notes || "";
-  textárea.addEventListener("input", () => {
+  textarea.value = appearance.notes || "";
+  textarea.addEventListener("input", () => {
     updateCharacter({
       appearance: {
-        notes: textárea.value,
+        notes: textarea.value,
       },
     });
   });
-  textárea.addEventListener("change", () => {
+  textarea.addEventListener("change", () => {
     onChange();
   });
   form.append(customField);

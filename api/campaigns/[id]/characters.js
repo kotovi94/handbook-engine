@@ -39,6 +39,8 @@ module.exports = async function handler(req, res) {
           xp: Number(body.xp || 0),
           color: body.color || "#b97a45",
           portrait: body.portrait || "",
+          notes: body.notes || {},
+          metadata: body.metadata && typeof body.metadata === "object" ? body.metadata : {},
         }),
       });
       return sendJson(res, 201, { character });
@@ -46,18 +48,23 @@ module.exports = async function handler(req, res) {
 
     if (req.method === "PATCH") {
       const body = await readBody(req);
+      const patch = {
+        name: String(body.name || "").trim(),
+        player: body.player || "",
+        class_name: body.className || "",
+        xp: Number(body.xp || 0),
+        color: body.color || "#b97a45",
+        portrait: body.portrait || "",
+        updated_at: new Date().toISOString(),
+      };
+      if (body.notes !== undefined) patch.notes = body.notes || {};
+      if (body.metadata !== undefined) {
+        patch.metadata = body.metadata && typeof body.metadata === "object" ? body.metadata : {};
+      }
       const [character] = await supabaseFetch(`/characters?id=eq.${encodeURIComponent(body.id)}&campaign_id=eq.${encodeURIComponent(id)}&select=*`, {
         method: "PATCH",
         headers: { prefer: "return=representation" },
-        body: JSON.stringify({
-          name: String(body.name || "").trim(),
-          player: body.player || "",
-          class_name: body.className || "",
-          xp: Number(body.xp || 0),
-          color: body.color || "#b97a45",
-          portrait: body.portrait || "",
-          updated_at: new Date().toISOString(),
-        }),
+        body: JSON.stringify(patch),
       });
       return sendJson(res, 200, { character });
     }

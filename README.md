@@ -166,9 +166,22 @@ Esto mantiene separada la información oficial del color narrativo que el DM pue
 ## Persistencia y exportación
 
 - El creador de personajes mantiene estado local de la sesión.
+- El resumen del creador puede enviar el personaje terminado a Campañas como ficha rápida con notas de hoja.
 - Dungeon Generator permite guardar y cargar mazmorras en `localStorage`.
 - Las mazmorras se exportan como JSON, Markdown y Foundry draft.
+- Dungeon Generator puede enviar una mazmorra a Campañas como herramienta DM para seguir preparándola en la bitácora.
 - La bitácora puede trabajar localmente o con Supabase si se despliega con backend.
+
+## Verificación rápida
+
+Antes de publicar o después de tocar reglas, componentes de mazmorra o campañas:
+
+```bash
+node tools/validate-rules.mjs
+node tools/smoke-test.mjs
+```
+
+El smoke test revisa el modelo de reglas, genera una mazmorra completa y renderiza el editor de salas para detectar errores de interfaz tempranos.
 
 ## Herramientas y autoría
 

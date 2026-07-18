@@ -2,7 +2,10 @@ const crypto = require("crypto");
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const UNLOCK_SECRET = process.env.CAMPAIGN_UNLOCK_SECRET || SUPABASE_SERVICE_ROLE_KEY || "dev-secret";
+const UNLOCK_SECRET = process.env.CAMPAIGN_UNLOCK_SECRET || SUPABASE_SERVICE_ROLE_KEY;
+const PASSWORD_HASH_PREFIX = "pbkdf2";
+const PASSWORD_HASH_DIGEST = "sha256";
+const PASSWORD_HASH_ITERATIONS = 210000;
 
 function requireEnv() {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
@@ -57,7 +60,26 @@ async function readBody(req) {
 
 function hashPassword(password) {
   if (!password) return "";
-  return crypto.createHash("sha256").update(String(password), "utf8").digest("hex");
+  const salt = crypto.randomBytes(16).toString("hex");
+  const hash = crypto
+    .pbkdf2Sync(String(password), salt, PASSWORD_HASH_ITERATIONS, 32, PASSWORD_HASH_DIGEST)
+    .toString("hex");
+  return `${PASSWORD_HASH_PREFIX}$${PASSWORD_HASH_ITERATIONS}$${salt}$${hash}`;
+}
+
+function verifyPassword(password, storedHash) {
+  if (!storedHash) return true;
+
+  const [prefix, iterations, salt, hash] = String(storedHash).split("$");
+  if (prefix === PASSWORD_HASH_PREFIX && iterations && salt && hash) {
+    const candidate = crypto
+      .pbkdf2Sync(String(password || ""), salt, Number(iterations), 32, PASSWORD_HASH_DIGEST)
+      .toString("hex");
+    return safeEqual(candidate, hash);
+  }
+
+  const legacyHash = crypto.createHash("sha256").update(String(password || ""), "utf8").digest("hex");
+  return safeEqual(legacyHash, String(storedHash));
 }
 
 function signUnlockToken(campaignId) {
@@ -90,5 +112,12 @@ module.exports = {
   sendJson,
   signUnlockToken,
   supabaseFetch,
+  verifyPassword,
   verifyUnlockToken,
 };
+
+function safeEqual(first, second) {
+  const firstBuffer = Buffer.from(String(first));
+  const secondBuffer = Buffer.from(String(second));
+  return firstBuffer.length === secondBuffer.length && crypto.timingSafeEqual(firstBuffer, secondBuffer);
+}

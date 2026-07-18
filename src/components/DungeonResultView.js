@@ -45,6 +45,7 @@ export function DungeonResultView({
   onExportMarkdown,
   onExportMarkdownCompact,
   onExportFoundry,
+  onSendToCampaign,
 }) {
   const viewModel = buildDungeonViewModel(dungeon);
   const view = document.createElement("section");
@@ -174,6 +175,7 @@ export function DungeonResultView({
         onExportMarkdown,
         onExportMarkdownCompact,
         onExportFoundry,
+        onSendToCampaign,
       },
     }),
   );
@@ -285,8 +287,8 @@ function renderTextAreaField(labelText, value, onInput) {
   const label = renderFieldShell(labelText);
   label.classList.add("dungeon-summary-wide");
   const textarea = document.createElement("textarea");
-  textárea.value = value;
-  textárea.addEventListener("input", () => onInput(textárea.value));
+  textarea.value = value;
+  textarea.addEventListener("input", () => onInput(textarea.value));
   label.append(textarea);
   return label;
 }

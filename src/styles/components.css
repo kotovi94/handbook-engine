@@ -30,17 +30,20 @@
   padding: 0;
 }
 
+.icon-button .ui-icon {
+  width: 20px;
+  height: 20px;
+}
+
 .print-button,
 .mode-button,
-.tour-button {
-  width: auto;
-  min-width: 44px;
-  padding: 0 var(--space-3);
-  font-size: 0.72rem;
+.tour-button,
+.mobile-menu-button {
+  flex: 0 0 auto;
 }
 
 .mobile-menu-button::before {
-  content: "\2630";
+  content: none;
 }
 
 .button {
@@ -1259,6 +1262,110 @@
 
 .summary-panel .pending-panel {
   box-shadow: none;
+}
+
+.campaign-handoff-panel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-4);
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 38%, var(--color-border));
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--color-accent-soft) 48%, transparent), transparent 56%),
+    color-mix(in srgb, var(--color-surface) 94%, var(--color-bg));
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+}
+
+.campaign-handoff-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 36%, var(--color-border));
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: #ffffff;
+  box-shadow: 0 12px 24px color-mix(in srgb, var(--color-accent) 20%, transparent);
+}
+
+.campaign-handoff-icon .ui-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.campaign-handoff-copy {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-2);
+}
+
+.campaign-handoff-kicker {
+  color: var(--color-accent);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.campaign-handoff-copy h3,
+.campaign-handoff-copy p,
+.campaign-handoff-status,
+.campaign-handoff-meta {
+  margin: 0;
+}
+
+.campaign-handoff-copy h3 {
+  color: var(--color-accent-strong);
+  font-size: 1.2rem;
+  line-height: 1.15;
+}
+
+.campaign-handoff-copy p,
+.campaign-handoff-status {
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+.campaign-handoff-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.campaign-handoff-meta div {
+  min-width: min(100%, 120px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-surface) 86%, var(--color-bg));
+  padding: var(--space-2) var(--space-3);
+}
+
+.campaign-handoff-meta dt {
+  color: var(--color-text-muted);
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.campaign-handoff-meta dd {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text);
+  font-weight: 800;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.campaign-handoff-actions {
+  display: grid;
+  justify-items: end;
+  gap: var(--space-2);
+}
+
+.campaign-handoff-actions .button .ui-icon {
+  width: 18px;
+  height: 18px;
 }
 
 .summary-header {
@@ -2970,6 +3077,20 @@
 
   .first-visit-skip {
     margin-right: 0;
+  }
+
+  .campaign-handoff-panel {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .campaign-handoff-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .campaign-handoff-actions {
+    justify-items: stretch;
   }
 
   .dungeon-config-panel,

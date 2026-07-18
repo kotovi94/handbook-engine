@@ -15,6 +15,7 @@ import {
   normalizeDmToolState,
 } from './campaignModel.js';
 import { setupPageBridge } from '../src/scripts/pageBridge.js';
+import { clearCampaignHandoff, readCampaignHandoff } from '../src/scripts/campaignHandoff.js';
 
 const STORAGE_KEY = 'd20-travesias-archivo-v2';
 const LEGACY_STORAGE_KEY = 'cronicas-experiencia-v1';
@@ -432,6 +433,18 @@ function updateCampaignsHomeUrl(options = {}) {
   updateBrowserUrl(`${getCampaignsBasePath()}/${getPersistentCampaignSearch()}`, options);
 }
 
+function hasCampaignRouteTarget() {
+  return Boolean(getCampaignRouteSegment() || new URLSearchParams(window.location.search).has('campaign'));
+}
+
+function ensureCampaignsHomeHistoryCheckpoint() {
+  if (!window.history?.replaceState || !hasCampaignRouteTarget()) return false;
+  const initialPath = `${window.location.pathname}${window.location.search}`;
+  updateCampaignsHomeUrl({ replace: true });
+  updateBrowserUrl(initialPath);
+  return true;
+}
+
 function resolveCampaignIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
   const queryCampaignId = params.get('campaign');
@@ -807,6 +820,9 @@ function activateCampaign(campaign, options = {}) {
   navigate('dashboard');
   if (options.updateUrl !== false) updateCampaignUrl(campaign, { replace: Boolean(options.replaceUrl) });
   queueCampaignOnboarding();
+  window.setTimeout(() => {
+    consumePendingCampaignHandoff();
+  }, 80);
 }
 
 function updateAccessMode() {
@@ -1110,6 +1126,158 @@ function showToast(message) {
   toast.classList.add('show');
   clearTimeout(showToast.timer);
   showToast.timer = setTimeout(() => toast.classList.remove('show'), 2400);
+}
+
+function updateStorageIndicators() {
+  const status = $('#campaign-storage-status');
+  const footerCopy = $('.sidebar-footer p');
+  const text = USE_REMOTE_STORAGE
+    ? 'Archivo compartido activo'
+    : 'Modo local del navegador';
+  const detail = USE_REMOTE_STORAGE
+    ? 'Los datos se guardan en el archivo compartido.'
+    : 'Los datos se guardan en este navegador. Exporta respaldo antes de cambiar de equipo.';
+
+  if (status) {
+    status.textContent = text;
+    status.classList.toggle('is-remote', USE_REMOTE_STORAGE);
+    status.classList.toggle('is-local', !USE_REMOTE_STORAGE);
+  }
+
+  if (footerCopy) {
+    footerCopy.textContent = detail;
+  }
+}
+
+function updateWorkspaceSyncNotice(selector) {
+  const notice = $(selector);
+  if (!notice) return;
+
+  notice.classList.remove('hidden', 'is-remote', 'is-local');
+  notice.classList.add(USE_REMOTE_STORAGE ? 'is-remote' : 'is-local');
+  notice.textContent = USE_REMOTE_STORAGE
+    ? 'Guardado compartido activo: los cambios se sincronizan al guardar.'
+    : 'Modo local: estos cambios quedan en este navegador. Usa Exportar respaldo antes de cambiar de equipo.';
+}
+
+async function consumePendingCampaignHandoff() {
+  if (!state || isSummaryOnlyMode()) return;
+  const handoff = readCampaignHandoff();
+  if (!handoff) return;
+
+  if (handoff.kind === 'dmTool' && handoff.source === 'dungeon-generator') {
+    consumePendingDungeonHandoff(handoff);
+    return;
+  }
+
+  if (handoff.kind === 'character' && handoff.source === 'character-creator') {
+    await consumePendingCharacterHandoff(handoff);
+  }
+}
+
+function consumePendingDungeonHandoff(handoff) {
+  if (!confirm(`¿Agregar "${handoff.title}" a Herramientas DM de ${state.name}?`)) {
+    return;
+  }
+
+  const workspace = ensureWorkspace();
+  const now = new Date().toISOString();
+  const tool = normalizeDmToolState({
+    id: uid(),
+    title: handoff.title || 'Mazmorra generada',
+    summary: handoff.summary || '',
+    content: { format: 'campaign-handoff-v1', plainText: handoff.content || '', blocks: [] },
+    tags: Array.isArray(handoff.tags) ? handoff.tags : ['mazmorra'],
+    visibility: CAMPAIGN_VISIBILITY_PRESETS.dmDraft.visibility,
+    toolType: 'dungeon',
+    status: 'ready',
+    data: handoff.data || {},
+    createdAt: now,
+    updatedAt: now,
+  });
+
+  workspace.dmTools = [...(workspace.dmTools || []), tool];
+  activeDmToolType = 'dungeon';
+  activeDmToolId = tool.id;
+  persistActiveCampaign();
+  clearCampaignHandoff();
+  renderAll();
+  navigate('tools');
+  loadDmTool(tool.id);
+  showToast('Mazmorra agregada a Herramientas DM.');
+}
+
+async function consumePendingCharacterHandoff(handoff) {
+  const character = createImportedCharacter(handoff);
+  if (!character) return;
+
+  if (!confirm(`¿Agregar "${character.name}" a Personajes de ${state.name}?`)) {
+    return;
+  }
+
+  if (USE_REMOTE_STORAGE) {
+    try {
+      await remoteStorage.saveCharacter(activeCampaignId, character);
+      clearCampaignHandoff();
+      await reloadActiveCampaign();
+      navigate('characters');
+      showToast('Personaje agregado a la campaña.');
+    } catch (error) {
+      console.warn('No se pudo importar el personaje compartido.', error);
+      showToast('No se pudo guardar el personaje compartido.');
+    }
+    return;
+  }
+
+  state.characters = [...(state.characters || []), character];
+  persistActiveCampaign();
+  clearCampaignHandoff();
+  renderAll();
+  navigate('characters');
+  showToast('Personaje agregado a la campaña.');
+}
+
+function createImportedCharacter(handoff) {
+  const payload = handoff.character && typeof handoff.character === 'object' ? handoff.character : {};
+  const system = getCampaignSystem();
+  const now = new Date().toISOString();
+  const name = String(payload.name || handoff.title || '').trim() || 'Personaje importado';
+  const className = String(payload.className || handoff.summary || '').trim() || 'Aventurero';
+  const sourceXp = Number(payload.xp || 0);
+  const dndXp = Number.isFinite(sourceXp) ? Math.max(0, Math.round(sourceXp)) : 0;
+
+  return normalizeCharacter({
+    id: USE_REMOTE_STORAGE ? undefined : uid(),
+    kind: payload.kind || 'player',
+    name,
+    player: String(payload.player || '').trim(),
+    className,
+    xp: system.id === 'dnd5e2024' ? dndXp : 0,
+    color: String(payload.color || '#b97a45'),
+    portrait: String(payload.portrait || ''),
+    notes: payload.notes || {
+      format: 'campaign-handoff-v1',
+      plainText: String(handoff.summary || ''),
+      blocks: [],
+    },
+    metadata: {
+      ...(payload.metadata && typeof payload.metadata === 'object' ? payload.metadata : {}),
+      importedFrom: handoff.source || 'handoff',
+      importedAt: now,
+    },
+    createdAt: now,
+    updatedAt: now,
+  });
+}
+
+function pendingCampaignHandoffMessage(handoff) {
+  if (handoff?.kind === 'character') {
+    return 'Abre una campaña para importar el personaje pendiente.';
+  }
+  if (handoff?.kind === 'dmTool') {
+    return 'Abre una campaña para importar la herramienta DM pendiente.';
+  }
+  return 'Abre una campaña para importar el contenido pendiente.';
 }
 
 function clampOnboardingStep(index = 0) {
@@ -1740,7 +1908,7 @@ function renderDmTools() {
   if (!state) return;
   ensureWorkspace();
   renderDmToolTypeControls();
-  $('#dm-tool-remote-warning')?.classList.add('hidden');
+  updateWorkspaceSyncNotice('#dm-tool-remote-warning');
   const activeExists = activeDmToolId && getDmTool(activeDmToolId);
   if (activeExists) loadDmTool(activeDmToolId);
   else clearDmToolForm(activeDmToolType);
@@ -1904,7 +2072,7 @@ function renderWorkspaceEditor() {
   if (!state) return;
   ensureWorkspace();
   renderWorkspaceTypeControls();
-  $('#workspace-remote-warning')?.classList.add('hidden');
+  updateWorkspaceSyncNotice('#workspace-remote-warning');
   const activeExists = activeWorkspaceEntityId && getWorkspaceEntity(activeWorkspaceCollection, activeWorkspaceEntityId);
   if (activeExists) loadWorkspaceEntity(activeWorkspaceCollection, activeWorkspaceEntityId);
   else clearWorkspaceEditor(activeWorkspaceCollection);
@@ -2572,7 +2740,7 @@ function renderBoardInspector() {
 function renderBoard() {
   if (!state) return;
   ensureWorkspace();
-  $('#board-remote-warning')?.classList.add('hidden');
+  updateWorkspaceSyncNotice('#board-remote-warning');
   renderBoardLibrary();
   renderBoardToolbar();
   renderBoardNodes();
@@ -2865,11 +3033,12 @@ function characterCard(character) {
     : (progress.next ? `${formatResource(progress.remaining)} para nivel ${progress.level + 1}` : system.maxProgressText);
   const progressValue = system.id === 'cyberpunkRed' ? `Actual: ${formatResource(character.xp)}` : formatResource(character.xp);
   const cyberpunkPpSummary = system.id === 'cyberpunkRed' ? renderCyberpunkCharacterPpSummary(cyberpunkLedger) : '';
+  const noteExcerpt = compactText(character.notes?.plainText || '', 110);
   return `
     <article class="character-card">
       <div class="character-top">
         ${characterAvatar(character)}
-        <div class="character-meta"><h3>${escapeHTML(character.name)}</h3><p>${escapeHTML(subtitle)}</p></div>
+        <div class="character-meta"><h3>${escapeHTML(character.name)}</h3><p>${escapeHTML(subtitle)}</p>${noteExcerpt ? `<p class="character-note-excerpt">${escapeHTML(noteExcerpt)}</p>` : ''}</div>
         <div class="level-badge">${system.progressName.toUpperCase()}<b>${system.id === 'cyberpunkRed' ? formatNumber(progress.level) : progress.level}</b></div>
       </div>
       <div class="progress-track"><div class="progress-fill" style="width:${progress.percent}%"></div></div>
@@ -2930,9 +3099,10 @@ function renderCharacters() {
     const progressHelp = system.id === 'cyberpunkRed'
       ? `${formatCyberpunkLedgerLine(cyberpunkLedger)} | ${formatCyberpunkLastSessionLine(cyberpunkLedger)}`
       : (progress.next ? `${formatResource(progress.remaining)} para subir` : system.maxProgressText);
+    const noteExcerpt = compactText(character.notes?.plainText || '', 130);
     return `<article class="character-row">
       ${characterAvatar(character)}
-      <div class="character-meta"><h3>${escapeHTML(character.name)}</h3><p>${escapeHTML(character.className || `Sin ${system.roleLabel.toLowerCase()}`)} · ${progressLabel}${character.player ? ` · ${escapeHTML(character.player)}` : ''}</p></div>
+      <div class="character-meta"><h3>${escapeHTML(character.name)}</h3><p>${escapeHTML(character.className || `Sin ${system.roleLabel.toLowerCase()}`)} · ${progressLabel}${character.player ? ` · ${escapeHTML(character.player)}` : ''}</p>${noteExcerpt ? `<p class="character-note-excerpt">${escapeHTML(noteExcerpt)}</p>` : ''}</div>
       <div class="xp-amount">${formatResource(character.xp)}<small>${progressHelp}</small></div>
       <div class="row-actions"><button class="text-button edit-character" data-id="${character.id}">Editar</button><button class="text-button danger-button delete-character" data-id="${character.id}">Eliminar</button></div>
     </article>`;
@@ -3338,7 +3508,11 @@ function renderAll() {
 }
 
 document.addEventListener('click', async event => {
-  if (event.target.closest('[data-action="campaigns-home"]')) showCampaignsHome();
+  if (event.target.closest('[data-action="campaigns-home"]')) {
+    event.preventDefault();
+    showCampaignsHome();
+    return;
+  }
   if (event.target.closest('#open-campaign-tutorial')) showCampaignOnboarding({ manual: true, step: 0 });
   if (event.target.id === 'onboarding-modal' || event.target.closest('#close-onboarding') || event.target.closest('#skip-onboarding')) {
     dismissCampaignOnboarding(false);
@@ -3528,7 +3702,9 @@ document.addEventListener('click', async event => {
 $('#character-form').addEventListener('submit', async event => {
   event.preventDefault();
   const id = $('#character-id').value;
+  const existingCharacter = id ? state.characters.find(character => character.id === id) : null;
   const data = normalizeCharacter({
+    ...(existingCharacter || {}),
     id: id || (USE_REMOTE_STORAGE ? undefined : uid()),
     name: $('#character-name').value.trim(),
     player: $('#player-name').value.trim(),
@@ -3777,7 +3953,8 @@ $('#campaign-form').addEventListener('submit', async event => {
       if (existing) {
         await remoteStorage.updateCampaign(campaign, wantsProtection ? password : '', wantsProtection && !password);
       } else {
-        await remoteStorage.createCampaign(campaign, wantsProtection ? password : '');
+        const created = await remoteStorage.createCampaign(campaign, wantsProtection ? password : '');
+        if (created?.campaign?.id) campaign.id = created.campaign.id;
       }
       if (wantsProtection && password) unlockedCampaigns.add(campaign.id);
       if (!wantsProtection) unlockedCampaigns.delete(campaign.id);
@@ -3850,16 +4027,22 @@ async function handleCampaignRouteChange() {
 
 async function initializeCampaigns() {
   applyGlobalAppearance();
+  const hasInitialCampaignCheckpoint = ensureCampaignsHomeHistoryCheckpoint();
   portfolio = await loadInitialPortfolio();
-  const storageCopy = $('.sidebar-footer p');
-  if (storageCopy) storageCopy.textContent = USE_REMOTE_STORAGE ? 'Los datos se guardan en el archivo compartido.' : 'Los datos se guardan en este navegador.';
+  updateStorageIndicators();
   renderCampaigns();
+  const pendingHandoff = readCampaignHandoff();
+  if (pendingHandoff) {
+    showToast(pendingCampaignHandoffMessage(pendingHandoff));
+  }
   const initialCampaignId = resolveCampaignIdFromUrl();
-  const openedInitialCampaign = initialCampaignId ? await openCampaign(initialCampaignId, { replaceUrl: true }) : false;
+  const openedInitialCampaign = initialCampaignId
+    ? await openCampaign(initialCampaignId, { replaceUrl: hasInitialCampaignCheckpoint })
+    : false;
   if (initialCampaignId && !openedInitialCampaign) {
     showToast('No se encontró esa campaña.');
     updateCampaignsHomeUrl({ replace: true });
-  } else if (!initialCampaignId && (getCampaignRouteSegment() || new URLSearchParams(window.location.search).has('campaign'))) {
+  } else if (!initialCampaignId && hasCampaignRouteTarget()) {
     showToast('No se encontró esa campaña.');
     updateCampaignsHomeUrl({ replace: true });
   }

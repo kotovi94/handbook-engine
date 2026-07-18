@@ -33,6 +33,7 @@
       </div>
       <div class="home-actions">
         <a class="secondary-button handbook-link" href="../">Compendio y creador</a>
+        <span id="campaign-storage-status" class="storage-status" aria-live="polite"></span>
         <button id="campaigns-mode-toggle" class="icon-button mode-toggle" type="button" aria-label="Usar modo oscuro" title="Usar modo oscuro">☾</button>
         <button id="open-campaign-form" class="primary-button new-campaign-button">+ Nueva campaña</button>
       </div>
@@ -91,7 +92,7 @@
       <label class="toggle-field"><input id="campaign-protected" type="checkbox"><span>Proteger esta campaña con contraseña</span></label>
       <div id="campaign-password-fields" class="hidden">
         <label>Contraseña<input id="campaign-password" type="password" minlength="4" maxlength="80" autocomplete="new-password" placeholder="Mínimo 4 caracteres"></label>
-        <p class="helper">La contraseña protege el acceso en este navegador. Al editar, déjala vacía para conservar la actual.</p>
+        <p class="helper">En local protege este navegador. En modo compartido desbloquea edición y administración. Al editar, déjala vacía para conservar la actual.</p>
       </div>
       <button type="submit" class="primary-button full-width">Guardar campaña</button>
     </form>
@@ -122,8 +123,8 @@
       </div>
 
       <nav class="nav" aria-label="Navegación principal">
-        <a class="nav-item handbook-nav-link" href="../"><span>↗</span> Compendio</a>
-        <button class="nav-item campaign-home-button" data-action="campaigns-home"><span>◇</span> Campañas</button>
+        <button type="button" class="nav-item campaign-home-button" data-action="campaigns-home"><span>←</span> Mis campañas</button>
+        <a class="nav-item handbook-nav-link" href="../"><span>↗</span> Compendio y creador</a>
         <button class="nav-item active" data-view="dashboard"><span>⌂</span> Resumen</button>
         <button class="nav-item" data-view="characters"><span>♙</span> Personajes</button>
         <button class="nav-item" data-view="new-session"><span>✦</span> Nueva sesión</button>
@@ -307,7 +308,7 @@
               <label>Tipo<select id="workspace-type-filter"></select></label>
               <label>Buscar<input id="workspace-search" type="search" placeholder="Nombre, etiqueta o texto..."></label>
             </div>
-            <div id="workspace-remote-warning" class="workspace-warning hidden">El guardado de páginas compartidas se activará cuando migremos el backend remoto.</div>
+            <div id="workspace-remote-warning" class="workspace-warning hidden"></div>
             <div id="workspace-entity-list" class="workspace-entity-list"></div>
           </aside>
 
@@ -382,7 +383,7 @@
               <div><p class="eyebrow">Archivo</p><h2>Elementos</h2></div>
             </div>
             <label>Buscar<input id="board-library-search" type="search" placeholder="Nombre, etiqueta o sesión..."></label>
-            <div id="board-remote-warning" class="workspace-warning hidden">El guardado de tableros compartidos se activará cuando migremos el backend remoto.</div>
+            <div id="board-remote-warning" class="workspace-warning hidden"></div>
             <div id="board-library-list" class="board-library-list"></div>
           </aside>
 
@@ -420,7 +421,7 @@
               <label>Tipo<select id="dm-tool-type-filter"></select></label>
               <label>Buscar<input id="dm-tool-search" type="search" placeholder="Nombre, etiqueta o detalle..."></label>
             </div>
-            <div id="dm-tool-remote-warning" class="workspace-warning hidden">El guardado de herramientas compartidas se activará cuando migremos el backend remoto.</div>
+            <div id="dm-tool-remote-warning" class="workspace-warning hidden"></div>
             <div id="dm-tool-list" class="dm-tool-list"></div>
           </aside>
 

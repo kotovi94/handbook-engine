@@ -39,6 +39,8 @@ function mapCharacter(row) {
     xp: Number(row.xp || 0),
     color: row.color || "#b97a45",
     portrait: row.portrait || "",
+    notes: row.notes || {},
+    metadata: row.metadata || {},
   };
 }
 

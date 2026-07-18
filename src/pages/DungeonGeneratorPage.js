@@ -1,5 +1,6 @@
 import { DungeonConfigForm } from "../components/DungeonConfigForm.js";
 import { DungeonResultView } from "../components/DungeonResultView.js";
+import { queueCampaignHandoff } from "../scripts/campaignHandoff.js";
 import {
   generateDungeon,
   regenerateDungeonEnemies,
@@ -187,6 +188,15 @@ export function DungeonGeneratorPage() {
         downloadTextFile(`${safeFilename(pageState.dungeon.name)}-foundry-draft.json`, exportFoundryDraft(pageState.dungeon), "application/json");
         setStatus("Foundry draft exportado.");
       },
+      onSendToCampaign: () => {
+        const queued = queueCampaignHandoff(createDungeonHandoff(pageState.dungeon));
+        setStatus(queued
+          ? "Mazmorra lista para importar en Campañas."
+          : "No se pudo preparar la importación a Campañas.");
+        if (queued) {
+          window.location.href = "./campaigns/";
+        }
+      },
     }));
   }
 
@@ -249,4 +259,25 @@ function safeFilename(value) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 80) || "dungeon";
+}
+
+function createDungeonHandoff(dungeon) {
+  const secretRooms = (dungeon.rooms || [])
+    .filter((room) => room.type === "secreto")
+    .map((room) => room.name || room.id)
+    .join(", ");
+
+  return {
+    kind: "dmTool",
+    source: "dungeon-generator",
+    title: dungeon.name || "Mazmorra generada",
+    summary: dungeon.summary || "Mazmorra preparada desde Dungeon Generator.",
+    content: exportDungeonMarkdownCompact(dungeon),
+    tags: ["mazmorra", dungeon.type, dungeon.theme].filter(Boolean),
+    data: {
+      theme: [dungeon.type, dungeon.theme].filter(Boolean).join(" / "),
+      entrance: dungeon.entranceRoomId || dungeon.rooms?.[0]?.id || "",
+      secret: secretRooms || "Sin secreto destacado",
+    },
+  };
 }

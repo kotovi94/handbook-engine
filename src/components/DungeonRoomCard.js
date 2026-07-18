@@ -107,8 +107,8 @@ function renderTextAreaField(labelText, value, onInput) {
   span.textContent = labelText;
 
   const textarea = document.createElement("textarea");
-  textárea.value = value;
-  textárea.addEventListener("input", () => onInput(textárea.value));
+  textarea.value = value;
+  textarea.addEventListener("input", () => onInput(textarea.value));
 
   label.append(span, textarea);
   return label;

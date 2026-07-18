@@ -211,7 +211,7 @@ Reglas de lectura:
 
 `sessions`: sesiones jugadas. Hoy guardan asistencia, recompensas y notas de combate/roleo. En la expansión deben poder enlazarse a entidades descubiertas, imágenes y resumen público.
 
-`characters`: personajes de la campaña. Los existentes se normalizan como `kind: "player"`. Más adelante puede admitir `kind: "npc"` cuando la interfaz separe personajes jugadores de PNJ.
+`characters`: personajes de la campaña. Los existentes se normalizan como `kind: "player"`. Pueden llevar `notes` y `metadata` para búsquedas, tablero e importaciones desde el creador. Más adelante puede admitir `kind: "npc"` cuando la interfaz separe personajes jugadores de PNJ.
 
 `notes`: páginas libres del DM o diario público. Sirven para preparación, crónicas, handouts, reglas caseras y apuntes de mesa.
 

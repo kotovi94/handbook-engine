@@ -25,19 +25,26 @@ export function Layout({ activeRoute, activeTheme, isDarkMode, onNavigate, onDar
 
   const menuButton = IconButton({
     label: "Abrir menú",
-    icon: "",
+    icon: "menu",
     className: "mobile-menu-button",
     onClick: () => setSidebarState(true),
   });
 
   menuButton.dataset.tour = "mobile-menu";
 
-  const headerTitle = document.createElement("strong");
-  headerTitle.textContent = "Compendio D20 Travesías";
+  const headerBrand = document.createElement("div");
+  headerBrand.className = "header-brand";
+  headerBrand.innerHTML = `
+    <span class="header-brand-mark">20</span>
+    <span class="header-brand-copy">
+      <strong>Compendio D20 Travesías</strong>
+      <small>Mesa, reglas y preparación</small>
+    </span>
+  `;
 
   mainHeader.append(
     menuButton,
-    headerTitle,
+    headerBrand,
     HeaderActions({ isDarkMode, onDarkModeChange }),
   );
 

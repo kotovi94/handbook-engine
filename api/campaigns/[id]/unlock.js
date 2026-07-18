@@ -1,10 +1,10 @@
 const {
-  hashPassword,
   readBody,
   sendError,
   sendJson,
   signUnlockToken,
   supabaseFetch,
+  verifyPassword,
 } = require("../../_supabase");
 
 module.exports = async function handler(req, res) {
@@ -19,7 +19,7 @@ module.exports = async function handler(req, res) {
     const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(id)}&select=id,password_hash`);
     if (!campaign) return sendJson(res, 404, { error: "Campaign not found" });
     if (!campaign.password_hash) return sendJson(res, 200, { token: signUnlockToken(id) });
-    if (hashPassword(body.password || "") !== campaign.password_hash) {
+    if (!verifyPassword(body.password || "", campaign.password_hash)) {
       return sendJson(res, 401, { error: "Invalid password" });
     }
 

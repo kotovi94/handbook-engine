@@ -13,6 +13,8 @@ También puedes forzar el modo local en Vercel agregando `?local=1` a la URL.
 2. Entra a SQL Editor.
 3. Ejecuta el contenido completo de `docs/supabase-campaigns.sql`.
 
+Puedes volver a ejecutar ese SQL sobre un proyecto existente. Las columnas nuevas de personajes, como `notes` y `metadata`, se agregan con `add column if not exists`.
+
 ## 2. Variables en Vercel
 
 En Vercel, ve a Project Settings > Environment Variables y agrega:
@@ -25,16 +27,18 @@ CAMPAIGN_UNLOCK_SECRET=una-frase-larga-aleatoria
 
 `SUPABASE_SERVICE_ROLE_KEY` sale de Supabase > Project Settings > API > service_role. No debe ponerse en código del navegador ni compartirse.
 
-`CAMPAIGN_UNLOCK_SECRET` puede ser cualquier frase larga aleatoria. Sirve para firmar el acceso temporal después de poner la contrasena de una campaña.
+`CAMPAIGN_UNLOCK_SECRET` puede ser cualquier frase larga aleatoria. Sirve para firmar el acceso temporal después de poner la contraseña de una campaña.
 
 Después de agregar o cambiar variables en Vercel, hay que hacer Redeploy.
+
+Las contraseñas nuevas se guardan como PBKDF2 con sal. Las campañas creadas antes con SHA-256 simple siguen abriendo por compatibilidad, pero al cambiar su contraseña pasan al formato nuevo.
 
 ## 3. Modelo de acceso
 
 - Todos pueden ver la lista de campañas.
 - Todos pueden abrir el resumen de una campaña.
-- Si la campaña tiene contrasena, se abre en modo resumen.
-- Con la contrasena se desbloquean personajes, sesiones, edición y borrado.
+- Si la campaña tiene contraseña, se abre en modo resumen.
+- Con la contraseña se desbloquean personajes, sesiones, edición y borrado.
 - Las sesiones guardadas aplican PX o PP en Supabase para que todos vean el mismo avance.
 - La Bitácora avanzada guarda páginas, imágenes pequeñas, links, herramientas DM, conexiones, tablero y tutorial por campaña.
 
@@ -62,4 +66,4 @@ PATCH  /api/campaigns/:id/workspace
 2. Abre `/campaigns/`.
 3. Crea una campaña.
 4. Entra desde otra ventana o navegador y confirma que aparece en la lista.
-5. Si la campaña tiene contrasena, entra sin contrasena para ver resumen y luego desbloquea para editar.
+5. Si la campaña tiene contraseña, entra sin contraseña para ver resumen y luego desbloquea para editar.
