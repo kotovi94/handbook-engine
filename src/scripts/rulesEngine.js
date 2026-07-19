@@ -20,7 +20,7 @@ export const rulesEngine = {
   },
 
   deriveCharacter(character) {
-    const level = 5;
+    const level = Math.max(1, Math.min(5, Math.trunc(Number(character.level) || 5)));
     const classData = contentEngine.getClass(character.classId);
     const classRules = classSheetRules[character.classId] || {};
     const subclassData = contentEngine.getSubclass(character.subclassId);
@@ -34,7 +34,6 @@ export const rulesEngine = {
     const progression = classProgression[character.classId];
     const hitDie = progression?.hitDie || 8;
     const averageHitDie = this.getAverageHitDie(hitDie);
-    const constitutionPerLevel = abilityModifiers.constitution * level;
     const classFeaturesByLevel = getFeaturesByLevel(progression?.levels || [], level);
     const subclassFeaturesByLevel = getFeaturesByLevel(subclassProgression[character.subclassId]?.levels || [], level);
     const classFeatureObjects = classFeaturesByLevel.flatMap((entry) => entry.features);
@@ -69,7 +68,7 @@ export const rulesEngine = {
     const grantedFeatIds = [
       ...baseEffectState.feats,
       ...character.featIds,
-      character.level4FeatId,
+      level >= 4 ? character.level4FeatId : "",
       ...choiceEffectState.feats,
     ].filter(Boolean);
     const grantedFeats = [...new Set(grantedFeatIds)]
@@ -90,7 +89,21 @@ export const rulesEngine = {
       ...collectEffects(magicItems),
     ]).spellChoices;
     const toughBonus = (featureEffects.hitPointsPerLevel || 0) * level;
-    const hitPointMaximum = hitDie + ((level - 1) * averageHitDie) + constitutionPerLevel + toughBonus;
+    const hitPointMethod = character.hitPointMethod === "rolled" ? "rolled" : "fixed";
+    const hitPointRolls = Array.from({ length: Math.max(0, level - 1) }, (_, index) => {
+      const roll = Number(character.hitPointRolls?.[index]);
+      return Number.isInteger(roll) && roll >= 1 && roll <= hitDie ? roll : null;
+    });
+    const hitPointGains = hitPointRolls.map((roll) => hitPointMethod === "rolled"
+      ? (roll === null ? 0 : Math.max(1, roll + abilityModifiers.constitution))
+      : Math.max(1, averageHitDie + abilityModifiers.constitution));
+    const hitPointRollsComplete = hitPointMethod !== "rolled" || hitPointRolls.every((roll) => roll !== null);
+    const hitPointMaximum = Math.max(1, hitDie + abilityModifiers.constitution)
+      + hitPointGains.reduce((sum, value) => sum + value, 0)
+      + toughBonus;
+    const hitPointFormula = hitPointMethod === "rolled"
+      ? `${hitDie} + CON en nivel 1; tiradas ${hitPointRolls.map((roll) => roll ?? "?").join(", ")} + CON por cada nivel posterior${toughBonus ? "; incluye Duro" : ""}.`
+      : `${hitDie} + CON en nivel 1; ${level - 1} x (${averageHitDie} fijo + CON)${toughBonus ? "; incluye Duro" : ""}.`;
     const classFeatures = classFeatureObjects.map(displayName);
     const subclassFeatures = subclassFeatureObjects.map(displayName);
     const equippedArmor = equipmentItems.find((item) => item.id === character.equippedArmorId && item.category === "armor");
@@ -148,7 +161,10 @@ export const rulesEngine = {
       hitDie,
       averageHitDie,
       hitPointMaximum,
-      hitPointFormula: `${hitDie} at level 1 + ${level - 1} x ${averageHitDie} + Constitution modifier x ${level}${toughBonus ? " + Tough" : ""}.`,
+      hitPointFormula,
+      hitPointMethod,
+      hitPointRolls,
+      hitPointRollsComplete,
       equippedArmor,
       equippedShield,
       equippedWeapon,

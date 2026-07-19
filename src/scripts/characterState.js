@@ -5,6 +5,8 @@ const storageKey = "handbook-engine-character";
 const defaultCharacter = {
   name: "",
   level: 5,
+  hitPointMethod: "fixed",
+  hitPointRolls: [],
   abilityMethod: "standard-array",
   classId: "",
   subclassId: "",
@@ -38,6 +40,17 @@ export function getCharacter() {
 
 export function updateCharacter(patch) {
   const previousClassId = character.classId;
+  const nextLevel = normalizeLevel(patch.level ?? character.level);
+  patch = {
+    ...patch,
+    level: nextLevel,
+    ...(nextLevel < 3 ? { subclassId: "" } : {}),
+    ...(nextLevel < 4 ? {
+      level4Mode: "",
+      level4FeatId: "",
+      level4AbilityIncreases: Object.fromEntries(Object.keys(character.level4AbilityIncreases).map((ability) => [ability, 0])),
+    } : {}),
+  };
   const baseAbilities = {
     ...character.baseAbilities,
     ...(patch.baseAbilities || {}),
@@ -92,7 +105,14 @@ export function resetCharacter() {
 function loadCharacter() {
   try {
     const saved = localStorage.getItem(storageKey);
-    const loaded = saved ? { ...defaultCharacter, ...JSON.parse(saved), level: 5 } : structuredClone(defaultCharacter);
+    const loaded = saved ? { ...defaultCharacter, ...JSON.parse(saved) } : structuredClone(defaultCharacter);
+    loaded.level = normalizeLevel(loaded.level);
+    if (loaded.level < 3) loaded.subclassId = "";
+    if (loaded.level < 4) {
+      loaded.level4Mode = "";
+      loaded.level4FeatId = "";
+      loaded.level4AbilityIncreases = {};
+    }
     loaded.baseAbilities = { ...defaultCharacter.baseAbilities, ...(loaded.baseAbilities || {}) };
     loaded.backgroundAbilityIncreases = {
       ...defaultCharacter.backgroundAbilityIncreases,
@@ -111,6 +131,10 @@ function loadCharacter() {
   } catch {
     return structuredClone(defaultCharacter);
   }
+}
+
+function normalizeLevel(level) {
+  return Math.max(1, Math.min(5, Math.trunc(Number(level) || defaultCharacter.level)));
 }
 
 function notifyClassChange(previousClassId, nextClassId) {

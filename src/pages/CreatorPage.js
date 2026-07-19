@@ -15,6 +15,7 @@ import { rulesEngine } from "../scripts/rulesEngine.js";
 import { mapCharacterToSheetSections } from "../scripts/sheetMapper.js";
 import { resolveSpell, sortByVisibleName, sortChoiceOptions } from "../scripts/sortUtils.js";
 import { getVisualIcon } from "../scripts/visualIdentity.js";
+import { animatePolyhedralDice } from "../scripts/dice3d.js";
 
 export function CreatorPage({ stepId = "class" } = {}) {
   const page = document.createElement("section");
@@ -57,7 +58,10 @@ export function CreatorPage({ stepId = "class" } = {}) {
 
   function renderStepContent(currentStepId) {
     if (currentStepId === "class") {
-      return renderSingleChoice(currentStepId);
+      const wrapper = document.createElement("div");
+      wrapper.className = "section-stack";
+      wrapper.append(renderLevelChoice(), renderSingleChoice(currentStepId));
+      return wrapper;
     }
 
     if (currentStepId === "origin") {
@@ -92,11 +96,33 @@ export function CreatorPage({ stepId = "class" } = {}) {
     wrapper.className = "section-stack";
     const derived = rulesEngine.deriveCharacter(character);
     wrapper.append(
-      ProgressionList({ title: "Rasgos de clase hasta nivel 5", entries: derived.classFeaturesByLevel }),
-      ProgressionList({ title: "Rasgos de subclase hasta nivel 5", entries: derived.subclassFeaturesByLevel }),
+      ProgressionList({ title: `Rasgos de clase hasta nivel ${derived.level}`, entries: derived.classFeaturesByLevel }),
+      ProgressionList({ title: `Rasgos de subclase hasta nivel ${derived.level}`, entries: derived.subclassFeaturesByLevel }),
       SheetSectionList(mapCharacterToSheetSections(character)),
     );
     return wrapper;
+  }
+
+  function renderLevelChoice() {
+    const field = document.createElement("label");
+    field.className = "field-stack panel";
+    field.innerHTML = `
+      <span><strong>Nivel del personaje</strong></span>
+      <select aria-label="Nivel del personaje">
+        ${[1, 2, 3, 4, 5].map((level) => `<option value="${level}"${character.level === level ? " selected" : ""}>Nivel ${level}</option>`).join("")}
+      </select>
+      <small>La ficha, los PG, la competencia, los rasgos y los pendientes se recalculan al instante.</small>
+    `;
+    field.querySelector("select").addEventListener("change", (event) => {
+      const level = Number(event.target.value);
+      updateCharacter({
+        level,
+        ...(level < 3 ? { subclassId: "" } : {}),
+        ...(level < 4 ? { level4Mode: "", level4FeatId: "", level4AbilityIncreases: resetAbilityIncreases() } : {}),
+      });
+      render();
+    });
+    return field;
   }
 
   function renderAppearance() {
@@ -136,7 +162,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
       selectedIds: selectedId ? [selectedId] : [],
       onSelect(id) {
         updateCharacter(currentStepId === "class"
-          ? { [selectionKey]: id, subclassId: "", classEquipmentOptionId: "" }
+          ? { [selectionKey]: id, subclassId: "", classEquipmentOptionId: "", hitPointRolls: [] }
           : { [selectionKey]: id });
         render();
       },
@@ -180,6 +206,12 @@ export function CreatorPage({ stepId = "class" } = {}) {
   }
 
   function renderSubclassChoice() {
+    if (character.level < 3) {
+      const panel = document.createElement("div");
+      panel.className = "panel";
+      panel.innerHTML = "<p>Disponible a partir de nivel 3.</p>";
+      return panel;
+    }
     const choices = creationEngine.getSubclassChoices(character.classId);
 
     if (!choices.length) {
@@ -207,42 +239,138 @@ export function CreatorPage({ stepId = "class" } = {}) {
     wrapper.append(
       choiceSection({
         title: "Subclase",
-        helper: "A nivel 5 la subclase ya está activa. Elige una para sumar sus rasgos.",
+        helper: derived.level >= 3
+          ? `A nivel ${derived.level} la subclase está activa. Elige una para sumar sus rasgos.`
+          : "La subclase se desbloquea a nivel 3.",
         content: renderSubclassChoice(),
       }),
-      choiceSection({
+      ...(derived.level >= 4 ? [choiceSection({
         title: "Mejora de nivel 4",
         helper: "Elige si el nivel 4 sube características o agrega una dote. Esto se refleja en la hoja y en pendientes.",
         content: renderLevel4Improvement(),
+      })] : []),
+      choiceSection({
+        title: "Puntos de golpe por nivel",
+        helper: "En nivel 1 siempre se usa el máximo del dado de golpe. Desde nivel 2 puedes tomar el valor fijo o tirar el dado de tu clase.",
+        content: renderHitPointMethod(derived),
       }),
-      ProgressionList({ title: "Rasgos de clase hasta nivel 5", entries: derived.classFeaturesByLevel }),
-      ProgressionList({ title: "Rasgos de subclase hasta nivel 5", entries: derived.subclassFeaturesByLevel }),
+      ProgressionList({ title: `Rasgos de clase hasta nivel ${derived.level}`, entries: derived.classFeaturesByLevel }),
+      ProgressionList({ title: `Rasgos de subclase hasta nivel ${derived.level}`, entries: derived.subclassFeaturesByLevel }),
       ...(derived.spellcasting.canCast ? [renderSpellSlotsPanel(derived)] : []),
       CalculationGrid([
         {
           title: "Nivel",
           value: derived.level,
-          formula: "La mesa presencial está fijada en nivel 5.",
+          formula: "Se puede cambiar entre nivel 1 y 5.",
         },
         {
           title: "Proficiency Bonus",
           value: `+${derived.proficiencyBonus}`,
-          formula: "Nivel 5 usa +3.",
+          formula: `Nivel ${derived.level} usa +${derived.proficiencyBonus}.`,
         },
         {
           title: "Hit Point Maximum",
           value: derived.hitPointMaximum,
           formula: derived.hitPointFormula,
         },
-        {
+        ...(derived.level >= 4 ? [{
           title: "Nivel 4",
           value: level4Summary(character),
           formula: "Mejora de característica: aumento de atributos o una dote elegida.",
-        },
+        }] : []),
       ]),
     );
 
     return wrapper;
+  }
+
+  function renderHitPointMethod(derived) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "section-stack";
+    const methods = document.createElement("div");
+    methods.className = "ability-methods";
+
+    [
+      { id: "fixed", label: "Valor fijo", value: String(derived.averageHitDie), summary: `Usa ${derived.averageHitDie} por cada nivel después del primero.` },
+      { id: "rolled", label: "Tirar dados", value: `d${derived.hitDie}`, summary: "Guarda una tirada independiente por cada nivel después del primero." },
+    ].forEach((method) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = derived.hitPointMethod === method.id ? "method-card is-selected" : "method-card";
+      button.innerHTML = `<span>${method.label}</span><strong>${method.value}</strong><small>${method.summary}</small>`;
+      button.addEventListener("click", () => {
+        updateCharacter({ hitPointMethod: method.id });
+        render();
+      });
+      methods.append(button);
+    });
+    wrapper.append(methods);
+
+    if (derived.hitPointMethod === "rolled" && derived.level > 1) {
+      const rolls = document.createElement("div");
+      rolls.className = "panel";
+      rolls.innerHTML = `<p><strong>Tiradas de vida d${derived.hitDie}</strong></p>`;
+      const rollGrid = document.createElement("div");
+      rollGrid.className = "hit-die-rolls";
+      derived.hitPointRolls.forEach((roll, index) => {
+        const row = document.createElement("div");
+        row.className = "hit-die-row";
+        row.innerHTML = `<span>Nivel ${index + 2}</span><strong>${roll ?? "Pendiente"}</strong>`;
+        rollGrid.append(row);
+      });
+      rolls.append(rollGrid);
+      const rollAllButton = document.createElement("button");
+      rollAllButton.type = "button";
+      rollAllButton.className = "button";
+      const hasPendingRolls = derived.hitPointRolls.some((roll) => roll === null);
+      const diceNotation = `${derived.hitPointRolls.length}d${derived.hitDie}`;
+      rollAllButton.textContent = hasPendingRolls
+        ? derived.hitPointRolls.length === 1 ? `Tirar ${diceNotation}` : `Tirar ${diceNotation} a la vez`
+        : `Volver a tirar ${diceNotation}`;
+      rollAllButton.addEventListener("click", async () => {
+        rollAllButton.disabled = true;
+        const results = await rollThreeDimensionalDice(derived.hitDie, derived.hitPointRolls.length);
+        if (!results) {
+          rollAllButton.disabled = false;
+          return;
+        }
+        updateCharacter({ hitPointRolls: results });
+        render();
+      });
+      rolls.append(rollAllButton);
+      wrapper.append(rolls);
+    }
+    return wrapper;
+  }
+
+  function rollThreeDimensionalDice(sides, count) {
+    return new Promise((resolve) => {
+      const overlay = document.createElement("div");
+      overlay.className = "dice-overlay";
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute("aria-label", `Tirada de ${count} dados d${sides}`);
+      overlay.innerHTML = `
+        <div class="dice-stage">
+          <p class="dice-roll-label">Tirando ${count}d${sides}</p>
+          <canvas class="dice-canvas" aria-hidden="true"></canvas>
+          <strong class="dice-result" aria-live="polite">Los dados están rodando…</strong>
+        </div>
+      `;
+      document.body.append(overlay);
+      const die = overlay.querySelector(".dice-canvas");
+      const resultText = overlay.querySelector(".dice-result");
+      animatePolyhedralDice(die, sides, count).then((results) => {
+        resultText.textContent = `Resultados: ${results.join(", ")}`;
+        window.setTimeout(() => {
+          overlay.classList.add("is-finished");
+          window.setTimeout(() => {
+            overlay.remove();
+            resolve(results);
+          }, 450);
+        }, 650);
+      });
+    });
   }
 
   function renderLevel4Improvement() {

@@ -663,6 +663,152 @@
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
 }
 
+.hit-die-rolls {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.8rem;
+}
+
+.hit-die-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.dice-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgb(10 8 7 / 78%);
+  backdrop-filter: blur(6px);
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.dice-overlay.is-finished { opacity: 0; }
+
+.dice-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.dice-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.dice-roll-label,
+.dice-result {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  margin: 0;
+  padding: 0.6rem 1rem;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 999px;
+  color: #fff;
+  background: rgb(20 14 11 / 58%);
+  box-shadow: 0 8px 25px rgb(0 0 0 / 20%);
+  backdrop-filter: blur(5px);
+  transform: translateX(-50%);
+}
+
+.dice-roll-label {
+  top: max(1.25rem, env(safe-area-inset-top));
+  color: #ffad77;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.dice-polyhedron {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(-18deg) rotateY(28deg);
+}
+
+.dice-polyhedron.is-rolling {
+  animation: dice-roll-3d 1.2s cubic-bezier(.2,.75,.25,1) forwards;
+}
+
+.dice-polyhedron svg { width: 100%; height: 100%; overflow: visible; }
+
+.dice-facet {
+  stroke: rgb(255 255 255 / 48%);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  fill: #a83f28;
+}
+
+.dice-facet:nth-child(3n + 1) { fill: #c9613d; }
+.dice-facet:nth-child(3n + 2) { fill: #963321; }
+.dice-facet:nth-child(3n) { fill: #7a291e; }
+.dice-d8 .dice-facet:nth-child(odd) { fill: #bd5032; }
+.dice-d10 .dice-facet:nth-child(2n) { fill: #84291e; }
+.dice-d12 .dice-facet-11 { fill: #b84c30; }
+.dice-d12 .dice-facet-12 { fill: #8e3022; }
+
+.dice-facet.is-landed {
+  fill: #e9a73a;
+  stroke: #fff7cf;
+  stroke-width: 3;
+  filter: brightness(1.12);
+}
+
+.dice-face-number {
+  fill: #fff;
+  stroke: rgb(56 17 12 / 55%);
+  stroke-width: 0.45;
+  paint-order: stroke;
+  font-size: 9px;
+  font-weight: 900;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+.dice-face-number.is-landed {
+  fill: #2d160d;
+  stroke: #fff4c2;
+  stroke-width: 1.8;
+  font-size: 13px;
+}
+
+.dice-result {
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  min-width: max-content;
+  text-align: center;
+  font-size: 1.15rem;
+}
+
+@keyframes dice-roll-3d {
+  0% { transform: translate3d(-9rem, -1rem, -2rem) rotateX(-18deg) rotateY(28deg) rotateZ(0); }
+  18% { transform: translate3d(-4.5rem, -3.4rem, 2rem) rotateX(210deg) rotateY(260deg) rotateZ(95deg); }
+  38% { transform: translate3d(0, 0.4rem, 0) rotateX(390deg) rotateY(470deg) rotateZ(190deg); }
+  55% { transform: translate3d(4.8rem, -2.1rem, 1rem) rotateX(545deg) rotateY(610deg) rotateZ(280deg); }
+  72% { transform: translate3d(1.8rem, 0.3rem, 0) rotateX(650deg) rotateY(700deg) rotateZ(340deg); }
+  86% { transform: translate3d(-0.7rem, -0.7rem, 0) rotateX(694deg) rotateY(742deg) rotateZ(358deg); }
+  100% { transform: translate3d(0, 0, 0) rotateX(702deg) rotateY(748deg) rotateZ(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dice-polyhedron.is-rolling { animation-duration: 0.01ms; }
+}
+
 .method-card {
   display: grid;
   min-height: 126px;

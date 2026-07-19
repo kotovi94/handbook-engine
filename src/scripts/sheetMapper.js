@@ -16,7 +16,7 @@ export function mapCharacterToSheetSections(character) {
 
   return [
     sheetSection("Página 1 - Identidad", [
-      sheetField("clase nivel", `${displayName(derived.classData) || "Pendiente"} ${derived.level}`, "La creación está fijada para nivel 5."),
+      sheetField("clase nivel", `${displayName(derived.classData) || "Pendiente"} ${derived.level}`, "El nivel elegido determina competencia, PG y rasgos disponibles."),
       sheetField("subclase", displayName(derived.subclassData) || "Pendiente", "Copia la subclase elegida."),
       sheetField("especie", displayName(derived.speciesData) || "Pendiente", "Copia la especie elegida."),
       sheetField("trasfondo", displayName(derived.backgroundData) || "Pendiente", "Copia el trasfondo elegido."),
@@ -55,10 +55,10 @@ export function mapCharacterToSheetSections(character) {
     ]),
     sheetSection("Página 1 - Dotes", [
       sheetField("DOTES", derived.grantedFeats.length ? derived.grantedFeats.map(sheetText) : "Pendiente", "Copia aquí las dotes obtenidas por trasfondo u otras elecciónes."),
-      sheetField("MEJORA DE NIVEL 4", level4SheetText(character, derived), "Si elegiste atributos, ya estan sumados en las puntuaciones. Si elegiste dote, copiala también en Dotes."),
+      ...(derived.level >= 4 ? [sheetField("MEJORA DE NIVEL 4", level4SheetText(character, derived), "Si elegiste atributos, ya estan sumados en las puntuaciones. Si elegiste dote, copiala también en Dotes.")] : []),
     ]),
     sheetSection("Página 1 - Rasgos de clase", [
-      sheetField("RASGOS DE CLASE", formatProgression(derived.classFeaturesByLevel), "Copia los rasgos acumulados de clase hasta nivel 5."),
+      sheetField("RASGOS DE CLASE", formatProgression(derived.classFeaturesByLevel), `Copia los rasgos acumulados de clase hasta nivel ${derived.level}.`),
       sheetField("Rasgos de subclase", formatProgression(derived.subclassFeaturesByLevel), "Copia también los rasgos de subclase disponibles."),
     ]),
     sheetSection("Página 1 - Atributos de especie", [

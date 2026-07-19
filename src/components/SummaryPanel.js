@@ -7,7 +7,7 @@ export function SummaryPanel({ character }) {
   const panel = document.createElement("aside");
   panel.className = "summary-panel";
   const proficiencyBonus = `+${derived.proficiencyBonus}`;
-  const coins = derived.higherLevelGold.complete ? derived.coinText : "Pendiente oro nivel 5";
+  const coins = derived.higherLevelGold.complete ? derived.coinText : `Pendiente oro nivel ${derived.level}`;
   const coinNote = derived.higherLevelGold.complete && derived.equipmentPurchase?.spentCopper
     ? `${coins} tras compras`
     : coins;

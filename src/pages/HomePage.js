@@ -3,7 +3,7 @@ import { Icon } from "../components/Icon.js";
 const homeActions = [
   {
     title: "Crear personaje",
-    description: "Construye una ficha de nivel 5 con pendientes claros y salida lista para hoja física.",
+    description: "Construye una ficha de nivel 1 a 5 con pendientes claros y salida lista para hoja física.",
     route: "creator",
     icon: "person",
     eyebrow: "Jugador",

@@ -9,7 +9,7 @@ import { displayName } from "../scripts/displayLabels.js";
 import { rulesEngine } from "../scripts/rulesEngine.js";
 import { mapCharacterToSheetSections } from "../scripts/sheetMapper.js";
 
-const levelFiveXp = 6500;
+const xpByLevel = { 1: 0, 2: 300, 3: 900, 4: 2700, 5: 6500 };
 const classColors = {
   artificer: "#6f5aa8",
   barbarian: "#a53e35",
@@ -59,8 +59,8 @@ export function CharacterSummaryPage() {
       formula: "Nivel 5 usa +3.",
     },
   ]));
-  page.append(ProgressionList({ title: "Rasgos de clase hasta nivel 5", entries: derived.classFeaturesByLevel }));
-  page.append(ProgressionList({ title: "Rasgos de subclase hasta nivel 5", entries: derived.subclassFeaturesByLevel }));
+  page.append(ProgressionList({ title: `Rasgos de clase hasta nivel ${derived.level}`, entries: derived.classFeaturesByLevel }));
+  page.append(ProgressionList({ title: `Rasgos de subclase hasta nivel ${derived.level}`, entries: derived.subclassFeaturesByLevel }));
   page.append(SheetSectionList(mapCharacterToSheetSections(character)));
 
   return page;
@@ -155,7 +155,7 @@ function createCharacterHandoff(character, derived) {
       name: title,
       player: "",
       className: role || "Aventurero",
-      xp: levelFiveXp,
+      xp: xpByLevel[derived.level] || 0,
       color: classColors[character.classId] || "#b97a45",
       portrait: "",
       notes: {

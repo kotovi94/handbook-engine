@@ -6,7 +6,7 @@ El proyecto fue creado por Kotovi para el entorno de D20 Travesías y desarrolla
 
 ## Para quien es
 
-- Jugadores que quieren crear personajes de nivel 5 con una guía paso a paso.
+- Jugadores que quieren crear personajes de nivel 1 a 5 con una guía paso a paso.
 - DMs que necesitan preparar sesiones, encuentros, mazmorras, tesoros y notas rápidas.
 - Mesas presenciales que usan hojas físicas y necesitan instrucciones claras para completarlas.
 - Campañas que mezclan preparación local, consulta rápida y bitácora de sesiones.
@@ -29,7 +29,7 @@ Pantalla de acceso rápido a las herramientas principales. Sirve como centro de 
 
 ### Crear personaje
 
-Asistente paso a paso para construir personajes de D&D 5e/2024, actualmente enfocado en personajes de nivel 5.
+Asistente paso a paso para construir personajes de D&D 5e/2024, actualmente enfocado en personajes de nivel 1 a 5.
 
 Incluye:
 

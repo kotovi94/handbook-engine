@@ -18,7 +18,7 @@ const tourSteps = [
     selector: "[data-tour='module-creator']",
     eyebrow: "Jugador",
     title: "Crear personaje",
-    body: "Este asistente te guía paso a paso para armar una ficha de nivel 5 y dejar claras las elecciónes pendientes.",
+    body: "Este asistente te guía paso a paso para armar una ficha de nivel 1 a 5 y dejar claras las elecciónes pendientes.",
   },
   {
     selector: "[data-tour='module-dungeon-generator']",

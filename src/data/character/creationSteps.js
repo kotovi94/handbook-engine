@@ -3,7 +3,7 @@ export const creationSteps = [
     id: "class",
     label: "Clase",
     title: "Clase y nivel",
-    helper: "La creación está fijada a nivel 5. Elige la clase base que define PG, competencias y progresion.",
+    helper: "Elige un nivel entre 1 y 5 y la clase base que define PG, competencias y progresion.",
   },
   {
     id: "origin",
@@ -20,8 +20,8 @@ export const creationSteps = [
   {
     id: "progression",
     label: "Progresion",
-    title: "Subclase y nivel 5",
-    helper: "Para nivel 5, el personaje ya tiene subclase y rasgos acumulados de clase hasta este nivel.",
+    title: "Progresión del personaje",
+    helper: "Revisa la subclase y los rasgos acumulados disponibles hasta el nivel elegido.",
   },
   {
     id: "equipment",

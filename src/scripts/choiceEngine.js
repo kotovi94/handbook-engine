@@ -14,7 +14,7 @@ import { resolveSpell } from "./sortUtils.js";
 const spellChoiceTypes = new Set(["cantrip", "spell", "spellbook"]);
 
 export function getActiveChoices(character) {
-  const level = 5;
+  const level = Math.max(1, Math.min(5, Math.trunc(Number(character.level) || 5)));
   const classData = contentEngine.getClass(character.classId);
   const subclassData = contentEngine.getSubclass(character.subclassId);
   const speciesData = creationEngine.getSpecies(character.speciesId);
