@@ -42,7 +42,10 @@ export function HomePage() {
   page.className = "home-page";
   page.innerHTML = `
     <header class="home-hero" data-tour="home-hero">
-      <p class="page-kicker">D20 Travesías</p>
+      <div class="home-brand-lockup">
+        <img src="./assets/icons/discord-travesias.png?v=20260718b" alt="Logo de D20 Travesías">
+        <p class="page-kicker">D20 Travesías</p>
+      </div>
       <h2 class="home-title">¿Qué quieres preparar?</h2>
       <p class="home-intro">Elige el momento de mesa: crear un personaje, preparar como DM, consultar reglas o continuar una campaña.</p>
     </header>

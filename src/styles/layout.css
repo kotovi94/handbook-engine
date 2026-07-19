@@ -34,17 +34,10 @@
 }
 
 .header-brand-mark {
-  display: grid;
   width: 40px;
   height: 40px;
   flex: 0 0 auto;
-  place-items: center;
-  border: 1px solid color-mix(in srgb, var(--color-accent) 48%, var(--color-border));
-  border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--color-accent-soft) 58%, var(--color-surface));
-  color: var(--color-accent-strong);
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 900;
+  object-fit: contain;
 }
 
 .header-brand-copy {

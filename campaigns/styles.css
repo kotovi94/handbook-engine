@@ -196,8 +196,7 @@ body.campaigns-dark .modal .toggle-field { background-color: #181512; border-col
 .app-shell[data-font="arcane"] { --display-font:"Uncial Antiqua",serif; --body-font:Alegreya,serif; }
 .app-shell[data-font="modern"] { --display-font:Inter,sans-serif; --body-font:Inter,sans-serif; }
 .brand { display: flex; align-items: center; gap: 13px; margin: 0 4px 38px; }
-.brand-mark { width: 45px; height: 45px; display: grid; place-items: center; border: 1px solid #b88751; transform: rotate(45deg); color: #e4b67e; font-family: Cinzel, serif; }
-.brand-mark::first-line { transform: rotate(-45deg); }
+.brand-mark { width: 52px; height: 52px; flex: 0 0 52px; border: 0; object-fit: contain; }
 .brand strong, .brand span { display: block; }
 .brand strong { font: 700 18px Cinzel, serif; letter-spacing: .04em; }
 .brand span { color: #aaa094; font-size: 12px; }

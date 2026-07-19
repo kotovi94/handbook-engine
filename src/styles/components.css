@@ -68,6 +68,22 @@
   padding-top: clamp(var(--space-2), 3vw, var(--space-8));
 }
 
+.home-brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.home-brand-lockup img {
+  width: clamp(4.5rem, 9vw, 6.5rem);
+  height: clamp(4.5rem, 9vw, 6.5rem);
+  object-fit: contain;
+}
+
+.home-brand-lockup .page-kicker {
+  margin: 0;
+}
+
 .home-title {
   max-width: 700px;
   margin: 0;

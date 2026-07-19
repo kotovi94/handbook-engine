@@ -8,8 +8,11 @@ export function Sidebar({ activeRoute, onNavigate }) {
 
   sidebar.innerHTML = `
     <div class="sidebar-header" data-tour="app-brand">
-      <h1 class="sidebar-title">Compendio D20 Travesías</h1>
-      <span class="sidebar-subtitle">D&D 5e 2024</span>
+      <img class="sidebar-brand-logo" src="./assets/icons/discord-travesias.png?v=20260718b" alt="">
+      <span class="sidebar-brand-copy">
+        <h1 class="sidebar-title">Compendio D20 Travesías</h1>
+        <span class="sidebar-subtitle">D&D 5e 2024</span>
+      </span>
     </div>
     <nav class="sidebar-body" aria-label="Navegación principal"></nav>
     <div class="sidebar-footer" data-sidebar-footer>

@@ -35,7 +35,7 @@ export function Layout({ activeRoute, activeTheme, isDarkMode, onNavigate, onDar
   const headerBrand = document.createElement("div");
   headerBrand.className = "header-brand";
   headerBrand.innerHTML = `
-    <span class="header-brand-mark">20</span>
+    <img class="header-brand-mark" src="./assets/icons/discord-travesias.png?v=20260718b" alt="">
     <span class="header-brand-copy">
       <strong>Compendio D20 Travesías</strong>
       <small>Mesa, reglas y preparación</small>
