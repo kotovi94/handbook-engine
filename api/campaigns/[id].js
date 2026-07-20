@@ -40,10 +40,10 @@ function mapCharacter(row) {
     id: row.id,
     name: row.name,
     player: row.player || "",
-    className: row.class_name || "",
-    xp: Number(row.xp || 0),
+    className: row.class_name || row.role || "",
+    xp: Number(row.xp ?? row.pp ?? 0),
     color: row.color || "#b97a45",
-    portrait: row.portrait || "",
+    portrait: row.portrait || row.image || "",
     notes: row.notes || {},
     metadata: row.metadata || {},
   };

@@ -101,10 +101,12 @@ export const remoteStorage = {
     return data;
   },
 
-  async saveCharacter(campaignId, character) {
+  async saveCharacter(campaignId, character, options = {}) {
     const token = localStorage.getItem(tokenKey(campaignId));
-    return request(`/api/campaigns/${campaignId}/characters`, {
-      method: character.id ? "PATCH" : "POST",
+    const isNew = Boolean(options.isNew);
+    const path = `/api/campaigns/${campaignId}/characters`;
+    return request(path, {
+      method: isNew ? "POST" : "PATCH",
       token,
       body: JSON.stringify(character),
     });
@@ -119,10 +121,12 @@ export const remoteStorage = {
     });
   },
 
-  async saveSession(campaignId, session) {
+  async saveSession(campaignId, session, options = {}) {
     const token = localStorage.getItem(tokenKey(campaignId));
-    return request(`/api/campaigns/${campaignId}/sessions`, {
-      method: "POST",
+    const isNew = Boolean(options.isNew);
+    const path = `/api/campaigns/${campaignId}/sessions`;
+    return request(path, {
+      method: isNew ? "POST" : "PATCH",
       token,
       body: JSON.stringify(session),
     });

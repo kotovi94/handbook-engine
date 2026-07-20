@@ -1374,7 +1374,7 @@ async function consumePendingCharacterHandoff(handoff) {
 
   if (USE_REMOTE_STORAGE) {
     try {
-      const result = await remoteStorage.saveCharacter(activeCampaignId, character);
+      const result = await remoteStorage.saveCharacter(activeCampaignId, character, { isNew: true });
       linkStoredCharacterToCampaign(character.metadata?.sourceCharacterId, {
         campaignId: activeCampaignId,
         storageMode: 'remote',
@@ -3311,7 +3311,7 @@ async function saveFinishedSession(event) {
   ensureWorkspace().dmTools = upsertSessionPreparation(ensureWorkspace().dmTools, preparation);
   persistActiveCampaign();
   try {
-    if (USE_REMOTE_STORAGE) { await remoteStorage.saveSession(activeCampaignId, session); await reloadActiveCampaign(); }
+    if (USE_REMOTE_STORAGE) { await remoteStorage.saveSession(activeCampaignId, session, { isNew: true }); await reloadActiveCampaign(); }
     else { allocations.forEach(allocation => { const character = state.characters.find(item => item.id === allocation.characterId); if (!character) return; character.xp = Math.max(0, Number(character.xp || 0) + allocation.total); syncLinkedCharacterProgressionRecord(character, session); }); state.sessions.push(session); saveState(); renderAll(); }
     activeSessionPreparationId = ''; navigate('log'); showToast('Sesión finalizada; bitácora y personajes actualizados.');
   } catch (error) { console.error('Error al guardar la sesión compartida:', error); showToast('No se pudo guardar la sesión compartida.'); }
@@ -3680,7 +3680,7 @@ async function saveSession(event) {
 
   if (USE_REMOTE_STORAGE) {
     try {
-      await remoteStorage.saveSession(activeCampaignId, normalizedSession);
+      await remoteStorage.saveSession(activeCampaignId, normalizedSession, { isNew: true });
       $('#session-form').reset();
       $('#session-date').value = new Date().toISOString().slice(0, 10);
       await reloadActiveCampaign();
@@ -4150,6 +4150,7 @@ $('#character-form').addEventListener('submit', async event => {
   event.preventDefault();
   const id = $('#character-id').value;
   const existingCharacter = id ? state.characters.find(character => character.id === id) : null;
+  const isNewCharacter = !id;
   const data = normalizeCharacter({
     ...(existingCharacter || {}),
     id: id || (USE_REMOTE_STORAGE ? undefined : uid()),
@@ -4162,7 +4163,7 @@ $('#character-form').addEventListener('submit', async event => {
   });
   if (USE_REMOTE_STORAGE) {
     try {
-      await remoteStorage.saveCharacter(activeCampaignId, data);
+      await remoteStorage.saveCharacter(activeCampaignId, data, { isNew: isNewCharacter });
       resetCharacterForm();
       await reloadActiveCampaign();
       showToast(id ? 'Personaje actualizado.' : 'Personaje añadido.');

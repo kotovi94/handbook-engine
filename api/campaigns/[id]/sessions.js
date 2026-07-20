@@ -6,6 +6,7 @@ const {
   supabaseFetch,
   verifyUnlockToken,
 } = require("../../_supabase");
+const { normalizeSessionPayload, PayloadValidationError } = require("../payloads.cjs");
 
 async function requireUnlocked(req, campaignId) {
   const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(campaignId)}&select=id,password_hash,access_version`);
@@ -57,20 +58,21 @@ module.exports = async function handler(req, res) {
 
     if (req.method === "POST") {
       const body = await readBody(req);
-      await applyAllocations(id, body.allocations || [], 1);
+      const payload = normalizeSessionPayload(body);
+      await applyAllocations(id, payload.allocations || [], 1);
       const [session] = await supabaseFetch("/sessions?select=*", {
         method: "POST",
         headers: { prefer: "return=representation" },
         body: JSON.stringify({
           campaign_id: id,
-          number: Number(body.number || 1),
-          date: body.date,
-          name: String(body.name || "").trim(),
-          pools: body.pools || {},
-          notes: body.notes || {},
-          historical: Boolean(body.historical),
-          allocations: body.allocations || [],
-          total_awarded: Number(body.totalAwarded || 0),
+          number: payload.number,
+          date: payload.date,
+          name: payload.name,
+          pools: payload.pools,
+          notes: payload.notes,
+          historical: payload.historical,
+          allocations: payload.allocations,
+          total_awarded: payload.totalAwarded,
         }),
       });
       return sendJson(res, 201, { session });
@@ -78,18 +80,19 @@ module.exports = async function handler(req, res) {
 
     if (req.method === "PATCH") {
       const body = await readBody(req);
-      const [previous] = await supabaseFetch(`/sessions?id=eq.${encodeURIComponent(body.id)}&campaign_id=eq.${encodeURIComponent(id)}&select=*`);
+      const payload = normalizeSessionPayload({ ...body, id: body.id }, { requireId: true });
+      const [previous] = await supabaseFetch(`/sessions?id=eq.${encodeURIComponent(payload.id)}&campaign_id=eq.${encodeURIComponent(id)}&select=*`);
       if (!previous) return sendJson(res, 404, { error: "Session not found" });
       const previousTotals = new Map((previous.allocations || []).map(allocation => [allocation.characterId, Number(allocation.total || 0)]));
-      const nextTotals = new Map((body.allocations || []).map(allocation => [allocation.characterId, Number(allocation.total || 0)]));
+      const nextTotals = new Map((payload.allocations || []).map(allocation => [allocation.characterId, Number(allocation.total || 0)]));
       for (const characterId of new Set([...previousTotals.keys(), ...nextTotals.keys()])) {
         const delta = (nextTotals.get(characterId) || 0) - (previousTotals.get(characterId) || 0);
         if (delta) await applyAllocations(id, [{ characterId, total: delta }], 1);
       }
-      const [session] = await supabaseFetch(`/sessions?id=eq.${encodeURIComponent(body.id)}&campaign_id=eq.${encodeURIComponent(id)}&select=*`, {
+      const [session] = await supabaseFetch(`/sessions?id=eq.${encodeURIComponent(payload.id)}&campaign_id=eq.${encodeURIComponent(id)}&select=*`, {
         method: "PATCH",
         headers: { prefer: "return=representation" },
-        body: JSON.stringify({ number: Number(body.number || previous.number || 1), date: body.date || previous.date, name: String(body.name || previous.name || "").trim(), allocations: body.allocations || [], total_awarded: Number(body.totalAwarded || 0) }),
+        body: JSON.stringify({ number: payload.number, date: payload.date, name: payload.name, allocations: payload.allocations, total_awarded: payload.totalAwarded }),
       });
       return sendJson(res, 200, { session });
     }
@@ -108,6 +111,25 @@ module.exports = async function handler(req, res) {
     res.setHeader("allow", "POST, PATCH, DELETE");
     return sendJson(res, 405, { error: "Method not allowed" });
   } catch (error) {
+    const isPayloadValidationError = error && (
+      error.name === "PayloadValidationError"
+      || (typeof PayloadValidationError === "function" && error instanceof PayloadValidationError)
+    );
+    if (isPayloadValidationError) {
+      console.error("[campaign_store_invalid_payload]", {
+        route: req.url,
+        method: req.method,
+        campaignId: id,
+        field: error.field,
+        reason: error.reason,
+        receivedKeys: Object.keys(await readBody(req).catch(() => ({}))).slice(0, 20),
+      });
+      return sendJson(res, 400, {
+        error: "campaign_store_invalid_payload",
+        field: error.field,
+        reason: error.reason,
+      });
+    }
     return sendError(res, error);
   }
 };
