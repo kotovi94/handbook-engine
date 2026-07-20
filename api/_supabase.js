@@ -82,18 +82,26 @@ function verifyPassword(password, storedHash) {
   return safeEqual(legacyHash, String(storedHash));
 }
 
-function signUnlockToken(campaignId) {
+function signUnlockToken(campaignId, accessVersion = 1) {
   const expiresAt = Date.now() + 1000 * 60 * 60 * 8;
-  const payload = `${campaignId}.${expiresAt}`;
+  const payload = `${campaignId}.${Number(accessVersion) || 1}.${expiresAt}`;
   const signature = crypto.createHmac("sha256", UNLOCK_SECRET).update(payload).digest("hex");
   return `${payload}.${signature}`;
 }
 
-function verifyUnlockToken(campaignId, token = "") {
-  const [tokenCampaignId, expiresAt, signature] = String(token).split(".");
+function verifyUnlockToken(campaignId, token = "", accessVersion = 1) {
+  const parts = String(token).split(".");
+  if (parts.length === 3 && Number(accessVersion) === 1) {
+    const [tokenCampaignId, expiresAt, signature] = parts;
+    if (!tokenCampaignId || !expiresAt || !signature || tokenCampaignId !== campaignId || Number(expiresAt) < Date.now()) return false;
+    const expected = crypto.createHmac("sha256", UNLOCK_SECRET).update(`${tokenCampaignId}.${expiresAt}`).digest("hex");
+    return signature.length === expected.length && crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
+  }
+  const [tokenCampaignId, tokenVersion, expiresAt, signature] = parts;
   if (!tokenCampaignId || !expiresAt || !signature || tokenCampaignId !== campaignId) return false;
+  if (Number(tokenVersion) !== Number(accessVersion)) return false;
   if (Number(expiresAt) < Date.now()) return false;
-  const payload = `${tokenCampaignId}.${expiresAt}`;
+  const payload = `${tokenCampaignId}.${tokenVersion}.${expiresAt}`;
   const expected = crypto.createHmac("sha256", UNLOCK_SECRET).update(payload).digest("hex");
   if (signature.length !== expected.length) return false;
   return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));

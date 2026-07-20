@@ -16,14 +16,14 @@ module.exports = async function handler(req, res) {
     }
 
     const body = await readBody(req);
-    const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(id)}&select=id,password_hash`);
+    const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(id)}&select=id,password_hash,access_version`);
     if (!campaign) return sendJson(res, 404, { error: "Campaign not found" });
-    if (!campaign.password_hash) return sendJson(res, 200, { token: signUnlockToken(id) });
+    if (!campaign.password_hash) return sendJson(res, 200, { token: signUnlockToken(id, campaign.access_version) });
     if (!verifyPassword(body.password || "", campaign.password_hash)) {
       return sendJson(res, 401, { error: "Invalid password" });
     }
 
-    return sendJson(res, 200, { token: signUnlockToken(id) });
+    return sendJson(res, 200, { token: signUnlockToken(id, campaign.access_version) });
   } catch (error) {
     return sendError(res, error);
   }

@@ -572,6 +572,8 @@ function normalizeCampaign(campaign) {
     ...campaign,
     systemId: system.id,
     system: system.name,
+    recoveryHash: campaign.recoveryHash || '',
+    recoveryConfigured: Boolean(campaign.recoveryConfigured || campaign.recoveryHash),
     characters: Array.isArray(campaign.characters) ? campaign.characters.map(normalizeCharacter) : [],
     sessions: Array.isArray(campaign.sessions) ? campaign.sessions.map(normalizeCampaignSession) : [],
     workspace: normalizeCampaignWorkspace(campaign),
@@ -825,6 +827,34 @@ function activateCampaign(campaign, options = {}) {
   }, 80);
 }
 
+function createRecoveryCode() {
+  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const bytes = crypto.getRandomValues(new Uint8Array(12));
+  const raw = [...bytes].map(byte => alphabet[byte % alphabet.length]).join('');
+  return `${raw.slice(0, 4)}-${raw.slice(4, 8)}-${raw.slice(8, 12)}`;
+}
+
+function showRecoveryResult(campaignId, recoveryCode) {
+  $('#recovery-campaign-id').value = campaignId;
+  $('#recovery-reset-fields').classList.add('hidden');
+  $('#recovery-result').classList.remove('hidden');
+  $('#recovery-code-result').textContent = recoveryCode;
+  $('#recovery-title').textContent = 'Guarda tu nuevo código';
+  $('#recovery-modal').classList.remove('hidden');
+}
+
+function openRecoveryReset(campaignId) {
+  $('#recovery-form').reset();
+  $('#recovery-campaign-id').value = campaignId;
+  $('#recovery-reset-fields').classList.remove('hidden');
+  $('#recovery-result').classList.add('hidden');
+  $('#recovery-error').classList.add('hidden');
+  $('#recovery-title').textContent = 'Restablecer contraseña';
+  $('#unlock-modal').classList.add('hidden');
+  $('#recovery-modal').classList.remove('hidden');
+  $('#recovery-code').focus();
+}
+
 function updateAccessMode() {
   const locked = isSummaryOnlyMode();
   const app = $('#campaign-app');
@@ -1014,6 +1044,8 @@ function openCampaignModal(campaign = null) {
   $('#campaign-protected').checked = Boolean(campaign?.passwordHash);
   $('#campaign-password').value = '';
   $('#campaign-password-fields').classList.toggle('hidden', !campaign?.passwordHash);
+  $('#campaign-recovery-tools').classList.toggle('hidden', !campaign?.id || !campaign?.passwordHash);
+  $('#campaign-recovery-status').textContent = campaign?.recoveryConfigured ? 'Código configurado' : 'Sin código de recuperación';
   pendingBanner = campaign?.banner || '';
   updateBannerPreview();
   $('#campaign-form-title').textContent = campaign ? 'Editar campaña' : 'Crear campaña';
@@ -3413,7 +3445,7 @@ function renderLog(query = '') {
           <div class="log-note"><b>Roleo y aventura</b><p>${escapeHTML(session.notes.roleplay || 'Sin notas de roleo.')}</p></div>
         </div>` : ''}
         ${system.id === 'cyberpunkRed' ? renderCyberpunkLogTable(session) : renderStandardLogTable(session, system)}
-        <footer class="log-footer"><button class="text-button danger-button delete-session" data-id="${session.id}">Eliminar sesión y revertir ${getCampaignSystem().unit}</button></footer>
+        <footer class="log-footer"><button class="text-button edit-session" data-id="${session.id}">Editar sesión</button><button class="text-button danger-button delete-session" data-id="${session.id}">Eliminar sesión y revertir ${getCampaignSystem().unit}</button></footer>
       </div>
     </article>`).join('') : emptyState(normalized ? 'Sin resultados' : 'Bitácora vacía', normalized ? 'No encontramos sesiones que coincidan con la búsqueda.' : 'Registra la primera sesión para comenzar el historial.', 'new-session', 'Registrar sesión');
 }
@@ -3672,6 +3704,9 @@ document.addEventListener('click', async event => {
     }
   }
 
+  const editSession = event.target.closest('.edit-session');
+  if (editSession) openSessionEditor(editSession.dataset.id);
+
   const deleteSession = event.target.closest('.delete-session');
   if (deleteSession) {
     const session = state.sessions.find(entry => entry.id === deleteSession.dataset.id);
@@ -3697,6 +3732,88 @@ document.addEventListener('click', async event => {
       renderLog($('#log-search').value);
       showToast(`Sesión eliminada y ${getCampaignSystem().resourceName} revertida.`);
     }
+  }
+});
+
+function updateSessionEditTotal() {
+  const total = $$('.session-edit-xp').reduce((sum, input) => sum + (Number(input.value) || 0), 0);
+  $('#session-edit-total').textContent = formatResource(total);
+}
+
+function openSessionEditor(sessionId) {
+  const session = state.sessions.find(entry => entry.id === sessionId);
+  if (!session) return;
+  $('#session-edit-id').value = session.id;
+  $('#session-edit-number').value = session.number;
+  $('#session-edit-date').value = session.date;
+  $('#session-edit-name').value = session.name;
+  $('#session-edit-title').textContent = `Editar sesión ${session.number}`;
+  $('#session-edit-error').classList.add('hidden');
+  $('#session-edit-allocations').innerHTML = session.allocations.map(allocation => {
+    const character = state.characters.find(entry => entry.id === allocation.characterId);
+    return `<div class="session-edit-allocation"><div><strong>${escapeHTML(character?.name || allocation.characterName || 'Personaje eliminado')}</strong><small>${escapeHTML(allocation.awardCategory || 'Total de la sesión')}</small></div><label>${getCampaignSystem().unit}<input class="session-edit-xp" data-character-id="${escapeHTML(allocation.characterId)}" type="number" step="1" value="${Number(allocation.total || 0)}"></label></div>`;
+  }).join('');
+  updateSessionEditTotal();
+  $('#session-edit-modal').classList.remove('hidden');
+  $('#session-edit-name').focus();
+}
+
+function closeSessionEditor() {
+  $('#session-edit-modal').classList.add('hidden');
+  $('#session-edit-form').reset();
+}
+
+$('#close-session-edit').addEventListener('click', closeSessionEditor);
+$('#session-edit-modal').addEventListener('click', event => { if (event.target.id === 'session-edit-modal') closeSessionEditor(); });
+$('#session-edit-allocations').addEventListener('input', updateSessionEditTotal);
+$('#session-edit-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  const session = state.sessions.find(entry => entry.id === $('#session-edit-id').value);
+  if (!session) return;
+  const totals = new Map($$('.session-edit-xp').map(input => [input.dataset.characterId, Number(input.value) || 0]));
+  const allocations = session.allocations.map(allocation => {
+    const total = totals.get(allocation.characterId) ?? allocation.total;
+    const delta = Number(total || 0) - Number(allocation.total || 0);
+    const individual = { ...(allocation.individual || {}), manual: Number(allocation.individual?.manual || 0) + delta };
+    let awardDetails = allocation.awardDetails || [];
+    if (getCampaignSystem().id === 'cyberpunkRed' && delta) {
+      const priorCorrection = awardDetails.find(detail => detail.category === 'Corrección de sesión');
+      awardDetails = awardDetails.filter(detail => detail.category !== 'Corrección de sesión');
+      const correctionTotal = Number(priorCorrection?.total || 0) + delta;
+      if (correctionTotal) awardDetails.push({ category: 'Corrección de sesión', reason: 'Ajuste manual del DM', total: correctionTotal });
+    }
+    return { ...allocation, individual, awardDetails, total };
+  });
+  const updated = normalizeCampaignSession({
+    ...session,
+    number: Number($('#session-edit-number').value),
+    date: $('#session-edit-date').value,
+    name: $('#session-edit-name').value.trim(),
+    allocations,
+    totalAwarded: allocations.reduce((sum, allocation) => sum + Number(allocation.total || 0), 0),
+    updatedAt: new Date().toISOString(),
+  });
+  try {
+    if (USE_REMOTE_STORAGE) {
+      await remoteStorage.updateSession(activeCampaignId, updated);
+      await reloadActiveCampaign();
+    } else {
+      const previousTotals = new Map(session.allocations.map(allocation => [allocation.characterId, Number(allocation.total || 0)]));
+      allocations.forEach(allocation => {
+        const character = state.characters.find(entry => entry.id === allocation.characterId);
+        if (!character) return;
+        const delta = Number(allocation.total || 0) - (previousTotals.get(allocation.characterId) || 0);
+        character.xp = Math.max(0, Math.round((Number(character.xp || 0) + delta) * 100) / 100);
+      });
+      state.sessions = state.sessions.map(entry => entry.id === updated.id ? updated : entry);
+      saveState();
+      renderAll();
+    }
+    closeSessionEditor();
+    renderLog($('#log-search').value);
+    showToast(`Sesión actualizada y ${getCampaignSystem().resourceName} corregida.`);
+  } catch (error) {
+    $('#session-edit-error').classList.remove('hidden');
   }
 });
 
@@ -3836,6 +3953,8 @@ $('#close-campaign-form').addEventListener('click', closeCampaignModal);
 $('#campaign-modal').addEventListener('click', event => { if (event.target.id === 'campaign-modal') closeCampaignModal(); });
 $('#campaign-protected').addEventListener('change', event => {
   $('#campaign-password-fields').classList.toggle('hidden', !event.target.checked);
+  if (!event.target.checked) $('#campaign-recovery-tools').classList.add('hidden');
+  else if ($('#campaign-id').value) $('#campaign-recovery-tools').classList.remove('hidden');
   if (event.target.checked) $('#campaign-password').focus();
 });
 $('#campaign-font').addEventListener('change', event => {
@@ -3881,6 +4000,71 @@ $('#remove-character-portrait').addEventListener('click', () => {
 });
 $('#close-unlock-form').addEventListener('click', () => $('#unlock-modal').classList.add('hidden'));
 $('#unlock-modal').addEventListener('click', event => { if (event.target.id === 'unlock-modal') $('#unlock-modal').classList.add('hidden'); });
+$('#forgot-password').addEventListener('click', () => openRecoveryReset($('#unlock-campaign-id').value));
+$('#close-recovery-form').addEventListener('click', () => $('#recovery-modal').classList.add('hidden'));
+$('#recovery-modal').addEventListener('click', event => { if (event.target.id === 'recovery-modal') $('#recovery-modal').classList.add('hidden'); });
+$('#copy-recovery-code').addEventListener('click', async () => {
+  await copyText($('#recovery-code-result').textContent);
+  showToast('Código de recuperación copiado.');
+});
+$('#finish-recovery').addEventListener('click', () => {
+  $('#recovery-modal').classList.add('hidden');
+  closeCampaignModal();
+  renderCampaigns();
+});
+$('#generate-recovery-code').addEventListener('click', async () => {
+  const id = $('#campaign-id').value;
+  const campaign = portfolio.campaigns.find(entry => entry.id === id);
+  if (!campaign) return;
+  try {
+    let recoveryCode;
+    if (USE_REMOTE_STORAGE) {
+      const data = await remoteStorage.generateRecoveryCode(id);
+      recoveryCode = data.recoveryCode;
+      campaign.recoveryConfigured = true;
+    } else {
+      recoveryCode = createRecoveryCode();
+      campaign.recoveryHash = await hashPassword(recoveryCode);
+      campaign.recoveryConfigured = true;
+      saveState();
+    }
+    $('#campaign-recovery-status').textContent = 'Código configurado';
+    showRecoveryResult(id, recoveryCode);
+  } catch (error) {
+    showToast('No se pudo generar el código de recuperación.');
+  }
+});
+$('#recovery-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  const id = $('#recovery-campaign-id').value;
+  const password = $('#recovery-password').value;
+  if (password.length < 4 || password !== $('#recovery-password-confirm').value) {
+    $('#recovery-error').classList.remove('hidden');
+    return;
+  }
+  try {
+    let nextRecoveryCode;
+    if (USE_REMOTE_STORAGE) {
+      const data = await remoteStorage.resetPassword(id, $('#recovery-code').value.trim().toUpperCase(), password);
+      nextRecoveryCode = data.recoveryCode;
+      unlockedCampaigns.add(id);
+    } else {
+      const campaign = portfolio.campaigns.find(entry => entry.id === id);
+      const recoveryHash = await hashPassword($('#recovery-code').value.trim().toUpperCase());
+      if (!campaign?.recoveryHash || recoveryHash !== campaign.recoveryHash) throw new Error('Invalid recovery code');
+      nextRecoveryCode = createRecoveryCode();
+      campaign.passwordHash = await hashPassword(password);
+      campaign.recoveryHash = await hashPassword(nextRecoveryCode);
+      campaign.recoveryConfigured = true;
+      unlockedCampaigns.add(id);
+      saveState();
+    }
+    $('#recovery-error').classList.add('hidden');
+    showRecoveryResult(id, nextRecoveryCode);
+  } catch (error) {
+    $('#recovery-error').classList.remove('hidden');
+  }
+});
 $('#unlock-form').addEventListener('submit', async event => {
   event.preventDefault();
   const id = $('#unlock-campaign-id').value;
@@ -3947,6 +4131,8 @@ $('#campaign-form').addEventListener('submit', async event => {
     characters: existing?.characters || [],
     sessions: existing?.sessions || [],
     workspace: normalizeCampaignWorkspace(existing || {}),
+    recoveryHash: existing?.recoveryHash || '',
+    recoveryConfigured: Boolean(existing?.recoveryConfigured || existing?.recoveryHash),
     createdAt: existing?.createdAt || new Date().toISOString()
   };
   if (USE_REMOTE_STORAGE) {

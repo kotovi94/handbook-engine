@@ -105,6 +105,19 @@ body.campaigns-dark .mode-toggle { color: var(--ink); background: #181512; }
 .toggle-field { grid-template-columns: auto 1fr; align-items: center; gap: 10px; padding: 13px; border: 1px solid var(--line); border-radius: 7px; }
 .toggle-field input, .historical-session input { width: 17px; height: 17px; accent-color: var(--accent); }
 .form-error { color: #a43d32; font-size: 11px; font-weight: 700; }
+.recovery-tools { margin: 12px 0 20px; padding: 13px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border: 1px solid var(--line); border-radius: 8px; }
+.recovery-tools div { display: grid; gap: 3px; }
+.recovery-tools span { color: var(--muted); font-size: 12px; }
+.recovery-result { text-align: center; }
+.recovery-result output { display: block; margin: 18px 0; padding: 16px; border: 1px dashed var(--accent); border-radius: 8px; font: 700 22px/1.2 monospace; letter-spacing: .08em; background: rgba(155,78,53,.08); user-select: all; }
+.recovery-result .full-width + .full-width { margin-top: 10px; }
+.session-edit-awards-heading { margin: 18px 0 10px; display: flex; align-items: end; justify-content: space-between; gap: 16px; }
+.session-edit-awards-heading div { display: grid; gap: 3px; }
+.session-edit-awards-heading small { color: var(--muted); font-size: 12px; }
+.session-edit-allocations { margin-bottom: 18px; display: grid; gap: 8px; }
+.session-edit-allocation { padding: 11px 12px; display: grid; grid-template-columns: 1fr minmax(110px, 150px); align-items: center; gap: 14px; border: 1px solid var(--line); border-radius: 8px; }
+.session-edit-allocation label { margin: 0; }
+.log-footer { gap: 10px; }
 .font-preview { margin-top: 12px; padding: 17px; display: grid; gap: 5px; border: 1px solid var(--line); border-radius: 8px; background: #f8f2e9; }
 .font-preview span { color: var(--muted); font: 700 9px Inter,sans-serif; letter-spacing: .13em; text-transform: uppercase; }
 .font-preview strong { font-size: 22px; font-weight: 600; }

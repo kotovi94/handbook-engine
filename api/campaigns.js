@@ -20,6 +20,7 @@ function toCampaign(row, latestSessionNumber = 0) {
     color: row.color || "#9b4e35",
     banner: row.banner || "",
     passwordHash: row.protected ? "protected" : "",
+    recoveryConfigured: Boolean(row.recovery_configured),
     characters: [],
     sessions: [],
     characterCount: row.character_count || 0,

@@ -33,6 +33,8 @@ Después de agregar o cambiar variables en Vercel, hay que hacer Redeploy.
 
 Las contraseñas nuevas se guardan como PBKDF2 con sal. Las campañas creadas antes con SHA-256 simple siguen abriendo por compatibilidad, pero al cambiar su contraseña pasan al formato nuevo.
 
+Las campañas protegidas existentes conservan su contraseña. Después de desbloquearlas, el DM puede generar un código de recuperación que se muestra una sola vez. El servidor guarda únicamente su hash. Al restablecer la contraseña, el código anterior y todos los accesos temporales quedan invalidados y se entrega un código nuevo.
+
 ## 3. Modelo de acceso
 
 - Todos pueden ver la lista de campañas.
@@ -51,6 +53,7 @@ GET    /api/campaigns/:id
 PATCH  /api/campaigns/:id
 DELETE /api/campaigns/:id
 POST   /api/campaigns/:id/unlock
+POST   /api/campaigns/:id/recovery
 POST   /api/campaigns/:id/characters
 PATCH  /api/campaigns/:id/characters
 DELETE /api/campaigns/:id/characters

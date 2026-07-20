@@ -94,6 +94,10 @@
       <div id="campaign-password-fields" class="hidden">
         <label>Contraseña<input id="campaign-password" type="password" minlength="4" maxlength="80" autocomplete="new-password" placeholder="Mínimo 4 caracteres"></label>
         <p class="helper">En local protege este navegador. En modo compartido desbloquea edición y administración. Al editar, déjala vacía para conservar la actual.</p>
+        <div id="campaign-recovery-tools" class="recovery-tools hidden">
+          <div><strong>Recuperación</strong><span id="campaign-recovery-status">Sin código de recuperación</span></div>
+          <button id="generate-recovery-code" type="button" class="secondary-button">Generar código</button>
+        </div>
       </div>
       <button type="submit" class="primary-button full-width">Guardar campaña</button>
     </form>
@@ -110,6 +114,53 @@
       <label>Contraseña<input id="unlock-password" type="password" required autocomplete="current-password"></label>
       <p id="unlock-error" class="form-error hidden">La contraseña no es correcta.</p>
       <button type="submit" class="primary-button full-width">Entrar</button>
+      <button id="forgot-password" type="button" class="text-button">Olvidé mi contraseña</button>
+    </form>
+  </div>
+
+  <div id="recovery-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="recovery-title">
+    <form id="recovery-form" class="modal-card compact-modal">
+      <input id="recovery-campaign-id" type="hidden">
+      <div class="modal-heading">
+        <div><p class="eyebrow">Recuperación segura</p><h2 id="recovery-title">Restablecer contraseña</h2></div>
+        <button id="close-recovery-form" type="button" class="icon-button" aria-label="Cerrar">×</button>
+      </div>
+      <div id="recovery-reset-fields">
+        <p class="helper">Introduce el código guardado cuando se configuró la recuperación.</p>
+        <label>Código de recuperación<input id="recovery-code" required maxlength="20" autocomplete="off" placeholder="XXXX-XXXX-XXXX"></label>
+        <label>Nueva contraseña<input id="recovery-password" type="password" required minlength="4" maxlength="80" autocomplete="new-password"></label>
+        <label>Repetir contraseña<input id="recovery-password-confirm" type="password" required minlength="4" maxlength="80" autocomplete="new-password"></label>
+        <p id="recovery-error" class="form-error hidden">Revisa el código y las contraseñas.</p>
+        <button type="submit" class="primary-button full-width">Restablecer contraseña</button>
+      </div>
+      <div id="recovery-result" class="recovery-result hidden">
+        <p>Guarda este nuevo código. Se muestra una sola vez y reemplaza al anterior.</p>
+        <output id="recovery-code-result"></output>
+        <button id="copy-recovery-code" type="button" class="secondary-button full-width">Copiar código</button>
+        <button id="finish-recovery" type="button" class="primary-button full-width">Listo, ya lo guardé</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="session-edit-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="session-edit-title">
+    <form id="session-edit-form" class="modal-card">
+      <input id="session-edit-id" type="hidden">
+      <div class="modal-heading">
+        <div><p class="eyebrow">Corregir bitácora</p><h2 id="session-edit-title">Editar sesión</h2></div>
+        <button id="close-session-edit" type="button" class="icon-button" aria-label="Cerrar">×</button>
+      </div>
+      <div class="form-row">
+        <label>Número<input id="session-edit-number" required type="number" min="1" step="1"></label>
+        <label>Fecha<input id="session-edit-date" required type="date"></label>
+      </div>
+      <label>Nombre de la sesión<input id="session-edit-name" required maxlength="100"></label>
+      <div class="session-edit-awards-heading">
+        <div><strong>Puntos otorgados</strong><small>La diferencia se aplicará automáticamente a cada personaje.</small></div>
+        <strong id="session-edit-total">0 PX</strong>
+      </div>
+      <div id="session-edit-allocations" class="session-edit-allocations"></div>
+      <p id="session-edit-error" class="form-error hidden">No se pudo actualizar la sesión.</p>
+      <button type="submit" class="primary-button full-width">Guardar correcciones</button>
     </form>
   </div>
 

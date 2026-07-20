@@ -4,6 +4,7 @@ const {
   readBody,
   sendError,
   sendJson,
+  signUnlockToken,
   supabaseFetch,
   verifyUnlockToken,
 } = require("../_supabase");
@@ -21,7 +22,8 @@ function mapCampaign(row, unlocked, latestSessionNumber = 0) {
     appearance: row.appearance || "light",
     color: row.color || "#9b4e35",
     banner: row.banner || "",
-    passwordHash: row.protected && !unlocked ? "protected" : "",
+    passwordHash: row.protected ? "protected" : "",
+    recoveryConfigured: Boolean(row.recovery_configured),
     characters: [],
     sessions: [],
     sessionCount: row.session_count || 0,
@@ -79,7 +81,7 @@ module.exports = async function handler(req, res) {
     const { id } = req.query;
     const [summary] = await supabaseFetch(`/campaign_summaries?id=eq.${encodeURIComponent(id)}&select=*`);
     if (!summary) return sendJson(res, 404, { error: "Campaign not found" });
-    const unlocked = !summary.protected || verifyUnlockToken(id, getBearerToken(req));
+    const unlocked = !summary.protected || verifyUnlockToken(id, getBearerToken(req), summary.access_version);
 
     if (req.method === "PATCH") {
       if (!unlocked) return sendJson(res, 401, { error: "Campaign unlock required" });
@@ -99,11 +101,14 @@ module.exports = async function handler(req, res) {
         updated_at: new Date().toISOString(),
       };
       if (passwordHash !== undefined) patch.password_hash = passwordHash;
+      if (passwordHash !== undefined) patch.access_version = Number(summary.access_version || 1) + 1;
       await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(id)}`, {
         method: "PATCH",
         body: JSON.stringify(patch),
       });
-      return sendJson(res, 200, { ok: true });
+      const response = { ok: true };
+      if (passwordHash) response.token = signUnlockToken(id, patch.access_version);
+      return sendJson(res, 200, response);
     }
 
     if (req.method === "DELETE") {

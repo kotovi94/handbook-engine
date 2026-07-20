@@ -27,11 +27,14 @@ export const remoteStorage = {
 
   async updateCampaign(campaign, password = "", keepPassword = true) {
     const token = localStorage.getItem(tokenKey(campaign.id));
-    return requestJson(`/api/campaigns/${campaign.id}`, {
+    const data = await requestJson(`/api/campaigns/${campaign.id}`, {
       method: "PATCH",
       headers: token ? { authorization: `Bearer ${token}` } : {},
       body: JSON.stringify({ ...campaign, password, keepPassword }),
     });
+    if (data.token) localStorage.setItem(tokenKey(campaign.id), data.token);
+    if (!campaign.passwordHash) localStorage.removeItem(tokenKey(campaign.id));
+    return data;
   },
 
   async deleteCampaign(campaignId) {
@@ -58,6 +61,26 @@ export const remoteStorage = {
     return data;
   },
 
+  async generateRecoveryCode(campaignId) {
+    const token = localStorage.getItem(tokenKey(campaignId));
+    const data = await requestJson(`/api/campaigns/${campaignId}/recovery`, {
+      method: "POST",
+      headers: token ? { authorization: `Bearer ${token}` } : {},
+      body: JSON.stringify({ action: "generate" }),
+    });
+    if (data.token) localStorage.setItem(tokenKey(campaignId), data.token);
+    return data;
+  },
+
+  async resetPassword(campaignId, recoveryCode, password) {
+    const data = await requestJson(`/api/campaigns/${campaignId}/recovery`, {
+      method: "POST",
+      body: JSON.stringify({ action: "reset", recoveryCode, password }),
+    });
+    if (data.token) localStorage.setItem(tokenKey(campaignId), data.token);
+    return data;
+  },
+
   async saveCharacter(campaignId, character) {
     const token = localStorage.getItem(tokenKey(campaignId));
     return requestJson(`/api/campaigns/${campaignId}/characters`, {
@@ -80,6 +103,15 @@ export const remoteStorage = {
     const token = localStorage.getItem(tokenKey(campaignId));
     return requestJson(`/api/campaigns/${campaignId}/sessions`, {
       method: "POST",
+      headers: { authorization: `Bearer ${token}` },
+      body: JSON.stringify(session),
+    });
+  },
+
+  async updateSession(campaignId, session) {
+    const token = localStorage.getItem(tokenKey(campaignId));
+    return requestJson(`/api/campaigns/${campaignId}/sessions`, {
+      method: "PATCH",
       headers: { authorization: `Bearer ${token}` },
       body: JSON.stringify(session),
     });

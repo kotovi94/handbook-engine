@@ -16,9 +16,15 @@ create table if not exists public.campaigns (
   color text not null default '#9b4e35',
   banner text not null default '',
   password_hash text not null default '',
+  recovery_hash text not null default '',
+  access_version integer not null default 1,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.campaigns
+  add column if not exists recovery_hash text not null default '',
+  add column if not exists access_version integer not null default 1;
 
 create table if not exists public.characters (
   id uuid primary key default gen_random_uuid(),
@@ -82,7 +88,9 @@ select
   c.banner,
   c.created_at,
   c.updated_at,
+  c.access_version,
   c.password_hash <> '' as protected,
+  c.recovery_hash <> '' as recovery_configured,
   coalesce(character_counts.total, 0)::integer as character_count,
   coalesce(session_counts.total, 0)::integer as session_count,
   coalesce(session_counts.latest_number, 0)::integer as latest_session_number,

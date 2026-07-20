@@ -8,13 +8,13 @@ const {
 } = require("../../_supabase");
 
 async function requireUnlocked(req, campaignId) {
-  const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(campaignId)}&select=id,password_hash`);
+  const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(campaignId)}&select=id,password_hash,access_version`);
   if (!campaign) {
     const error = new Error("Campaign not found");
     error.statusCode = 404;
     throw error;
   }
-  if (campaign.password_hash && !verifyUnlockToken(campaignId, getBearerToken(req))) {
+  if (campaign.password_hash && !verifyUnlockToken(campaignId, getBearerToken(req), campaign.access_version)) {
     const error = new Error("Campaign unlock required");
     error.statusCode = 401;
     throw error;
