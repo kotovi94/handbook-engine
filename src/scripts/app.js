@@ -1,4 +1,3 @@
-import { AppIntro } from "../components/AppIntro.js";
 import { FirstVisitTour, shouldShowFirstVisitTour } from "../components/FirstVisitTour.js";
 import { Layout } from "../components/Layout.js";
 import { classRegistry } from "../data/classes.js";
@@ -11,6 +10,7 @@ import { getInitialRoute, getRouteTheme, parseHashRoute, renderRoute } from "./r
 const appRoot = document.querySelector("#app");
 const displayModeStorageKey = "handbook-engine-display-mode";
 const themeIntroStorageKey = "handbook-engine-theme-intro-seen";
+const welcomeStorageKey = "d20-travesias-welcome-seen-v1";
 let firstVisitTourTimer = 0;
 let pendingManualTour = false;
 
@@ -61,10 +61,8 @@ function renderApp() {
     if (pendingManualTour && state.route === "home") {
       pendingManualTour = false;
       startFirstVisitTour({ force: true, delay: 120 });
-    } else {
-      startFirstVisitTour({ delay: 900 });
     }
-    showThemeIntroNotice();
+    showWelcomeNotice();
   } catch (error) {
     showStartupError(error);
   }
@@ -134,7 +132,9 @@ function getCharacterTheme() {
 }
 
 function loadDisplayMode() {
-  return window.localStorage.getItem(displayModeStorageKey) || "light";
+  const saved = window.localStorage.getItem(displayModeStorageKey);
+  if (saved) return saved;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 function saveDisplayMode(isDarkMode) {
@@ -185,7 +185,7 @@ function showThemeIntroNotice() {
     <div>
       <span>Antes de empezar</span>
       <h2>Elige cómo quieres ver la app</h2>
-      <p>El modo claro u oscuro cambia la lectura general. El color del tema se ajusta automáticamente a la clase elegida; si aún no hay clase, se usa el tema Default.</p>
+      <p>El modo claro u oscuro cambia la lectura general. El color del tema se ajusta automáticamente a la clase elegida; si aún no hay clase, se usa el tema predeterminado.</p>
     </div>
     <div class="theme-intro-actions">
       <button type="button" class="button" data-mode="light">Modo claro</button>
@@ -214,6 +214,37 @@ function dismissThemeIntroNotice(notice) {
   notice.remove();
 }
 
+function showWelcomeNotice() {
+  if (state.route !== "home" || window.localStorage.getItem(welcomeStorageKey) || document.querySelector(".welcome-notice")) return;
+  const notice = document.createElement("aside");
+  notice.className = "theme-intro-notice welcome-notice";
+  notice.setAttribute("role", "dialog");
+  notice.setAttribute("aria-label", "Bienvenida a D20 Travesías");
+  notice.innerHTML = `
+    <div>
+      <span>Bienvenido a D20 Travesías</span>
+      <h2>¿Qué quieres preparar?</h2>
+      <p>Puedes comenzar de inmediato. La guía completa permanece disponible en el botón de ayuda.</p>
+    </div>
+    <div class="theme-intro-actions">
+      <button type="button" class="button" data-route="characters">Soy jugador</button>
+      <button type="button" class="button" data-route="dungeon-generator">Soy DM</button>
+      <button type="button" class="button secondary-button" data-dismiss>Explorar</button>
+    </div>
+  `;
+  const dismiss = () => {
+    window.localStorage.setItem(welcomeStorageKey, "true");
+    notice.remove();
+  };
+  notice.querySelectorAll("[data-route]").forEach((button) => button.addEventListener("click", () => {
+    const route = button.dataset.route;
+    dismiss();
+    navigate(route);
+  }));
+  notice.querySelector("[data-dismiss]").addEventListener("click", dismiss);
+  document.body.append(notice);
+}
+
 function updateThemeIndicator(themeClassName) {
   const label = document.querySelector("[data-theme-indicator-label]");
   const theme = themes.find((item) => item.className === themeClassName) || themes[0];
@@ -225,8 +256,3 @@ function updateThemeIndicator(themeClassName) {
 
 state.theme = getActiveTheme(state.route);
 renderApp();
-
-const appIntro = AppIntro();
-if (appIntro) {
-  document.body.append(appIntro);
-}

@@ -39,6 +39,8 @@ export function DungeonRoomCard({ room, onChange, onRegenerate }) {
   body.className = "dungeon-room-body";
   body.append(
     renderTextAreaField("Descripción corta", room.description || "", (value) => onChange?.(room.id, { description: value })),
+    renderTextAreaField("Ambiente", room.ambience || room.readAloud || "", (value) => onChange?.(room.id, { ambience: value })),
+    renderTextAreaField("Texto para leer a los jugadores", room.readAloud || "", (value) => onChange?.(room.id, { readAloud: value })),
     renderInputField("Zona", room.zoneName || "", (value) => onChange?.(room.id, { zoneName: value })),
     renderTextAreaField("Identidad de zona", room.zoneIdentity || "", (value) => onChange?.(room.id, { zoneIdentity: value })),
     renderInputField("Conexiones", (room.connections || []).join(", "), (value) => {
@@ -56,6 +58,13 @@ export function DungeonRoomCard({ room, onChange, onRegenerate }) {
     renderTextAreaField("Notas de monstruos", room.monsterNotes || "", (value) => onChange?.(room.id, { monsterNotes: value })),
     renderTextAreaField("Peligro o trampa", room.hazard || "", (value) => onChange?.(room.id, { hazard: value })),
     renderTextAreaField("Tesoro", room.treasure || "", (value) => onChange?.(room.id, { treasure: value })),
+    renderTextAreaField("Secretos", room.secrets || "", (value) => onChange?.(room.id, { secrets: value })),
+    renderSelectField("Estado de exploración", [
+      { id: "unexplored", label: "Sin explorar" },
+      { id: "active", label: "En exploración" },
+      { id: "cleared", label: "Explorada" },
+      { id: "blocked", label: "Bloqueada" },
+    ], room.explorationStatus || "unexplored", (value) => onChange?.(room.id, { explorationStatus: value })),
     renderTextAreaField("Notas para el DM", room.notes || "", (value) => onChange?.(room.id, { notes: value })),
   );
 

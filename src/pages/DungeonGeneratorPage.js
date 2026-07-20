@@ -49,7 +49,7 @@ export function DungeonGeneratorPage() {
   kicker.textContent = "Herramientas de DM";
   const title = document.createElement("h2");
   title.className = "page-title";
-  title.textContent = "Dungeon Generator";
+  title.textContent = "Generador de mazmorras";
   header.append(kicker, title);
 
   const statusSlot = document.createElement("p");
@@ -113,6 +113,26 @@ export function DungeonGeneratorPage() {
         }
         renderForm();
         setStatus("Mazmorra guardada eliminada.");
+      },
+      onDuplicateSaved: (id) => {
+        const source = loadDungeon(id);
+        if (!source) return setStatus("No se encontró esa mazmorra guardada.");
+        const copy = {
+          ...source,
+          id: globalThis.crypto?.randomUUID?.() || `dungeon-${Date.now()}`,
+          name: `${source.name || "Mazmorra"} (copia)`,
+          status: "draft",
+          campaignId: "",
+          sessionNumber: null,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+        pageState.dungeon = saveDungeon(copy);
+        pageState.savedDungeons = listSavedDungeons();
+        pageState.selectedSavedId = copy.id;
+        renderForm();
+        renderResult();
+        setStatus("Mazmorra duplicada.");
       },
     }));
   }
@@ -271,10 +291,13 @@ function createDungeonHandoff(dungeon) {
     kind: "dmTool",
     source: "dungeon-generator",
     title: dungeon.name || "Mazmorra generada",
-    summary: dungeon.summary || "Mazmorra preparada desde Dungeon Generator.",
+    summary: dungeon.summary || "Mazmorra preparada desde el Generador de mazmorras.",
     content: exportDungeonMarkdownCompact(dungeon),
     tags: ["mazmorra", dungeon.type, dungeon.theme].filter(Boolean),
     data: {
+      sourceDungeonId: dungeon.id,
+      dungeon: structuredClone(dungeon),
+      status: dungeon.status || "prepared",
       theme: [dungeon.type, dungeon.theme].filter(Boolean).join(" / "),
       entrance: dungeon.entranceRoomId || dungeon.rooms?.[0]?.id || "",
       secret: secretRooms || "Sin secreto destacado",

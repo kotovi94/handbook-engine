@@ -1,4 +1,5 @@
 import { SummaryPanel } from "../components/SummaryPanel.js";
+import { CharacterTabs } from "../components/CharacterTabs.js";
 import { getChoiceStatus } from "../scripts/choiceEngine.js";
 import { getCharacter, updateCharacter } from "../scripts/characterState.js";
 import { displayName, displayValue } from "../scripts/displayLabels.js";
@@ -23,6 +24,7 @@ export function AppearancePage() {
       </div>
       <div class="panel"><p>Herramienta opciónal que toma lo elegido en la creación y lo convierte en una descripción visual y un prompt copiables.</p></div>
     `;
+    main.prepend(CharacterTabs({ active: "appearance" }));
 
     main.append(
       appearanceSection({

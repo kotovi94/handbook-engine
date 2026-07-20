@@ -1,9 +1,10 @@
 import { CalculationGrid } from "../components/CalculationBox.js";
+import { CharacterTabs } from "../components/CharacterTabs.js";
 import { Icon } from "../components/Icon.js";
 import { PendingPanel } from "../components/PendingPanel.js";
 import { ProgressionList } from "../components/ProgressionList.js";
 import { SheetSectionList } from "../components/SheetField.js";
-import { getCharacter } from "../scripts/characterState.js";
+import { getCharacter, getCharacterDocument } from "../scripts/characterState.js";
 import { queueCampaignHandoff } from "../scripts/campaignHandoff.js";
 import { displayName } from "../scripts/displayLabels.js";
 import { rulesEngine } from "../scripts/rulesEngine.js";
@@ -39,8 +40,12 @@ export function CharacterSummaryPage() {
     </div>
   `;
 
-  page.append(PendingPanel({ character }));
-  page.append(CharacterCampaignHandoffPanel({ character, derived }));
+  page.prepend(CharacterTabs({ active: "summary" }));
+
+  page.append(PendingPanel({ character, onNavigate: (stepId) => {
+    window.location.hash = `/creator:${stepId}`;
+  } }));
+  page.append(CharacterCampaignHandoffPanel({ character, derived, characterDocument: getCharacterDocument() }));
 
   page.append(CalculationGrid([
     {
@@ -66,7 +71,7 @@ export function CharacterSummaryPage() {
   return page;
 }
 
-function CharacterCampaignHandoffPanel({ character, derived }) {
+function CharacterCampaignHandoffPanel({ character, derived, characterDocument }) {
   const panel = document.createElement("article");
   panel.className = "campaign-handoff-panel";
 
@@ -118,7 +123,7 @@ function CharacterCampaignHandoffPanel({ character, derived }) {
   status.setAttribute("aria-live", "polite");
 
   button.addEventListener("click", () => {
-    const queued = queueCampaignHandoff(createCharacterHandoff(character, derived));
+    const queued = queueCampaignHandoff(createCharacterHandoff(character, derived, characterDocument));
     status.textContent = queued
       ? "Personaje listo para importar en Campañas."
       : "No se pudo preparar la importación a Campañas.";
@@ -132,7 +137,7 @@ function CharacterCampaignHandoffPanel({ character, derived }) {
   return panel;
 }
 
-function createCharacterHandoff(character, derived) {
+export function createCharacterHandoff(character, derived, document = null) {
   const title = getCharacterTitle(character, derived);
   const role = getCharacterRole(derived);
   const species = displayName(derived.speciesData);
@@ -141,7 +146,7 @@ function createCharacterHandoff(character, derived) {
     species,
     role,
     background ? `trasfondo ${background}` : "",
-    `nivel ${derived.level || 5}`,
+    `nivel ${derived.level || 1}`,
   ].filter(Boolean).join(" · ");
 
   return {
@@ -151,6 +156,7 @@ function createCharacterHandoff(character, derived) {
     summary,
     tags: ["personaje", species, displayName(derived.classData), displayName(derived.subclassData)].filter(Boolean),
     character: {
+      id: document?.id || undefined,
       kind: "player",
       name: title,
       player: "",
@@ -165,9 +171,19 @@ function createCharacterHandoff(character, derived) {
       },
       metadata: {
         source: "character-creator",
-        level: derived.level || 5,
+        sourceCharacterId: document?.id || "",
+        level: derived.level || 1,
         species,
         background,
+        characterDocument: document ? {
+          ...document,
+          builder: character,
+          progression: {
+            ...document.progression,
+            level: derived.level || 1,
+            xp: xpByLevel[derived.level] || 0,
+          },
+        } : undefined,
       },
     },
   };
@@ -176,7 +192,7 @@ function createCharacterHandoff(character, derived) {
 function createCharacterNotes(character, derived, { title, summary }) {
   const sections = mapCharacterToSheetSections(character);
   const lines = [
-    `Ficha generada desde Handbook Engine.`,
+    `Ficha generada desde D20 Travesías.`,
     `Personaje: ${title}`,
     `Resumen: ${summary || "Sin resumen completo"}`,
     `CA: ${derived.armorClass}`,

@@ -1,4 +1,5 @@
 import { SheetSectionList } from "../components/SheetField.js";
+import { CharacterTabs } from "../components/CharacterTabs.js";
 import { getCharacter } from "../scripts/characterState.js";
 import { mapCharacterToSheetSections } from "../scripts/sheetMapper.js";
 
@@ -14,6 +15,7 @@ export function PrintSheetPage() {
       <p>Usa el botón Imprimir del encabezado o la opción de imprimir del navegador para guardar estas instrucciones.</p>
     </div>
   `;
+  page.prepend(CharacterTabs({ active: "print" }));
   page.append(SheetSectionList(mapCharacterToSheetSections(getCharacter())));
 
   return page;

@@ -2,7 +2,7 @@ import { rulesEngine } from "../scripts/rulesEngine.js";
 import { displayName } from "../scripts/displayLabels.js";
 import { PendingPanel } from "./PendingPanel.js";
 
-export function SummaryPanel({ character }) {
+export function SummaryPanel({ character, onPendingNavigate }) {
   const derived = rulesEngine.deriveCharacter(character);
   const panel = document.createElement("aside");
   panel.className = "summary-panel";
@@ -42,7 +42,7 @@ export function SummaryPanel({ character }) {
     </dl>
   `;
 
-  panel.append(PendingPanel({ character, compact: true }));
+  panel.append(PendingPanel({ character, compact: true, onNavigate: onPendingNavigate }));
 
   return panel;
 }

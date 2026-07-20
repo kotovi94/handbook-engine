@@ -3,11 +3,16 @@ import { contentEngine } from "../scripts/contentEngine.js";
 import { displayName, displayValue } from "../scripts/displayLabels.js";
 import { getSpellSheetDetail } from "../scripts/spellSheetDetails.js";
 import { compareDisplayValue, compareSpellLevelThenName, compareVisibleName } from "../scripts/sortUtils.js";
+import { quickReferenceRules } from "../data/rules/quickReference.js";
+
+const FAVORITES_STORAGE_KEY = "d20-travesias-reference-favorites-v1";
 
 const tabs = [
   { id: "all", label: "Todo" },
+  { id: "rule", label: "Reglas rápidas" },
   { id: "equipment", label: "Ítems" },
   { id: "spell", label: "Hechizos" },
+  { id: "favorites", label: "Favoritos" },
 ];
 
 export function SearchPage({ initialTab = "all" } = {}) {
@@ -15,6 +20,7 @@ export function SearchPage({ initialTab = "all" } = {}) {
   page.className = "section-stack";
   const resultsSlot = document.createElement("div");
   resultsSlot.className = "section-stack";
+  const favorites = loadFavorites();
   const filters = {
     query: "",
     tab: tabs.some((tab) => tab.id === initialTab) ? initialTab : "all",
@@ -35,14 +41,47 @@ export function SearchPage({ initialTab = "all" } = {}) {
     </div>
   `;
 
-  page.append(renderTabs(filters, render), renderSearchControls(filters, render), renderActiveFilterChips(filters, render), resultsSlot);
+  page.append(renderQuickQueries(filters, render), renderTabs(filters, render), renderSearchControls(filters, render), renderActiveFilterChips(filters, render), resultsSlot);
   render();
 
   function render() {
-    renderResults(filters, resultsSlot);
+    renderResults(filters, resultsSlot, favorites, (key) => {
+      favorites.has(key) ? favorites.delete(key) : favorites.add(key);
+      saveFavorites(favorites);
+      render();
+    });
   }
 
   return page;
+}
+
+function renderQuickQueries(filters, onChange) {
+  const wrap = document.createElement("section");
+  wrap.className = "quick-query-panel panel";
+  wrap.setAttribute("aria-labelledby", "quick-query-title");
+  wrap.innerHTML = '<div><p class="page-kicker">Un toque</p><h3 id="quick-query-title">Consultas frecuentes</h3></div>';
+  const list = document.createElement("div");
+  list.className = "quick-query-list";
+  ["Concentración", "Cobertura", "Agarrar", "Muerte", "Descansos", "CD"].forEach((query) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "quick-query-button";
+    button.textContent = query;
+    button.addEventListener("click", () => {
+      const input = wrap.closest(".section-stack")?.querySelector('input[name="query"]');
+      if (input) {
+        input.value = query;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        input.focus();
+      } else {
+        filters.query = query;
+        onChange();
+      }
+    });
+    list.append(button);
+  });
+  wrap.append(list);
+  return wrap;
 }
 
 function renderTabs(filters, onChange) {
@@ -53,6 +92,7 @@ function renderTabs(filters, onChange) {
     button.type = "button";
     button.className = filters.tab === tab.id ? "search-tab is-active" : "search-tab";
     button.textContent = tab.label;
+    button.setAttribute("aria-pressed", String(filters.tab === tab.id));
     button.addEventListener("click", () => {
       filters.tab = tab.id;
       onChange();
@@ -277,8 +317,8 @@ function syncReferenceForm(form, filters) {
   form.elements.spellTag.value = filters.spellTag;
 }
 
-function renderResults(filters, resultsSlot) {
-  const results = getReferenceResults(filters);
+function renderResults(filters, resultsSlot, favorites, onToggleFavorite) {
+  const results = getReferenceResults(filters, favorites);
   const count = document.createElement("p");
   count.className = "result-count";
   count.textContent = `${results.length} resultado${results.length === 1 ? "" : "s"}`;
@@ -295,17 +335,27 @@ function renderResults(filters, resultsSlot) {
 
   const grid = document.createElement("div");
   grid.className = "reference-grid";
-  results.slice(0, 80).forEach((result) => grid.append(renderReferenceCard(result)));
+  results.slice(0, 80).forEach((result) => grid.append(renderReferenceCard(result, favorites, onToggleFavorite)));
   resultsSlot.append(grid);
 }
 
-function getReferenceResults(filters) {
+function getReferenceResults(filters, favorites = new Set()) {
   const includeEquipment = filters.tab === "all" || filters.tab === "equipment";
   const includeSpells = filters.tab === "all" || filters.tab === "spell";
+  const includeRules = filters.tab === "all" || filters.tab === "rule";
   const results = [
     ...(includeEquipment ? equipment.map((item) => ({ type: "equipment", item })) : []),
     ...(includeSpells ? spells.map((spell) => ({ type: "spell", item: spell })) : []),
+    ...(includeRules ? quickReferenceRules.map((rule) => ({ type: "rule", item: rule })) : []),
   ];
+
+  if (filters.tab === "favorites") {
+    return [
+      ...quickReferenceRules.map((item) => ({ type: "rule", item })),
+      ...equipment.map((item) => ({ type: "equipment", item })),
+      ...spells.map((item) => ({ type: "spell", item })),
+    ].filter((result) => favorites.has(referenceKey(result))).filter((result) => matchesQuery(result, filters.query)).sort(sortReference);
+  }
 
   return results
     .filter((result) => matchesFilters(result, filters))
@@ -357,6 +407,11 @@ function matchesQuery(result, query) {
     formatCoins(item.cost),
     detail?.label,
     detail?.detail,
+    item.title,
+    item.quickAnswer,
+    item.details,
+    item.source,
+    ...(item.keywords || []),
     ...(item.classes || []),
     ...(item.properties || []),
     ...(item.components || []),
@@ -365,15 +420,41 @@ function matchesQuery(result, query) {
   return normalizedQuery.split(/\s+/).every((part) => haystack.includes(part));
 }
 
-function renderReferenceCard(result) {
-  return result.type === "spell"
+function renderReferenceCard(result, favorites, onToggleFavorite) {
+  const card = result.type === "spell"
     ? renderSpellCard(result.item)
-    : renderEquipmentCard(result.item);
+    : result.type === "rule"
+      ? renderRuleCard(result.item)
+      : renderEquipmentCard(result.item);
+  const key = referenceKey(result);
+  const isFavorite = favorites.has(key);
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = isFavorite ? "reference-favorite is-active" : "reference-favorite";
+  button.setAttribute("aria-pressed", String(isFavorite));
+  button.setAttribute("aria-label", `${isFavorite ? "Quitar de" : "Añadir a"} favoritos: ${referenceTitle(result)}`);
+  button.textContent = isFavorite ? "★ Favorito" : "☆ Guardar";
+  button.addEventListener("click", () => onToggleFavorite(key));
+  card.prepend(button);
+  return card;
+}
+
+function renderRuleCard(rule) {
+  const card = document.createElement("article");
+  card.className = "reference-card quick-rule-card";
+  card.innerHTML = `
+    <div class="reference-card-header"><span>${rule.category}</span><strong>${rule.title}</strong></div>
+    <p class="quick-answer">${rule.quickAnswer}</p>
+    <details class="reference-details"><summary>Ver detalles</summary><p>${rule.details}</p></details>
+    <small class="reference-source">Fuente: ${rule.source}</small>
+  `;
+  return card;
 }
 
 function renderSpellCard(spell) {
   const detail = getSpellSheetDetail(spell.id);
   const higherLevel = detail?.higherLevel || spell.higherLevel || "";
+  const quickAnswer = detail?.detail || spell.sheetText || spell.summary;
   const card = document.createElement("article");
   card.className = "reference-card";
   card.innerHTML = `
@@ -381,23 +462,26 @@ function renderSpellCard(spell) {
       <span>${spellReferenceLine(spell)}</span>
       <strong>${detail?.label || displayName(spell)}</strong>
     </div>
-    <p>${detail?.detail || spell.sheetText || spell.summary}</p>
-    ${higherLevel ? `<p><strong>A mayor nivel:</strong> ${cleanText(higherLevel)}</p>` : ""}
-    <dl class="meta-list">
-      <div><dt>Escuela</dt><dd>${displayValue(spell.school)}</dd></div>
-      <div><dt>Lanzamiento</dt><dd>${cleanText(spell.castingTime)}</dd></div>
-      <div><dt>Alcance</dt><dd>${cleanText(spell.range)}</dd></div>
-      <div><dt>Duración</dt><dd>${cleanText(spell.duration)}</dd></div>
-      ${spell.damage ? `<div><dt>Daño</dt><dd>${cleanText(spell.damage)}${spell.damageType ? ` ${displayValue(spell.damageType)}` : ""}</dd></div>` : ""}
-      ${spell.save ? `<div><dt>Salvación</dt><dd>${displayValue(spell.save)}</dd></div>` : ""}
-      ${spell.attack ? `<div><dt>Ataque</dt><dd>${cleanText(spell.attack)}</dd></div>` : ""}
-    </dl>
-    <div class="tag-list">
-      ${(spell.classes || []).map((className) => `<span class="tag">${displayValue(className)}</span>`).join("")}
-      ${spell.concentration ? '<span class="tag">Concentración</span>' : ""}
-      ${spell.ritual ? '<span class="tag">Ritual</span>' : ""}
-      ${(spell.components || []).map((component) => `<span class="tag">${component}</span>`).join("")}
-    </div>
+    <p class="quick-answer">${quickAnswer}</p>
+    <details class="reference-details"><summary>Ver detalles</summary>
+      ${higherLevel ? `<p><strong>A mayor nivel:</strong> ${cleanText(higherLevel)}</p>` : ""}
+      <dl class="meta-list">
+        <div><dt>Escuela</dt><dd>${displayValue(spell.school)}</dd></div>
+        <div><dt>Lanzamiento</dt><dd>${cleanText(spell.castingTime)}</dd></div>
+        <div><dt>Alcance</dt><dd>${cleanText(spell.range)}</dd></div>
+        <div><dt>Duración</dt><dd>${cleanText(spell.duration)}</dd></div>
+        ${spell.damage ? `<div><dt>Daño</dt><dd>${cleanText(spell.damage)}${spell.damageType ? ` ${displayValue(spell.damageType)}` : ""}</dd></div>` : ""}
+        ${spell.save ? `<div><dt>Salvación</dt><dd>${displayValue(spell.save)}</dd></div>` : ""}
+        ${spell.attack ? `<div><dt>Ataque</dt><dd>${cleanText(spell.attack)}</dd></div>` : ""}
+      </dl>
+      <div class="tag-list">
+        ${(spell.classes || []).map((className) => `<span class="tag">${displayValue(className)}</span>`).join("")}
+        ${spell.concentration ? '<span class="tag">Concentración</span>' : ""}
+        ${spell.ritual ? '<span class="tag">Ritual</span>' : ""}
+        ${(spell.components || []).map((component) => `<span class="tag">${component}</span>`).join("")}
+      </div>
+    </details>
+    <small class="reference-source">Fuente: ${spell.source || "Compendio interno D20 Travesías"}</small>
   `;
   return card;
 }
@@ -434,21 +518,24 @@ function renderEquipmentCard(item) {
       <span>${equipmentTypeLabel(item)}</span>
       <strong>${displayName(item)}</strong>
     </div>
-    <p>${item.sheetText || item.description || item.summary}</p>
-    <dl class="meta-list">
-      ${item.damageLabel ? `<div><dt>Daño</dt><dd>${item.damageLabel}</dd></div>` : ""}
-      ${item.range ? `<div><dt>Alcance</dt><dd>${item.range}</dd></div>` : ""}
-      ${item.ac ? `<div><dt>CA</dt><dd>${item.ac}</dd></div>` : ""}
-      ${item.acBase ? `<div><dt>CA</dt><dd>${item.acBase}${dexterityText(item.dexterity)}</dd></div>` : ""}
-      ${item.mastery ? `<div><dt>Maestria</dt><dd>${item.mastery}</dd></div>` : ""}
-      ${item.cost ? `<div><dt>Precio</dt><dd>${formatCoins(item.cost)}</dd></div>` : ""}
-      ${item.weight ? `<div><dt>Peso</dt><dd>${item.weight}</dd></div>` : ""}
-    </dl>
-    <div class="tag-list">
-      <span class="tag">${equipmentTypeLabel(item)}</span>
-      ${item.ability ? `<span class="tag">${displayValue(item.ability)}</span>` : ""}
-      ${(item.properties || []).map((property) => `<span class="tag">${property}</span>`).join("")}
-    </div>
+    <p class="quick-answer">${item.sheetText || item.description || item.summary}</p>
+    <details class="reference-details"><summary>Ver detalles</summary>
+      <dl class="meta-list">
+        ${item.damageLabel ? `<div><dt>Daño</dt><dd>${item.damageLabel}</dd></div>` : ""}
+        ${item.range ? `<div><dt>Alcance</dt><dd>${item.range}</dd></div>` : ""}
+        ${item.ac ? `<div><dt>CA</dt><dd>${item.ac}</dd></div>` : ""}
+        ${item.acBase ? `<div><dt>CA</dt><dd>${item.acBase}${dexterityText(item.dexterity)}</dd></div>` : ""}
+        ${item.mastery ? `<div><dt>Maestría</dt><dd>${item.mastery}</dd></div>` : ""}
+        ${item.cost ? `<div><dt>Precio</dt><dd>${formatCoins(item.cost)}</dd></div>` : ""}
+        ${item.weight ? `<div><dt>Peso</dt><dd>${item.weight}</dd></div>` : ""}
+      </dl>
+      <div class="tag-list">
+        <span class="tag">${equipmentTypeLabel(item)}</span>
+        ${item.ability ? `<span class="tag">${displayValue(item.ability)}</span>` : ""}
+        ${(item.properties || []).map((property) => `<span class="tag">${property}</span>`).join("")}
+      </div>
+    </details>
+    <small class="reference-source">Fuente: ${item.source || "Compendio interno D20 Travesías"}</small>
   `;
   return card;
 }
@@ -484,6 +571,7 @@ function getSpellSchools() {
 }
 
 function sortReference(a, b) {
+  if (a.type === "rule" || b.type === "rule") return referenceTitle(a).localeCompare(referenceTitle(b), "es");
   if (a.type === "spell" && b.type === "spell" && a.item.level !== b.item.level) {
     return compareSpellLevelThenName(a.item, b.item);
   }
@@ -493,6 +581,31 @@ function sortReference(a, b) {
   }
 
   return compareVisibleName(a.item, b.item);
+}
+
+function referenceKey(result) {
+  return `${result.type}:${result.item.id}`;
+}
+
+function referenceTitle(result) {
+  return result.type === "rule" ? result.item.title : displayName(result.item);
+}
+
+function loadFavorites() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(FAVORITES_STORAGE_KEY) || "[]");
+    return new Set(Array.isArray(parsed) ? parsed.filter((value) => typeof value === "string") : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function saveFavorites(favorites) {
+  try {
+    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify([...favorites]));
+  } catch {
+    // La consulta sigue funcionando aunque el navegador bloquee el almacenamiento.
+  }
 }
 
 function equipmentTypeLabel(item) {

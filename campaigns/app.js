@@ -16,6 +16,14 @@ import {
 } from './campaignModel.js';
 import { setupPageBridge } from '../src/scripts/pageBridge.js';
 import { clearCampaignHandoff, readCampaignHandoff } from '../src/scripts/campaignHandoff.js';
+import { linkStoredCharacterToCampaign, updateStoredCharacterProgression } from '../src/scripts/characterRepository.js';
+import {
+  createSessionPreparation,
+  getLatestSessionSummary,
+  listSessionPreparations,
+  normalizeSessionPreparation,
+  upsertSessionPreparation,
+} from './sessionFlow.js';
 
 const STORAGE_KEY = 'd20-travesias-archivo-v2';
 const LEGACY_STORAGE_KEY = 'cronicas-experiencia-v1';
@@ -322,6 +330,7 @@ let boardUndoStack = [];
 let boardRedoStack = [];
 let remoteWorkspaceSaveTimer = null;
 let remoteWorkspaceSaveInFlight = null;
+let activeSessionPreparationId = '';
 const unlockedCampaigns = new Set();
 const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 let globalAppearance = loadGlobalAppearance();
@@ -511,6 +520,7 @@ async function reloadActiveCampaign() {
   portfolio.campaigns = portfolio.campaigns.map(entry => entry.id === campaign.id ? campaign : entry);
   if (!portfolio.campaigns.some(entry => entry.id === campaign.id)) portfolio.campaigns.push(campaign);
   state = campaign;
+  syncLinkedCharacterProgression(campaign);
   renderAll();
   renderSessionForm();
 }
@@ -585,6 +595,31 @@ function normalizeCampaign(campaign) {
 
 function normalizeCharacter(character) {
   return normalizeCampaignCharacterRecord(character);
+}
+
+function syncLinkedCharacterProgression(campaign) {
+  (campaign?.characters || []).forEach(character => syncLinkedCharacterProgressionRecord(character));
+}
+
+function syncLinkedCharacterProgressionRecord(character, session = null) {
+  const sourceCharacterId = character?.metadata?.sourceCharacterId;
+  if (!sourceCharacterId) return;
+  const historyEntry = session ? {
+    id: `campaign-session:${session.id}`,
+    type: 'campaign-session',
+    campaignId: state?.id || '',
+    sessionId: session.id,
+    sessionNumber: session.number,
+    title: session.name,
+    xp: Number(session.allocations?.find(item => item.characterId === character.id)?.total || 0),
+    createdAt: session.createdAt || new Date().toISOString(),
+  } : null;
+  const linkedDocument = updateStoredCharacterProgression(sourceCharacterId, {
+    xp: character.xp,
+    level: getCampaignSystem().id === 'dnd5e2024' ? getLevel(character.xp) : undefined,
+    historyEntry,
+  });
+  if (linkedDocument && character.metadata) character.metadata.characterDocument = linkedDocument;
 }
 
 function formatResource(value, campaign = state) {
@@ -806,6 +841,7 @@ function activateCampaign(campaign, options = {}) {
   const app = $('#campaign-app');
   activeCampaignId = campaign.id;
   state = campaign;
+  syncLinkedCharacterProgression(campaign);
   resetBoardRuntimeState();
   $('#campaigns-home').classList.add('hidden');
   app.classList.remove('hidden');
@@ -826,7 +862,6 @@ function activateCampaign(campaign, options = {}) {
   renderSessionForm();
   navigate('dashboard');
   if (options.updateUrl !== false) updateCampaignUrl(campaign, { replace: Boolean(options.replaceUrl) });
-  queueCampaignOnboarding();
   window.setTimeout(() => {
     consumePendingCampaignHandoff();
   }, 80);
@@ -941,8 +976,9 @@ function updateAccessMode() {
     topbarButton.disabled = false;
     topbarButton.classList.remove('is-locked');
   } else {
-    topbarButton.textContent = '+ Registrar sesión';
-    topbarButton.dataset.go = 'new-session';
+    const nextNumber = getSessionStats(state).latest + 1 || 1;
+    topbarButton.textContent = `Preparar sesión ${nextNumber}`;
+    topbarButton.dataset.go = 'prepare';
     delete topbarButton.dataset.action;
     topbarButton.disabled = false;
     topbarButton.classList.remove('is-locked');
@@ -966,7 +1002,7 @@ async function openCampaign(id, options = {}) {
 }
 
 async function deleteCampaign(campaign) {
-  if (!confirm(`¿Eliminar la campaña ${campaign.name}? Se borrarán sus personajes, sesiones y ${getCampaignSystem(campaign).resourceName}.`)) return;
+  if (!confirm(`¿Eliminar la campaña ${campaign.name}? Se borrarán sus personajes, sesiones y ${getCampaignSystem(campaign).resourceName}. Esta acción no se puede recuperar desde la aplicación.`)) return;
   if (USE_REMOTE_STORAGE) {
     try {
       await remoteStorage.deleteCampaign(campaign.id);
@@ -1039,18 +1075,21 @@ function renderCampaigns() {
     const bannerStyle = campaign.banner ? `background-image:url('${campaign.banner}')` : "";
     const fontFamilies = { classic: "Cinzel,serif", medieval: "MedievalSharp,cursive", chronicle: "IM Fell English,serif", arcane: "Uncial Antiqua,serif", modern: "Inter,sans-serif", imperial: "Marcellus,serif", storybook: "Cormorant Garamond,serif", gothic: "Grenze Gotisch,serif", scholarly: "Spectral,serif" };
     const campaignHref = `${getCampaignAppPath(campaign)}${getPersistentCampaignSearch()}`;
+    const privacyLabel = !USE_REMOTE_STORAGE
+      ? 'Privada · este dispositivo'
+      : (campaign.passwordHash ? 'Compartida · acceso protegido' : 'Pública mediante enlace');
     return `<article class="campaign-card" style="--campaign-color:${campaign.color || "#9b4e35"};--card-display-font:${fontFamilies[campaign.font || "classic"]}">
       <div class="campaign-card-banner" style="${bannerStyle}"></div>
       <div class="campaign-card-content">
         <p class="eyebrow">${escapeHTML(getCampaignSystem(campaign).name)}</p>
         <h3>${escapeHTML(campaign.name)}</h3>
         <p>${escapeHTML(campaign.description || "Una nueva travesía esta a punto de comenzar.")}</p>
-        <div class="campaign-meta"><span>${formatCharacterCountLabel(characterCount)}</span>${sessionMeta}<span>${formatResource(totalXP, campaign)}</span>${campaign.dm ? `<span>DM: ${escapeHTML(campaign.dm)}</span>` : ""}${campaign.passwordHash ? '<span class="lock-label">Protegida</span>' : ""}</div>
+        <div class="campaign-meta"><span>${formatCharacterCountLabel(characterCount)}</span>${sessionMeta}<span>${formatResource(totalXP, campaign)}</span>${campaign.dm ? `<span>DM: ${escapeHTML(campaign.dm)}</span>` : ""}<span class="lock-label">${privacyLabel}</span></div>
         <div class="campaign-next-step">${nextStep}</div>
       </div>
       <div class="campaign-card-actions">
         <a class="primary-button open-campaign" href="${escapeHTML(campaignHref)}" data-id="${campaign.id}">Entrar a la campaña</a>
-        <div class="campaign-card-tools"><button class="text-button share-campaign" data-id="${campaign.id}">Compartir</button><button class="text-button edit-campaign" data-id="${campaign.id}">Editar</button><button class="text-button danger-button delete-campaign" data-id="${campaign.id}">Eliminar</button></div>
+        <details class="campaign-card-menu"><summary aria-label="Más acciones para ${escapeHTML(campaign.name)}">⋯</summary><div class="campaign-card-tools"><button class="text-button share-campaign" data-id="${campaign.id}">Compartir</button><button class="text-button edit-campaign" data-id="${campaign.id}">Editar</button><button class="text-button danger-button delete-campaign" data-id="${campaign.id}">Eliminar</button></div></details>
       </div>
     </article>`;
   }).join("") : (campaigns.length
@@ -1295,21 +1334,26 @@ function consumePendingDungeonHandoff(handoff) {
 
   const workspace = ensureWorkspace();
   const now = new Date().toISOString();
+  const sourceDungeonId = String(handoff.data?.sourceDungeonId || '').trim();
+  const existing = (workspace.dmTools || []).find(entry => entry.toolType === 'dungeon' && entry.data?.sourceDungeonId === sourceDungeonId);
   const tool = normalizeDmToolState({
-    id: uid(),
+    ...(existing || {}),
+    id: existing?.id || uid(),
     title: handoff.title || 'Mazmorra generada',
     summary: handoff.summary || '',
     content: { format: 'campaign-handoff-v1', plainText: handoff.content || '', blocks: [] },
     tags: Array.isArray(handoff.tags) ? handoff.tags : ['mazmorra'],
     visibility: CAMPAIGN_VISIBILITY_PRESETS.dmDraft.visibility,
     toolType: 'dungeon',
-    status: 'ready',
-    data: handoff.data || {},
-    createdAt: now,
+    status: handoff.data?.status || 'ready',
+    data: { ...(existing?.data || {}), ...(handoff.data || {}), campaignId: state.id },
+    createdAt: existing?.createdAt || now,
     updatedAt: now,
   });
 
-  workspace.dmTools = [...(workspace.dmTools || []), tool];
+  workspace.dmTools = existing
+    ? workspace.dmTools.map(entry => entry.id === existing.id ? tool : entry)
+    : [...(workspace.dmTools || []), tool];
   activeDmToolType = 'dungeon';
   activeDmToolId = tool.id;
   persistActiveCampaign();
@@ -1330,19 +1374,31 @@ async function consumePendingCharacterHandoff(handoff) {
 
   if (USE_REMOTE_STORAGE) {
     try {
-      await remoteStorage.saveCharacter(activeCampaignId, character);
+      const result = await remoteStorage.saveCharacter(activeCampaignId, character);
+      linkStoredCharacterToCampaign(character.metadata?.sourceCharacterId, {
+        campaignId: activeCampaignId,
+        storageMode: 'remote',
+        remoteCharacterId: result.character?.id || character.id || '',
+      });
       clearCampaignHandoff();
       await reloadActiveCampaign();
       navigate('characters');
       showToast('Personaje agregado a la campaña.');
     } catch (error) {
-      console.warn('No se pudo importar el personaje compartido.', error);
+      console.error('Error al guardar el personaje compartido:', error);
       showToast('No se pudo guardar el personaje compartido.');
     }
     return;
   }
 
-  state.characters = [...(state.characters || []), character];
+  const existingIndex = state.characters.findIndex(entry => entry.metadata?.sourceCharacterId === character.metadata?.sourceCharacterId);
+  if (existingIndex >= 0) state.characters = state.characters.map((entry, index) => index === existingIndex ? { ...character, id: entry.id } : entry);
+  else state.characters = [...(state.characters || []), character];
+  linkStoredCharacterToCampaign(character.metadata?.sourceCharacterId, {
+    campaignId: activeCampaignId,
+    storageMode: 'local',
+    remoteCharacterId: '',
+  });
   persistActiveCampaign();
   clearCampaignHandoff();
   renderAll();
@@ -1358,9 +1414,24 @@ function createImportedCharacter(handoff) {
   const className = String(payload.className || handoff.summary || '').trim() || 'Aventurero';
   const sourceXp = Number(payload.xp || 0);
   const dndXp = Number.isFinite(sourceXp) ? Math.max(0, Math.round(sourceXp)) : 0;
+  const sourceCharacterId = String(payload.metadata?.sourceCharacterId || payload.id || '').trim();
+  const existing = (state.characters || []).find(entry => entry.metadata?.sourceCharacterId === sourceCharacterId);
+
+  const characterDocument = payload.metadata?.characterDocument && typeof payload.metadata.characterDocument === 'object'
+    ? {
+      ...payload.metadata.characterDocument,
+      campaign: {
+        ...(payload.metadata.characterDocument.campaign || {}),
+        campaignId: activeCampaignId,
+        storageMode: USE_REMOTE_STORAGE ? 'remote' : 'local',
+        remoteCharacterId: existing?.id || '',
+        assignedAt: payload.metadata.characterDocument.campaign?.assignedAt || now,
+      },
+    }
+    : null;
 
   return normalizeCharacter({
-    id: USE_REMOTE_STORAGE ? undefined : uid(),
+    id: existing?.id || (USE_REMOTE_STORAGE ? undefined : sourceCharacterId || uid()),
     kind: payload.kind || 'player',
     name,
     player: String(payload.player || '').trim(),
@@ -1375,6 +1446,8 @@ function createImportedCharacter(handoff) {
     },
     metadata: {
       ...(payload.metadata && typeof payload.metadata === 'object' ? payload.metadata : {}),
+      sourceCharacterId,
+      ...(characterDocument ? { characterDocument } : {}),
       importedFrom: handoff.source || 'handoff',
       importedAt: now,
     },
@@ -1994,6 +2067,8 @@ function clearDmToolForm(type = activeDmToolType) {
   $('#dm-tool-notes').value = '';
   $('#dm-tool-editor-title').textContent = `Nueva ${config.label.toLowerCase()}`;
   $('#delete-dm-tool').classList.add('hidden');
+  $('#duplicate-dm-dungeon').classList.add('hidden');
+  $('#print-dm-dungeon').classList.add('hidden');
   renderDmToolFields();
   renderDmToolList();
 }
@@ -2013,6 +2088,8 @@ function loadDmTool(id) {
   $('#dm-tool-notes').value = tool.content?.plainText || '';
   $('#dm-tool-editor-title').textContent = `Editar ${tool.config.label.toLowerCase()}`;
   $('#delete-dm-tool').classList.remove('hidden');
+  $('#duplicate-dm-dungeon').classList.toggle('hidden', tool.toolType !== 'dungeon');
+  $('#print-dm-dungeon').classList.toggle('hidden', tool.toolType !== 'dungeon');
   renderDmToolFields(tool);
   renderDmToolList();
 }
@@ -3118,6 +3195,128 @@ function endBoardNodeDrag(event) {
   boardDrag = null;
 }
 
+function getSessionPreparations() {
+  return listSessionPreparations(ensureWorkspace().dmTools || []);
+}
+
+function getActiveSessionPreparation() {
+  const items = getSessionPreparations();
+  return items.find(item => item.id === activeSessionPreparationId)
+    || items.find(item => item.status === 'active')
+    || items.find(item => item.status === 'ready')
+    || items[0]
+    || null;
+}
+
+function renderSessionPreparation(preparation = getActiveSessionPreparation()) {
+  if (!state || !$('#session-preparation-form')) return;
+  if (!preparation) preparation = createSessionPreparation(state, { previousSummary: getLatestSessionSummary(state), participantIds: state.characters.map(character => character.id), date: new Date().toISOString().slice(0, 10) }, uid);
+  activeSessionPreparationId = preparation.id;
+  const data = preparation.data;
+  const values = {
+    '#session-preparation-id': preparation.id, '#preparation-number': data.number, '#preparation-date': data.date,
+    '#preparation-title': data.title || preparation.title, '#preparation-previous-summary': data.previousSummary,
+    '#preparation-scenes': data.scenes, '#preparation-npcs': data.npcs, '#preparation-encounters': data.encounters,
+    '#preparation-rewards': data.pendingRewards, '#preparation-objectives': data.objectives, '#preparation-dm-notes': data.dmNotes,
+  };
+  Object.entries(values).forEach(([selector, value]) => { $(selector).value = value || ''; });
+  $('#prepare-session-heading').textContent = `Preparar sesión ${data.number}`;
+  $('#preparation-participants').innerHTML = state.characters.length
+    ? state.characters.map(character => `<label class="attendance-item"><input type="checkbox" value="${character.id}" data-preparation-participant ${data.participantIds.includes(character.id) ? 'checked' : ''}>${characterAvatar(character, 30, 12)}<b>${escapeHTML(character.name)}</b></label>`).join('')
+    : '<p class="helper">Añade personajes antes de preparar asistentes.</p>';
+  const dungeons = ensureWorkspace().dmTools.filter(tool => tool.toolType === 'dungeon');
+  $('#preparation-dungeons').innerHTML = dungeons.length
+    ? dungeons.map(tool => `<label class="attendance-item"><input type="checkbox" value="${tool.id}" data-preparation-dungeon ${data.dungeonToolIds.includes(tool.id) ? 'checked' : ''}><b>${escapeHTML(tool.title)}</b><small>${escapeHTML(tool.status || 'borrador')}</small></label>`).join('')
+    : '<p class="helper">No hay mazmorras en Herramientas DM.</p>';
+  renderSessionPreparationList();
+}
+
+function readSessionPreparationForm(status = 'draft') {
+  const existing = getSessionPreparations().find(item => item.id === $('#session-preparation-id').value);
+  const now = new Date().toISOString();
+  return normalizeSessionPreparation({
+    ...(existing || {}), id: $('#session-preparation-id').value || uid(),
+    title: $('#preparation-title').value.trim() || `Sesión ${$('#preparation-number').value}`, summary: $('#preparation-previous-summary').value.trim(), status,
+    visibility: { audience: 'dm', state: status === 'draft' ? 'draft' : 'prepared' },
+    content: { format: 'campaign-blocks-v1', plainText: $('#preparation-dm-notes').value.trim(), blocks: [] }, tags: ['sesión', 'preparación'],
+    data: {
+      number: Number($('#preparation-number').value) || 1, date: $('#preparation-date').value, title: $('#preparation-title').value.trim(),
+      previousSummary: $('#preparation-previous-summary').value.trim(), participantIds: $$('[data-preparation-participant]:checked').map(input => input.value),
+      scenes: $('#preparation-scenes').value.trim(), npcs: $('#preparation-npcs').value.trim(), encounters: $('#preparation-encounters').value.trim(),
+      pendingRewards: $('#preparation-rewards').value.trim(), dungeonToolIds: $$('[data-preparation-dungeon]:checked').map(input => input.value),
+      dmNotes: $('#preparation-dm-notes').value.trim(), objectives: $('#preparation-objectives').value.trim(),
+    }, createdAt: existing?.createdAt || now, updatedAt: now,
+  });
+}
+
+function saveSessionPreparation(status = 'draft') {
+  const preparation = readSessionPreparationForm(status);
+  ensureWorkspace().dmTools = upsertSessionPreparation(ensureWorkspace().dmTools, preparation);
+  activeSessionPreparationId = preparation.id;
+  persistActiveCampaign();
+  renderSessionPreparation(preparation);
+  showToast(status === 'ready' ? 'Preparación lista para mesa.' : 'Preparación guardada.');
+  return preparation;
+}
+
+function renderSessionPreparationList() {
+  const slot = $('#session-preparation-list');
+  if (!slot) return;
+  slot.innerHTML = getSessionPreparations().map(item => `<article class="panel session-preparation-card"><div><span class="workspace-entry-type">${escapeHTML(item.status)}</span><h3>${escapeHTML(item.title)}</h3><p>Sesión ${item.data.number} · ${item.data.participantIds.length} participantes</p></div><button type="button" class="secondary-button" data-edit-preparation="${item.id}">Abrir</button></article>`).join('');
+}
+
+function renderTableMode() {
+  const slot = $('#table-mode-content');
+  if (!slot || !state) return;
+  const preparation = getActiveSessionPreparation();
+  if (!preparation) { slot.innerHTML = emptyState('No hay una sesión preparada', 'Crea una preparación antes de entrar al modo mesa.', 'prepare', 'Preparar sesión'); return; }
+  activeSessionPreparationId = preparation.id;
+  if (!['active', 'completed'].includes(preparation.status)) {
+    preparation.status = 'active';
+    ensureWorkspace().dmTools = upsertSessionPreparation(ensureWorkspace().dmTools, preparation);
+    persistActiveCampaign();
+  }
+  const data = preparation.data;
+  const participants = state.characters.filter(character => data.participantIds.includes(character.id));
+  const dungeons = ensureWorkspace().dmTools.filter(tool => data.dungeonToolIds.includes(tool.id));
+  slot.innerHTML = `<article class="table-session-hero"><p class="eyebrow">Sesión ${data.number}</p><h2>${escapeHTML(data.title || preparation.title)}</h2><p>${escapeHTML(data.objectives || 'Sin objetivo principal definido.')}</p></article><div class="table-mode-grid"><section class="panel"><h3>Personajes participantes</h3>${participants.map(character => characterCard(character)).join('') || '<p>Sin participantes.</p>'}</section><section class="panel"><h3>Escenas previstas</h3><p class="preserve-lines">${escapeHTML(data.scenes || 'Sin escenas preparadas.')}</p><h3>Encuentros</h3><p class="preserve-lines">${escapeHTML(data.encounters || 'Sin encuentros preparados.')}</p></section><section class="panel"><h3>PNJ importantes</h3><p class="preserve-lines">${escapeHTML(data.npcs || 'Sin PNJ destacados.')}</p><h3>Recompensas</h3><p class="preserve-lines">${escapeHTML(data.pendingRewards || 'Sin recompensas pendientes.')}</p></section><section class="panel"><h3>Mazmorras asociadas</h3>${dungeons.map(tool => `<button class="table-dungeon-card" type="button" data-open-table-dungeon="${tool.id}"><strong>${escapeHTML(tool.title)}</strong><span>${escapeHTML(tool.summary || 'Abrir notas de dirección')}</span></button>`).join('') || '<p>Sin mazmorras asociadas.</p>'}</section><section class="panel table-dm-notes"><h3>Notas privadas del DM</h3><p class="preserve-lines">${escapeHTML(data.dmNotes || 'Sin notas privadas.')}</p></section></div>`;
+}
+
+function renderFinishSession() {
+  const preparation = getActiveSessionPreparation();
+  if (!preparation) return navigate('prepare');
+  activeSessionPreparationId = preparation.id;
+  const data = preparation.data;
+  $('#finish-summary').value = '';
+  $('#finish-milestones').value = '';
+  $('#finish-next-objective').value = data.nextObjective || data.objectives || '';
+  $('#finish-next-number').value = data.number + 1;
+  $('#finish-rewards').value = data.pendingRewards || '';
+  $('#finish-items').value = '';
+  $('#finish-conditions').value = '';
+  $('#finish-character-notes').value = '';
+  const participants = state.characters.filter(character => data.participantIds.includes(character.id));
+  $('#finish-participants').innerHTML = participants.map(character => `<label class="finish-participant"><span>${characterAvatar(character, 30, 12)}<b>${escapeHTML(character.name)}</b></span><input class="finish-xp" data-character-id="${character.id}" type="number" min="0" step="1" value="0" aria-label="Experiencia para ${escapeHTML(character.name)}"></label>`).join('') || '<p>Sin participantes seleccionados.</p>';
+}
+
+async function saveFinishedSession(event) {
+  event.preventDefault();
+  const preparation = getActiveSessionPreparation();
+  if (!preparation) return showToast('No hay una preparación activa.');
+  const allocations = $$('.finish-xp').map(input => { const character = state.characters.find(item => item.id === input.dataset.characterId); const total = Number(input.value) || 0; return { characterId: input.dataset.characterId, characterName: character?.name || 'Personaje', group: { combat: 0, roleplay: 0, manual: 0 }, individual: { combat: 0, roleplay: 0, manual: total }, total }; });
+  const summary = $('#finish-summary').value.trim();
+  const notes = { combat: preparation.data.encounters, roleplay: summary, summary, rewards: $('#finish-rewards').value.trim(), items: $('#finish-items').value.trim(), persistentConditions: $('#finish-conditions').value.trim(), characterNotes: $('#finish-character-notes').value.trim(), milestones: $('#finish-milestones').value.trim(), nextObjective: $('#finish-next-objective').value.trim(), preparationId: preparation.id };
+  const session = normalizeCampaignSession({ id: uid(), number: preparation.data.number, date: preparation.data.date || new Date().toISOString().slice(0, 10), name: preparation.data.title || preparation.title, pools: {}, notes, publicSummary: summary, historical: false, allocations, totalAwarded: allocations.reduce((sum, item) => sum + item.total, 0), createdAt: new Date().toISOString() });
+  preparation.status = 'completed'; preparation.visibility = { audience: 'dm', state: 'archived' }; preparation.data.nextObjective = notes.nextObjective; preparation.data.nextSessionNumber = Number($('#finish-next-number').value) || preparation.data.number + 1; preparation.updatedAt = new Date().toISOString();
+  ensureWorkspace().dmTools = upsertSessionPreparation(ensureWorkspace().dmTools, preparation);
+  persistActiveCampaign();
+  try {
+    if (USE_REMOTE_STORAGE) { await remoteStorage.saveSession(activeCampaignId, session); await reloadActiveCampaign(); }
+    else { allocations.forEach(allocation => { const character = state.characters.find(item => item.id === allocation.characterId); if (!character) return; character.xp = Math.max(0, Number(character.xp || 0) + allocation.total); syncLinkedCharacterProgressionRecord(character, session); }); state.sessions.push(session); saveState(); renderAll(); }
+    activeSessionPreparationId = ''; navigate('log'); showToast('Sesión finalizada; bitácora y personajes actualizados.');
+  } catch (error) { console.error('Error al guardar la sesión compartida:', error); showToast('No se pudo guardar la sesión compartida.'); }
+}
+
 function navigate(view) {
   if (!state) return;
   if (isSummaryOnlyMode() && view !== 'dashboard') {
@@ -3126,9 +3325,12 @@ function navigate(view) {
   }
   $$('.view').forEach(section => section.classList.toggle('active', section.id === `${view}-view`));
   $$('.nav-item').forEach(button => button.classList.toggle('active', button.dataset.view === view));
-  const titles = { dashboard: 'Resumen de campaña', characters: 'Personajes', 'new-session': 'Registrar nueva sesión', notes: 'Páginas de campaña', board: 'Tablero de conexiones', tools: 'Herramientas DM', log: 'Bitácora de campaña' };
+  const titles = { dashboard: 'Resumen de campaña', characters: 'Personajes', prepare: 'Preparar próxima sesión', table: 'Modo mesa', 'finish-session': 'Finalizar sesión', 'new-session': 'Registrar nueva sesión', notes: 'Páginas de campaña', board: 'Tablero de conexiones', tools: 'Herramientas DM', log: 'Bitácora de campaña' };
   $('#page-title').textContent = titles[view];
   if (view === 'new-session') renderSessionForm();
+  if (view === 'prepare') renderSessionPreparation();
+  if (view === 'table') renderTableMode();
+  if (view === 'finish-session') renderFinishSession();
   if (view === 'notes') renderWorkspaceEditor();
   if (view === 'board') renderBoard();
   if (view === 'tools') renderDmTools();
@@ -3485,6 +3687,7 @@ async function saveSession(event) {
       navigate('log');
       showToast(`Sesión guardada y ${getCampaignSystem().resourceName} aplicada.`);
     } catch (error) {
+      console.error('Error al guardar la sesión compartida:', error);
       showToast('No se pudo guardar la sesión compartida.');
     }
     return;
@@ -3492,7 +3695,10 @@ async function saveSession(event) {
 
   normalizedSession.allocations.forEach(allocation => {
     const character = state.characters.find(entry => entry.id === allocation.characterId);
-    if (character) character.xp = Math.round((character.xp + allocation.total) * 100) / 100;
+    if (character) {
+      character.xp = Math.round((character.xp + allocation.total) * 100) / 100;
+      syncLinkedCharacterProgressionRecord(character, normalizedSession);
+    }
   });
   state.sessions.push(normalizedSession);
   saveState();
@@ -3618,6 +3824,8 @@ function renderAll() {
   renderCharacters();
   if ($('#board-view')?.classList.contains('active')) renderBoard();
   if ($('#tools-view')?.classList.contains('active')) renderDmTools();
+  if ($('#prepare-view')?.classList.contains('active')) renderSessionPreparation();
+  if ($('#table-view')?.classList.contains('active')) renderTableMode();
 }
 
 document.addEventListener('click', async event => {
@@ -3737,6 +3945,19 @@ document.addEventListener('click', async event => {
   if (goButton && goButton.dataset.go) navigate(goButton.dataset.go);
   const navButton = event.target.closest('.nav-item');
   if (navButton?.dataset.view) navigate(navButton.dataset.view);
+  const editPreparation = event.target.closest('[data-edit-preparation]');
+  if (editPreparation) {
+    activeSessionPreparationId = editPreparation.dataset.editPreparation;
+    renderSessionPreparation(getActiveSessionPreparation());
+    navigate('prepare');
+  }
+  const openTableDungeon = event.target.closest('[data-open-table-dungeon]');
+  if (openTableDungeon) {
+    activeDmToolType = 'dungeon';
+    activeDmToolId = openTableDungeon.dataset.openTableDungeon;
+    navigate('tools');
+    loadDmTool(activeDmToolId);
+  }
   const workspaceEntryCard = event.target.closest('.workspace-entry-card');
   if (workspaceEntryCard) {
     loadWorkspaceEntity(workspaceEntryCard.dataset.workspaceCollection, workspaceEntryCard.dataset.workspaceId);
@@ -3828,7 +4049,10 @@ document.addEventListener('click', async event => {
       }
       session.allocations.forEach(allocation => {
         const character = state.characters.find(entry => entry.id === allocation.characterId);
-        if (character) character.xp = Math.max(0, Math.round((character.xp - allocation.total) * 100) / 100);
+        if (character) {
+          character.xp = Math.max(0, Math.round((character.xp - allocation.total) * 100) / 100);
+          syncLinkedCharacterProgressionRecord(character);
+        }
       });
       state.sessions = state.sessions.filter(entry => entry.id !== session.id);
       saveState();
@@ -3908,6 +4132,7 @@ $('#session-edit-form').addEventListener('submit', async event => {
         if (!character) return;
         const delta = Number(allocation.total || 0) - (previousTotals.get(allocation.characterId) || 0);
         character.xp = Math.max(0, Math.round((Number(character.xp || 0) + delta) * 100) / 100);
+        syncLinkedCharacterProgressionRecord(character);
       });
       state.sessions = state.sessions.map(entry => entry.id === updated.id ? updated : entry);
       saveState();
@@ -3942,6 +4167,7 @@ $('#character-form').addEventListener('submit', async event => {
       await reloadActiveCampaign();
       showToast(id ? 'Personaje actualizado.' : 'Personaje añadido.');
     } catch (error) {
+      console.error('Error al guardar el personaje compartido:', error);
       showToast('No se pudo guardar el personaje compartido.');
     }
     return;
@@ -3979,6 +4205,26 @@ $('#select-all').addEventListener('click', () => {
   checks.forEach(check => check.checked = shouldCheck);
   updateDistribution();
 });
+
+$('#session-preparation-form').addEventListener('submit', event => {
+  event.preventDefault();
+  saveSessionPreparation('draft');
+});
+$('#new-session-preparation').addEventListener('click', () => {
+  activeSessionPreparationId = '';
+  renderSessionPreparation(createSessionPreparation(state, {
+    previousSummary: getLatestSessionSummary(state),
+    participantIds: state.characters.map(character => character.id),
+    date: new Date().toISOString().slice(0, 10),
+  }, uid));
+});
+$('#mark-preparation-ready').addEventListener('click', () => saveSessionPreparation('ready'));
+$('#open-table-mode').addEventListener('click', () => {
+  saveSessionPreparation('active');
+  navigate('table');
+});
+$('#finish-table-session').addEventListener('click', () => navigate('finish-session'));
+$('#finish-session-form').addEventListener('submit', saveFinishedSession);
 $('#log-search').addEventListener('input', event => renderLog(event.target.value));
 $('#campaign-library-search').addEventListener('input', renderCampaigns);
 $('#campaign-library-sort').addEventListener('change', renderCampaigns);
@@ -4010,6 +4256,25 @@ $('#new-dm-tool').addEventListener('click', () => clearDmToolForm($('#dm-tool-ty
 $('#dm-tool-form').addEventListener('submit', saveDmTool);
 $('#delete-dm-tool').addEventListener('click', deleteDmTool);
 $('#reset-dm-tool').addEventListener('click', () => clearDmToolForm($('#dm-tool-type').value));
+$('#duplicate-dm-dungeon').addEventListener('click', () => {
+  const source = getDmTool(activeDmToolId);
+  if (!source || source.toolType !== 'dungeon') return;
+  const now = new Date().toISOString();
+  const dungeon = source.data?.dungeon && typeof source.data.dungeon === 'object'
+    ? { ...structuredClone(source.data.dungeon), id: uid(), name: `${source.data.dungeon.name || source.title} (copia)`, status: 'draft', createdAt: now, updatedAt: now }
+    : null;
+  const copy = normalizeDmToolState({
+    ...structuredClone(source), id: uid(), title: `${source.title} (copia)`, status: 'draft',
+    data: { ...source.data, sourceDungeonId: dungeon?.id || uid(), dungeon, sessionNumber: null }, createdAt: now, updatedAt: now,
+  });
+  ensureWorkspace().dmTools.push(copy);
+  persistActiveCampaign();
+  activeDmToolId = copy.id;
+  renderDmTools();
+  loadDmTool(copy.id);
+  showToast('Mazmorra duplicada en la campaña.');
+});
+$('#print-dm-dungeon').addEventListener('click', () => window.print());
 $('#dm-tool-type-filter').addEventListener('change', event => {
   if (event.target.value !== 'all') activeDmToolType = event.target.value;
   renderDmToolList();
@@ -4342,7 +4607,42 @@ $('#import-data').addEventListener('change', event => {
   event.target.value = '';
 });
 
+installModalAccessibility();
 initializeCampaigns();
+
+function installModalAccessibility() {
+  const returnFocus = new WeakMap();
+  const focusableSelector = 'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  document.querySelectorAll('.modal').forEach(modal => {
+    const observer = new MutationObserver(() => {
+      if (!modal.classList.contains('hidden')) {
+        returnFocus.set(modal, document.activeElement);
+        window.requestAnimationFrame(() => modal.querySelector(focusableSelector)?.focus());
+      } else {
+        const previous = returnFocus.get(modal);
+        if (previous instanceof HTMLElement && document.contains(previous)) previous.focus();
+      }
+    });
+    observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Tab') return;
+    const modal = [...document.querySelectorAll('.modal:not(.hidden)')].at(-1);
+    if (!modal) return;
+    const focusable = [...modal.querySelectorAll(focusableSelector)].filter(element => element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+}
 
 async function handleCampaignRouteChange() {
   const routeCampaignId = resolveCampaignIdFromUrl();

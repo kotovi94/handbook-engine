@@ -23,12 +23,29 @@ async function requireUnlocked(req, campaignId) {
 
 async function applyAllocations(campaignId, allocations, direction) {
   for (const allocation of allocations || []) {
-    const [character] = await supabaseFetch(`/characters?id=eq.${encodeURIComponent(allocation.characterId)}&campaign_id=eq.${encodeURIComponent(campaignId)}&select=id,xp`);
+    const [character] = await supabaseFetch(`/characters?id=eq.${encodeURIComponent(allocation.characterId)}&campaign_id=eq.${encodeURIComponent(campaignId)}&select=id,xp,metadata`);
     if (!character) continue;
     const nextXp = Math.max(0, Number(character.xp || 0) + direction * Number(allocation.total || 0));
+    const roundedXp = Math.round(nextXp * 100) / 100;
+    const metadata = character.metadata && typeof character.metadata === "object" ? character.metadata : {};
+    const characterDocument = metadata.characterDocument && typeof metadata.characterDocument === "object"
+      ? {
+        ...metadata.characterDocument,
+        revision: Math.max(0, Number(metadata.characterDocument.revision || 0)) + 1,
+        updatedAt: new Date().toISOString(),
+        progression: {
+          ...(metadata.characterDocument.progression || {}),
+          xp: roundedXp,
+        },
+      }
+      : null;
     await supabaseFetch(`/characters?id=eq.${encodeURIComponent(character.id)}`, {
       method: "PATCH",
-      body: JSON.stringify({ xp: Math.round(nextXp * 100) / 100, updated_at: new Date().toISOString() }),
+      body: JSON.stringify({
+        xp: roundedXp,
+        ...(characterDocument ? { metadata: { ...metadata, characterDocument } } : {}),
+        updated_at: new Date().toISOString(),
+      }),
     });
   }
 }

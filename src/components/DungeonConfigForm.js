@@ -20,6 +20,7 @@ export function DungeonConfigForm({
   onLoad,
   onSelectSaved,
   onDeleteSaved,
+  onDuplicateSaved,
 }) {
   const wrap = document.createElement("section");
   wrap.className = "dungeon-config-panel";
@@ -62,12 +63,13 @@ export function DungeonConfigForm({
     onLoad,
     onSelectSaved,
     onDeleteSaved,
+    onDuplicateSaved,
   }));
 
   return wrap;
 }
 
-function renderSavedControls({ savedDungeons, selectedSavedId, onLoad, onSelectSaved, onDeleteSaved }) {
+function renderSavedControls({ savedDungeons, selectedSavedId, onLoad, onSelectSaved, onDeleteSaved, onDuplicateSaved }) {
   const controls = document.createElement("div");
   controls.className = "dungeon-saved-controls";
 
@@ -96,21 +98,28 @@ function renderSavedControls({ savedDungeons, selectedSavedId, onLoad, onSelectS
 
   const loadButton = renderActionButton("Cargar", "book", "button secondary-button");
   const deleteButton = renderActionButton("Eliminar", "tools", "button secondary-button");
+  const duplicateButton = renderActionButton("Duplicar", "book", "button secondary-button");
   loadButton.disabled = !select.value;
   deleteButton.disabled = !select.value;
+  duplicateButton.disabled = !select.value;
 
   select.addEventListener("change", () => {
     loadButton.disabled = !select.value;
     deleteButton.disabled = !select.value;
+    duplicateButton.disabled = !select.value;
     onSelectSaved?.(select.value);
   });
 
   loadButton.addEventListener("click", () => onLoad?.(select.value));
-  deleteButton.addEventListener("click", () => onDeleteSaved?.(select.value));
+  duplicateButton.addEventListener("click", () => onDuplicateSaved?.(select.value));
+  deleteButton.addEventListener("click", () => {
+    if (!window.confirm("¿Eliminar esta mazmorra guardada? Esta acción no se puede deshacer.")) return;
+    onDeleteSaved?.(select.value);
+  });
 
   const buttons = document.createElement("div");
   buttons.className = "dungeon-saved-actions";
-  buttons.append(loadButton, deleteButton);
+  buttons.append(loadButton, duplicateButton, deleteButton);
   controls.append(label, buttons);
 
   return controls;

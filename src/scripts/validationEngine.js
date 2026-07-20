@@ -5,7 +5,7 @@ export function getMissingCharacterSteps(character) {
   const missing = [];
 
   if (!character.classId) missing.push("Clase");
-  const level = Math.max(1, Math.min(5, Math.trunc(Number(character.level) || 5)));
+  const level = Math.max(1, Math.min(5, Math.trunc(Number(character.level) || 1)));
   if (level >= 3 && !character.subclassId) missing.push("Subclase");
   if (!character.speciesId) missing.push("Especie");
   if (!character.backgroundId) missing.push("Trasfondo");

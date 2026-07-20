@@ -214,6 +214,8 @@
         <a class="nav-item handbook-nav-link" href="../"><span>↗</span> Compendio y creador</a>
         <button class="nav-item active" data-view="dashboard"><span>⌂</span> Resumen</button>
         <button class="nav-item" data-view="characters"><span>♙</span> Personajes</button>
+        <button class="nav-item" data-view="prepare"><span>✦</span> Preparar sesión</button>
+        <button class="nav-item" data-view="table"><span>▣</span> Modo mesa</button>
         <button class="nav-item" data-view="new-session"><span>✦</span> Nueva sesión</button>
         <button class="nav-item" data-view="notes"><span>✎</span> Páginas</button>
         <button class="nav-item" data-view="board"><span>⌬</span> Tablero</button>
@@ -386,6 +388,36 @@
         </form>
       </section>
 
+      <section id="prepare-view" class="view">
+        <div class="section-heading no-top"><div><p class="eyebrow">Próxima partida</p><h2 id="prepare-session-heading">Preparar sesión</h2></div><button id="new-session-preparation" class="secondary-button" type="button">Nueva preparación</button></div>
+        <form id="session-preparation-form" class="session-flow-grid">
+          <input id="session-preparation-id" type="hidden">
+          <div class="stack">
+            <div class="panel"><div class="form-row"><label>Número<input id="preparation-number" type="number" min="1" required></label><label>Fecha prevista<input id="preparation-date" type="date"></label></div><label>Título<input id="preparation-title" maxlength="100" placeholder="Ej. Las puertas del observatorio"></label><label>Resumen anterior<textarea id="preparation-previous-summary" rows="4"></textarea></label></div>
+            <div class="panel"><p class="eyebrow">Participantes</p><h2>Personajes convocados</h2><div id="preparation-participants" class="attendance-list"></div></div>
+            <div class="panel"><label>Escenas previstas<textarea id="preparation-scenes" rows="4"></textarea></label><label>PNJ importantes<textarea id="preparation-npcs" rows="3"></textarea></label><label>Encuentros<textarea id="preparation-encounters" rows="3"></textarea></label></div>
+          </div>
+          <div class="stack">
+            <div class="panel"><label>Recompensas pendientes<textarea id="preparation-rewards" rows="3"></textarea></label><label>Próximos objetivos<textarea id="preparation-objectives" rows="3"></textarea></label><label>Notas privadas del DM<textarea id="preparation-dm-notes" rows="5"></textarea></label></div>
+            <div class="panel"><p class="eyebrow">Mazmorras</p><h2>Contenido asociado</h2><div id="preparation-dungeons" class="attendance-list"></div></div>
+            <div class="panel session-flow-actions"><button type="submit" class="primary-button">Guardar preparación</button><button id="mark-preparation-ready" type="button" class="secondary-button">Marcar lista</button><button id="open-table-mode" type="button" class="secondary-button">Abrir modo mesa</button></div>
+          </div>
+        </form>
+        <div id="session-preparation-list" class="session-preparation-list"></div>
+      </section>
+
+      <section id="table-view" class="view table-mode-view">
+        <div class="section-heading no-top"><div><p class="eyebrow">Durante la partida</p><h2>Modo mesa</h2></div><button id="finish-table-session" class="primary-button" type="button">Finalizar sesión</button></div>
+        <div id="table-mode-content" class="table-mode-content"></div>
+      </section>
+
+      <section id="finish-session-view" class="view">
+        <form id="finish-session-form" class="session-flow-grid">
+          <div class="stack"><div class="panel"><p class="eyebrow">Cierre</p><h2>Finalizar sesión</h2><label>Resumen público<textarea id="finish-summary" rows="5" required></textarea></label><label>Hitos y decisiones<textarea id="finish-milestones" rows="3"></textarea></label><label>Próximo objetivo<textarea id="finish-next-objective" rows="3"></textarea></label><label>Número de la siguiente sesión<input id="finish-next-number" type="number" min="1"></label></div><div class="panel"><p class="eyebrow">Participantes y experiencia</p><div id="finish-participants"></div></div></div>
+          <div class="stack"><div class="panel"><label>Recompensas<textarea id="finish-rewards" rows="3"></textarea></label><label>Objetos entregados<textarea id="finish-items" rows="3"></textarea></label><label>Heridas o estados persistentes<textarea id="finish-conditions" rows="3"></textarea></label><label>Notas por personaje<textarea id="finish-character-notes" rows="4"></textarea></label></div><div class="panel"><button type="submit" class="primary-button full-width">Guardar cierre y actualizar campaña</button></div></div>
+        </form>
+      </section>
+
       <section id="notes-view" class="view">
         <div class="section-heading no-top">
           <div><p class="eyebrow">Diario y mesa del DM</p><h2>Páginas de campaña</h2></div>
@@ -535,6 +567,8 @@
             <label>Notas<textarea id="dm-tool-notes" rows="8" maxlength="2200" placeholder="Detalles para dirigirlo en mesa."></textarea></label>
             <div class="form-actions">
               <button type="submit" class="primary-button">Guardar herramienta</button>
+              <button id="duplicate-dm-dungeon" type="button" class="secondary-button hidden">Duplicar mazmorra</button>
+              <button id="print-dm-dungeon" type="button" class="secondary-button hidden">Imprimir mazmorra</button>
               <button id="reset-dm-tool" type="button" class="secondary-button">Limpiar</button>
             </div>
           </form>
