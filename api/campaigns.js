@@ -1,8 +1,10 @@
 const {
+  createRecoveryCode,
   hashPassword,
   readBody,
   sendError,
   sendJson,
+  signUnlockToken,
   supabaseFetch,
 } = require("./_supabase");
 
@@ -52,7 +54,12 @@ module.exports = async function handler(req, res) {
 
     if (req.method === "POST") {
       const body = await readBody(req);
-      const passwordHash = body.password ? hashPassword(body.password) : "";
+      const password = String(body.password || "");
+      if (password && (password.length < 4 || password.length > 80)) {
+        return sendJson(res, 400, { error: "Invalid password length" });
+      }
+      const passwordHash = password ? hashPassword(password) : "";
+      const recoveryCode = password ? createRecoveryCode() : "";
       const [campaign] = await supabaseFetch("/campaigns?select=*", {
         method: "POST",
         headers: { prefer: "return=representation" },
@@ -68,9 +75,15 @@ module.exports = async function handler(req, res) {
           color: body.color || "#9b4e35",
           banner: body.banner || "",
           password_hash: passwordHash,
+          recovery_hash: recoveryCode ? hashPassword(recoveryCode) : "",
         }),
       });
-      return sendJson(res, 201, { campaign: { id: campaign.id } });
+      const response = { campaign: { id: campaign.id } };
+      if (passwordHash) {
+        response.recoveryCode = recoveryCode;
+        response.token = signUnlockToken(campaign.id, campaign.access_version || 1);
+      }
+      return sendJson(res, 201, response);
     }
 
     res.setHeader("allow", "GET, POST");

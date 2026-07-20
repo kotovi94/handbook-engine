@@ -1,4 +1,5 @@
 const {
+  createRecoveryCode,
   getBearerToken,
   hashPassword,
   readBody,
@@ -86,7 +87,12 @@ module.exports = async function handler(req, res) {
     if (req.method === "PATCH") {
       if (!unlocked) return sendJson(res, 401, { error: "Campaign unlock required" });
       const body = await readBody(req);
-      const passwordHash = body.keepPassword ? undefined : (body.password ? hashPassword(body.password) : "");
+      const password = String(body.password || "");
+      if (!body.keepPassword && password && (password.length < 4 || password.length > 80)) {
+        return sendJson(res, 400, { error: "Invalid password length" });
+      }
+      const passwordHash = body.keepPassword ? undefined : (password ? hashPassword(password) : "");
+      const recoveryCode = passwordHash ? createRecoveryCode() : "";
       const patch = {
         name: String(body.name || "").trim(),
         dm: String(body.dm || "").trim(),
@@ -101,13 +107,19 @@ module.exports = async function handler(req, res) {
         updated_at: new Date().toISOString(),
       };
       if (passwordHash !== undefined) patch.password_hash = passwordHash;
-      if (passwordHash !== undefined) patch.access_version = Number(summary.access_version || 1) + 1;
+      if (passwordHash !== undefined) {
+        patch.recovery_hash = recoveryCode ? hashPassword(recoveryCode) : "";
+        patch.access_version = Number(summary.access_version || 1) + 1;
+      }
       await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(id)}`, {
         method: "PATCH",
         body: JSON.stringify(patch),
       });
       const response = { ok: true };
-      if (passwordHash) response.token = signUnlockToken(id, patch.access_version);
+      if (passwordHash) {
+        response.recoveryCode = recoveryCode;
+        response.token = signUnlockToken(id, patch.access_version);
+      }
       return sendJson(res, 200, response);
     }
 

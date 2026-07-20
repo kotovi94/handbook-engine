@@ -90,16 +90,31 @@
       <label>Imagen de portada o banner<input id="campaign-banner" type="file" accept="image/png,image/jpeg,image/webp"></label>
       <div id="campaign-banner-preview" class="banner-preview"><span>Sin imagen selecciónada</span></div>
       <button id="remove-campaign-banner" type="button" class="text-button hidden">Quitar imagen</button>
-      <label class="toggle-field"><input id="campaign-protected" type="checkbox"><span>Proteger esta campaña con contraseña</span></label>
-      <div id="campaign-password-fields" class="hidden">
-        <label>Contraseña<input id="campaign-password" type="password" minlength="4" maxlength="80" autocomplete="new-password" placeholder="Mínimo 4 caracteres"></label>
-        <p class="helper">En local protege este navegador. En modo compartido desbloquea edición y administración. Al editar, déjala vacía para conservar la actual.</p>
-        <div id="campaign-recovery-tools" class="recovery-tools hidden">
-          <div><strong>Recuperación</strong><span id="campaign-recovery-status">Sin código de recuperación</span></div>
-          <button id="generate-recovery-code" type="button" class="secondary-button">Generar código</button>
+      <section id="campaign-security-panel" class="security-panel" data-state="off">
+        <input id="campaign-protected" type="checkbox" class="hidden" tabindex="-1" aria-hidden="true">
+        <div class="security-panel-heading">
+          <div><span class="security-kicker">Seguridad</span><strong id="campaign-security-title">Sin protección</strong></div>
+          <span id="campaign-security-badge" class="security-badge">Abierta</span>
         </div>
-      </div>
-      <button type="submit" class="primary-button full-width">Guardar campaña</button>
+        <p id="campaign-security-copy" class="helper">Cualquiera con el enlace puede abrir y editar esta campaña.</p>
+        <div id="campaign-security-actions" class="security-actions">
+          <button id="configure-protection" type="button" class="secondary-button">Proteger campaña</button>
+          <button id="remove-protection" type="button" class="text-button danger-button hidden">Quitar protección</button>
+        </div>
+        <div id="campaign-password-fields" class="security-password-fields hidden">
+          <div class="form-row">
+            <label>Nueva contraseña<input id="campaign-password" type="password" minlength="4" maxlength="80" autocomplete="new-password" placeholder="Mínimo 4 caracteres"></label>
+            <label>Repetir contraseña<input id="campaign-password-confirm" type="password" minlength="4" maxlength="80" autocomplete="new-password" placeholder="Repite la contraseña"></label>
+          </div>
+          <p class="helper">Al guardar, la protección se activará y crearemos automáticamente un código de recuperación.</p>
+          <button id="cancel-protection-change" type="button" class="text-button">Cancelar cambio</button>
+        </div>
+        <div id="campaign-recovery-tools" class="recovery-tools hidden">
+          <div><strong>Recuperación</strong><span id="campaign-recovery-status">Código configurado</span></div>
+          <button id="generate-recovery-code" type="button" class="secondary-button">Renovar código</button>
+        </div>
+      </section>
+      <button id="save-campaign" type="submit" class="primary-button full-width">Guardar campaña</button>
     </form>
   </div>
 
@@ -134,10 +149,13 @@
         <button type="submit" class="primary-button full-width">Restablecer contraseña</button>
       </div>
       <div id="recovery-result" class="recovery-result hidden">
-        <p>Guarda este nuevo código. Se muestra una sola vez y reemplaza al anterior.</p>
+        <div class="security-success-mark" aria-hidden="true">✓</div>
+        <h3 id="recovery-result-title">Campaña protegida correctamente</h3>
+        <p id="recovery-result-copy">Guarda este código. Se muestra una sola vez y permite recuperar el acceso si olvidas la contraseña.</p>
         <output id="recovery-code-result"></output>
         <button id="copy-recovery-code" type="button" class="secondary-button full-width">Copiar código</button>
-        <button id="finish-recovery" type="button" class="primary-button full-width">Listo, ya lo guardé</button>
+        <label class="recovery-confirmation"><input id="recovery-code-saved" type="checkbox"> <span>He guardado mi código de recuperación</span></label>
+        <button id="finish-recovery" type="button" class="primary-button full-width" disabled>Finalizar</button>
       </div>
     </form>
   </div>
@@ -189,6 +207,7 @@
       <div class="sidebar-footer">
         <p>Los datos se guardan en este navegador.</p>
         <button id="open-campaign-tutorial" class="text-button" type="button">Ver tutorial</button>
+        <button id="lock-campaign-now" class="text-button hidden" type="button">Bloquear campaña ahora</button>
         <button id="export-data" class="text-button">Exportar respaldo</button>
         <label class="text-button file-button">Importar respaldo<input id="import-data" type="file" accept="application/json"></label>
       </div>

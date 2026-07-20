@@ -1,5 +1,5 @@
-const crypto = require("crypto");
 const {
+  createRecoveryCode,
   getBearerToken,
   hashPassword,
   readBody,
@@ -10,11 +10,6 @@ const {
   verifyPassword,
   verifyUnlockToken,
 } = require("../../_supabase");
-
-function createRecoveryCode() {
-  const raw = crypto.randomBytes(9).toString("base64url").toUpperCase();
-  return `${raw.slice(0, 4)}-${raw.slice(4, 8)}-${raw.slice(8, 12)}`;
-}
 
 module.exports = async function handler(req, res) {
   try {
