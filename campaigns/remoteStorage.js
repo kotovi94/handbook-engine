@@ -19,10 +19,12 @@ export const remoteStorage = {
   },
 
   async createCampaign(campaign, password = "") {
-    return requestJson("/api/campaigns", {
+    const data = await requestJson("/api/campaigns", {
       method: "POST",
       body: JSON.stringify({ ...campaign, password }),
     });
+    if (data.token && data.campaign?.id) localStorage.setItem(tokenKey(data.campaign.id), data.token);
+    return data;
   },
 
   async updateCampaign(campaign, password = "", keepPassword = true) {
@@ -59,6 +61,10 @@ export const remoteStorage = {
     });
     localStorage.setItem(tokenKey(campaignId), data.token);
     return data;
+  },
+
+  lockCampaign(campaignId) {
+    localStorage.removeItem(tokenKey(campaignId));
   },
 
   async generateRecoveryCode(campaignId) {

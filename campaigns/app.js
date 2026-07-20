@@ -304,6 +304,9 @@ let state = null;
 let pendingBanner = '';
 let pendingCharacterPortrait = '';
 let pendingUnlockAction = 'open';
+let editingCampaignWasProtected = false;
+let editingCampaignHasRecovery = false;
+let campaignSecurityChange = 'none';
 let activeWorkspaceCollection = 'notes';
 let activeWorkspaceEntityId = '';
 let activeDmToolType = 'scene';
@@ -834,16 +837,72 @@ function createRecoveryCode() {
   return `${raw.slice(0, 4)}-${raw.slice(4, 8)}-${raw.slice(8, 12)}`;
 }
 
-function showRecoveryResult(campaignId, recoveryCode) {
+function showRecoveryResult(campaignId, recoveryCode, context = 'protection') {
   $('#recovery-campaign-id').value = campaignId;
   $('#recovery-reset-fields').classList.add('hidden');
   $('#recovery-result').classList.remove('hidden');
   $('#recovery-code-result').textContent = recoveryCode;
-  $('#recovery-title').textContent = 'Guarda tu nuevo código';
+  $('#recovery-code-saved').checked = false;
+  $('#finish-recovery').disabled = true;
+  const content = {
+    protection: ['Campaña protegida correctamente', 'Guarda este código. Se muestra una sola vez y permite recuperar el acceso si olvidas la contraseña.'],
+    renewal: ['Código renovado correctamente', 'El código anterior dejó de funcionar. Guarda este nuevo código de recuperación.'],
+    reset: ['Contraseña restablecida correctamente', 'Guarda este nuevo código. Reemplaza al anterior y se muestra una sola vez.'],
+  }[context] || [];
+  $('#recovery-title').textContent = 'Guarda tu código';
+  $('#recovery-result-title').textContent = content[0] || 'Guarda tu nuevo código';
+  $('#recovery-result-copy').textContent = content[1] || 'Guarda este código en un lugar seguro.';
   $('#recovery-modal').classList.remove('hidden');
 }
 
+function renderCampaignSecurityPanel() {
+  const panel = $('#campaign-security-panel');
+  const protectedNow = $('#campaign-protected').checked;
+  const pendingSet = campaignSecurityChange === 'set';
+  const pendingRemove = campaignSecurityChange === 'remove';
+  const stateName = pendingSet || pendingRemove ? 'pending' : protectedNow ? 'on' : 'off';
+  panel.dataset.state = stateName;
+  $('#campaign-password-fields').classList.toggle('hidden', !pendingSet);
+  $('#configure-protection').classList.toggle('hidden', pendingSet || pendingRemove);
+  $('#remove-protection').classList.toggle('hidden', !editingCampaignWasProtected || pendingSet || pendingRemove);
+  $('#campaign-recovery-tools').classList.toggle('hidden', !editingCampaignWasProtected || pendingSet || pendingRemove);
+  $('#campaign-password').required = pendingSet;
+  $('#campaign-password-confirm').required = pendingSet;
+
+  if (pendingSet) {
+    $('#campaign-security-title').textContent = editingCampaignWasProtected ? 'Cambio de contraseña pendiente' : 'Protección pendiente de activar';
+    $('#campaign-security-badge').textContent = 'Pendiente';
+    $('#campaign-security-copy').textContent = 'La contraseña y el código de recuperación se crearán juntos al guardar la campaña.';
+    $('#save-campaign').textContent = editingCampaignWasProtected ? 'Guardar y cambiar contraseña' : 'Guardar y activar protección';
+  } else if (pendingRemove) {
+    $('#campaign-security-title').textContent = 'Protección pendiente de quitar';
+    $('#campaign-security-badge').textContent = 'Pendiente';
+    $('#campaign-security-copy').textContent = 'La campaña quedará abierta cuando guardes los cambios.';
+    $('#save-campaign').textContent = 'Guardar y quitar protección';
+  } else if (protectedNow) {
+    $('#campaign-security-title').textContent = 'Campaña protegida';
+    $('#campaign-security-badge').textContent = 'Protegida';
+    $('#campaign-security-copy').textContent = editingCampaignHasRecovery
+      ? 'La contraseña está activa y la recuperación está configurada.'
+      : 'La contraseña está activa, pero esta campaña antigua necesita renovar su código de recuperación.';
+    $('#configure-protection').textContent = 'Cambiar contraseña';
+    $('#campaign-recovery-status').textContent = editingCampaignHasRecovery ? 'Código configurado' : 'Código pendiente de renovar';
+    $('#save-campaign').textContent = 'Guardar campaña';
+  } else {
+    $('#campaign-security-title').textContent = 'Sin protección';
+    $('#campaign-security-badge').textContent = 'Abierta';
+    $('#campaign-security-copy').textContent = 'Cualquiera con el enlace puede abrir y editar esta campaña.';
+    $('#configure-protection').textContent = 'Proteger campaña';
+    $('#save-campaign').textContent = 'Guardar campaña';
+  }
+}
+
 function openRecoveryReset(campaignId) {
+  const campaign = portfolio.campaigns.find(entry => entry.id === campaignId);
+  if (campaign?.passwordHash && !campaign.recoveryConfigured) {
+    showToast('Esta campaña antigua no tiene código. Entra con la contraseña y renueva la recuperación desde Seguridad.');
+    return;
+  }
   $('#recovery-form').reset();
   $('#recovery-campaign-id').value = campaignId;
   $('#recovery-reset-fields').classList.remove('hidden');
@@ -859,6 +918,7 @@ function updateAccessMode() {
   const locked = isSummaryOnlyMode();
   const app = $('#campaign-app');
   app.dataset.access = locked ? 'summary' : 'full';
+  $('#lock-campaign-now').classList.toggle('hidden', !state?.passwordHash || locked);
   $$('[data-view]').forEach(button => {
     const shouldLock = locked && button.dataset.view !== 'dashboard';
     button.disabled = shouldLock;
@@ -1041,14 +1101,16 @@ function openCampaignModal(campaign = null) {
   $('#font-preview').dataset.font = campaign?.font || 'classic';
   $('#campaign-appearance').value = campaign?.appearance || 'auto';
   $('#campaign-color').value = campaign?.color || '#9b4e35';
-  $('#campaign-protected').checked = Boolean(campaign?.passwordHash);
+  editingCampaignWasProtected = Boolean(campaign?.passwordHash);
+  editingCampaignHasRecovery = Boolean(campaign?.recoveryConfigured || campaign?.recoveryHash);
+  campaignSecurityChange = 'none';
+  $('#campaign-protected').checked = editingCampaignWasProtected;
   $('#campaign-password').value = '';
-  $('#campaign-password-fields').classList.toggle('hidden', !campaign?.passwordHash);
-  $('#campaign-recovery-tools').classList.toggle('hidden', !campaign?.id || !campaign?.passwordHash);
-  $('#campaign-recovery-status').textContent = campaign?.recoveryConfigured ? 'Código configurado' : 'Sin código de recuperación';
+  $('#campaign-password-confirm').value = '';
   pendingBanner = campaign?.banner || '';
   updateBannerPreview();
   $('#campaign-form-title').textContent = campaign ? 'Editar campaña' : 'Crear campaña';
+  renderCampaignSecurityPanel();
   $('#campaign-modal').classList.remove('hidden');
   $('#campaign-name').focus();
 }
@@ -3546,6 +3608,25 @@ document.addEventListener('click', async event => {
     showCampaignsHome();
     return;
   }
+  if (event.target.closest('#lock-campaign-now')) {
+    if (!state?.passwordHash) return;
+    unlockedCampaigns.delete(state.id);
+    if (USE_REMOTE_STORAGE) {
+      remoteStorage.lockCampaign(state.id);
+      try {
+        const data = await remoteStorage.getCampaign(state.id);
+        const lockedCampaign = normalizeCampaign(data.campaign);
+        portfolio.campaigns = portfolio.campaigns.map(entry => entry.id === state.id ? lockedCampaign : entry);
+        state = lockedCampaign;
+      } catch (error) {
+        showToast('La campaña se bloqueó, pero no se pudo actualizar el resumen.');
+      }
+    }
+    updateAccessMode();
+    renderAll();
+    showToast('Campaña bloqueada en este dispositivo.');
+    return;
+  }
   if (event.target.closest('#open-campaign-tutorial')) showCampaignOnboarding({ manual: true, step: 0 });
   if (event.target.id === 'onboarding-modal' || event.target.closest('#close-onboarding') || event.target.closest('#skip-onboarding')) {
     dismissCampaignOnboarding(false);
@@ -3951,11 +4032,25 @@ $('#campaigns-mode-toggle').addEventListener('click', () => {
 });
 $('#close-campaign-form').addEventListener('click', closeCampaignModal);
 $('#campaign-modal').addEventListener('click', event => { if (event.target.id === 'campaign-modal') closeCampaignModal(); });
-$('#campaign-protected').addEventListener('change', event => {
-  $('#campaign-password-fields').classList.toggle('hidden', !event.target.checked);
-  if (!event.target.checked) $('#campaign-recovery-tools').classList.add('hidden');
-  else if ($('#campaign-id').value) $('#campaign-recovery-tools').classList.remove('hidden');
-  if (event.target.checked) $('#campaign-password').focus();
+$('#configure-protection').addEventListener('click', () => {
+  campaignSecurityChange = 'set';
+  $('#campaign-protected').checked = true;
+  $('#campaign-password').value = '';
+  $('#campaign-password-confirm').value = '';
+  renderCampaignSecurityPanel();
+  $('#campaign-password').focus();
+});
+$('#cancel-protection-change').addEventListener('click', () => {
+  campaignSecurityChange = 'none';
+  $('#campaign-protected').checked = editingCampaignWasProtected;
+  $('#campaign-password').value = '';
+  $('#campaign-password-confirm').value = '';
+  renderCampaignSecurityPanel();
+});
+$('#remove-protection').addEventListener('click', () => {
+  campaignSecurityChange = 'remove';
+  $('#campaign-protected').checked = false;
+  renderCampaignSecurityPanel();
 });
 $('#campaign-font').addEventListener('change', event => {
   $('#font-preview').dataset.font = event.target.value;
@@ -4007,7 +4102,11 @@ $('#copy-recovery-code').addEventListener('click', async () => {
   await copyText($('#recovery-code-result').textContent);
   showToast('Código de recuperación copiado.');
 });
+$('#recovery-code-saved').addEventListener('change', event => {
+  $('#finish-recovery').disabled = !event.target.checked;
+});
 $('#finish-recovery').addEventListener('click', () => {
+  if (!$('#recovery-code-saved').checked) return;
   $('#recovery-modal').classList.add('hidden');
   closeCampaignModal();
   renderCampaigns();
@@ -4029,7 +4128,7 @@ $('#generate-recovery-code').addEventListener('click', async () => {
       saveState();
     }
     $('#campaign-recovery-status').textContent = 'Código configurado';
-    showRecoveryResult(id, recoveryCode);
+    showRecoveryResult(id, recoveryCode, 'renewal');
   } catch (error) {
     showToast('No se pudo generar el código de recuperación.');
   }
@@ -4060,7 +4159,7 @@ $('#recovery-form').addEventListener('submit', async event => {
       saveState();
     }
     $('#recovery-error').classList.add('hidden');
-    showRecoveryResult(id, nextRecoveryCode);
+    showRecoveryResult(id, nextRecoveryCode, 'reset');
   } catch (error) {
     $('#recovery-error').classList.remove('hidden');
   }
@@ -4106,15 +4205,25 @@ $('#campaign-form').addEventListener('submit', async event => {
   const selectedSystem = SYSTEMS[$('#campaign-system').value] || SYSTEMS.dnd5e2024;
   const wantsProtection = $('#campaign-protected').checked;
   const password = $('#campaign-password').value;
-  if (wantsProtection && !existing?.passwordHash && password.length < 4) {
+  const passwordConfirm = $('#campaign-password-confirm').value;
+  const isSettingPassword = campaignSecurityChange === 'set';
+  if (isSettingPassword && password.length < 4) {
     $('#campaign-password').focus();
     return showToast('La contraseña debe tener al menos 4 caracteres.');
   }
-  if (USE_REMOTE_STORAGE && wantsProtection && existing?.passwordHash && password && password.length < 4) {
-    $('#campaign-password').focus();
-    return showToast('La contraseña debe tener al menos 4 caracteres.');
+  if (isSettingPassword && password !== passwordConfirm) {
+    $('#campaign-password-confirm').focus();
+    return showToast('Las contraseñas no coinciden.');
   }
   const passwordHash = wantsProtection ? (password ? await hashPassword(password) : existing?.passwordHash) : '';
+  let recoveryCode = '';
+  let recoveryHash = existing?.recoveryHash || '';
+  if (!USE_REMOTE_STORAGE && isSettingPassword) {
+    recoveryCode = createRecoveryCode();
+    recoveryHash = await hashPassword(recoveryCode);
+  } else if (!wantsProtection) {
+    recoveryHash = '';
+  }
   const campaign = {
     id: id || uid(),
     name: $('#campaign-name').value.trim(),
@@ -4131,23 +4240,26 @@ $('#campaign-form').addEventListener('submit', async event => {
     characters: existing?.characters || [],
     sessions: existing?.sessions || [],
     workspace: normalizeCampaignWorkspace(existing || {}),
-    recoveryHash: existing?.recoveryHash || '',
-    recoveryConfigured: Boolean(existing?.recoveryConfigured || existing?.recoveryHash),
+    recoveryHash,
+    recoveryConfigured: Boolean(wantsProtection && (isSettingPassword || existing?.recoveryConfigured || recoveryHash)),
     createdAt: existing?.createdAt || new Date().toISOString()
   };
   if (USE_REMOTE_STORAGE) {
     try {
+      let result;
       if (existing) {
-        await remoteStorage.updateCampaign(campaign, wantsProtection ? password : '', wantsProtection && !password);
+        result = await remoteStorage.updateCampaign(campaign, wantsProtection ? password : '', wantsProtection && !isSettingPassword);
       } else {
-        const created = await remoteStorage.createCampaign(campaign, wantsProtection ? password : '');
-        if (created?.campaign?.id) campaign.id = created.campaign.id;
+        result = await remoteStorage.createCampaign(campaign, wantsProtection ? password : '');
+        if (result?.campaign?.id) campaign.id = result.campaign.id;
       }
-      if (wantsProtection && password) unlockedCampaigns.add(campaign.id);
+      recoveryCode = result?.recoveryCode || '';
+      if (wantsProtection && isSettingPassword) unlockedCampaigns.add(campaign.id);
       if (!wantsProtection) unlockedCampaigns.delete(campaign.id);
       closeCampaignModal();
       await reloadCampaigns();
-      showToast(existing ? 'Campaña actualizada.' : 'Campaña creada.');
+      if (recoveryCode) showRecoveryResult(campaign.id, recoveryCode, 'protection');
+      else showToast(existing ? 'Campaña actualizada.' : 'Campaña creada.');
     } catch (error) {
       showToast('No se pudo guardar la campaña compartida.');
     }
@@ -4160,7 +4272,8 @@ $('#campaign-form').addEventListener('submit', async event => {
   saveState();
   closeCampaignModal();
   renderCampaigns();
-  showToast(existing ? 'Campaña actualizada.' : 'Campaña creada.');
+  if (recoveryCode) showRecoveryResult(campaign.id, recoveryCode, 'protection');
+  else showToast(existing ? 'Campaña actualizada.' : 'Campaña creada.');
 });
 
 $('#export-data').addEventListener('click', () => {

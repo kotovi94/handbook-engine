@@ -67,6 +67,13 @@ function hashPassword(password) {
   return `${PASSWORD_HASH_PREFIX}$${PASSWORD_HASH_ITERATIONS}$${salt}$${hash}`;
 }
 
+function createRecoveryCode() {
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const bytes = crypto.randomBytes(12);
+  const raw = [...bytes].map(byte => alphabet[byte % alphabet.length]).join("");
+  return `${raw.slice(0, 4)}-${raw.slice(4, 8)}-${raw.slice(8, 12)}`;
+}
+
 function verifyPassword(password, storedHash) {
   if (!storedHash) return true;
 
@@ -113,6 +120,7 @@ function getBearerToken(req) {
 }
 
 module.exports = {
+  createRecoveryCode,
   getBearerToken,
   hashPassword,
   readBody,
