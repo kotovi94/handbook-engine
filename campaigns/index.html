@@ -22,7 +22,7 @@
   <title>D20 Travesías | Archivo de Campañas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;600;700&family=Cinzel:wght@500;600;700&family=IM+Fell+English:ital@0;1&family=Inter:wght@400;500;600;700&family=MedievalSharp&family=Uncial+Antiqua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;600;700&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Grenze+Gotisch:wght@500;600;700&family=IM+Fell+English:ital@0;1&family=Inter:wght@400;500;600;700&family=Marcellus&family=MedievalSharp&family=Spectral:wght@400;500;600;700&family=Uncial+Antiqua&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/campaigns/styles.css">
 </head>
 <body>
@@ -42,24 +42,37 @@
     <main class="home-main">
       <section class="home-hero">
         <div class="home-hero-copy">
-          <p class="eyebrow">Tu mesa, tus mundos, sus historias</p>
-          <h1>Bitácora de campañas</h1>
-          <p>Gestiona personajes, sesiones, recompensas y recuerdos desde un solo archivo compartido.</p>
+          <p class="eyebrow">Tu archivo de aventuras</p>
+          <h1>Continúa tu historia</h1>
+          <p>Abre una campaña para ver sus personajes y registrar la próxima sesión, o crea un mundo nuevo para tu mesa.</p>
           <div class="hero-actions">
-            <button id="hero-new-campaign" class="primary-button new-campaign-button">Nueva campaña</button>
+            <button id="hero-new-campaign" class="primary-button new-campaign-button">Crear una campaña</button>
             <a class="secondary-button" href="../">Compendio y creador</a>
           </div>
         </div>
-        <div class="home-overview" aria-label="Resumen del archivo">
-          <div class="overview-card strong"><span>Campañas</span><strong id="home-campaign-total">0</strong></div>
-          <div class="overview-card"><span>Personajes</span><strong id="home-character-total">0</strong></div>
-          <div class="overview-card"><span>Registros</span><strong id="home-session-total">0</strong></div>
-          <div class="overview-card"><span>Recompensas</span><strong id="home-award-total">0</strong></div>
-        </div>
+        <aside class="home-guide" aria-label="Cómo usar el archivo">
+          <p class="eyebrow">Empieza aquí</p>
+          <h2>Todo lo de tu mesa, en un lugar</h2>
+          <ol>
+            <li><b>Elige una campaña</b><span>Abre su espacio desde la biblioteca.</span></li>
+            <li><b>Prepara la partida</b><span>Revisa personajes, notas y recursos.</span></li>
+            <li><b>Guarda lo ocurrido</b><span>Registra la sesión al terminar.</span></li>
+          </ol>
+          <div class="archive-summary" aria-label="Resumen del archivo">
+            <span><b id="home-campaign-total">0</b> campañas</span>
+            <span><b id="home-character-total">0</b> personajes</span>
+            <span><b id="home-session-total">0</b> sesiones</span>
+            <span class="visually-hidden"><b id="home-award-total">0</b> recompensas</span>
+          </div>
+        </aside>
       </section>
-      <div class="section-heading">
-        <div><p class="eyebrow">Biblioteca</p><h2>Mis campañas</h2></div>
+      <div class="section-heading library-heading">
+        <div><p class="eyebrow">Tu biblioteca</p><h2>Elige una campaña</h2><p class="section-help">Puedes buscar por nombre, sistema o director de juego.</p></div>
         <span id="campaign-count" class="quiet-label"></span>
+      </div>
+      <div class="campaign-library-controls" role="search">
+        <label class="campaign-filter"><span class="visually-hidden">Buscar campaña</span><input id="campaign-library-search" type="search" placeholder="Buscar campañas…" autocomplete="off"></label>
+        <label class="campaign-sort"><span>Ordenar por</span><select id="campaign-library-sort"><option value="recent">Más recientes</option><option value="name">Nombre</option><option value="activity">Más sesiones</option></select></label>
       </div>
       <div id="campaign-grid" class="campaign-library"></div>
     </main>
@@ -79,12 +92,16 @@
       </div>
       <label>Descripción<textarea id="campaign-description" rows="3" maxlength="300" placeholder="Una breve introducción a esta aventura..."></textarea></label>
       <div class="form-row">
-        <label>Tema visual<select id="campaign-theme"><option value="parchment">Pergamino clásico</option><option value="forest">Bosque antiguo</option><option value="ocean">Mareas arcanas</option><option value="night">Noche astral</option><option value="crimson">Reino carmesí</option></select></label>
-        <label>Estilo de letra<select id="campaign-font"><option value="classic">Clásica aventurera</option><option value="medieval">Medieval</option><option value="chronicle">Crónica antigua</option><option value="arcane">Arcana</option><option value="modern">Moderna y clara</option></select></label>
+        <label>Tema visual<select id="campaign-theme"><option value="parchment">Pergamino clásico</option><option value="forest">Bosque antiguo</option><option value="ocean">Mareas arcanas</option><option value="night">Noche astral</option><option value="crimson">Reino carmesí</option><option value="desert">Arenas del desierto</option><option value="frost">Reino de escarcha</option><option value="arcane-glow">Academia arcana</option><option value="neon">Neón urbano</option></select></label>
+        <label>Estilo de letra<select id="campaign-font"><option value="classic">Clásica aventurera</option><option value="medieval">Medieval</option><option value="chronicle">Crónica antigua</option><option value="arcane">Arcana</option><option value="modern">Moderna y clara</option><option value="imperial">Imperial elegante</option><option value="storybook">Relato fantástico</option><option value="gothic">Gótica dramática</option><option value="scholarly">Crónica legible</option></select></label>
       </div>
       <div class="form-row">
         <label>Apariencia<select id="campaign-appearance"><option value="light">Modo claro</option><option value="dark">Modo oscuro</option><option value="auto">Según la app</option></select></label>
         <label>Color distintivo<input id="campaign-color" type="color" value="#9b4e35"></label>
+      </div>
+      <label>Organización del resumen<select id="campaign-layout"><option value="balanced">Equilibrado</option><option value="story">Historia primero</option><option value="command">Panel de mando</option><option value="compact">Compacto</option></select></label>
+      <div id="layout-preview" class="layout-preview" data-layout="balanced" aria-label="Vista previa de la organización">
+        <span class="layout-preview-stats">Métricas</span><span class="layout-preview-search">Buscador</span><span class="layout-preview-party">Personajes</span><span class="layout-preview-history">Historia</span>
       </div>
       <div id="font-preview" class="font-preview" data-font="classic"><span>Vista previa</span><strong>La leyenda comienza aquí</strong></div>
       <label>Imagen de portada o banner<input id="campaign-banner" type="file" accept="image/png,image/jpeg,image/webp"></label>
@@ -224,7 +241,7 @@
 
       <section id="dashboard-view" class="view active">
         <div id="stats-grid" class="stats-grid"></div>
-        <div class="panel campaign-search-panel">
+        <div class="panel campaign-search-panel dashboard-search">
           <div class="panel-heading">
             <div>
               <p class="eyebrow">Archivo de campaña</p>
@@ -252,22 +269,26 @@
           </div>
           <div id="campaign-search-results" class="campaign-search-results"></div>
         </div>
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Compañía</p>
-            <h2>Progreso de personajes</h2>
+        <section class="dashboard-block dashboard-party">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Compañía</p>
+              <h2>Progreso de personajes</h2>
+            </div>
+            <button class="secondary-button" data-go="characters">Gestionar personajes</button>
           </div>
-          <button class="secondary-button" data-go="characters">Gestionar personajes</button>
-        </div>
-        <div id="dashboard-characters" class="character-grid"></div>
-        <div class="section-heading compact-heading">
-          <div>
-            <p class="eyebrow">Historia reciente</p>
-            <h2>Últimas sesiones</h2>
+          <div id="dashboard-characters" class="character-grid"></div>
+        </section>
+        <section class="dashboard-block dashboard-history">
+          <div class="section-heading compact-heading">
+            <div>
+              <p class="eyebrow">Historia reciente</p>
+              <h2>Últimas sesiones</h2>
+            </div>
+            <button class="text-button" data-go="log">Ver bitácora completa</button>
           </div>
-          <button class="text-button" data-go="log">Ver bitácora completa</button>
-        </div>
-        <div id="recent-sessions" class="timeline"></div>
+          <div id="recent-sessions" class="timeline"></div>
+        </section>
       </section>
 
       <section id="characters-view" class="view">

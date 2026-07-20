@@ -21,6 +21,7 @@ function mapCampaign(row, unlocked, latestSessionNumber = 0) {
     theme: row.theme || "parchment",
     font: row.font || "classic",
     appearance: row.appearance || "light",
+    layout: row.layout || "balanced",
     color: row.color || "#9b4e35",
     banner: row.banner || "",
     passwordHash: row.protected ? "protected" : "",
@@ -30,6 +31,7 @@ function mapCampaign(row, unlocked, latestSessionNumber = 0) {
     sessionCount: row.session_count || 0,
     latestSessionNumber: Number(row.latest_session_number || latestSessionNumber || 0),
     createdAt: row.created_at,
+    updatedAt: row.updated_at,
   };
 }
 
@@ -102,6 +104,7 @@ module.exports = async function handler(req, res) {
         theme: body.theme || "parchment",
         font: body.font || "classic",
         appearance: body.appearance || "light",
+        layout: body.layout || "balanced",
         color: body.color || "#9b4e35",
         banner: body.banner || "",
         updated_at: new Date().toISOString(),

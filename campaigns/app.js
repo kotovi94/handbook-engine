@@ -802,6 +802,7 @@ function activateCampaign(campaign, options = {}) {
   const theme = campaign.theme || 'parchment';
   const font = campaign.font || 'classic';
   const appearance = campaign.appearance || 'auto';
+  const layout = campaign.layout || 'balanced';
   const app = $('#campaign-app');
   activeCampaignId = campaign.id;
   state = campaign;
@@ -812,6 +813,7 @@ function activateCampaign(campaign, options = {}) {
   app.dataset.font = font;
   app.dataset.appearance = resolveCampaignAppearance(appearance);
   app.dataset.appearancePreference = appearance;
+  app.dataset.layout = layout;
   app.style.setProperty('--accent', campaign.color || '#9b4e35');
   const topbar = app.querySelector('.topbar');
   topbar.classList.toggle('has-banner', Boolean(campaign.banner));
@@ -1004,13 +1006,25 @@ function renderCampaigns() {
     summary.awards += totalAwarded;
     return summary;
   }, { characters: 0, sessions: 0, awards: 0 });
-  $("#campaign-count").textContent = `${campaigns.length} campaña${campaigns.length === 1 ? "" : "s"}`;
+  const query = String($("#campaign-library-search")?.value || "").trim().toLocaleLowerCase("es");
+  const sortMode = $("#campaign-library-sort")?.value || "recent";
+  const visibleCampaigns = campaigns.filter(campaign => [campaign.name, campaign.dm, getCampaignSystem(campaign).name, campaign.description]
+    .some(value => String(value || "").toLocaleLowerCase("es").includes(query)));
+  visibleCampaigns.sort((a, b) => {
+    if (sortMode === "name") return String(a.name).localeCompare(String(b.name), "es", { sensitivity: "base" });
+    if (sortMode === "activity") return getSessionStats(b).registered - getSessionStats(a).registered
+      || String(a.name).localeCompare(String(b.name), "es", { sensitivity: "base" });
+    return (Date.parse(b.updatedAt || b.createdAt || "") || 0) - (Date.parse(a.updatedAt || a.createdAt || "") || 0);
+  });
+  $("#campaign-count").textContent = query
+    ? `${visibleCampaigns.length} de ${campaigns.length} campañas`
+    : `${campaigns.length} campaña${campaigns.length === 1 ? "" : "s"}`;
   $("#home-campaign-total").textContent = formatNumber(campaigns.length);
   $("#home-character-total").textContent = formatNumber(totals.characters);
   $("#home-session-total").textContent = formatNumber(totals.sessions);
   $("#home-award-total").textContent = formatNumber(totals.awards);
-  $("#campaign-grid").classList.toggle("single-campaign", campaigns.length === 1);
-  $("#campaign-grid").innerHTML = campaigns.length ? campaigns.map(campaign => {
+  $("#campaign-grid").classList.toggle("single-campaign", visibleCampaigns.length === 1);
+  $("#campaign-grid").innerHTML = visibleCampaigns.length ? visibleCampaigns.map(campaign => {
     const characterCount = campaign.characterCount ?? campaign.characters.length;
     const sessionStats = getSessionStats(campaign);
     const sessionMeta = campaignSessionMeta(campaign).map(item => `<span>${escapeHTML(item)}</span>`).join("");
@@ -1023,7 +1037,7 @@ function renderCampaigns() {
           ? `Bitácora iniciada en sesión ${formatNumber(sessionStats.latest)}; continúa con la ${formatNumber(sessionStats.latest + 1)}.`
           : "Lista para continuar la bitácora."));
     const bannerStyle = campaign.banner ? `background-image:url('${campaign.banner}')` : "";
-    const fontFamilies = { classic: "Cinzel,serif", medieval: "MedievalSharp,cursive", chronicle: "IM Fell English,serif", arcane: "Uncial Antiqua,serif", modern: "Inter,sans-serif" };
+    const fontFamilies = { classic: "Cinzel,serif", medieval: "MedievalSharp,cursive", chronicle: "IM Fell English,serif", arcane: "Uncial Antiqua,serif", modern: "Inter,sans-serif", imperial: "Marcellus,serif", storybook: "Cormorant Garamond,serif", gothic: "Grenze Gotisch,serif", scholarly: "Spectral,serif" };
     const campaignHref = `${getCampaignAppPath(campaign)}${getPersistentCampaignSearch()}`;
     return `<article class="campaign-card" style="--campaign-color:${campaign.color || "#9b4e35"};--card-display-font:${fontFamilies[campaign.font || "classic"]}">
       <div class="campaign-card-banner" style="${bannerStyle}"></div>
@@ -1039,7 +1053,9 @@ function renderCampaigns() {
         <div class="campaign-card-tools"><button class="text-button share-campaign" data-id="${campaign.id}">Compartir</button><button class="text-button edit-campaign" data-id="${campaign.id}">Editar</button><button class="text-button danger-button delete-campaign" data-id="${campaign.id}">Eliminar</button></div>
       </div>
     </article>`;
-  }).join("") : `<div class="empty-state" style="grid-column:1/-1"><h3>Tu primera travesía te espera</h3><p>Crea una campaña para comenzar a reunir personajes, sesiones y experiencia.</p><button class="primary-button new-campaign-button" id="empty-new-campaign">Crear primera campaña</button></div>`;
+  }).join("") : (campaigns.length
+    ? `<div class="empty-state" style="grid-column:1/-1"><h3>No encontramos esa campaña</h3><p>Prueba con otro nombre, sistema o director de juego.</p><button class="secondary-button" id="clear-campaign-search">Limpiar búsqueda</button></div>`
+    : `<div class="empty-state" style="grid-column:1/-1"><h3>Tu primera travesía te espera</h3><p>Crea una campaña para comenzar a reunir personajes, sesiones y experiencia.</p><button class="primary-button new-campaign-button" id="empty-new-campaign">Crear primera campaña</button></div>`);
 }
 
 function openNewCampaignModal(trigger) {
@@ -1100,6 +1116,8 @@ function openCampaignModal(campaign = null) {
   $('#campaign-font').value = campaign?.font || 'classic';
   $('#font-preview').dataset.font = campaign?.font || 'classic';
   $('#campaign-appearance').value = campaign?.appearance || 'auto';
+  $('#campaign-layout').value = campaign?.layout || 'balanced';
+  $('#layout-preview').dataset.layout = campaign?.layout || 'balanced';
   $('#campaign-color').value = campaign?.color || '#9b4e35';
   editingCampaignWasProtected = Boolean(campaign?.passwordHash);
   editingCampaignHasRecovery = Boolean(campaign?.recoveryConfigured || campaign?.recoveryHash);
@@ -3666,6 +3684,11 @@ document.addEventListener('click', async event => {
   }
   const emptyNewCampaignButton = event.target.closest('#empty-new-campaign');
   if (emptyNewCampaignButton) openNewCampaignModal(emptyNewCampaignButton);
+  if (event.target.closest('#clear-campaign-search')) {
+    $('#campaign-library-search').value = '';
+    renderCampaigns();
+    $('#campaign-library-search').focus();
+  }
   if (event.target.closest('[data-action="unlock-active-campaign"]')) {
     if (state) requestCampaignUnlock(state, 'open');
   }
@@ -3957,6 +3980,8 @@ $('#select-all').addEventListener('click', () => {
   updateDistribution();
 });
 $('#log-search').addEventListener('input', event => renderLog(event.target.value));
+$('#campaign-library-search').addEventListener('input', renderCampaigns);
+$('#campaign-library-sort').addEventListener('change', renderCampaigns);
 $('#campaign-global-search').addEventListener('input', renderCampaignSearch);
 $('#campaign-global-filter').addEventListener('change', renderCampaignSearch);
 $('#board-library-search').addEventListener('input', renderBoardLibrary);
@@ -4054,6 +4079,9 @@ $('#remove-protection').addEventListener('click', () => {
 });
 $('#campaign-font').addEventListener('change', event => {
   $('#font-preview').dataset.font = event.target.value;
+});
+$('#campaign-layout').addEventListener('change', event => {
+  $('#layout-preview').dataset.layout = event.target.value;
 });
 $('#campaign-banner').addEventListener('change', async event => {
   const file = event.target.files[0];
@@ -4234,6 +4262,7 @@ $('#campaign-form').addEventListener('submit', async event => {
     theme: $('#campaign-theme').value,
     font: $('#campaign-font').value,
     appearance: $('#campaign-appearance').value,
+    layout: $('#campaign-layout').value,
     color: $('#campaign-color').value,
     banner: pendingBanner,
     passwordHash,

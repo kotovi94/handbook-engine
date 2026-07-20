@@ -13,6 +13,7 @@ create table if not exists public.campaigns (
   theme text not null default 'parchment',
   font text not null default 'classic',
   appearance text not null default 'light',
+  layout text not null default 'balanced',
   color text not null default '#9b4e35',
   banner text not null default '',
   password_hash text not null default '',
@@ -24,7 +25,8 @@ create table if not exists public.campaigns (
 
 alter table public.campaigns
   add column if not exists recovery_hash text not null default '',
-  add column if not exists access_version integer not null default 1;
+  add column if not exists access_version integer not null default 1,
+  add column if not exists layout text not null default 'balanced';
 
 create table if not exists public.characters (
   id uuid primary key default gen_random_uuid(),
@@ -84,6 +86,7 @@ select
   c.theme,
   c.font,
   c.appearance,
+  c.layout,
   c.color,
   c.banner,
   c.created_at,
