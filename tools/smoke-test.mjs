@@ -26,6 +26,12 @@ globalThis.window = {
   },
 };
 
+const { initializeCharacterRepository } = await import("../src/scripts/characterRepository.js");
+const characterRepository = initializeCharacterRepository({ name: "", level: 1 });
+if (characterRepository.characters.length !== 1 || characterRepository.characters[0].builder.level !== 1) {
+  throw new Error("Character repository did not initialize a level 1 character.");
+}
+
 const {
   clearCampaignHandoff,
   queueCampaignHandoff,

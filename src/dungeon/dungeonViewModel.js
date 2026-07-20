@@ -461,6 +461,17 @@ export function buildCorridorInspectorModel(dungeon, cell) {
     connectionShape: cell?.connectionShape || "",
     floorLevel: Number.isFinite(cell?.floorLevel) ? cell.floorLevel : 0,
     nearbyRooms,
+    details: {
+      description: cell?.description || "",
+      ambience: cell?.ambience || "",
+      readAloud: cell?.readAloud || "",
+      encounters: cell?.encounters || "",
+      traps: cell?.traps || "",
+      treasures: cell?.treasures || "",
+      secrets: cell?.secrets || "",
+      explorationStatus: cell?.explorationStatus || "unexplored",
+      dmNotes: cell?.dmNotes || "",
+    },
     usage: [
       "Escuchar antes de entrar a la siguiente sala.",
       "Mover miniaturas y medir distancia en pies.",
@@ -1067,6 +1078,15 @@ function cloneCellTarget(cell) {
     route: cell.route || "",
     connectionShape: cell.connectionShape || "",
     floorLevel: Number.isFinite(cell.floorLevel) ? cell.floorLevel : 0,
+    description: cell.description || "",
+    ambience: cell.ambience || "",
+    readAloud: cell.readAloud || "",
+    encounters: cell.encounters || "",
+    traps: cell.traps || "",
+    treasures: cell.treasures || "",
+    secrets: cell.secrets || "",
+    explorationStatus: cell.explorationStatus || "",
+    dmNotes: cell.dmNotes || "",
   };
 }
 

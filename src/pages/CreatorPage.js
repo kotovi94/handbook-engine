@@ -1,4 +1,5 @@
 import { CalculationGrid } from "../components/CalculationBox.js";
+import { CharacterTabs } from "../components/CharacterTabs.js";
 import { ChoiceGrid } from "../components/ChoiceCard.js";
 import { HeroBanner } from "../components/HeroBanner.js";
 import { Icon } from "../components/Icon.js";
@@ -39,7 +40,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
       </div>
       <div class="panel"><p>${step.helper}</p></div>
     `;
-    main.prepend(HeroBanner());
+    main.prepend(CharacterTabs({ active: "creator" }), HeroBanner());
 
     main.append(Stepper({
       steps: creationEngine.getSteps(),
@@ -53,7 +54,14 @@ export function CreatorPage({ stepId = "class" } = {}) {
     main.append(renderStepContent(step.id));
     main.append(renderStepActions(step.id));
 
-    page.append(main, SummaryPanel({ character }));
+    page.append(main, SummaryPanel({
+      character,
+      onPendingNavigate(nextStepId) {
+        activeStepId = nextStepId;
+        window.location.hash = `/creator:${nextStepId}`;
+        render();
+      },
+    }));
   }
 
   function renderStepContent(currentStepId) {
@@ -104,6 +112,19 @@ export function CreatorPage({ stepId = "class" } = {}) {
   }
 
   function renderLevelChoice() {
+    const wrapper = document.createElement("div");
+    wrapper.className = "section-stack";
+    const nameField = document.createElement("label");
+    nameField.className = "field-stack panel";
+    nameField.innerHTML = `
+      <span><strong>Nombre del personaje</strong></span>
+      <input type="text" maxlength="60" value="${escapeAttribute(character.name || "")}" placeholder="Ej. Lyra Noctis">
+      <small>Puedes cambiarlo en cualquier momento.</small>
+    `;
+    nameField.querySelector("input").addEventListener("change", (event) => {
+      updateCharacter({ name: event.target.value.trim() });
+      render();
+    });
     const field = document.createElement("label");
     field.className = "field-stack panel";
     field.innerHTML = `
@@ -122,7 +143,8 @@ export function CreatorPage({ stepId = "class" } = {}) {
       });
       render();
     });
-    return field;
+    wrapper.append(nameField, field);
+    return wrapper;
   }
 
   function renderAppearance() {
@@ -957,6 +979,7 @@ export function CreatorPage({ stepId = "class" } = {}) {
     resetButton.className = "button secondary-button";
     resetButton.textContent = "Reiniciar";
     resetButton.addEventListener("click", () => {
+      if (!window.confirm("¿Reiniciar este personaje? Se borrarán sus elecciones actuales y la acción no se puede deshacer.")) return;
       resetCharacter();
       activeStepId = "class";
       render();
@@ -1876,4 +1899,10 @@ function coinCalculationText(derived) {
   const spent = purchase?.spentCopper ? purchase.costText : "0 PO";
   const overspent = purchase?.hasOverspent ? ` Gasto excedido por ${purchase.overspentText}.` : "";
   return `Oro inicial ${derived.startingCoinText}; equipo adicional -${spent}.${overspent}`;
+}
+
+function escapeAttribute(value) {
+  return String(value || "").replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  }[character]));
 }

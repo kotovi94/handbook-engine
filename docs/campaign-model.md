@@ -153,6 +153,36 @@ Cada herramienta usa el contrato de entidad común, más:
 
 Las herramientas se indexan en la búsqueda global, pueden enlazarse con `[[Nombre]]` desde el editor, pueden añadirse al tablero como nodos y se guardan en modo local o remoto junto al `workspace` de la campaña.
 
+### Preparación, mesa y cierre de sesión
+
+La preparación de una sesión reutiliza `workspace.dmTools` con `toolType: "session-preparation"`. Es una entidad privada y aditiva: no cambia la estructura de las sesiones históricas ni exige una migración de base de datos.
+
+```js
+SessionPreparation {
+  id,
+  toolType: "session-preparation",
+  sessionNumber,
+  sessionDate,
+  title,
+  status: "draft" | "prepared" | "active" | "completed" | "archived",
+  previousSummary,
+  participantIds,
+  scenes,
+  npcIds,
+  encounters,
+  rewards,
+  objectives,
+  dmNotes,
+  dungeonIds,
+  createdAt,
+  updatedAt
+}
+```
+
+El modo mesa lee esta misma entidad para evitar una segunda fuente de verdad. Al cerrar la sesión se crea una entrada normal en `sessions`, se aplican XP y recompensas a los personajes vinculados y la preparación pasa a `completed` y después puede archivarse.
+
+Las mazmorras importadas se guardan como herramientas `toolType: "dungeon"`, conservan el objeto generado completo, `sourceDungeonId`, `campaignId`, estado y número de sesión opcional. Una nueva importación del mismo `sourceDungeonId` actualiza la copia asociada en vez de crear duplicados accidentales.
+
 ## Tutorial de primera visita
 
 El tutorial vive dentro de la Bitácora y usa `workspace.onboarding` por campaña.
@@ -161,7 +191,7 @@ El tutorial vive dentro de la Bitácora y usa `workspace.onboarding` por campañ
 - `completedSteps`: pasos vistos o completados por el DM.
 - `dismissedAt`: fecha en que el DM cerró o finalizó la guía.
 
-La guía se abre automáticamente si la campaña todavía no fue cerrada y puede reabrirse desde la barra lateral con `Ver tutorial`. Sus pasos cubren resumen, páginas, recursos, tablero y herramientas DM.
+La guía se abre desde la barra lateral con `Ver tutorial`, sin interrumpir el flujo principal de una campaña nueva. Sus pasos cubren resumen, páginas, recursos, tablero y herramientas DM.
 
 ## Búsqueda
 

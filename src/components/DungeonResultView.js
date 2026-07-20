@@ -133,6 +133,12 @@ export function DungeonResultView({
       onRegenerateRoomEnemies,
       onRegenerateRoomTreasure,
       onCopy: copyInspectorText,
+      onCorridorChange: (patch) => {
+        if (!selectedMapTarget?.cell) return;
+        Object.assign(selectedMapTarget.cell, patch);
+        onMapCellChange?.(selectedMapTarget.cell.x, selectedMapTarget.cell.y, patch);
+        renderInspector();
+      },
     }));
   };
 

@@ -10,6 +10,7 @@ export function DungeonAreaInspector({
   onRegenerateRoomEnemies,
   onRegenerateRoomTreasure,
   onCopy,
+  onCorridorChange,
 } = {}) {
   const section = document.createElement("section");
   section.className = "dungeon-area-inspector";
@@ -39,7 +40,7 @@ export function DungeonAreaInspector({
   }
 
   if (model.kind === "corridor") {
-    section.append(DungeonCorridorDetailCard({ model, onSelectRoom }));
+    section.append(DungeonCorridorDetailCard({ model, onSelectRoom, onCorridorChange }));
     return section;
   }
 
@@ -148,7 +149,7 @@ export function DungeonDoorDetailCard({ model, onSelectRoom, onCopy }) {
   return wrap;
 }
 
-export function DungeonCorridorDetailCard({ model, onSelectRoom }) {
+export function DungeonCorridorDetailCard({ model, onSelectRoom, onCorridorChange }) {
   const wrap = document.createElement("div");
   wrap.className = "dungeon-inspector-content";
   wrap.append(renderInspectorHeader("Inspector de Área", model.title, [
@@ -180,6 +181,38 @@ export function DungeonCorridorDetailCard({ model, onSelectRoom }) {
   if (model.message) {
     wrap.append(renderMutedText(model.message));
   }
+
+  const editor = document.createElement("details");
+  editor.className = "dungeon-inspector-editor";
+  const editorSummary = document.createElement("summary");
+  editorSummary.textContent = "Editar contenido del pasillo";
+  const form = document.createElement("div");
+  form.className = "dungeon-room-editor";
+  const fields = [
+    ["description", "Descripción"], ["ambience", "Ambiente"], ["readAloud", "Texto para leer"],
+    ["encounters", "Encuentros"], ["traps", "Trampas"], ["treasures", "Tesoros"],
+    ["secrets", "Secretos"], ["dmNotes", "Notas del DM"],
+  ];
+  fields.forEach(([key, labelText]) => {
+    const label = document.createElement("label");
+    label.className = "field";
+    const title = document.createElement("span");
+    title.textContent = labelText;
+    const textarea = document.createElement("textarea");
+    textarea.rows = key === "readAloud" || key === "dmNotes" ? 3 : 2;
+    textarea.value = model.details?.[key] || "";
+    textarea.addEventListener("change", () => onCorridorChange?.({ [key]: textarea.value.trim() }));
+    label.append(title, textarea);
+    form.append(label);
+  });
+  const statusLabel = document.createElement("label");
+  statusLabel.className = "field";
+  statusLabel.innerHTML = `<span>Estado de exploración</span><select><option value="unexplored">Sin explorar</option><option value="active">En exploración</option><option value="cleared">Explorado</option><option value="blocked">Bloqueado</option></select>`;
+  statusLabel.querySelector("select").value = model.details?.explorationStatus || "unexplored";
+  statusLabel.querySelector("select").addEventListener("change", (event) => onCorridorChange?.({ explorationStatus: event.target.value }));
+  form.append(statusLabel);
+  editor.append(editorSummary, form);
+  wrap.append(editor);
 
   return wrap;
 }

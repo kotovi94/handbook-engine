@@ -1,34 +1,34 @@
 export const themes = [
   {
-    label: "Default",
+    label: "Tema predeterminado",
     className: "theme-default",
   },
   {
-    label: "Fighter",
+    label: "Guerrero",
     className: "theme-fighter",
   },
   {
-    label: "Wizard",
+    label: "Mago",
     className: "theme-wizard",
   },
   {
-    label: "Cleric",
+    label: "Clérigo",
     className: "theme-cleric",
   },
   {
-    label: "Barbarian",
+    label: "Bárbaro",
     className: "theme-barbarian",
   },
   {
-    label: "Bard",
+    label: "Bardo",
     className: "theme-bard",
   },
   {
-    label: "Druid",
+    label: "Druida",
     className: "theme-druid",
   },
   {
-    label: "Monk",
+    label: "Monje",
     className: "theme-monk",
   },
   {
@@ -36,23 +36,23 @@ export const themes = [
     className: "theme-paladin",
   },
   {
-    label: "Ranger",
+    label: "Explorador",
     className: "theme-ranger",
   },
   {
-    label: "Rogue",
+    label: "Pícaro",
     className: "theme-rogue",
   },
   {
-    label: "Sorcerer",
+    label: "Hechicero",
     className: "theme-sorcerer",
   },
   {
-    label: "Warlock",
+    label: "Brujo",
     className: "theme-warlock",
   },
   {
-    label: "Artificer",
+    label: "Artífice",
     className: "theme-artificer",
   },
 ];

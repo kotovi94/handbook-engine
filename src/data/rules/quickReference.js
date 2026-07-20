@@ -1,0 +1,78 @@
+export const quickReferenceRules = [
+  {
+    id: "condition-prone",
+    category: "Condiciones",
+    title: "Derribado",
+    quickAnswer: "Solo puedes arrastrarte; levantarte cuesta la mitad de tu movimiento. Tus ataques tienen desventaja.",
+    details: "Los ataques contra ti tienen ventaja si el atacante está a 5 pies o menos; desde más lejos tienen desventaja.",
+    keywords: ["prone", "suelo", "levantarse", "ventaja", "desventaja"],
+    source: "Reglas básicas de D&D 5e 2024",
+  },
+  {
+    id: "combat-actions",
+    category: "Combate",
+    title: "Acciones habituales",
+    quickAnswer: "Atacar, Correr, Destrabarse, Esquivar, Ayudar, Esconderse, Influenciar, Magia, Preparar y Buscar.",
+    details: "También puedes Improvisar una acción si describes qué intentas conseguir; el DM determina la prueba o resolución adecuada.",
+    keywords: ["acción", "actions", "dash", "disengage", "dodge", "help", "hide", "ready"],
+    source: "Reglas básicas de D&D 5e 2024",
+  },
+  {
+    id: "cover",
+    category: "Combate",
+    title: "Cobertura",
+    quickAnswer: "Media cobertura: +2 a CA y salvaciones de Destreza. Tres cuartos: +5. Cobertura total impide ser objetivo directo.",
+    details: "La cobertura se evalúa desde el origen del ataque o efecto. No se acumulan varios grados: usa el más beneficioso aplicable.",
+    keywords: ["cover", "media", "tres cuartos", "total", "ca", "destreza"],
+    source: "Reglas básicas de D&D 5e 2024",
+  },
+  {
+    id: "grapple-shove",
+    category: "Combate",
+    title: "Agarrar y empujar",
+    quickAnswer: "Se realizan con un ataque sin armas. El objetivo hace la salvación indicada por la acción contra tu CD de escape.",
+    details: "Agarrar deja velocidad 0 mientras dure. Empujar puede derribar o desplazar 5 pies. Consulta los rasgos concretos que modifiquen el ataque sin armas.",
+    keywords: ["grapple", "shove", "presa", "agarrado", "empujón", "desplazar"],
+    source: "Reglas básicas de D&D 5e 2024",
+  },
+  {
+    id: "concentration",
+    category: "Magia",
+    title: "Concentración",
+    quickAnswer: "Al recibir daño, haz una salvación de Constitución: CD 10 o la mitad del daño recibido, lo que sea mayor.",
+    details: "Termina si quedas incapacitado, mueres, lanzas otro efecto que requiera concentración o decides dejar de concentrarte.",
+    keywords: ["concentration", "constitución", "daño", "salvación", "conjuro"],
+    source: "Reglas básicas de D&D 5e 2024",
+  },
+  {
+    id: "rests",
+    category: "Descanso",
+    title: "Descansos",
+    quickAnswer: "El descanso corto dura 1 hora; el largo, al menos 8 horas. Cada uno recupera recursos según sus reglas y rasgos.",
+    details: "Un descanso puede interrumpirse. Revisa las reglas del personaje para dados de golpe, espacios de conjuro y usos que se recuperan al terminar.",
+    keywords: ["short rest", "long rest", "corto", "largo", "recuperar", "dados de golpe"],
+    source: "Reglas básicas de D&D 5e 2024",
+  },
+  {
+    id: "death-saves",
+    category: "Supervivencia",
+    title: "Muerte y estabilización",
+    quickAnswer: "A 0 PG quedas inconsciente y haces salvaciones de muerte. Tres éxitos estabilizan; tres fallos causan la muerte.",
+    details: "Un 1 natural cuenta como dos fallos y un 20 natural recupera 1 PG. Recibir daño mientras estás a 0 PG provoca fallos según el ataque.",
+    keywords: ["death", "muerte", "estabilizar", "cero pg", "inconsciente", "salvación"],
+    source: "Reglas básicas de D&D 5e 2024",
+  },
+  {
+    id: "difficulty-classes",
+    category: "Pruebas",
+    title: "Clases de dificultad",
+    quickAnswer: "Guía rápida: CD 5 muy fácil, 10 fácil, 15 media, 20 difícil, 25 muy difícil y 30 casi imposible.",
+    details: "El DM elige la CD según la dificultad de la tarea. Si el resultado incierto no aporta consecuencias interesantes, puede no requerirse una tirada.",
+    keywords: ["dc", "cd", "dificultad", "prueba", "fácil", "difícil"],
+    source: "Guía de referencia de D&D 5e",
+  },
+];
+
+export function getQuickReferenceRule(id) {
+  return quickReferenceRules.find((rule) => rule.id === id) || null;
+}

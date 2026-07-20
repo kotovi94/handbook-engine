@@ -4,6 +4,7 @@ import { AppearancePage } from "../pages/AppearancePage.js";
 import { BuildPage } from "../pages/BuildPage.js";
 import { BuildsPage } from "../pages/BuildsPage.js";
 import { CharacterSummaryPage } from "../pages/CharacterSummaryPage.js";
+import { CharactersPage } from "../pages/CharactersPage.js";
 import { ClassPage } from "../pages/ClassPage.js";
 import { ClassesPage } from "../pages/ClassesPage.js";
 import { CreatorPage } from "../pages/CreatorPage.js";
@@ -57,6 +58,10 @@ export function renderRoute(route) {
 
   if (route === "creator") {
     return CreatorPage();
+  }
+
+  if (route === "characters") {
+    return CharactersPage();
   }
 
   if (route.startsWith("creator:")) {

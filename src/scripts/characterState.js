@@ -1,10 +1,19 @@
 import { abilityScores } from "../data/character/abilityScores.js";
-
-const storageKey = "handbook-engine-character";
+import {
+  addCharacterDocument,
+  duplicateCharacterDocument,
+  getActiveCharacterDocument,
+  getLastCharacterRepositoryWrite,
+  initializeCharacterRepository,
+  listCharacterDocuments,
+  removeCharacterDocument,
+  saveCharacterDocument,
+  setActiveCharacterDocument,
+} from "./characterRepository.js";
 
 const defaultCharacter = {
   name: "",
-  level: 5,
+  level: 1,
   hitPointMethod: "fixed",
   hitPointRolls: [],
   abilityMethod: "standard-array",
@@ -32,10 +41,70 @@ const defaultCharacter = {
   abilities: { ...abilityScores },
 };
 
-let character = loadCharacter();
+const repository = initializeCharacterRepository(defaultCharacter);
+let activeDocument = getActiveCharacterDocument(repository);
+let character = normalizeCharacter(activeDocument?.builder);
 
 export function getCharacter() {
   return structuredClone(character);
+}
+
+export function getCharacterDocument() {
+  return structuredClone(activeDocument);
+}
+
+export function getCharacterDocuments() {
+  return listCharacterDocuments(repository);
+}
+
+export function getCharacterSaveInfo() {
+  const write = getLastCharacterRepositoryWrite();
+  return {
+    state: write.persisted ? "saved-local" : "error",
+    label: write.persisted ? "Guardado en este dispositivo" : "Cambios sin guardar",
+    detail: write.persisted && activeDocument?.updatedAt
+      ? `Último guardado: ${formatSavedAt(activeDocument.updatedAt)}`
+      : write.error,
+    updatedAt: activeDocument?.updatedAt || "",
+  };
+}
+
+export function selectCharacter(id) {
+  const selected = setActiveCharacterDocument(repository, id);
+  if (!selected) return null;
+  const previousClassId = character.classId;
+  activeDocument = selected;
+  character = normalizeCharacter(selected.builder);
+  notifyClassChange(previousClassId, character.classId);
+  return getCharacterDocument();
+}
+
+export function createCharacter() {
+  const previousClassId = character.classId;
+  activeDocument = addCharacterDocument(repository, defaultCharacter);
+  character = normalizeCharacter(activeDocument.builder);
+  notifyClassChange(previousClassId, character.classId);
+  return getCharacterDocument();
+}
+
+export function duplicateCharacter(id) {
+  const previousClassId = character.classId;
+  const duplicated = duplicateCharacterDocument(repository, id);
+  if (!duplicated) return null;
+  activeDocument = duplicated;
+  character = normalizeCharacter(duplicated.builder);
+  notifyClassChange(previousClassId, character.classId);
+  return getCharacterDocument();
+}
+
+export function deleteCharacter(id) {
+  const previousClassId = character.classId;
+  const removed = removeCharacterDocument(repository, id, defaultCharacter);
+  if (!removed) return null;
+  activeDocument = getActiveCharacterDocument(repository);
+  character = normalizeCharacter(activeDocument.builder);
+  notifyClassChange(previousClassId, character.classId);
+  return removed;
 }
 
 export function updateCharacter(patch) {
@@ -102,10 +171,9 @@ export function resetCharacter() {
   return getCharacter();
 }
 
-function loadCharacter() {
+function normalizeCharacter(value) {
   try {
-    const saved = localStorage.getItem(storageKey);
-    const loaded = saved ? { ...defaultCharacter, ...JSON.parse(saved) } : structuredClone(defaultCharacter);
+    const loaded = { ...defaultCharacter, ...(value || {}) };
     loaded.level = normalizeLevel(loaded.level);
     if (loaded.level < 3) loaded.subclassId = "";
     if (loaded.level < 4) {
@@ -148,7 +216,18 @@ function notifyClassChange(previousClassId, nextClassId) {
 }
 
 function saveCharacter() {
-  localStorage.setItem(storageKey, JSON.stringify(character));
+  activeDocument = saveCharacterDocument(repository, {
+    ...activeDocument,
+    profile: {
+      ...activeDocument.profile,
+      name: character.name || "",
+    },
+    builder: character,
+    progression: {
+      ...activeDocument.progression,
+      level: character.level,
+    },
+  });
 }
 
 function calculateFinalAbilities(baseAbilities, backgroundIncreases, level4Increases = {}) {
@@ -156,4 +235,10 @@ function calculateFinalAbilities(baseAbilities, backgroundIncreases, level4Incre
     ability,
     Math.min(20, Number(score || 0) + Number(backgroundIncreases[ability] || 0) + Number(level4Increases[ability] || 0)),
   ]));
+}
+
+function formatSavedAt(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "sin fecha";
+  return new Intl.DateTimeFormat("es-CL", { dateStyle: "short", timeStyle: "short" }).format(date);
 }

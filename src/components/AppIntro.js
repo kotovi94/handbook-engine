@@ -14,8 +14,8 @@ export function AppIntro() {
   intro.innerHTML = `
     <div class="app-intro-card">
       <span class="app-intro-d20" aria-hidden="true">20</span>
-      <strong>Handbook Engine</strong>
-      <span>Abriendo el manual…</span>
+      <strong>D20 Travesías</strong>
+      <span>Abriendo el compendio…</span>
     </div>
   `;
 

@@ -1,81 +1,18 @@
-import { classes } from "./rules/index.js";
-import { sortByVisibleName } from "../scripts/sortUtils.js";
-import { getClassIcon } from "../scripts/visualIdentity.js";
-
-const classNavigationItems = sortByVisibleName(classes).map((classData) => ({
-  label: classData.label || classData.name || classData.id,
-  route: `class:${classData.id}`,
-  icon: getClassIcon(classData.id),
-  theme: classData.theme || "theme-default",
-}));
-
 export const navigationSections = [
   {
-    title: "Asistente",
+    title: "D20 Travesías",
     items: [
-      {
-        label: "Inicio",
-        route: "home",
-        icon: "compass",
-        theme: "theme-default",
-      },
-      {
-        label: "Crear personaje",
-        route: "creator",
-        icon: "book",
-        theme: "theme-default",
-      },
-      {
-        label: "Resumen",
-        route: "summary",
-        icon: "shield",
-        theme: "theme-default",
-      },
-      {
-        label: "Apariencia",
-        route: "appearance",
-        icon: "spark",
-        theme: "theme-default",
-      },
-      {
-        label: "Imprimir hoja",
-        route: "print-sheet",
-        icon: "quill",
-        theme: "theme-default",
-      },
-      {
-        label: "Campañas y bitácora",
-        href: "./campaigns/",
-        icon: "map",
-        theme: "theme-default",
-      },
-      {
-        label: "Dungeon Generator",
-        route: "dungeon-generator",
-        icon: "map",
-        theme: "theme-default",
-      },
+      { label: "Inicio", route: "home", icon: "compass", theme: "theme-default" },
+      { label: "Mis personajes", route: "characters", icon: "book", theme: "theme-default" },
+      { label: "Mis campañas", href: "./campaigns/", icon: "map", theme: "theme-default" },
+      { label: "Herramientas DM", route: "dungeon-generator", icon: "map", theme: "theme-default" },
+      { label: "Buscar en mesa", route: "search", icon: "search", theme: "theme-default" },
     ],
   },
   {
     title: "Referencia",
     items: [
-      {
-        label: "Clases",
-        route: "classes",
-        icon: "helm",
-        theme: "theme-default",
-      },
-      {
-        label: "Búsqueda",
-        route: "search",
-        icon: "search",
-        theme: "theme-default",
-      },
+      { label: "Clases", route: "classes", icon: "helm", theme: "theme-default" },
     ],
-  },
-  {
-    title: "Clases",
-    items: classNavigationItems,
   },
 ];

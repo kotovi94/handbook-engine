@@ -2,9 +2,9 @@ import { Icon } from "../components/Icon.js";
 
 const homeActions = [
   {
-    title: "Crear personaje",
+    title: "Mis personajes",
     description: "Construye una ficha de nivel 1 a 5 con pendientes claros y salida lista para hoja física.",
-    route: "creator",
+    route: "characters",
     icon: "person",
     eyebrow: "Jugador",
     intent: "Empieza aquí",
@@ -27,7 +27,7 @@ const homeActions = [
     intent: "Durante la sesión",
   },
   {
-    title: "Campañas",
+    title: "Mis campañas",
     description: "Administra personajes, sesiones, notas, recompensas y bitácora de aventuras.",
     href: "./campaigns/",
     icon: "map",
