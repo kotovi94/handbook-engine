@@ -786,30 +786,14 @@ function formatMultiplier(value) {
   return Number(value).toFixed(1).replace(/\.0$/, '');
 }
 
-function getDndLevelGap(level) {
-  const index = Math.max(0, Math.min(XP_THRESHOLDS.length - 2, level - 1));
-  return XP_THRESHOLDS[index + 1] - XP_THRESHOLDS[index];
-}
-
-function getAverageDndLevelGap(minLevel, maxLevel) {
-  const gaps = [];
-  for (let level = minLevel; level <= maxLevel && level < 20; level += 1) gaps.push(getDndLevelGap(level));
-  return gaps.reduce((sum, gap) => sum + gap, 0) / Math.max(1, gaps.length);
-}
-
 function buildDndRewardTiers() {
-  const tiers = [
-    { minLevel: 1, maxLevel: 4, label: 'Niveles 1-4' },
-    { minLevel: 5, maxLevel: 8, label: 'Niveles 5-8' },
-    { minLevel: 9, maxLevel: 12, label: 'Niveles 9-12' },
-    { minLevel: 13, maxLevel: 16, label: 'Niveles 13-16' },
-    { minLevel: 17, maxLevel: 20, label: 'Niveles 17-20' },
+  return [
+    { minLevel: 1, maxLevel: 4, label: 'Niveles 1-4', multiplier: 1 },
+    { minLevel: 5, maxLevel: 8, label: 'Niveles 5-8', multiplier: 1.25 },
+    { minLevel: 9, maxLevel: 12, label: 'Niveles 9-12', multiplier: 1.5 },
+    { minLevel: 13, maxLevel: 16, label: 'Niveles 13-16', multiplier: 1.75 },
+    { minLevel: 17, maxLevel: 20, label: 'Niveles 17-20', multiplier: 2 },
   ];
-  const baseGap = getAverageDndLevelGap(1, 4);
-  return tiers.map(tier => ({
-    ...tier,
-    multiplier: tier.minLevel === 1 ? 1 : Math.round((getAverageDndLevelGap(tier.minLevel, tier.maxLevel) / baseGap) * 10) / 10,
-  }));
 }
 
 function getDndRewardTier(level) {
