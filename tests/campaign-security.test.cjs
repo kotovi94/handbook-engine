@@ -158,3 +158,90 @@ test('editar otros datos conserva las credenciales existentes', async () => {
     assert.equal('access_version' in patch, false);
   } finally { loaded.restore(); }
 });
+
+test('publicar la última sesión exige una campaña protegida', async () => {
+  const mocks = apiMocks({}, async () => [{
+    id: 'campaign-open',
+    name: 'Abierta',
+    password_hash: '',
+    access_version: 1,
+  }]);
+  const loaded = loadHandler('api/campaigns/[id]/session-notification.js', mocks);
+  try {
+    const res = responseRecorder();
+    await assert.rejects(
+      loaded.handler({ method: 'POST', query: { id: 'campaign-open' }, headers: {} }, res),
+      error => error.statusCode === 403 && error.message === 'DM protection required',
+    );
+  } finally { loaded.restore(); }
+});
+
+test('publicar la última sesión rechaza a quien no tenga acceso de DM', async () => {
+  const mocks = apiMocks({}, async () => [{
+    id: 'campaign-locked',
+    name: 'Protegida',
+    password_hash: 'hash:secreto',
+    access_version: 2,
+  }]);
+  mocks.verifyUnlockToken = () => false;
+  const loaded = loadHandler('api/campaigns/[id]/session-notification.js', mocks);
+  try {
+    const res = responseRecorder();
+    await assert.rejects(
+      loaded.handler({ method: 'POST', query: { id: 'campaign-locked' }, headers: {} }, res),
+      error => error.statusCode === 401 && error.message === 'Campaign unlock required',
+    );
+  } finally { loaded.restore(); }
+});
+
+test('el DM desbloqueado puede publicar la última sesión sin modificar experiencia', async () => {
+  const originalWebhook = process.env.DISCORD_SESSION_WEBHOOK_URL;
+  const originalFetch = global.fetch;
+  const reads = [];
+  let discordRequest;
+  process.env.DISCORD_SESSION_WEBHOOK_URL = 'https://discord.com/api/webhooks/test/token';
+  global.fetch = async (url, options) => {
+    discordRequest = { url, options };
+    return { ok: true, status: 204 };
+  };
+  const mocks = apiMocks({}, async url => {
+    reads.push(url);
+    if (url.startsWith('/campaigns?')) return [{
+      id: 'campaign-dm',
+      name: 'Costa Perdida',
+      system_id: 'dnd5e2024',
+      password_hash: 'hash:secreto',
+      access_version: 3,
+    }];
+    if (url.startsWith('/sessions?')) return [{
+      id: 'session-7',
+      number: 7,
+      name: 'La torre',
+      date: '2026-10-03',
+      allocations: [{ characterId: 'char-1', characterName: 'Lyra', total: 350 }],
+      total_awarded: 350,
+    }];
+    if (url.startsWith('/characters?')) return [{ id: 'char-1', name: 'Lyra', xp: 950, metadata: {} }];
+    return [];
+  });
+  mocks.verifyUnlockToken = (_id, token, version) => token === 'dm-token' && version === 3;
+  const loaded = loadHandler('api/campaigns/[id]/session-notification.js', mocks);
+  try {
+    const res = responseRecorder();
+    await loaded.handler({
+      method: 'POST',
+      query: { id: 'campaign-dm' },
+      headers: { authorization: 'Bearer dm-token' },
+    }, res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.payload.session.id, 'session-7');
+    assert.equal(discordRequest.url, process.env.DISCORD_SESSION_WEBHOOK_URL);
+    assert.equal(reads.filter(url => url.startsWith('/characters?')).length, 1);
+    assert.equal(reads.some(url => url.includes('method=PATCH')), false);
+  } finally {
+    loaded.restore();
+    global.fetch = originalFetch;
+    if (originalWebhook === undefined) delete process.env.DISCORD_SESSION_WEBHOOK_URL;
+    else process.env.DISCORD_SESSION_WEBHOOK_URL = originalWebhook;
+  }
+});

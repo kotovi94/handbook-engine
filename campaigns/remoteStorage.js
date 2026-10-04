@@ -150,6 +150,14 @@ export const remoteStorage = {
     });
   },
 
+  async publishLatestSession(campaignId) {
+    const token = localStorage.getItem(tokenKey(campaignId));
+    return request(`/api/campaigns/${campaignId}/session-notification`, {
+      method: "POST",
+      token,
+    });
+  },
+
   async saveWorkspace(campaignId, workspace) {
     const token = localStorage.getItem(tokenKey(campaignId));
     return request(`/api/campaigns/${campaignId}/workspace`, {

@@ -23,11 +23,16 @@ En Vercel, ve a Project Settings > Environment Variables y agrega:
 SUPABASE_URL=https://tu-proyecto.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
 CAMPAIGN_UNLOCK_SECRET=una-frase-larga-aleatoria
+DISCORD_SESSION_WEBHOOK_URL=https://discord.com/api/webhooks/tu-webhook
 ```
 
 `SUPABASE_SERVICE_ROLE_KEY` sale de Supabase > Project Settings > API > service_role. No debe ponerse en código del navegador ni compartirse.
 
 `CAMPAIGN_UNLOCK_SECRET` puede ser cualquier frase larga aleatoria. Sirve para firmar el acceso temporal después de poner la contraseña de una campaña.
+
+`DISCORD_SESSION_WEBHOOK_URL` es el webhook del canal donde se anunciarán las sesiones nuevas de campañas protegidas. El mensaje incluye nombre, número y fecha de la sesión, experiencia total entregada y, para cada personaje, experiencia ganada, total acumulado y progreso al siguiente nivel. La sesión se guarda aunque Discord no esté disponible. Opcionalmente puedes definir `DISCORD_WEBHOOK_NAME` y `DISCORD_ICON_URL` para personalizar el remitente.
+
+El DM también puede volver a publicar manualmente la última sesión desde **Bitácora > Publicar última sesión**. Por seguridad, el botón y el endpoint solo funcionan en campañas protegidas con contraseña y actualmente desbloqueadas por el DM.
 
 Después de agregar o cambiar variables en Vercel, hay que hacer Redeploy.
 

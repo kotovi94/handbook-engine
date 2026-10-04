@@ -950,6 +950,7 @@ function updateAccessMode() {
     button.disabled = shouldLock;
     button.classList.toggle('is-locked', shouldLock);
   });
+  updateDiscordPublishButton();
 
   const topbarButton = $('.topbar .primary-button');
   if (!topbarButton) return;
@@ -3695,6 +3696,7 @@ async function saveSession(event) {
 
 function renderLog(query = '') {
   const system = getCampaignSystem();
+  updateDiscordPublishButton();
   const normalized = normalizeSearchText(query);
   const sessions = [...state.sessions].sort((a, b) => new Date(b.date) - new Date(a.date)).filter(session => {
     const participantNames = session.allocations.map(item => item.characterName || state.characters.find(character => character.id === item.characterId)?.name || '').join(' ');
@@ -3718,6 +3720,46 @@ function renderLog(query = '') {
         <footer class="log-footer"><button class="text-button edit-session" data-id="${session.id}">Editar sesión</button><button class="text-button danger-button delete-session" data-id="${session.id}">Eliminar sesión y revertir ${getCampaignSystem().unit}</button></footer>
       </div>
     </article>`).join('') : emptyState(normalized ? 'Sin resultados' : 'Bitácora vacía', normalized ? 'No encontramos sesiones que coincidan con la búsqueda.' : 'Registra la primera sesión para comenzar el historial.', 'new-session', 'Registrar sesión');
+}
+
+function updateDiscordPublishButton() {
+  const button = $('#publish-latest-session');
+  if (!button) return;
+  const dmCanPublish = USE_REMOTE_STORAGE
+    && Boolean(state?.passwordHash)
+    && !isSummaryOnlyMode()
+    && Boolean(state?.sessions?.length);
+  button.classList.toggle('hidden', !dmCanPublish);
+  button.disabled = !dmCanPublish;
+}
+
+async function publishLatestSessionToDiscord() {
+  const button = $('#publish-latest-session');
+  if (!USE_REMOTE_STORAGE || !state?.passwordHash || isSummaryOnlyMode()) {
+    showToast('Solo el DM de una campaña protegida puede publicar en Discord.');
+    return;
+  }
+  if (!state.sessions.length) {
+    showToast('No hay sesiones guardadas para publicar.');
+    return;
+  }
+
+  const originalText = button.textContent;
+  button.disabled = true;
+  button.textContent = 'Publicando…';
+  try {
+    const result = await remoteStorage.publishLatestSession(activeCampaignId);
+    showToast(`Sesión ${result.session?.number || ''} publicada en Discord.`.replace('  ', ' '));
+  } catch (error) {
+    if (error.status === 401) showToast('La sesión del DM venció. Desbloquea nuevamente la campaña.');
+    else if (error.status === 403) showToast('Protege la campaña para habilitar la publicación del DM.');
+    else if (error.status === 404) showToast('No hay sesiones guardadas para publicar.');
+    else if (error.status === 503) showToast('Configura el webhook de Discord en Vercel.');
+    else showToast('No se pudo publicar la sesión en Discord.');
+  } finally {
+    button.textContent = originalText;
+    updateDiscordPublishButton();
+  }
 }
 
 function renderCyberpunkAwardLedger(sessions, filtered = false) {
@@ -4211,6 +4253,7 @@ $('#open-table-mode').addEventListener('click', () => {
 $('#finish-table-session').addEventListener('click', () => navigate('finish-session'));
 $('#finish-session-form').addEventListener('submit', saveFinishedSession);
 $('#log-search').addEventListener('input', event => renderLog(event.target.value));
+$('#publish-latest-session').addEventListener('click', publishLatestSessionToDiscord);
 $('#campaign-library-search').addEventListener('input', renderCampaigns);
 $('#campaign-library-sort').addEventListener('change', renderCampaigns);
 $('#campaign-global-search').addEventListener('input', renderCampaignSearch);

@@ -3,6 +3,12 @@ const assert = require('node:assert/strict');
 const path = require('path');
 
 const { normalizeCharacterPayload } = require('../api/campaigns/payloads.cjs');
+const {
+  buildSessionWebhookPayload,
+  getLevelProgress,
+  sendSessionDiscordNotification,
+} = require('../api/campaigns/discord.cjs');
+const { characterSnapshots } = require('../api/campaigns/[id]/session-notification.js');
 
 function loadHandlerWithStub(relativePath, stub) {
   const modulePath = path.resolve(__dirname, relativePath);
@@ -130,4 +136,77 @@ test('la ruta de sesiones usa POST para crear y PATCH para editar', async () => 
   assert.ok(editSessionCall);
   assert.equal(editSessionCall[1].method, 'PATCH');
   assert.equal(editRes.statusCode, 200);
+});
+
+test('crea un aviso de Discord con resumen de sesión y progreso de cada personaje', () => {
+  const payload = buildSessionWebhookPayload({
+    campaign: { name: 'La Costa Perdida', system_id: 'dnd5e2024' },
+    session: { number: 7, name: 'La torre sumergida', date: '2026-10-03', total_awarded: 700 },
+    characters: [
+      { name: 'Lyra', awarded: 350, previousXp: 600, totalXp: 950, currentLevel: 2 },
+      { name: 'Borin', awarded: 350, previousXp: 1000, totalXp: 1350, currentLevel: 3 },
+    ],
+  });
+
+  assert.equal(payload.allowed_mentions.parse.length, 0);
+  assert.match(payload.embeds[0].title, /Sesión #7/);
+  assert.match(payload.embeds[0].description, /La torre sumergida/);
+  assert.match(payload.embeds[0].description, /700 PX/);
+  assert.match(payload.embeds[0].fields[0].value, /Total acumulado: \*\*950 PX\*\*/);
+  assert.match(payload.embeds[0].fields[0].value, /subir a \*\*nivel 3\*\*/);
+  assert.match(payload.embeds[0].fields[1].value, /1\.350 PX/);
+  assert.match(payload.embeds[0].fields[1].value, /1\.350 PX\*\* para llegar a \*\*nivel 4/);
+});
+
+test('calcula el aviso de subida y lo que falta para el siguiente nivel', () => {
+  assert.deepEqual(getLevelProgress({ previousXp: 850, totalXp: 925 }), {
+    canLevelUp: true,
+    eligibleLevel: 3,
+    text: '🆙 Tiene experiencia suficiente para subir a **nivel 3**.',
+  });
+  const progress = getLevelProgress({ previousXp: 925, totalXp: 1200, currentLevel: 3 });
+  assert.equal(progress.canLevelUp, false);
+  assert.equal(progress.nextLevel, 4);
+  assert.equal(progress.remaining, 1500);
+});
+
+test('envía el aviso por webhook sin permitir menciones de Discord', async () => {
+  let request;
+  const result = await sendSessionDiscordNotification({
+    session: { number: 1, name: '@everyone', date: '2026-10-03', totalAwarded: 300 },
+    characters: [{ name: '@here', awarded: 300, previousXp: 0, totalXp: 300 }],
+  }, {
+    webhookUrl: 'https://discord.com/api/webhooks/test/token',
+    fetchImpl: async (url, options) => {
+      request = { url, options };
+      return { ok: true, status: 204 };
+    },
+  });
+
+  assert.equal(result.sent, true);
+  assert.equal(request.url, 'https://discord.com/api/webhooks/test/token');
+  const body = JSON.parse(request.options.body);
+  assert.deepEqual(body.allowed_mentions, { parse: [] });
+  assert.doesNotMatch(body.embeds[0].description, /@everyone/);
+  assert.doesNotMatch(body.embeds[0].fields[0].name, /@here/);
+});
+
+test('reconstruye los totales de la última sesión sin volver a aplicar experiencia', () => {
+  const snapshots = characterSnapshots({
+    allocations: [{ characterId: 'char-1', characterName: 'Lyra', total: 350 }],
+  }, [{
+    id: 'char-1',
+    name: 'Lyra',
+    xp: 950,
+    metadata: { characterDocument: { builder: { level: 2 } } },
+  }]);
+
+  assert.deepEqual(snapshots, [{
+    characterId: 'char-1',
+    name: 'Lyra',
+    awarded: 350,
+    previousXp: 600,
+    totalXp: 950,
+    currentLevel: 2,
+  }]);
 });

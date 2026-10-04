@@ -7,9 +7,10 @@ const {
   verifyUnlockToken,
 } = require("../../_supabase");
 const { normalizeSessionPayload, PayloadValidationError } = require("../payloads.cjs");
+const { readCharacterLevel, sendSessionDiscordNotification } = require("../discord.cjs");
 
 async function requireUnlocked(req, campaignId) {
-  const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(campaignId)}&select=id,password_hash,access_version`);
+  const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(campaignId)}&select=id,name,system_id,system_name,password_hash,access_version`);
   if (!campaign) {
     const error = new Error("Campaign not found");
     error.statusCode = 404;
@@ -20,13 +21,17 @@ async function requireUnlocked(req, campaignId) {
     error.statusCode = 401;
     throw error;
   }
+  return campaign;
 }
 
 async function applyAllocations(campaignId, allocations, direction) {
+  const applied = [];
   for (const allocation of allocations || []) {
-    const [character] = await supabaseFetch(`/characters?id=eq.${encodeURIComponent(allocation.characterId)}&campaign_id=eq.${encodeURIComponent(campaignId)}&select=id,xp,metadata`);
+    const [character] = await supabaseFetch(`/characters?id=eq.${encodeURIComponent(allocation.characterId)}&campaign_id=eq.${encodeURIComponent(campaignId)}&select=id,name,xp,metadata`);
     if (!character) continue;
-    const nextXp = Math.max(0, Number(character.xp || 0) + direction * Number(allocation.total || 0));
+    const previousXp = Number(character.xp || 0);
+    const awarded = direction * Number(allocation.total || 0);
+    const nextXp = Math.max(0, previousXp + awarded);
     const roundedXp = Math.round(nextXp * 100) / 100;
     const metadata = character.metadata && typeof character.metadata === "object" ? character.metadata : {};
     const characterDocument = metadata.characterDocument && typeof metadata.characterDocument === "object"
@@ -48,18 +53,27 @@ async function applyAllocations(campaignId, allocations, direction) {
         updated_at: new Date().toISOString(),
       }),
     });
+    applied.push({
+      characterId: character.id,
+      name: allocation.characterName || character.name || "Personaje",
+      awarded,
+      previousXp,
+      totalXp: roundedXp,
+      currentLevel: readCharacterLevel(metadata),
+    });
   }
+  return applied;
 }
 
 module.exports = async function handler(req, res) {
   try {
     const { id } = req.query;
-    await requireUnlocked(req, id);
+    const campaign = await requireUnlocked(req, id);
 
     if (req.method === "POST") {
       const body = await readBody(req);
       const payload = normalizeSessionPayload(body);
-      await applyAllocations(id, payload.allocations || [], 1);
+      const appliedCharacters = await applyAllocations(id, payload.allocations || [], 1);
       const [session] = await supabaseFetch("/sessions?select=*", {
         method: "POST",
         headers: { prefer: "return=representation" },
@@ -75,6 +89,17 @@ module.exports = async function handler(req, res) {
           total_awarded: payload.totalAwarded,
         }),
       });
+      if (campaign.password_hash) {
+        try {
+          await sendSessionDiscordNotification({ campaign, session, characters: appliedCharacters });
+        } catch (notificationError) {
+          console.error("[discord_session_notification_failed]", {
+            campaignId: id,
+            sessionId: session?.id,
+            status: notificationError?.message || "Unknown Discord webhook error",
+          });
+        }
+      }
       return sendJson(res, 201, { session });
     }
 
