@@ -10,7 +10,7 @@ const { normalizeSessionPayload, PayloadValidationError } = require("../payloads
 const { readCharacterLevel, sendSessionDiscordNotification } = require("../discord.cjs");
 
 async function requireUnlocked(req, campaignId) {
-  const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(campaignId)}&select=id,name,system_id,system_name,password_hash,access_version`);
+  const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(campaignId)}&select=id,name,color,system_id,system_name,password_hash,access_version`);
   if (!campaign) {
     const error = new Error("Campaign not found");
     error.statusCode = 404;
@@ -27,7 +27,7 @@ async function requireUnlocked(req, campaignId) {
 async function applyAllocations(campaignId, allocations, direction) {
   const applied = [];
   for (const allocation of allocations || []) {
-    const [character] = await supabaseFetch(`/characters?id=eq.${encodeURIComponent(allocation.characterId)}&campaign_id=eq.${encodeURIComponent(campaignId)}&select=id,name,xp,metadata`);
+    const [character] = await supabaseFetch(`/characters?id=eq.${encodeURIComponent(allocation.characterId)}&campaign_id=eq.${encodeURIComponent(campaignId)}&select=id,name,player,class_name,xp,portrait,color,metadata`);
     if (!character) continue;
     const previousXp = Number(character.xp || 0);
     const awarded = direction * Number(allocation.total || 0);
@@ -56,6 +56,10 @@ async function applyAllocations(campaignId, allocations, direction) {
     applied.push({
       characterId: character.id,
       name: allocation.characterName || character.name || "Personaje",
+      player: character.player || "",
+      className: character.class_name || "",
+      portrait: character.portrait || "",
+      color: character.color || "",
       awarded,
       previousXp,
       totalXp: roundedXp,

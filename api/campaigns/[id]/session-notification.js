@@ -8,7 +8,7 @@ const {
 const { readCharacterLevel, sendSessionDiscordNotification } = require("../discord.cjs");
 
 async function requireDmAccess(req, campaignId) {
-  const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(campaignId)}&select=id,name,system_id,system_name,password_hash,access_version`);
+  const [campaign] = await supabaseFetch(`/campaigns?id=eq.${encodeURIComponent(campaignId)}&select=id,name,color,system_id,system_name,password_hash,access_version`);
   if (!campaign) {
     const error = new Error("Campaign not found");
     error.statusCode = 404;
@@ -36,6 +36,10 @@ function characterSnapshots(session, characters) {
     return {
       characterId: allocation.characterId,
       name: allocation.characterName || character?.name || "Personaje",
+      player: character?.player || "",
+      className: character?.class_name || "",
+      portrait: character?.portrait || "",
+      color: character?.color || "",
       awarded,
       previousXp: Math.max(0, totalXp - awarded),
       totalXp,
@@ -56,7 +60,7 @@ module.exports = async function handler(req, res) {
     const [session] = await supabaseFetch(`/sessions?campaign_id=eq.${encodeURIComponent(id)}&select=*&order=created_at.desc,number.desc&limit=1`);
     if (!session) return sendJson(res, 404, { error: "No sessions found" });
 
-    const characters = await supabaseFetch(`/characters?campaign_id=eq.${encodeURIComponent(id)}&select=id,name,xp,metadata`);
+    const characters = await supabaseFetch(`/characters?campaign_id=eq.${encodeURIComponent(id)}&select=id,name,player,class_name,xp,portrait,color,metadata`);
     const result = await sendSessionDiscordNotification({
       campaign,
       session,
